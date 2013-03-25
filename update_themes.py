@@ -36,30 +36,30 @@ b_themes = read_data("bootstrap_themes.txt")
             #fdst_path = os.path.join(dst_path, fname)
             #shutil.copy2(os.path.join(root, fname), fdst_path)
 
-    ## Create bootswatch-derived themes for bootstrap themes
-#for swatch in swatches:
-    #url = '/'.join(('http://bootswatch.com', swatch, 'bootstrap.min.css'))
-    #print("Downloading: ", url)
-    #min_bs = requests.get(url).text
+# Create bootswatch-derived themes for bootstrap themes
+for swatch in swatches:
+    url = '/'.join(('http://bootswatch.com', swatch, 'bootstrap.min.css'))
+    print("Downloading: ", url)
+    min_bs = requests.get(url).text
 
-    #url = '/'.join(('http://bootswatch.com', swatch, 'bootstrap.css'))
-    #print("Downloading: ", url)
-    #bs = requests.get(url).text
+    url = '/'.join(('http://bootswatch.com', swatch, 'bootstrap.css'))
+    print("Downloading: ", url)
+    bs = requests.get(url).text
 
-    #for parent in b_themes:
-        #name = "{0}_{1}".format(parent, swatch)
-        #try:
-            #os.makedirs(os.path.join('themes', name, 'assets', 'css'))
-        #except:
-            #pass
-        #with open(os.path.join('themes', name, 'assets', 'css', 'bootstrap.min.css'),
-                    #'wb+') as output:
-            #output.write(min_bs)
-        #with open(os.path.join('themes', name, 'assets', 'css', 'bootstrap.css'),
-                    #'wb+') as output:
-            #output.write(bs)
-        #with open(os.path.join('themes', name, 'parent'), 'wb+') as output:
-            #output.write(parent)
+    for parent in b_themes:
+        name = "{0}_{1}".format(parent, swatch)
+        try:
+            os.makedirs(os.path.join('themes', name, 'assets', 'css'))
+        except:
+            pass
+        with open(os.path.join('themes', name, 'assets', 'css', 'bootstrap.min.css'),
+                    'wb+') as output:
+            output.write(min_bs)
+        with open(os.path.join('themes', name, 'assets', 'css', 'bootstrap.css'),
+                    'wb+') as output:
+            output.write(bs)
+        with open(os.path.join('themes', name, 'parent'), 'wb+') as output:
+            output.write(parent)
 
 def setup_demo(theme):
     """Create demo site with a theme."""
@@ -70,6 +70,9 @@ def setup_demo(theme):
     os.system("nikola init --demo {0}".format(path))
     os.system("sed --in-place \"s/# THEME = 'site'/THEME = '{0}'/\" {1}/conf.py".format(theme, path))
     shutil.copytree(os.path.join("themes",theme), os.path.join(path, "themes", theme))
+    while os.path.isfile(os.path.join(path, 'themes', theme, 'parent')):
+        theme = open(os.path.join(path, 'themes', theme, 'parent')).readline().strip()
+        shutil.copytree(os.path.join("themes",theme), os.path.join(path, "themes", theme))
 
 for theme in glob.glob('themes/*/'):
     print "Theme:", theme
