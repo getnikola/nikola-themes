@@ -1,3 +1,4 @@
+# Themes that are bootstrap-based
 default
 jinja-default
 site

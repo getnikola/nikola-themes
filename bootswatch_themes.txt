@@ -1,3 +1,4 @@
+# All the color/font schemes provided by bootswatch
 amelia
 cerulean
 cosmo
