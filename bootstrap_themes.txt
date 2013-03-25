@@ -2,3 +2,5 @@
 default
 jinja-default
 site
+blogtxt
+readable

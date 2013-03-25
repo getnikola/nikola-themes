@@ -1,0 +1,12 @@
+/* BLOG.TXT TWO-COLUMN (LEFT) LAYOUT */
+div#container{float:right;margin:0 0 0 -20em;width:100%;}
+div#content{margin:0 0 0 20em;}
+div#footer{clear:both;width:100%;}
+div#header{padding:0.2em 0 0;}
+div#header div#blog-description,div#header div.archive-description{margin:0.2em 0 0 2.5em;}
+div#header h1#blog-title{padding:0 0 0 0.3em;}
+div#primary{margin-top:1em;padding-top:1em;}
+div#secondary{clear:left;}
+div#wrapper{margin:5em 0 0 3em;}
+div.hfeed{margin:0 0 0 3em;}
+div.sidebar{border-right:0.1em solid #ccd0d6;float:left;overflow:hidden;padding:0 2.4em 0 0;text-align:right;width:17.5em;}

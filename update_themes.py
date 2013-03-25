@@ -36,7 +36,7 @@ b_themes = read_data("bootstrap_themes.txt")
             #fdst_path = os.path.join(dst_path, fname)
             #shutil.copy2(os.path.join(root, fname), fdst_path)
 
-## Create bootswatch-derived themes for bootstrap themes
+    ## Create bootswatch-derived themes for bootstrap themes
 #for swatch in swatches:
     #url = '/'.join(('http://bootswatch.com', swatch, 'bootstrap.min.css'))
     #print("Downloading: ", url)
@@ -61,46 +61,46 @@ b_themes = read_data("bootstrap_themes.txt")
         #with open(os.path.join('themes', name, 'parent'), 'wb+') as output:
             #output.write(parent)
 
-#def setup_demo(theme):
-    #"""Create demo site with a theme."""
-    #path = os.path.join('sites', theme)
-    #print "Setting up:", path
-    #if os.path.isdir(path):
-        #shutil.rmtree(path)
-    #os.system("nikola init --demo {0}".format(path))
-    #os.system("sed --in-place \"s/# THEME = 'site'/THEME = '{0}'/\" {1}/conf.py".format(theme, path))
-    #shutil.copytree(os.path.join("themes",theme), os.path.join(path, "themes", theme))
+def setup_demo(theme):
+    """Create demo site with a theme."""
+    path = os.path.join('sites', theme)
+    print "Setting up:", path
+    if os.path.isdir(path):
+        shutil.rmtree(path)
+    os.system("nikola init --demo {0}".format(path))
+    os.system("sed --in-place \"s/# THEME = 'site'/THEME = '{0}'/\" {1}/conf.py".format(theme, path))
+    shutil.copytree(os.path.join("themes",theme), os.path.join(path, "themes", theme))
 
-#for theme in glob.glob('themes/*/'):
-    #print "Theme:", theme
-    #setup_demo(os.path.basename(theme[:-1]))
+for theme in glob.glob('themes/*/'):
+    print "Theme:", theme
+    setup_demo(os.path.basename(theme[:-1]))
 
-#@contextmanager
-#def cd(path):
-    #old_dir = os.getcwd()
-    #os.chdir(path)
-    #yield
-    #os.chdir(old_dir)
+@contextmanager
+def cd(path):
+    old_dir = os.getcwd()
+    os.chdir(path)
+    yield
+    os.chdir(old_dir)
 
-## Build each site
-#for site in glob.glob('sites/*/'):
-    #with cd(site):
-        #try:
-            #subprocess.check_call(["nikola", "build"])
-        #except Exception:
-            #print "Error building theme:", site
-            #continue
-        #p = subprocess.Popen(["nikola", "serve"])
-        #time.sleep(2)
-        #print "Snapshotting: ", site
-        #snap = os.path.join('..', site.split(os.sep)[-2]) + '.png'
-        #subprocess.check_call(["capty", "http://localhost:8000", snap])
-        #p.kill()
-        #time.sleep(1)
+# Build each site
+for site in glob.glob('sites/*/'):
+    with cd(site):
+        try:
+            subprocess.check_call(["nikola", "build"])
+        except Exception:
+            print "Error building theme:", site
+            continue
+        p = subprocess.Popen(["nikola", "serve"])
+        time.sleep(2)
+        print "Snapshotting: ", site
+        snap = os.path.join('..', site.split(os.sep)[-2]) + '.png'
+        subprocess.check_call(["capty", "http://localhost:8000", snap])
+        p.kill()
+        time.sleep(1)
 
-#for theme in glob.glob('themes/*/'):
-    #theme = theme.split('/')[-2]
-    #subprocess.check_call('zip -r sites/{0}.zip themes/{0}'.format(theme), shell=True)
+for theme in glob.glob('themes/*/'):
+    theme = theme.split('/')[-2]
+    subprocess.check_call('zip -r sites/{0}.zip themes/{0}'.format(theme), shell=True)
 
 metadata_bit = string.Template("""<!--
 .. title: ${theme}

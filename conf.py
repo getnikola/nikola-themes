@@ -9,16 +9,16 @@ import time
 
 
 # Data about this site
-BLOG_AUTHOR = "Your Name"
-BLOG_TITLE = "Demo Site"
+BLOG_AUTHOR = "Roberto Alsina"
+BLOG_TITLE = "Nikola Theme Gallery"
 # This is the main URL for your site. It will be used
 # in a prominent link
-SITE_URL = "http://nikola.ralsina.com.ar"
+SITE_URL = "http://themes.nikola.ralsina.com.ar"
 # This is the URL where nikola's output will be deployed.
 # If not set, defaults to SITE_URL
 # BASE_URL = "http://nikola.ralsina.com.ar"
-BLOG_EMAIL = "joe@demo.site"
-BLOG_DESCRIPTION = "This is a demo site for Nikola."
+BLOG_EMAIL = "ralsina@kde.org"
+BLOG_DESCRIPTION = "A theme gallery for Nikola."
 
 # Nikola is multilingual!
 #
@@ -55,9 +55,7 @@ TRANSLATIONS = {
 # You should provide a key-value pair for each used language.
 SIDEBAR_LINKS = {
     DEFAULT_LANG: (
-        ('/archive.html', 'Archives'),
-        ('/categories/index.html', 'Tags'),
-        ('/rss.xml', 'RSS'),
+        ('http://nikola.ralsina.com.ar', 'More About Nikola'),
     ),
 }
 
@@ -168,7 +166,7 @@ post_compilers = {
 # "rsync -rav output/* joe@my.site:/srv/www/site"
 # And then do a backup, or ping pingomatic.
 # To do manual deployment, set it to []
-# DEPLOY_COMMANDS = []
+DEPLOY_COMMANDS = ['rsync -rav output/ direct.ralsina.com.ar:/srv/www/themes.nikola.ralsina.com.ar:80/']
 
 # Where the output site should be located
 # If you don't use an absolute path, it will be considered as relative
