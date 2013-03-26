@@ -166,7 +166,7 @@ post_compilers = {
 # "rsync -rav output/* joe@my.site:/srv/www/site"
 # And then do a backup, or ping pingomatic.
 # To do manual deployment, set it to []
-DEPLOY_COMMANDS = ['rsync -rav output/ direct.ralsina.com.ar:/srv/www/themes.nikola.ralsina.com.ar:80/']
+DEPLOY_COMMANDS = ['rsync -rav --delete output/ direct.ralsina.com.ar:/srv/www/themes.nikola.ralsina.com.ar:80/']
 
 # Where the output site should be located
 # If you don't use an absolute path, it will be considered as relative
