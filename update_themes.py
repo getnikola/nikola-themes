@@ -27,14 +27,14 @@ b_themes = read_data("bootstrap_themes.txt")
 
 ## Get the themes from the master branch, and put them in themes
 
-#src = os.path.join('nikola-master', 'nikola', 'data', 'themes')
-#for root, dirs, files in os.walk(src):
-    #dst_path = os.path.join('themes', os.path.relpath(root, src))
-    #if not os.path.isdir(dst_path):
-        #os.makedirs(dst_path)
-        #for fname in files:
-            #fdst_path = os.path.join(dst_path, fname)
-            #shutil.copy2(os.path.join(root, fname), fdst_path)
+src = os.path.join('nikola-master', 'nikola', 'data', 'themes')
+for root, dirs, files in os.walk(src):
+    dst_path = os.path.join('themes', os.path.relpath(root, src))
+    if not os.path.isdir(dst_path):
+        os.makedirs(dst_path)
+        for fname in files:
+            fdst_path = os.path.join(dst_path, fname)
+            shutil.copy2(os.path.join(root, fname), fdst_path)
 
 # Create bootswatch-derived themes for bootstrap themes
 for swatch in swatches:
