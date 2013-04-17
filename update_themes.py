@@ -39,19 +39,20 @@ b_themes = read_data("bootstrap_themes.txt")
 # Create bootswatch-derived themes for bootstrap themes
 for swatch in swatches:
     url = '/'.join(('http://bootswatch.com', swatch, 'bootstrap.min.css'))
-    print("Downloading: ", url)
     min_bs = requests.get(url).text
 
     url = '/'.join(('http://bootswatch.com', swatch, 'bootstrap.css'))
-    print("Downloading: ", url)
     bs = requests.get(url).text
 
     for parent in b_themes:
         name = "{0}_{1}".format(parent, swatch)
+        if os.path.isdir(os.path.join('themes', name, 'assets', 'css')):
+            continue  # Don't rebuild these all the time
         try:
             os.makedirs(os.path.join('themes', name, 'assets', 'css'))
         except:
             pass
+        print "Downloading: ", url
         with open(os.path.join('themes', name, 'assets', 'css', 'bootstrap.min.css'),
                     'wb+') as output:
             output.write(min_bs)
@@ -65,13 +66,14 @@ def setup_demo(theme):
     """Create demo site with a theme."""
     path = os.path.join('sites', theme)
     print "Setting up:", path
-    if os.path.isdir(path):
-        shutil.rmtree(path)
-    os.system("nikola init --demo {0}".format(path))
-    os.system("sed --in-place \"s/# THEME = 'site'/THEME = '{0}'/\" {1}/conf.py".format(theme, path))
+    if not os.path.isdir(path):
+        os.system("nikola init --demo {0}".format(path))
+        os.system("sed --in-place \"s/# THEME = 'site'/THEME = '{0}'/\" {1}/conf.py".format(theme, path))
+    shutil.rmtree(os.path.join(path, "themes", theme))
     shutil.copytree(os.path.join("themes",theme), os.path.join(path, "themes", theme))
     while os.path.isfile(os.path.join(path, 'themes', theme, 'parent')):
         theme = open(os.path.join(path, 'themes', theme, 'parent')).readline().strip()
+        shutil.rmtree(os.path.join(path, "themes", theme))
         shutil.copytree(os.path.join("themes",theme), os.path.join(path, "themes", theme))
 
 for theme in glob.glob('themes/*/'):
@@ -117,7 +119,7 @@ metadata_bit = string.Template("""<!--
 theme_bit = string.Template("""
 <div class="span5" style="padding: 30px; margin: 10px; border: solid 1px #c4c4c4; border-radius: 5px;">
 <h2>${theme}</h2>
-${variants}&nbsp;<div class="btn-group"><button class="btn"><a href="${demo}">View Demo</a></button><button class="btn"><a href="${download}">Download</a></button></div>
+${variants}&nbsp;<div class="btn-group"><a href="${demo}" class="btn">View Demo</a><a href="${download}" class="btn">Download</a></div>
 <div style="text-align: center; padding: 5px;">
 <img src="${image}" style="height: 250px;">
 <br>
