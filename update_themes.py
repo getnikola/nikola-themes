@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import codecs
 from contextlib import contextmanager
 import glob
+import json
 import os
 import shutil
 import string
@@ -81,6 +82,14 @@ def setup_demo(theme):
         except:
             pass
         shutil.copytree(os.path.join("themes",theme), os.path.join(path, "themes", theme))
+
+BASE_URL = "http://themes.nikola.ralsina.com.ar/"
+themes_dict = {}
+for theme in glob.glob('themes/*/'):
+    t_name = os.path.basename(theme[:-1])
+    themes_dict[t_name] = BASE_URL + t_name + ".zip"
+with open(os.path.join("files", "themes.json"), "wb+") as outf:
+    json.dump(themes_dict, outf, sort_keys=True)
 
 for theme in glob.glob('themes/*/'):
     if "site-planetoid" in theme:
@@ -214,3 +223,4 @@ with codecs.open(os.path.join('pages','index.html'), 'wb+', 'utf8') as outf:
     outf.write(index_md)
     outf.write('\n\n'.join(sorted(index_bits)))
     outf.write(voting_js)
+
