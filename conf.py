@@ -93,7 +93,7 @@ post_pages = (
 # One or more folders containing files to be copied as-is into the output.
 # The format is a dictionary of "source" "relative destination".
 # Default is:
-FILES_FOLDERS = {'sites': '' }
+FILES_FOLDERS = {'sites': '' , 'files': ''}
 # Which means copy 'files' into 'output'
 
 # A mapping of languages to file-extensions that represent that language.
