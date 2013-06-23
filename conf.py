@@ -224,7 +224,7 @@ DEPLOY_COMMANDS = ['rsync -rav --delete output/ direct.ralsina.com.ar:/srv/www/t
 # INDEXES_PAGES = ""  # If this is empty, the default is 'old posts page %d' translated
 
 # Name of the theme to use.
-THEME = 'site_cerulean'
+#THEME = 'site_cerulean'
 
 # Color scheme to be used for code blocks. If your theme provide "assets/css/code.css" this
 # is ignored.
