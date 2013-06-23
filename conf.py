@@ -138,7 +138,7 @@ post_compilers = {
 # TAG_PAGES_ARE_INDEXES = True
 
 # Final location is output / TRANSLATION[lang] / INDEX_PATH / index-*.html
-# INDEX_PATH = ""
+INDEX_PATH = "__foo"
 # Final locations for the archives are:
 # output / TRANSLATION[lang] / ARCHIVE_PATH / ARCHIVE_FILENAME
 # output / TRANSLATION[lang] / ARCHIVE_PATH / YEAR / index.html
@@ -224,7 +224,7 @@ DEPLOY_COMMANDS = ['rsync -rav --delete output/ direct.ralsina.com.ar:/srv/www/t
 # INDEXES_PAGES = ""  # If this is empty, the default is 'old posts page %d' translated
 
 # Name of the theme to use.
-#THEME = 'site_cerulean'
+THEME = 'site_cerulean'
 
 # Color scheme to be used for code blocks. If your theme provide "assets/css/code.css" this
 # is ignored.
