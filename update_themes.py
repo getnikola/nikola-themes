@@ -104,21 +104,21 @@ def cd(path):
     yield
     os.chdir(old_dir)
 
-## Build each site
-#for site in glob.glob('sites/*/'):
-    #with cd(site):
-        #try:
-            #subprocess.check_call(["nikola", "build"])
-        #except Exception:
-            #print "Error building theme:", site
-            #continue
-        #p = subprocess.Popen(["nikola", "serve"])
-        #time.sleep(2)
-        #print "Snapshotting: ", site
-        #snap = os.path.join('..', site.split(os.sep)[-2]) + '.png'
-        #subprocess.check_call(["capty", "http://localhost:8000", snap])
-        #p.kill()
-        #time.sleep(1)
+# Build each site
+for site in glob.glob('sites/*/'):
+    with cd(site):
+        try:
+            subprocess.check_call(["nikola", "build"])
+        except Exception:
+            print "Error building theme:", site
+            continue
+        p = subprocess.Popen(["nikola", "serve"])
+        time.sleep(2)
+        print "Snapshotting: ", site
+        snap = os.path.join('..', site.split(os.sep)[-2]) + '.png'
+        subprocess.check_call(["capty", "http://localhost:8000", snap])
+        p.kill()
+        time.sleep(1)
 
 with cd('themes'):
     for theme in glob.glob('*/'):
