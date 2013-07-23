@@ -22,7 +22,7 @@ div.output_area pre {font-family: xkcd; font-size: 120%}
 h1, h2, h3, h4, h5, h6, h7 {
 font-family: xkcd;
 }
-p, a, small {
+p, a, small, li {
 font-family: xkcd;
 }
 .footerbox {

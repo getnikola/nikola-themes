@@ -78,3 +78,14 @@ h1, h2, h3, h4, h5, h6, h7 {
     margin-top: -40px;
     padding-top: 40px;
 }
+
+.navbar .brand {
+padding: 15px 20px 12px;
+margin-left: -90px;
+font-size: 30px;
+}
+
+.navbar .nav>li>a {
+margin-top: 6px;
+font-size: 20px;
+}
