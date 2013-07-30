@@ -33,9 +33,9 @@ for root, dirs, files in os.walk(src):
     dst_path = os.path.join('themes', os.path.relpath(root, src))
     if not os.path.isdir(dst_path):
         os.makedirs(dst_path)
-        for fname in files:
-            fdst_path = os.path.join(dst_path, fname)
-            shutil.copy2(os.path.join(root, fname), fdst_path)
+    for fname in files:
+        fdst_path = os.path.join(dst_path, fname)
+        shutil.copy2(os.path.join(root, fname), fdst_path)
 
 # Create bootswatch-derived themes for bootstrap themes
 for swatch in swatches:
