@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="description" content="${description}" >
     <meta name="author" content="${blog_author}">
-    <title>${title} | ${blog_title}</title>
+    <title>${title|h} | ${blog_title|h}</title>
     ${mathjax_config}
     %if use_bundles:
         %if use_cdn:
@@ -22,7 +22,6 @@
         <link href="/assets/css/rst.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/code.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/colorbox.css" rel="stylesheet" type="text/css"/>
-        <link href="/assets/css/slides.css" rel="stylesheet" type="text/css"/>
         <link href="/assets/css/theme.css" rel="stylesheet" type="text/css"/>
         %if has_custom_css:
             <link href="/assets/css/custom.css" rel="stylesheet" type="text/css">
@@ -63,7 +62,6 @@
             <script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
         %endif
         <script src="/assets/js/jquery.colorbox-min.js" type="text/javascript"></script>
-        <script src="/assets/js/slides.min.jquery.js" type="text/javascript"></script>
     %endif
 </%def>
 
@@ -78,7 +76,7 @@
     <li><a class="addthis_button_twitter"></a>
     </ul>
     </div>
-    <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f7088a56bb93798"></script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f7088a56bb93798"></script>
     <!-- End of social buttons -->
 %endif
 </%def>

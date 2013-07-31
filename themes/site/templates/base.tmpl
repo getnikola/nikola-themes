@@ -1,11 +1,11 @@
 ## -*- coding: utf-8 -*-
-<%namespace file="base_helper.tmpl" import="*"/>
+<%namespace name="base_helper" file="base_helper.tmpl"/>
 ${set_locale(lang)}
 <!DOCTYPE html>
 <html lang="${lang}">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    ${html_head()}
+    ${base_helper.html_head()}
     <%block name="extra_head">
     </%block>
     ${extra_head_data}
@@ -29,7 +29,7 @@ ${set_locale(lang)}
             <!-- Everything you want hidden at 940px or less, place within here -->
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    ${html_sidebar_links()}
+                    ${base_helper.html_sidebar_links()}
                 </ul>
                 %if search_form:
                     ${search_form}
@@ -37,10 +37,12 @@ ${set_locale(lang)}
                 <ul class="nav pull-right">
                 <%block name="belowtitle">
                 %if len(translations) > 1:
-                    <li>${html_translations()}</li>
+                    <li>${base_helper.html_translations()}</li>
                 %endif
                 </%block>
-                <%block name="sourcelink"> </%block>
+                % if not hide_sourcelink:
+                    <%block name="sourcelink"></%block>
+                %endif
                 </ul>
             </div>
         </div>
@@ -60,8 +62,8 @@ ${set_locale(lang)}
 <div class="footerbox">
     ${content_footer}
 </div>
-${html_social()}
-${late_load_js()}
+${base_helper.html_social()}
+${base_helper.late_load_js()}
 ${analytics}
     <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"80%",maxHeight:"80%",scalePhotos:true});</script>
 </body>
