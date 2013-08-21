@@ -1,0 +1,44 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+<%block name="content">
+    <div id="post-${post.pagenames[lang]}" class="post">
+        <h2 class="entry-title"><a href='${permalink}'>${title}</a></h1>
+        <div class="entry-content">
+            ${post.text(lang)}
+        </div>
+        <div class="archive-meta">
+            % if link:
+                    <p><a href='${link}'>${messages[lang]["Original site"]}</a></p>
+                    <span class="meta-sep">|</span>
+            % endif
+            ${messages[lang]["Posted"]}: ${post.date}<span class="meta-sep">|</span>
+            <span class="meta-sep">|</span>
+            %if len(translations) > 1:
+                %for langname in translations.keys():
+                    %if langname != lang:
+                        <a href="${post.permalink(langname)}">${messages[langname][u"Read in english"]}</a>
+                        <span class="meta-sep">|</span>
+                    %endif
+                %endfor
+            %endif
+            <a href="${post.pagenames[lang]+".txt"}">reSt</a>
+            <span class="meta-sep">|</span>
+                %for tag in post.tags:
+                    <a href="${_link("tag", tag, lang)}"><span class="badge badge-info">${tag}</span></a>
+                %endfor
+            <span class="entry-tags">
+            </span>
+        </div>
+    </div>
+    %if disqus_forum:
+        <!-- Disqus comments !-->
+        <script type="text/javascript">
+            var disqus_url = '${post.permalink(absolute=True)}';
+            var disqus_developer = 1;
+        </script>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript" src="http://disqus.com/forums/${disqus_forum}/embed.js"></script>
+        <noscript><a href="http://disqus.com/forums/${disqus_forum}/?url=ref">View the discussion thread.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+        <!-- End of Disqus comments !-->
+    %endif
+</%block>
