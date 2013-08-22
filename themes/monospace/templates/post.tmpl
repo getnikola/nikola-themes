@@ -11,11 +11,11 @@ ${helper.twitter_card_information(post)}
 <%block name="content">
     <div class="post">
     ${helper.html_title()}
-        <div class="meta" style="background-color: rgb(234, 234, 234); ">                    
+        <div class="meta" style="background-color: rgb(234, 234, 234); ">
         <span class="authordate">
-            ${messages("Posted")}: ${post.formatted_date(date_format)} 
+            ${messages("Posted")}: ${post.formatted_date(date_format)}
             % if not post.meta('password'):
-               [<a href="/${post.source_link()}" id="sourcelink">${messages("Source")}</a>]
+               [<a href="${post.source_link()}" id="sourcelink">${messages("Source")}</a>]
             % endif
         </span>
         <br>
