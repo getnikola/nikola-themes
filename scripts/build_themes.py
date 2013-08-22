@@ -6,6 +6,7 @@ from __future__ import unicode_literals, print_function
 import codecs
 from contextlib import contextmanager
 import glob
+import json
 import os
 import shutil
 import subprocess
@@ -14,6 +15,8 @@ import colorama
 from progressbar import ProgressBar
 
 from nikola import utils
+
+BASE_URL = "http://themes.nikola.ralsina.com.ar/v6/"
 
 def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
@@ -38,6 +41,13 @@ def build_theme(theme=None):
         raise
 
     subprocess.check_call('zip -r sites/{0}.zip themes/{0}'.format(theme), stdout=subprocess.PIPE, shell=True)
+
+    themes_dict = {}
+    for theme in glob.glob('themes/*/'):
+        t_name = os.path.basename(theme[:-1])
+        themes_dict[t_name] = BASE_URL + t_name + ".zip"
+    with open(os.path.join("sites", "themes.json"), "wb+") as outf:
+        json.dump(themes_dict, outf, sort_keys=True)
 
 
 def init_theme(theme):
