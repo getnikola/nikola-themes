@@ -22,7 +22,7 @@ ${helper.twitter_card_information(post)}
             %if post.tags:
                 <span class="tags">${messages("Tags")}:&nbsp;
                 %for tag in post.tags:
-                    <a class="tag" href="${_link('tag', tag)}"><span class="badge badge-info">${tag}</span></a>
+                    <a class="tag" href="${_link('tag', tag)}"><span>${tag}</span></a>
                 %endfor
                 </span>
                 <br>
