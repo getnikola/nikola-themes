@@ -40,8 +40,7 @@ def sanity_check(theme=None):
     for fname in glob.glob("/".join(["themes", theme, "templates", "*.tmpl"])):  # templates
         with open(fname) as inf:
             baseline = hashlib.sha224(inf.read()).hexdigest()
-        fname = "/".join(fname.split("/")[2:])
-        fname2 = utils.get_asset_path(fname, themes[1:])
+        fname2 = utils.get_asset_path("/".join(fname.split("/")[2:]), themes[1:])
         with open(fname2) as inf:
             new_hash = hashlib.sha224(inf.read()).hexdigest()
         if baseline == new_hash:
