@@ -3,8 +3,10 @@
 """Make sanity checks on the provided themes."""
 
 from __future__ import unicode_literals, print_function
+import filecmp
 import glob
 import hashlib
+import os
 
 import colorama
 
@@ -36,17 +38,22 @@ def sanity_check(theme=None):
     if engine == "mako" and "base-jinja" in themes:
         error("theme {0} is mako-based and inherits from base-jinja".format(theme))
 
-    # Detect exact template duplication in theme chain
-    for fname in glob.glob("/".join(["themes", theme, "templates", "*.tmpl"])):  # templates
-        with open(fname) as inf:
-            baseline = hashlib.sha224(inf.read()).hexdigest()
-        fname2 = utils.get_asset_path("/".join(fname.split("/")[2:]), themes[1:])
-        with open(fname2) as inf:
-            new_hash = hashlib.sha224(inf.read()).hexdigest()
-        if baseline == new_hash:
-            error("theme {0} has a redundant template: {1} is identical to {2}".format(theme, fname, fname2))
+    # Detect exact asset duplication in theme chain
+    for root, dirs, files in os.walk("themes/"+theme):
+        for f in files:
+            path = "/".join([root, f])
+            asset = path.split("/",2)[-1]
+            r, p1, p2 = is_asset_duplicated(asset, themes)
+            if r:
+                error("duplicated asset: {0} {1}".format(p1, p2))
 
-
+def is_asset_duplicated(path, themes):
+    # First get the path for the asset with whole theme chain
+    p1 = utils.get_asset_path(path, themes)
+    # Get the path for asset with truncated theme chain
+    p2 = utils.get_asset_path(path, themes[1:])
+    # Compare
+    return filecmp.cmp(p1, p2, False), p1, p2
 
 if __name__ == "__main__":
     import commandline
