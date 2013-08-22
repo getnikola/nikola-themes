@@ -53,7 +53,10 @@ def is_asset_duplicated(path, themes):
     # Get the path for asset with truncated theme chain
     p2 = utils.get_asset_path(path, themes[1:])
     # Compare
-    return filecmp.cmp(p1, p2, False), p1, p2
+    if p1 and p2:
+        return filecmp.cmp(p1, p2, False), p1, p2
+    else:
+        return False, p1, p2
 
 if __name__ == "__main__":
     import commandline
