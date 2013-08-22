@@ -54,13 +54,30 @@
 	{{ social_buttons_code }}
 {% endmacro %}
 
-
+<!--FIXME: remove in v7 -->
 {% macro html_sidebar_links() %}
-    {% for url, text in sidebar_links[lang] %}
-        {% if rel_link(permalink, url) == "#" %}
-            <li class="active"><a href="{{ url }}">{{ text }}</a>
+    {{html_navigation_links()}}
+{% endmacro %}
+
+{% macro html_navigation_links() %}
+    {% for url, text in navigation_links[lang] %}
+        {% if not url is string %}
+            <li> {{text}}
+            <ul>
+            {% for suburl, text in url %}
+                {% if rel_link(permalink, suburl) == "#" %}
+                    <li class="active"><a href="{{suburl}}">{{text}}</a>
+                {% else %}
+                    <li><a href="{{suburl}}">{{text}}</a>
+                {% endif %}
+            {% endfor %}
+            </ul>
         {% else %}
-            <li><a href="{{ url }}">{{ text }}</a>
+            {% if rel_link(permalink, url) == "#" %}
+                <li class="active"><a href="{{url}}">{{text}}</a>
+            {% else %}
+                <li><a href="{{url}}">{{text}}</a>
+            {% endif %}
         {% endif %}
     {% endfor %}
 {% endmacro %}
