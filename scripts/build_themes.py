@@ -23,6 +23,7 @@ def theme_list():
 
 def build_theme(theme=None):
     if theme is None:  # Check them all
+        print("\nBuilding all themes\n")
         progress = ProgressBar()
         for theme in progress(theme_list()):
             build_theme(theme)
@@ -35,6 +36,9 @@ def build_theme(theme=None):
     except:
         error("can' t build theme {0}".format(theme))
         raise
+
+    subprocess.check_call('zip -r sites/{0}.zip themes/{0}'.format(theme), stdout=subprocess.PIPE, shell=True)
+
 
 def init_theme(theme):
     t_path = "/".join(["sites", theme])
