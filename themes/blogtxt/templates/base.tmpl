@@ -1,31 +1,14 @@
 ## -*- coding: utf-8 -*-
+<%namespace file="base_helper.tmpl" import="*"/>
+${set_locale(lang)}
 <!DOCTYPE html>
 <html lang="${lang}">
 <head>
-    <meta charset="utf-8">
-    <title>${title}</title>
-    <!-- Le styles -->
-    <link rel="stylesheet" type="text/css" media="screen,projection" href="${rel_link(permalink, "/assets/css/style.css")}" title="blog.txt" />
-    <link rel="stylesheet" type="text/css" media="screen,projection" href="${rel_link(permalink, "/assets/css/2c-r.css")}" title="blog.txt" />
-    <link rel="stylesheet" type="text/css" media="print" href="${rel_link(permalink, "/assets/css/print.css")}" title="blog.txt" />
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    %if rss_link:
-        ${rss_link}
-    %else:
-        %for language in translations:
-            <link rel="alternate" type="application/rss+xml" title="RSS (${language})" href="${_link("rss", None, lang)}">
-        %endfor
-    %endif
+    ${html_head()}
     <%block name="extra_head">
     </%block>
+    ${extra_head_data}
 </head>
-<body>
-    <script type="text/javascript">
-        var addthis_config = { 'ui_language': '${lang}' };
-    </script>
 <body>
 <div id="wrapper">
     <div id="container">
@@ -55,27 +38,16 @@
     </div><!-- #content -->
 </div><!-- #container -->
 
-<div id="primary" class="sidebar">
+<div id="primary" class="theme_sidebar">
     <ul>
         %for url, text in sidebar_links[lang]:
             <li><h3><a href="${rel_link(permalink, url)}">${text}</a></h3>
         %endfor
         <li>${license}
-        <!-- social buttons -->
-        <li>
-            <div class="addthis_toolbox addthis_default_style" style="margin-bottom: 12px;">
-            <a class="addthis_button_preferred_1"></a>
-            <a class="addthis_button_preferred_2"></a>
-            <a class="addthis_button_preferred_3"></a>
-            <a class="addthis_button_preferred_4"></a>
-            <a class="addthis_button_compact"></a>
-            <a class="addthis_counter addthis_bubble_style"></a>
-            </div>
-            <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f7088a56bb93798"></script>
-        <!-- End of social buttons -->
+        <li>${social_buttons_code}
         <li>${search_form}
     </ul>
-</div><!-- #primary .sidebar -->
+</div><!-- #primary .theme_sidebar -->
 
 <div id="footer">
     <span id="theme-link"><a href="http://www.plaintxt.org/themes/blogtxt/" title="<?php _e('blog.txt theme for WordPress', 'blogtxt' ) ?>" rel="follow designer">blog.txt</a> <?php _e('theme by', 'blogtxt') ?> <span class="vcard"><a class="url fn n" href="http://scottwallick.com/" title="scottwallick.com" rel="follow designer"><span class="given-name">Scott</span><span class="additional-name"> Allan</span><span class="family-name"> Wallick</span></a></span></span>
@@ -84,5 +56,7 @@
 
 </div><!-- #wrapper -->
     ${analytics}
+    ${late_load_js()}
+    <%block name="extra_js"></%block>
 </body><!-- end transmission -->
 </html>

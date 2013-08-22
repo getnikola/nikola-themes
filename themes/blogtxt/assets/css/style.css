@@ -7,19 +7,19 @@ AUTHOR: Scott Allan Wallick
 AUTHOR URI: http://scottwallick.com/
 TAGS: variable width, fixed width, variable columns, two columns, three columns, widgets, theme options, options page, white, gray, typography, microformats, hatom, hcard
 */
-body h1,body h2,body h3{font-family:garamond,georgia,times,serif;font-weight:400;}
+body h1,body h2,body h3{font-family:garamond,georgia,times,serif;font-weight:400; margin-bottom: 12px;}
 a,a:link{outline:none;text-decoration:none;}
 div#header a,div#header a:link{color:#0d1117;}
 div.hfeed a,div.hfeed a:link,div.entry-content ul.xoxo li.hentry span a,div.entry-content ul.xoxo li.hentry span a:link{border-bottom:1px solid #9aa1ae;color:#34425b;}
 div.hfeed .entry-title a,div.hfeed .entry-title a:link,div.hfeed div.entry-meta a,div.hfeed div.entry-meta a:link{border-bottom:none;}
-div.sidebar a,div.sidebar a:link{background:#fff;border-bottom:1px solid #ccd0d6;color:#34425b;}
+div.theme_sidebar a,div.theme_sidebar a:link{background:#fff;border-bottom:1px solid #ccd0d6;color:#34425b;}
 div#footer a,div#footer a:link{border-bottom: 1px solid #ccd0d6;color: #9aa1ae;}
 div.hfeed a:visited,div.entry-content ul.xoxo li.hentry span a:visited{color:#677284;}
 div.hfeed .entry-title a:visited{color:#34425b;}
 div#header a:hover{color:#9aa1ae;}
 div#footer a:hover{border-bottom: 1px solid #34425b;color: #34425b;}
-div.hfeed a:hover,div.hfeed .entry-title a:hover,div.hfeed div.entry-meta a:hover,div.sidebar a:hover,div.entry-content ul.xoxo li.hentry span a:hover{border-bottom:1px solid #0d1117;color:#0d1117;}
-div.hfeed a:active,div.sidebar a:active{color:#677284;border-bottom:1px solid #b4b9c3;}
+div.hfeed a:hover,div.hfeed .entry-title a:hover,div.hfeed div.entry-meta a:hover,div.theme_sidebar a:hover,div.entry-content ul.xoxo li.hentry span a:hover{border-bottom:1px solid #0d1117;color:#0d1117;}
+div.hfeed a:active,div.theme_sidebar a:active{color:#677284;border-bottom:1px solid #b4b9c3;}
 body{background:#fff;color:#222;line-height:140%;margin:0 0 2em;padding:0;}
 body abbr.published,body abbr.comment-published{border:none;}
 body img{border:none;max-width:99%;}
@@ -45,7 +45,7 @@ div.comments ol#comments li img.photo { float:left; margin:0 1em 0.5em 0; }
 div.comments ol#pingbacks{list-style:none;margin:1em 0 0 1.5em;padding:0;}
 div.comments ol#pingbacks li{border:1px solid #ccd0d6;color:#777;font-size:0.9em;list-style:none;margin:0 0 1.5em;padding:1em;}
 div.comments ol#pingbacks p{margin-bottom:0;}
-div.comments ol.commentlist li .fn,div.sidebar ul li#blogtxt-recent-comments .fn{font-weight:700;}
+div.comments ol.commentlist li .fn,div.theme_sidebar ul li#blogtxt-recent-comments .fn{font-weight:700;}
 div.comments ol.commentlist p{margin:0.5em 0;}
 div.comments ol.commentlist span.comment-meta,div.comments p#loggedin{font-style:italic;}
 div.comments span.req-field{color:#c00;}
@@ -98,7 +98,7 @@ div.entry-content ul.xoxo li ul li{list-style:square;margin:0 0 0 2em;}
 div.entry-content ul.xoxo li.hentry span.entry-title{font-size:1em;text-transform:none;}
 div.entry-content ul.xoxo li.hentry span.entry-date{font-size:1em;}
 div.entry-content ul.xoxo li ul li p{font-style:italic;margin-top:0.3em;}
-div.formcontainer form#commentform,div.sidebar ul,div.sidebar ul li#blogtxt-recent-comments blockquote.comment-summary,div.sidebar ul li#blogtxt-recent-comments blockquote.comment-summary p{margin:0;padding:0;}
+div.formcontainer form#commentform,div.theme_sidebar ul,div.theme_sidebar ul li#blogtxt-recent-comments blockquote.comment-summary,div.theme_sidebar ul li#blogtxt-recent-comments blockquote.comment-summary p{margin:0;padding:0;}
 div.formcontainer div.form-input{margin:0 0 1em;}
 div.formcontainer div.form-input input{width:20em;}
 div.formcontainer div.form-input input,div.formcontainer div.form-textarea textarea{background:#f6f6f7;border:1px solid #7a818a;font-size:1em;line-height:normal;padding:0.3em;}
@@ -117,23 +117,34 @@ div.nav-next{float:right;text-align:right;}
 div.nav-previous{float:left;text-align:left;}
 div.navigation{font-size:0.9em;height:1.2em;text-align:center;text-transform:uppercase;}
 div.navigation div{width:48%;}
-div.sidebar{line-height:150%; margin-right:-3px;}
-div.sidebar ul li{list-style:none;margin:0 0 2.5em;padding:0;}
-div.sidebar ul li h3{font-weight:bold;font-size:1.2em;line-height:133%;letter-spacing:1px;margin:0 0 0.1em;text-transform:uppercase;}
-div.sidebar ul li ul li{color:#4d5663;margin:0;padding:0;}
-div.sidebar ul li ul li ul{margin:0 0 0.2em;}
-div.sidebar ul li ul li ul li{color:#9aa1ae;list-style:disc;margin:0 0 0 2em;}
-div.sidebar ul li#blogtxt-recent-comments span.comment-entry-title{font-size:0.8em;}
-div.sidebar ul li#blogtxt-recent-comments ul li{margin:0 0 2em;}
-div.sidebar ul li#tag-cloud{width:95%;overflow:hidden;line-height:250%;background:transparent;}
-div.sidebar ul li#tag-cloud h3{margin-bottom:-1em;}
-div.sidebar ul li#calendar div#calendar_wrap{margin:0.5em 0 0;}
-div.sidebar ul li#calendar table#wp-calendar{text-align:center;width:75%;}
-div.sidebar ul li#calendar table#wp-calendar tbody a{font-size:1.1em;font-weight:700;}
-div.sidebar ul li#google-search div form#gsearch,div.sidebar ul li#calendar table#wp-calendar caption{text-align:left;}
-div.sidebar ul li#rss_links ul li a,div.sidebar ul li#rss-links ul li a{background:url(images/feed.png) no-repeat left center;padding:0 0 0 15px;}
-div.sidebar ul li#search form#searchform{margin:0.2em 0 0;padding:0;}
-div.sidebar ul li#search input#s{width:7em;}
-div.sidebar ul li.entry-interact ul li.comment-link a{background:url(images/comments.png) no-repeat left center;padding:0 0 0 15px;}
-div.sidebar ul li.entry-interact ul li.trackback-link a{background:url(images/trackbacks.png) no-repeat left center;padding:0 0 0 15px;}
-div.sidebar ul li.widget_text div.textwidget p{margin:0 0 0.5em;}
+div.theme_sidebar{line-height:150%; margin-right:-3px;}
+div.theme_sidebar ul li{list-style:none;margin:0 0 2.5em;padding:0;}
+div.theme_sidebar ul li h3{font-weight:bold;font-size:1.2em;line-height:133%;letter-spacing:1px;margin:0 0 0.1em;text-transform:uppercase;}
+div.theme_sidebar ul li ul li{color:#4d5663;margin:0;padding:0;}
+div.theme_sidebar ul li ul li ul{margin:0 0 0.2em;}
+div.theme_sidebar ul li ul li ul li{color:#9aa1ae;list-style:disc;margin:0 0 0 2em;}
+div.theme_sidebar ul li#blogtxt-recent-comments span.comment-entry-title{font-size:0.8em;}
+div.theme_sidebar ul li#blogtxt-recent-comments ul li{margin:0 0 2em;}
+div.theme_sidebar ul li#tag-cloud{width:95%;overflow:hidden;line-height:250%;background:transparent;}
+div.theme_sidebar ul li#tag-cloud h3{margin-bottom:-1em;}
+div.theme_sidebar ul li#calendar div#calendar_wrap{margin:0.5em 0 0;}
+div.theme_sidebar ul li#calendar table#wp-calendar{text-align:center;width:75%;}
+div.theme_sidebar ul li#calendar table#wp-calendar tbody a{font-size:1.1em;font-weight:700;}
+div.theme_sidebar ul li#google-search div form#gsearch,div.theme_sidebar ul li#calendar table#wp-calendar caption{text-align:left;}
+div.theme_sidebar ul li#rss_links ul li a,div.theme_sidebar ul li#rss-links ul li a{background:url(images/feed.png) no-repeat left center;padding:0 0 0 15px;}
+div.theme_sidebar ul li#search form#searchform{margin:0.2em 0 0;padding:0;}
+div.theme_sidebar ul li#search input#s{width:7em;}
+div.theme_sidebar ul li.entry-interact ul li.comment-link a{background:url(images/comments.png) no-repeat left center;padding:0 0 0 15px;}
+div.theme_sidebar ul li.entry-interact ul li.trackback-link a{background:url(images/trackbacks.png) no-repeat left center;padding:0 0 0 15px;}
+div.theme_sidebar ul li.widget_text div.textwidget p{margin:0 0 0.5em;}
+
+
+body{font-size:80%;}
+body,div.comments h3.comment-header span.comment-count,div.entry-content ul.xoxo li.hentry span.entry-title{font-family:georgia,times,serif;}
+div#wrapper{width:60em;}
+div.hfeed .entry-title,div.hfeed .page-title,div.comments h3,div.entry-content h2,div.entry-content h3,div.entry-content h4,div.entry-content h5,div.entry-content h6,div#header div#blog-description,div#header div.archive-description{font-family:arial,helvetica,sans-serif;}
+div#header h1#blog-title,div.theme_sidebar ul li h3{font-family:'times new roman',times,serif;}
+body input#s,div.entry-content div.page-link,div.entry-content p.attachment-name,div.entry-content q,div.comments ol.commentlist q,div.formcontainer div.form-input input,div.formcontainer div.form-textarea textarea,div.hentry div.entry-meta,div.theme_sidebar{font-family:verdana,geneva,sans-serif;}
+div.hfeed div.hentry{text-align:left;}
+body div#wrapper{margin:5em 0 0 7em;}
+div.entry-content{margin-top: 24px;}
