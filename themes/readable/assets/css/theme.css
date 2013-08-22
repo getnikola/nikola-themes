@@ -13,6 +13,10 @@ h1, h2, h3, h4, h5 {
     font-weight: 300;
 }
 
+a>h2:before {
+    content: "¶ ";
+}
+
 h1 {
     font-weight: 500;
     margin-bottom: 30px;
@@ -49,4 +53,12 @@ div.postdiv * p,
 body
 {
    font-size: 16px;
+   font-family: Times, 'Times New Roman', serif;
+}
+
+a { color: #333; }
+a:hover { color: #555; }
+
+.footer {
+    text-align: center;
 }
