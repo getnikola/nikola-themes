@@ -1,0 +1,32 @@
+{# -*- coding: utf-8 -*- #}
+{% extends 'base.tmpl' %}
+{% import 'disqus_helper.tmpl' as disqus with context %}
+{% block sourcelink %}{% endblock %}
+
+{% block content %}
+    <ul class="breadcrumb">
+        {% for link, crumb in crumbs %}
+            <li><a href="{{ link }}">/ {{ crumb }}</a></li>
+        {% endfor %}
+    </ul>
+    {% if text %}
+    <p>
+        {{ text }}
+    </p>
+    {% endif %}
+    <ul>
+    {% for folder in folders %}
+        <li><a href="{{ folder }}"><i class="icon-folder-open"></i>&nbsp;{{ folder }}</a></li>
+    {% endfor %}
+    </ul>
+    <ul class="thumbnails">
+        {% for image in photo_array %}
+            <li><a href="{{ image['url'] }}" class="thumbnail image-reference" title="{{ image['title'] }}">
+                <img src="{{ image['url_thumb'] }}" alt="{{ image['title'] }}" /></a>
+        {% endfor %}
+    </ul>
+{% if enable_comments %}
+    {{ disqus.html_disqus(None, permalink, title) }}
+{% endif %}
+{% endblock %}
+

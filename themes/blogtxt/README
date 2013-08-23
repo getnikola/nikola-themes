@@ -8,4 +8,8 @@ into Mako templates.
 
 At least the CSS files are easily adapted.
 
-This theme is under a LGPL license (see license.txt), enjoy!
+This theme is under a LGPL license just like the original (see license.txt), enjoy!
+
+CAVEATS
+
+This theme doesn't support slides or image galleries in any useful way.
