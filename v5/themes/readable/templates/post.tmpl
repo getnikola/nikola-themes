@@ -1,0 +1,47 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+<%block name="content">
+    <div class="postdiv">
+    <h2>${title}</h2>
+    % if link:
+            <p><a href='${link}'>${messages[lang]["Original site"]}</a></p>
+    % endif
+    ${post.text(lang)}
+    </div>
+    <hr>
+    <div class="postmeta">
+        ${messages[lang]["Posted"]}: ${post.date}
+
+        %if len(translations) > 1:
+            %for langname in translations.keys():
+                %if langname != lang:
+                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                    <a href="${rel_link(permalink, post.permalink(langname))}">${messages[langname][u"Read in english"]}</a>
+                %endif
+            %endfor
+        %endif
+        %if post.tags:
+            &nbsp;&nbsp;|&nbsp;&nbsp;${messages[lang]["More posts about"]}
+            %for tag in post.tags:
+                 · <a href="${rel_link(permalink, _link("tag", tag, lang))}">${tag}</a>
+            %endfor
+        %endif
+    </div>
+
+    %if disqus_forum:
+        <!-- Disqus comments !-->
+        <script type="text/javascript">
+            var disqus_url = '${post.permalink(absolute=True)}';
+        </script>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript" src="http://disqus.com/forums/${disqus_forum}/embed.js"></script>
+        <noscript><a href="http://disqus.com/forums/${disqus_forum}/?url=ref">View the discussion thread.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+        <!-- End of Disqus comments !-->
+    %endif
+</%block>
+
+<%block name="sourcelink">
+    <li>
+    <a href="${post.pagenames[lang]+'.txt'}">reSt</a>
+    </li>
+</%block>

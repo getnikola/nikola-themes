@@ -1,0 +1,11 @@
+This theme is loosely based on Scott Wallick's nice "blog.txt" theme.
+If there is anything nice here, he did it. If there is something wrong
+or broken, I (Roberto Alsina <ralsina@netmanagers.com.ar>) did it instead.
+
+I did it basically to see if it was possible to port wordpress themes to Nikola. 
+And it is, but it involves reading php files and loosely reinterpreting them
+into Mako templates.
+
+At least the CSS files are easily adapted.
+
+This theme is under a LGPL license (see license.txt), enjoy!

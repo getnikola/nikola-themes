@@ -12,3 +12,4 @@ body { margin:0px; padding:20px 0px; text-align:center; font-family:Monospace; c
 h1, h2, h3, h4, h5, h6, h7 { margin:0px; text-transform:uppercase; }
 h4, h5, h6 { font-size:14px; }
 #blog-title { margin-top: 0; line-height:48px;}
+.literal-block {padding: .5em;}

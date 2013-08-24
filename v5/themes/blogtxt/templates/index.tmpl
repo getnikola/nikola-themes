@@ -1,0 +1,49 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+<%block name="content">
+    % for post in posts:
+        <div class="post">
+            <h2><a href="${post.permalink(lang)}">${post.title(lang)}</a></h2>
+            <div class="entry-content">
+                ${post.text(lang,index_teasers)}
+            </div>
+            <div class="entry-meta">
+                <span class="meta-sep">|</span>
+                <span class="entry-date">${messages[lang]["Posted"]}: ${post.date}</span>
+                <span class="meta-sep">|</span>
+                %if disqus_forum:
+                    <a href="${post.permalink(absolute=True)}#disqus_thread">Comments</a>
+                %endif
+            </div>
+        </div>
+    % endfor
+    <div id="nav-below" class="navigation">
+        %if prevlink:
+            <div class="nav-previous">
+                <a href="${prevlink}">&larr; Newer posts</a>
+            </div>
+        %endif
+        %if nextlink:
+            <div class="nav-next">
+                <a href="${nextlink}">Older posts &rarr;</a>
+            </div>
+        %endif
+    </div>
+
+    %if disqus_forum:
+        <script type="text/javascript">
+        //<![CDATA[
+        (function() {
+            var links = document.getElementsByTagName('a');
+            var query = '?';
+            for(var i = 0; i < links.length; i++) {
+            if(links[i].href.indexOf('#disqus_thread') >= 0) {
+                query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
+            }
+            }
+            document.write('<script charset="utf-8" type="text/javascript" src="http://disqus.com/forums/lateralopinion/get_num_replies.js' + query + '"></' + 'script>');
+        })();
+        //]]>
+        </script>
+    %endif
+</%block>

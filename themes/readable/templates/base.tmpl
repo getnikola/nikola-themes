@@ -48,6 +48,7 @@ ${set_locale(lang)}
             %endif
             </%block>
             <%block name="sourcelink"> </%block>
+            <li>Shares: <div id="share"></div></li>
             </ul>
             <div>
             %if search_form:
@@ -56,14 +57,33 @@ ${set_locale(lang)}
             </div>
         </div>
     </div>
-
-
     <hr>
-    <div>
-    <small>${content_footer}</small><p>
+    <div class="footer">
+    ${content_footer}
     </div>
 </div>
     ${late_load_js()}
+    <script type="text/javascript" src="/assets/js/jquery.sharrre-1.3.4.min.js"></script>
+    <script type="text/javascript">
+        jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"80%",maxHeight:"80%",scalePhotos:true});
+        $('#share').sharrre({
+        share: {
+            googlePlus: true,
+            twitter: true
+        },
+        buttons: {
+            googlePlus: {annotation:'bubble'},
+            twitter: {count: 'horizontal'}
+        },
+        hover: function(api, options){
+            $(api.element).find('.buttons').show();
+        },
+        hide: function(api, options){
+            $(api.element).find('.buttons').hide();
+        },
+        enableTracking: true,
+        urlCurl: ""
+        });
+    </script>
     ${analytics}
-    <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"80%",maxHeight:"80%",scalePhotos:true});</script>
 </body>
