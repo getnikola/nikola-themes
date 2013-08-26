@@ -1,10 +1,10 @@
 ## -*- coding: utf-8 -*-
-<%namespace file="base_helper.tmpl" import="*"/>
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
 ${set_locale(lang)}
 <!DOCTYPE html>
 <html lang="${lang}">
 <head>
-    ${html_head()}
+    ${base.html_head()}
     <%block name="extra_head">
     </%block>
     ${extra_head_data}
@@ -62,7 +62,7 @@ ${set_locale(lang)}
     ${content_footer}
     </div>
 </div>
-    ${late_load_js()}
+    ${base.late_load_js()}
     <script type="text/javascript" src="/assets/js/jquery.sharrre-1.3.4.min.js"></script>
     <script type="text/javascript">
         jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"80%",maxHeight:"80%",scalePhotos:true});
