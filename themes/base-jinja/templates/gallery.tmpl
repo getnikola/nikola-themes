@@ -1,14 +1,11 @@
 {# -*- coding: utf-8 -*- #}
 {% extends 'base.tmpl' %}
-{% import 'disqus_helper.tmpl' as disqus with context %}
+{% import 'comments_helper.tmpl' as comments with context %}
+{% import 'crumbs.tmpl' as ui with context %}
 {% block sourcelink %}{% endblock %}
 
 {% block content %}
-    <ul class="breadcrumb">
-        {% for link, crumb in crumbs %}
-            <li><a href="{{ link }}">/ {{ crumb }}</a></li>
-        {% endfor %}
-    </ul>
+    {{ ui.bar(crumbs) }}
     {% if text %}
     <p>
         {{ text }}
@@ -26,7 +23,6 @@
         {% endfor %}
     </ul>
 {% if enable_comments %}
-    {{ disqus.html_disqus(None, permalink, title) }}
+    {{ comments.comment_form(None, permalink, title) }}
 {% endif %}
 {% endblock %}
-

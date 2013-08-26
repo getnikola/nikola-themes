@@ -1,0 +1,42 @@
+{# -*- coding: utf-8 -*- #}
+
+{% import 'disqus_helper.tmpl' as disqus with context %}
+{% import 'livefyre_helper.tmpl' as livefyre with context %}
+{% import 'intensedebate_helper.tmpl' as intensedebate with context %}
+{% import 'moot_helper.tmpl' as moot with context %}
+
+{% macro comment_form(url, title, identifier) %}
+    {% if comment_system == 'disqus' %}
+        {{ disqus.comment_form(url, title, identifier) }}
+    {% elif 'livefyre' %}
+        {{ livefyre.comment_form(url, title, identifier) }}
+    {% elif 'intensedebate' %}
+        {{ intensedebate.comment_form(url, title, identifier) }}
+    {% elif 'moot' %}
+        {{ moot.comment_form(url, title, identifier) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro comment_link(link, identifier) %}
+    {% if comment_system == 'disqus' %}
+        {{ disqus.comment_link(link, identifier) }}
+    {% elif 'livefyre' %}
+        {{ livefyre.comment_link(link, identifier) }}
+    {% elif 'intensedebate' %}
+        {{ intensedebate.comment_link(link, identifier) }}
+    {% elif 'moot' %}
+        {{ moot.comment_link(link, identifier) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro comment_link_script() %}
+    {% if comment_system == 'disqus' %}
+        {{ disqus.comment_link_script() }}
+    {% elif 'livefyre' %}
+        {{ livefyre.comment_link_script() }}
+    {% elif 'intensedebate' %}
+        {{ intensedebate.comment_link_script() }}
+    {% elif 'moot' %}
+        {{ moot.comment_link_script() }}
+    {% endif %}
+{% endmacro %}

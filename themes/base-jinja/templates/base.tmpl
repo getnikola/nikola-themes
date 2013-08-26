@@ -1,12 +1,13 @@
-{% import 'base_helper.tmpl' as base_helper with context %}
+{# -*- coding: utf-8 -*- #}
+{% import 'base_helper.tmpl' as base with context %}
 {{ set_locale(lang) }}
 <!DOCTYPE html>
 <html lang="{{ lang }}">
 <head>
-    {{ base_helper.html_head() }}
+    {{ base.html_head() }}
     {% block extra_head %}
     {% endblock %}
-    {{ base_helper.extra_head_data }}
+    {{ extra_head_data }}
 </head>
 <body>
         <h1 id="blog-title">
@@ -16,7 +17,7 @@
         {% if translations|length > 1 %}
         <small>
             {{ (messages("Also available in")) }}:&nbsp;
-            {{ base_helper.html_translations() }}
+            {{ base.html_translations() }}
         </small>
         {% endif %}
         {% endblock %}
@@ -25,13 +26,12 @@
             <!--Sidebar content-->
             <ul class="unstyled">
             <li>{{ license }}
-            {{ base_helper.html_social() }}
-            {{ base_helper.html_sidebar_links() }}
+            {{ base.html_social() }}
+            {{ base.html_navigation_links() }}
             <li>{{ search_form }}
             </ul>
-    {{ base_helper.late_load_js() }}
+    {{ base.late_load_js() }}
     {{ social_buttons_code }}
     {% block extra_js %}{% endblock %}
-    {{ analytics }}
+    {{ body_end }}
 </body>
-

@@ -1,8 +1,16 @@
-{% macro html_disqus(url, title, identifier) %}
-    {% if disqus_forum %}
+{# -*- coding: utf-8 -*- #}
+<%!
+    import json
+    translations = {
+        'es': 'es_ES',
+    }
+%>
+
+{% macro comment_form(url, title, identifier) %}
+    {% if comment_system_id %}
         <div id="disqus_thread"></div>
         <script type="text/javascript">
-        var disqus_shortname ="{{ disqus_forum }}";
+        var disqus_shortname ="{{ comment_system_id }}";
         {% if url %}
             var disqus_url="{{ url }}";
         {% endif %}
@@ -22,15 +30,29 @@
     {% endif %}
 {% endmacro %}
 
-{% macro html_disqus_link(link, identifier) %}
+{% macro comment_link(link, identifier) %}
     <p>
-    {% if disqus_forum %}
-        <a href="{{ link }}" data-disqus-identifier="{{ identifier }}">Comments</a>
+    {% if comment_system_id %}
+        <a href="{{ link }}#disqus_thread" data-disqus-identifier="{{ identifier }}">Comments</a>
     {% endif %}
 {% endmacro %}
 
-{% macro html_disqus_script() %}
-    {% if disqus_forum %}
-       <script type="text/javascript">var disqus_shortname="{{ disqus_forum }}";(function(){var a=document.createElement("script");a.async=true;a.type="text/javascript";a.src="http://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("HEAD")[0]||document.getElementsByTagName("BODY")[0]).appendChild(a)}());</script>
+
+{% macro comment_link_script() %}
+    {% if comment_system_id %}
+       <script type="text/javascript">var disqus_shortname="{{ comment_system_id }}";(function(){var a=document.createElement("script");a.async=true;a.type="text/javascript";a.src="http://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("HEAD")[0]||document.getElementsByTagName("BODY")[0]).appendChild(a)}());</script>
     {% endif %}
+{% endmacro %}
+
+{# FIXME: remove aliases in v7 #}
+{% macro html_disqus(url, title, identifier) %}
+    {{ comment_form(url, title, identifier) }}
+{% endmacro %}
+
+{% macro html_disqus_link(link, identifier) %}
+    {{ comment_link(link, identifier) }}
+{% endmacro %}
+
+{% macro html_disqus_script() %}
+    {{ comment_link_script() }}
 {% endmacro %}

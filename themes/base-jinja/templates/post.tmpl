@@ -1,6 +1,6 @@
 {# -*- coding: utf-8 -*- #}
 {% import 'post_helper.tmpl' as helper with context %}
-{% import 'disqus_helper.tmpl' as disqus with context %}
+{% import 'comments_helper.tmpl' as comments with context %}
 {% extends 'base.tmpl' %}
 {% block extra_head %}
 {{ helper.twitter_card_information(post) }}
@@ -13,20 +13,22 @@
     {{ helper.html_title() }}
     <hr>
     <small>
-        {{ messages("Posted") }}: {{ post.formatted_date(date_format) }}
+        {{ messages("Posted") }}: <time class="published" datetime="{{ post.date.isoformat() }}">{{ post.formatted_date(date_format) }}</time>
         {{ helper.html_translations(post) }}
+		{{ helper.html_tags(post) }}
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        {% if not post.meta('password') %}
-          <a href="{{ post.source_link() }}" id="sourcelink">{{ messages("Source") }}</a>
-        {% endif %}
-        {{ helper.html_tags(post) }}
+		{% block sourcelink %}
+		{% if not post.meta('password') %}
+			<a href="{{ post.source_link() }}" id="sourcelink">{{ messages("Source") }}</a>
+		{% endif %}
+		{% endblock %}
     </small>
     <hr>
     {{ post.text() }}
     {{ helper.html_pager(post) }}
     {% if not post.meta('nocomments') %}
-        {{ disqus.html_disqus(post.permalink(absolute=True), post.title(), post.base_path) }}
+        {{ comments.comment_form(post.permalink(absolute=True), post.title(), post.base_path) }}
     {% endif %}
+    {{ helper.mathjax_script(post) }}
     </div>
 {% endblock %}
-
