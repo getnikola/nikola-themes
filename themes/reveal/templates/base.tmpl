@@ -1,13 +1,13 @@
 ## -*- coding: utf-8 -*-
-<%namespace file="base_helper.tmpl" import="*"/>
-<%namespace file="bootstrap_helper.tmpl" import="*"/>
-<%namespace file="reveal_helper.tmpl" import="*"/>
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+<%namespace name="bootstrap" file="bootstrap_helper.tmpl" import="*"/>
+<%namespace name="reveal" file="reveal_helper.tmpl" import="*"/>
 <!DOCTYPE html>
 <html lang="${lang}">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    ${html_head()}
-    ${html_reveal_head()}
+    ${bootstrap.html_head()}
+    ${reveal.html_reveal_head()}
     <%block name="extra_head">
     </%block>
     ${extra_head_data}
@@ -31,7 +31,7 @@
             <!-- Everything you want hidden at 940px or less, place within here -->
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    ${html_sidebar_links()}
+                    ${bootstrap.html_navigation_links()}
                 </ul>
                 %if search_form:
                     ${search_form}
@@ -39,7 +39,7 @@
                 <ul class="nav pull-right">
                 <%block name="belowtitle">
                 %if len(translations) > 1:
-                    <li>${html_translations()}</li>
+                    <li>${base.html_translations()}</li>
                 %endif
                 </%block>
                 %if not hide_sourcelink:
@@ -60,7 +60,7 @@
 </div></div>
 <!--End of body content-->
 
-${html_reveal_body()}
+${reveal.html_reveal_body()}
 
 <%block name="custom_reveal">
 </%block>
@@ -73,8 +73,8 @@ ${html_reveal_body()}
     </div>
 </div>
 
-${html_social()}
-${late_load_js()}
+${base.html_social()}
+${bootstrap.late_load_js()}
 ${social_buttons_code}
     <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"80%",maxHeight:"80%",scalePhotos:true});</script>
     <%block name="extra_js"></%block>
