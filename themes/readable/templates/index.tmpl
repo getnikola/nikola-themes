@@ -1,55 +1,28 @@
 ## -*- coding: utf-8 -*-
+<%namespace name="helper" file="index_helper.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
 <%inherit file="base.tmpl"/>
 <%block name="content">
     % for post in posts:
         <div class="postdiv">
-        <a href="${post.permalink(lang)}"><h2>${post.title(lang)}</a></h2>
-        ${post.text(lang,index_teasers)}
+        <a href="${post.permalink()}"><h2>${post.title()}</a></h2>
+        ${post.text(teaser_only=index_teasers)}
         <p>
         </div>
         <div class="postmeta">
         <small>&nbsp;§&nbsp;
-             ${messages[lang]["Posted"]}: ${post.date}
+             ${messages("Posted")}: <time class="published" datetime="${post.date.isoformat()}">${post.formatted_date(date_format)}</time>
         </small>
-        %if disqus_forum:
-            · <a href="${post.permalink(absolute=True)}#disqus_thread">Comments</a>
-        %endif
+        % if not post.meta('nocomments'):
+            ${comments.comment_link(post.permalink(), post.base_path)}
+        % endif
         % for tag in post.tags:
              · ${tag}
         %endfor
         </div>
         <hr>
     % endfor
-    <div>
-<ul class="pager">
-  %if prevlink:
-    <li class="previous">
-        <a href="${prevlink}">&larr; Newer posts</a>
-    </li>
-  %endif
-  %if nextlink:
-    <li class="next">
-        <a href="${nextlink}">Older posts &rarr;</a>
-    </li>
-  %endif
-</ul>
-
-    </div>
-    <hr>
-    %if disqus_forum:
-        <script type="text/javascript">
-        //<![CDATA[
-        (function() {
-            var links = document.getElementsByTagName('a');
-            var query = '?';
-            for(var i = 0; i < links.length; i++) {
-            if(links[i].href.indexOf('#disqus_thread') >= 0) {
-                query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
-            }
-            }
-            document.write('<script charset="utf-8" type="text/javascript" src="http://disqus.com/forums/${disqus_forum}/get_num_replies.js' + query + '"></' + 'script>');
-        })();
-        //]]>
-        </script>
-    %endif
+    ${helper.html_pager()}
+    ${comments.comment_link_script()}
+	${helper.mathjax_script(posts)}
 </%block>
