@@ -56,8 +56,8 @@ def sanity_check(theme=None):
             path = "/".join([root, f])
             with codecs.open(path, "r", "utf8") as inf:
                 data = inf.read()
-            for k in blacklist:
-                if k in data:
+            for k, exceptions in blacklist:
+                if k in data and f not in exceptions:
                     error("theme '{0}' contains deprecated name '{1}' in {2}".format(theme, k, path))
 
 
@@ -74,11 +74,11 @@ def is_asset_duplicated(path, themes):
 
 
 blacklist = (
-    "${analytics}",
-    "{{analytics}}",
-    "disqus_",
-    "addthis",
-    "namespace file=",
+    ["${analytics}",[]],
+    ["{{analytics}}",[]],
+    ["disqus_",['coments_helper', 'disqus_helper']],
+    ["addthis",[]],
+    ["namespace file=",[]],
 )
 
 if __name__ == "__main__":
