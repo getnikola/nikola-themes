@@ -3,6 +3,7 @@
 """Make sanity checks on the provided themes."""
 
 from __future__ import unicode_literals, print_function
+import codecs
 import filecmp
 import glob
 import hashlib
@@ -47,6 +48,18 @@ def sanity_check(theme=None):
             if r:
                 error("duplicated asset: {0} {1}".format(p1, p2))
 
+
+    # Detect deprecated names
+    for root, dirs, files in os.walk("themes/"+theme+"/templates"):
+        for f in files:
+            path = "/".join([root, f])
+            with codecs.open(path, "r", "utf8") as inf:
+                data = inf.read()
+            for k in blacklist:
+                if k in data:
+                    error("theme {0} contains deprecated {1}".format(theme, k))
+
+
 def is_asset_duplicated(path, themes):
     # First get the path for the asset with whole theme chain
     p1 = utils.get_asset_path(path, themes)
@@ -57,6 +70,12 @@ def is_asset_duplicated(path, themes):
         return filecmp.cmp(p1, p2, False), p1, p2
     else:
         return False, p1, p2
+
+
+blacklist = (
+    "${analytics}",
+    "{{analytics}}",
+)
 
 if __name__ == "__main__":
     import commandline
