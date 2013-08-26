@@ -57,7 +57,7 @@ def sanity_check(theme=None):
                 data = inf.read()
             for k in blacklist:
                 if k in data:
-                    error("theme '{0}' contains deprecated name '{1}'".format(theme, k))
+                    error("theme '{0}' contains deprecated name '{1}' in {2}".format(theme, k, path))
 
 
 def is_asset_duplicated(path, themes):
