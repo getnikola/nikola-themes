@@ -75,6 +75,8 @@ def is_asset_duplicated(path, themes):
 blacklist = (
     "${analytics}",
     "{{analytics}}",
+    "disqus_",
+    "addthis",
 )
 
 if __name__ == "__main__":
