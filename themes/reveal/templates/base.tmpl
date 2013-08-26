@@ -1,7 +1,7 @@
 ## -*- coding: utf-8 -*-
 <%namespace file="base_helper.tmpl" import="*"/>
-<%namespace file="base_helper_bootstrap.tmpl" import="*"/>
-<%namespace file="base_helper_reveal.tmpl" import="*"/>
+<%namespace file="bootstrap_helper.tmpl" import="*"/>
+<%namespace file="reveal_helper.tmpl" import="*"/>
 <!DOCTYPE html>
 <html lang="${lang}">
 <head>
@@ -78,5 +78,5 @@ ${late_load_js()}
 ${social_buttons_code}
     <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"80%",maxHeight:"80%",scalePhotos:true});</script>
     <%block name="extra_js"></%block>
-${analytics}
+${body_end}
 </body>
