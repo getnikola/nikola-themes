@@ -1,10 +1,10 @@
 ## -*- coding: utf-8 -*-
-<%namespace name="base_helper" file="base_helper.tmpl" />
+<%namespace file="base_helper.tmpl" import="*"/>
 ${set_locale(lang)}
 <!DOCTYPE html>
 <html lang="${lang}">
 <head>
-    ${base_helper.html_head()}
+    ${html_head()}
     <%block name="extra_head">
     </%block>
     ${extra_head_data}
