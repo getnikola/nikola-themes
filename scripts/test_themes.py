@@ -8,6 +8,7 @@ import filecmp
 import glob
 import hashlib
 import os
+import re
 
 import colorama
 
@@ -49,7 +50,7 @@ def sanity_check(theme=None):
                 error("duplicated asset: {0} {1}".format(p1, p2))
 
 
-    # Detect deprecated names
+    # Detect deprecated names and anonymous namespaces
     for root, dirs, files in os.walk("themes/"+theme+"/templates"):
         for f in files:
             path = "/".join([root, f])
@@ -77,6 +78,7 @@ blacklist = (
     "{{analytics}}",
     "disqus_",
     "addthis",
+    "namespace file=",
 )
 
 if __name__ == "__main__":

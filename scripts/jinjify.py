@@ -8,6 +8,12 @@ import colorama
 import jinja2
 from jinja2 import meta
 
+dumb_replacements = [
+    ["{% if isinstance(url, tuple) %}", "{% if url is mapping %}"],
+    ["{% if any(post.is_mathjax for post in posts) %}", '{% if posts|rejectattr("is_mathjax") %}'],
+    ["json.dumps(title)", "title|tojson"],
+    ]
+
 def jinjify(in_theme, out_theme):
     """Convert in_theme into a jinja version and put it in out_theme"""
 
@@ -22,6 +28,14 @@ def jinjify(in_theme, out_theme):
         out_template = os.path.join(out_templates_path, os.path.basename(template))
         with codecs.open(template, "r", "utf-8") as inf:
             data = mako2jinja(inf)
+
+        lines = []
+        for line in data.splitlines():
+            for repl in dumb_replacements:
+                line = line.replace(*repl)
+            lines.append(line)
+        data = '\n'.join(lines)
+
         with codecs.open(out_template, "wb+", "utf-8") as outf:
             outf.write(data)
 
@@ -53,6 +67,7 @@ def mako2jinja(input_file):
 
     if_start = re.compile(r'(.*)% *if (.*):(.*)', re.IGNORECASE)
     if_else = re.compile(r'(.*)% *else.*:(.*)', re.IGNORECASE)
+    if_elif = re.compile(r'(.*)% *elif.* (.*):(.*)', re.IGNORECASE)
     if_end = re.compile(r'(.*)% *endif(.*)', re.IGNORECASE)
 
     for_start = re.compile(r'(.*)% *for (.*):(.*)', re.IGNORECASE)
@@ -92,6 +107,7 @@ def mako2jinja(input_file):
         m_macro_end = macro_end.search(line)
         m_if_start = if_start.search(line)
         m_if_else = if_else.search(line)
+        m_if_elif = if_elif.search(line)
         m_if_end = if_end.search(line)
         m_for_start = for_start.search(line)
         m_for_end = for_end.search(line)
@@ -115,6 +131,8 @@ def mako2jinja(input_file):
             output += m_if_start.expand(r'\1{% if \2 %}\3') + '\n'
         elif m_if_else:
             output += m_if_else.expand(r'\1{% else %}\2') + '\n'
+        elif m_if_elif:
+            output += m_if_elif.expand(r'\1{% elif \2 %}\3') + '\n'
         elif m_if_end:
             output += m_if_end.expand(r'\1{% endif %}\2') + '\n'
 
