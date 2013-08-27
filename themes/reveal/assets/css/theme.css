@@ -72,3 +72,6 @@ div.admonition, div.attention, div.caution, div.danger, div.error, div.hint, div
     border: 1px solid #aaa;
     border-radius: 5px;
 }
+ul.breadcrumb > li:before {
+    content: " / ";
+}

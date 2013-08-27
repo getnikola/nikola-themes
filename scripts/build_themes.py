@@ -47,7 +47,7 @@ def build_theme(theme=None):
     for theme in glob.glob('themes/*/'):
         t_name = os.path.basename(theme[:-1])
         themes_dict[t_name] = BASE_URL + t_name + ".zip"
-    with open(os.path.join("sites", "themes.json"), "wb+") as outf:
+    with open(os.path.join("output", "themes.json"), "wb+") as outf:
         json.dump(themes_dict, outf, sort_keys=True)
 
 

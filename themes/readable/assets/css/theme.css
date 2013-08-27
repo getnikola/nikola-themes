@@ -62,3 +62,6 @@ a:hover { color: #555; }
 .footer {
     text-align: center;
 }
+ul.breadcrumb > li:before {
+    content: " / ";
+}

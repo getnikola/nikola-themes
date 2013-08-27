@@ -19,3 +19,6 @@ div.sidebar, div.admonition, div.attention, div.caution, div.danger, div.error, 
     border-radius: 5px;
     width: 100%;
 }
+ul.breadcrumb > li:before {
+    content: " / ";
+}
