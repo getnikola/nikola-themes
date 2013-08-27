@@ -12,7 +12,7 @@ dumb_replacements = [
     ["{% if isinstance(url, tuple) %}", "{% if url is mapping %}"],
     ["{% if any(post.is_mathjax for post in posts) %}", '{% if posts|rejectattr("is_mathjax") %}'],
     ["json.dumps(title)", "title|tojson"],
-    ]
+   ]
 
 def jinjify(in_theme, out_theme):
     """Convert in_theme into a jinja version and put it in out_theme"""
@@ -46,8 +46,14 @@ def jinjify(in_theme, out_theme):
         except Exception as e:
             error("Syntax error in {0}:{1}".format(out_template, e.lineno))
 
+    try:
+        with open(os.path.join(in_theme, "parent"), "r") as inf:
+            parent = inf.read().strip()+"-jinja"
+    except:
+        parent = os.path.basename(theme)
+
     with open(os.path.join(out_theme, "parent"), "wb+") as outf:
-        outf.write(os.path.basename(in_theme))
+        outf.write(parent)
 
     with open(os.path.join(out_theme, "engine"), "wb+") as outf:
         outf.write("jinja")
@@ -84,7 +90,7 @@ def mako2jinja(input_file):
     func_len = re.compile(r'len\((.*?)\)', re.IGNORECASE)
     filter_h = re.compile(r'\|h', re.IGNORECASE)
 
-    comment_single_line = re.compile(r'^\s*#+ *(.*?)$', re.IGNORECASE)
+    comment_single_line = re.compile(r'^.*##(.*?)$', re.IGNORECASE)
 
     for line in input_file:
 
