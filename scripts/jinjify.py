@@ -3,6 +3,7 @@ import glob
 import os
 import re
 import json
+import shutil
 
 import colorama
 import jinja2
@@ -22,7 +23,6 @@ def jinjify(in_theme, out_theme):
     os.makedirs(out_templates_path)
     lookup = jinja2.Environment()
     lookup.filters['tojson'] = json.dumps
-    lookup.filters['any'] = any
     lookup.loader = jinja2.FileSystemLoader([out_templates_path], encoding='utf-8')
     for template in glob.glob(os.path.join(in_templates_path, "*.tmpl")):
         out_template = os.path.join(out_templates_path, os.path.basename(template))
@@ -58,6 +58,11 @@ def jinjify(in_theme, out_theme):
     with open(os.path.join(out_theme, "engine"), "wb+") as outf:
         outf.write("jinja")
 
+    # Copy assets
+    shutil.copytree(os.path.join(in_theme, "assets"), os.path.join(out_theme, "assets"))
+
+    # Copy bundles
+    shutil.copy(os.path.join(in_theme, "bundles"), os.path.join(out_theme, "bundles"))
 
 def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
