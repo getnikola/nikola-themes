@@ -13,3 +13,9 @@ h1, h2, h3, h4, h5, h6, h7 { margin:0px; text-transform:uppercase; }
 h4, h5, h6 { font-size:14px; }
 #blog-title { margin-top: 0; line-height:48px;}
 .literal-block {padding: .5em;}
+div.sidebar, div.admonition, div.attention, div.caution, div.danger, div.error, div.hint, div.important, div.note, div.tip, div.warning {
+    /* Issue 277 */
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    width: 100%;
+}
