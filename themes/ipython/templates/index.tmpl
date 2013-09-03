@@ -1,0 +1,22 @@
+{# -*- coding: utf-8 -*- #}
+{% import 'index_helper.tmpl' as helper with context %}
+{% import 'comments_helper.tmpl' as comments with context %}
+{% extends 'base.tmpl' %}
+{% block content %}
+    {% for post in posts %}
+        <div class="postbox">
+        <h1><a href="{{ post.permalink() }}">{{ post.title() }}</a></h1>
+        <p style="text-align:right"><big>
+             {{ messages("Posted") }}: <time class="published" datetime="{{ post.date.isoformat() }}">{{ post.formatted_date(date_format) }}</time>
+        </big></p>
+        <hr>
+        {{ post.text(teaser_only=index_teasers) }}
+        {% if not post.meta('nocomments') %}
+            {{ comments.comment_link(post.permalink(), post.base_path) }}
+        {% endif %}
+        </div>
+    {% endfor %}
+    {{ helper.html_pager() }}
+    {{ comments.comment_link_script() }}
+    {{ helper.mathjax_script(posts) }}
+{% endblock %}
