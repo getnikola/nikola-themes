@@ -30,16 +30,18 @@
 
 <%def name="html_pager(post)">
     <div style="text-align:right">
-        <ul class="pager">
-        %if post.prev_post:
-            <li class="previous">
-                <a href="${post.prev_post.permalink(lang)}">&larr; ${messages[lang]["Previous post"]}</a>
-        %endif
-        %if post.next_post:
-            <li class="next">
-                <a href="${post.next_post.permalink(lang)}">${messages[lang]["Next post"]} &rarr;</a>
-        %endif
-        </ul>
+    <ul class="pager">
+    %if post.prev_post:
+        <li class="previous">
+            <a href="${post.prev_post.permalink()}">&larr; ${messages("Previous post")}</a>
+        </li>
+    %endif
+    %if post.next_post:
+        <li class="next">
+            <a href="${post.next_post.permalink()}">${messages("Next post")} &rarr;</a>
+        </li>
+    %endif
+    </ul>
     </div>
 </%def>
 
