@@ -76,7 +76,7 @@ def is_asset_duplicated(path, themes):
 blacklist = (
     ["${analytics}",[]],
     ["{{analytics}}",[]],
-    ["disqus_",['coments_helper', 'disqus_helper']],
+    ["disqus_",['comments_helper.tmpl', 'disqus_helper.tmpl']],
     ["addthis",[]],
     ["namespace file=",[]],
 )
