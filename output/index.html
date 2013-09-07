@@ -18,7 +18,8 @@
     <div class="container">
       <div class="starter-template">
       </div>
-      <div class="row jumbotron">
+      <div class="row jumbotron" style="padding-top: 30px;">
+      <h2>Nikola Themes <small>for version 6</small></h2>
       <p>This is the theme repository for <a href="http://getnikola.com">Nikola</a>, a static site and
       blog generator. If you want to contribute a theme, you can do so at the
       <a href="http://github.com/ralsina/nikola-themes">GitHub repository</a> or just ask in the
@@ -71,7 +72,7 @@
 //      Show theme data
         container = $('#rightside');
         container.html('');
-        var title = $('<h3/>').text(theme).appendTo(container);
+        var title = $('<h2/>').text(theme).appendTo(container);
         var small = $('<small/>').appendTo(title)
         $('<div/>').addClass('alert').html('<tt>To install, use <span class="label label-info" style="font-size: 120%;">nikola install_theme '+theme+'</tt></span>').appendTo(container)
         if (data[theme]['bootswatch']) {
