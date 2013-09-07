@@ -18,7 +18,7 @@ def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
 
 def theme_list():
-    return [theme.split('/')[-1] for theme in glob.glob("themes/*")]
+    return ['base', 'bootstrap', 'bootstrap3'] + [theme.split('/')[-1] for theme in glob.glob("themes/*")]
 
 def sanity_check(theme=None):
     if theme is None:  # Check them all
@@ -60,6 +60,9 @@ def sanity_check(theme=None):
                 if k in data and f not in exceptions:
                     error("theme '{0}' contains deprecated name '{1}' in {2}".format(theme, k, path))
 
+    # Ensure the theme has a README
+    if utils.get_asset_path('README', [theme]) is None:
+        error("theme '{0}' has no README".format(theme))
 
 def is_asset_duplicated(path, themes):
     # First get the path for the asset with whole theme chain
