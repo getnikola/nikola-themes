@@ -56,12 +56,7 @@ def jinjify(in_theme, out_theme):
         except Exception as e:
             error("Syntax error in {0}:{1}".format(out_template, e.lineno))
 
-    try:
-        with open(os.path.join(in_theme, "parent"), "r") as inf:
-            parent = inf.read().strip()+"-jinja"
-    except:
-        parent = os.path.basename(in_theme)
-
+    parent = os.path.basename(in_theme.rstrip('/'))
     with open(os.path.join(out_theme, "parent"), "wb+") as outf:
         outf.write(parent)
 
@@ -69,11 +64,11 @@ def jinjify(in_theme, out_theme):
         outf.write("jinja")
 
     # Copy assets
-    shutil.rmtree(os.path.join(out_theme, "assets"))
-    shutil.copytree(os.path.join(in_theme, "assets"), os.path.join(out_theme, "assets"))
+    #shutil.rmtree(os.path.join(out_theme, "assets"))
+    #shutil.copytree(os.path.join(in_theme, "assets"), os.path.join(out_theme, "assets"))
 
     # Copy bundles
-    shutil.copy(os.path.join(in_theme, "bundles"), os.path.join(out_theme, "bundles"))
+    #shutil.copy(os.path.join(in_theme, "bundles"), os.path.join(out_theme, "bundles"))
 
     # Copy README
     if os.path.isfile(os.path.join(in_theme, "README")):

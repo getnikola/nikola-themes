@@ -1,4 +1,4 @@
-{# -*- coding: utf-8 -*- #}
+{#  -*- coding: utf-8 -*- #}
 <%!
     import json
     translations = {
@@ -44,7 +44,7 @@
     {% endif %}
 {% endmacro %}
 
-{# FIXME: remove aliases in v7 #}
+{#  FIXME: remove aliases in v7 #}
 {% macro html_disqus(url, title, identifier) %}
     {{ comment_form(url, title, identifier) }}
 {% endmacro %}
