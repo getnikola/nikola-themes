@@ -90,14 +90,14 @@
         container.html('');
         var title = $('<h3/>').text(theme).appendTo(container);
         var small = $('<small/>').appendTo(title)
-        $('<div/>').addClass('alert').html('To install, use <tt>nikola install_theme '+theme+'</tt>').appendTo(container)
+        $('<div/>').addClass('alert').html('To install, use <span class="label label-info">nikola install_theme '+theme+'</span>').appendTo(container)
         if (data[theme]['bootswatch']) {
             $('<span/>').html('&nbsp;|&nbsp;Supports <a href="http://bootswatch.com">Bootswatch</a>').appendTo(small)
         }
         $('<span/>').html('&nbsp;|&nbsp;<a href="v6/'+theme+'/index.html">Demo</a>').appendTo(small)
         $('<div/>').html(converter.makeHtml(data[theme]['readme'])).appendTo(container)
         thumb = $('<div/>').appendTo(container)
-        $('<img/>').attr('src', 'v6/'+theme+'.jpg').attr('style', 'width:50%')
+        $('<img/>').attr('src', 'v6/'+theme+'.jpg').attr('style', 'width:500px;')
             .addClass('thumbnail').appendTo(thumb)
 //      Mark theme as active and paginate to it
         var listItems = $("#itemContainer a");
