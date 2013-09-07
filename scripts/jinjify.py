@@ -9,6 +9,8 @@ import colorama
 import jinja2
 from jinja2 import meta
 
+from nikola import utils
+
 dumb_replacements = [
     ["{% if isinstance(url, tuple) %}", "{% if url is mapping %}"],
     ["{% if any(post.is_mathjax for post in posts) %}", '{% if posts|rejectattr("is_mathjax") %}'],
@@ -20,7 +22,10 @@ def jinjify(in_theme, out_theme):
 
     in_templates_path = os.path.join(in_theme, "templates")
     out_templates_path = os.path.join(out_theme, "templates")
-    os.makedirs(out_templates_path)
+    try:
+        os.makedirs(out_templates_path)
+    except:
+        pass
     lookup = jinja2.Environment()
     lookup.filters['tojson'] = json.dumps
     lookup.loader = jinja2.FileSystemLoader([out_templates_path], encoding='utf-8')
@@ -50,7 +55,7 @@ def jinjify(in_theme, out_theme):
         with open(os.path.join(in_theme, "parent"), "r") as inf:
             parent = inf.read().strip()+"-jinja"
     except:
-        parent = os.path.basename(theme)
+        parent = os.path.basename(in_theme)
 
     with open(os.path.join(out_theme, "parent"), "wb+") as outf:
         outf.write(parent)
