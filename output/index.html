@@ -73,7 +73,7 @@
         container.html('');
         var title = $('<h3/>').text(theme).appendTo(container);
         var small = $('<small/>').appendTo(title)
-        $('<div/>').addClass('alert').html('To install, use <span class="label label-info">nikola install_theme '+theme+'</span>').appendTo(container)
+        $('<div/>').addClass('alert').html('<tt>To install, use <span class="label label-info" style="font-size: 120%;">nikola install_theme '+theme+'</tt></span>').appendTo(container)
         if (data[theme]['bootswatch']) {
             $('<span/>').html('&nbsp;|&nbsp;Supports <a href="http://bootswatch.com">Bootswatch</a>').appendTo(small)
         }
