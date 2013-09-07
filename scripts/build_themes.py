@@ -40,20 +40,24 @@ def build_theme(theme=None):
         error("can' t build theme {0}".format(theme))
         raise
 
+    if not os.path.isdir(os.path.join("output", "v6")):
+        os.mkdir(os.path.join("output", "v6"))
+
     if os.path.isdir('themes/'+theme):
-        subprocess.check_call('zip -r output/{0}.zip themes/{0}'.format(theme), stdout=subprocess.PIPE, shell=True)
+        subprocess.check_call('zip -r output/v6/{0}.zip themes/{0}'.format(theme), stdout=subprocess.PIPE, shell=True)
+    subprocess.check_call('capty output/v6/{0}/index.html output/v6/{0}.jpg'.format(theme), stdout=subprocess.PIPE, shell=True)
 
     themes_dict = {}
     for theme in glob.glob('themes/*/'):
         t_name = os.path.basename(theme[:-1])
         themes_dict[t_name] = BASE_URL + t_name + ".zip"
-    with open(os.path.join("output", "themes.json"), "wb+") as outf:
-        json.dump(themes_dict, outf, sort_keys=True)
+    with open(os.path.join("output", "v6", "themes.json"), "wb+") as outf:
+        json.dump(themes_dict, outf, indent=4, ensure_ascii=True, sort_keys=True)
 
 
 def init_theme(theme):
     t_path = "/".join(["sites", theme])
-    o_path = os.path.abspath("/".join(["output", theme]))
+    o_path = os.path.abspath("/".join(["output", "v6", theme]))
     if os.path.isdir(t_path):
         shutil.rmtree(t_path)
     if os.path.isdir(o_path):

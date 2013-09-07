@@ -4,6 +4,8 @@
 
 from __future__ import unicode_literals, print_function
 import glob
+import json
+import os
 
 import colorama
 from progressbar import ProgressBar
@@ -19,10 +21,25 @@ def theme_list():
     return ['base', 'bootstrap', 'bootstrap3'] + [theme.split('/')[-1] for theme in glob.glob("themes/*")]
 
 def build_site():
-        progress = ProgressBar()
-        for theme in progress(theme_list()):
-            print(theme)
-        return
+    data = {}
+    progress = ProgressBar()
+    for theme in progress(theme_list()):
+        data[theme] = get_data(theme)
+    with open(os.path.join('output', 'v6', 'theme_data.js'), 'wb+') as outf:
+        outf.write("var data = " + json.dumps(data, indent=4, ensure_ascii=True, sort_keys=True))
+
+def get_data(theme):
+    data = {}
+    data['name'] = theme
+    readme = os.path.join("themes", theme, "README")
+    if os.path.isfile(readme):
+        data['readme'] = open(readme).read()
+    else:
+        data['readme'] = 'No readme file available'
+    data['chain'] = utils.get_theme_chain(theme)
+    data['bootswatch'] = 'bootstrap' in data['chain'] or 'bootstrap3' in data['chain']
+    data['engine'] = utils.get_template_engine(data['chain'])
+    return data
 
 if __name__ == "__main__":
     import commandline

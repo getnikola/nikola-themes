@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+    <title>
+      Starter Template for Bootstrap
+    </title>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="jPages.css" rel="stylesheet">
+  </head>
+
+  <body style="margin-top: 90px">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Nikola Themes</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="http://github.com/ralsina/nikola-themes">Github</a>
+            </li>
+            <li>
+              <a href="http://getnikola.com">Nikola</a>
+            </li>
+            <li>
+            </li>
+          </ul>
+        </div>
+        <!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+      <div class="starter-template">
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <ul class="list-group" id="itemContainer">
+            <li class="list-group-item">
+              <span class="badge">14</span>
+              Cras justo odio
+            </li>
+            <li class="list-group-item">
+              <span class="badge">2</span>
+              Dapibus ac facilisis in
+            </li>
+            <li class="list-group-item">
+              <span class="badge">1</span>
+              Morbi leo risus
+            </li>
+          </ul>
+          <div id="holder">
+            Some interesting content
+          </div>
+        </div>
+        <div class="col-md-8">
+          <img src="https://s3.amazonaws.com/jetstrap-site/images/website/index/what_icon.png">
+          <p>
+            Content
+          </p>
+        </div>
+        <div class="col-md-4" style="display: none;">
+          <h3>
+            Span 4
+          </h3>
+          <p>
+            Content
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- /.container -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"> </script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"> </script>
+    <script src="v6/theme_data.js"> </script>
+    <script type="text/javascript" >
+      $(function(){ $("div.holder").jPages({ containerID : "itemContainer",
+      perPage: 5 }); });
+    </script>
+  </body>
+
+</html>
