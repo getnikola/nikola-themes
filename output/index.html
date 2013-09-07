@@ -46,21 +46,8 @@
       <div class="row">
         <div class="col-md-4">
           <ul class="list-group" id="itemContainer">
-            <li class="list-group-item">
-              <span class="badge">14</span>
-              Cras justo odio
-            </li>
-            <li class="list-group-item">
-              <span class="badge">2</span>
-              Dapibus ac facilisis in
-            </li>
-            <li class="list-group-item">
-              <span class="badge">1</span>
-              Morbi leo risus
-            </li>
           </ul>
-          <div id="holder">
-            Some interesting content
+          <div class="holder">
           </div>
         </div>
         <div class="col-md-8">
@@ -80,13 +67,29 @@
       </div>
     </div>
     <!-- /.container -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"> </script>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"> </script>
-    <script src="v6/theme_data.js"> </script>
-    <script type="text/javascript" >
-      $(function(){ $("div.holder").jPages({ containerID : "itemContainer",
-      perPage: 5 }); });
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="jPages.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="v6/theme_data.js"></script>
+    <script type="text/javascript">
+      $(function(){
+//      Add themes to the list
+        th_list = $("#itemContainer");
+        console.log("--->", data);
+        for (theme in data) {
+            var li = $('<li/>')
+                .addClass('list-group-item');
+            var span = $('<span/>').text(theme).appendTo(li);
+            li.appendTo(th_list);
+    };
+//             <li class="list-group-item">
+//               <span class="badge">14</span>
+//               Cras justo odio
+//             </li>
+
+
+        $("div.holder").jPages({ containerID : "itemContainer", perPage: 5 });
+      });
     </script>
   </body>
-
 </html>
