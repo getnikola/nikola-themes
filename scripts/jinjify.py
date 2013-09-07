@@ -15,7 +15,12 @@ dumb_replacements = [
     ["{% if isinstance(url, tuple) %}", "{% if url is mapping %}"],
     ["{% if any(post.is_mathjax for post in posts) %}", '{% if posts|rejectattr("is_mathjax") %}'],
     ["json.dumps(title)", "title|tojson"],
-   ]
+    [
+        '''<html{% if comment_system == 'facebook': xmlns:fb="http %}//ogp.me/ns/fb#" %endif lang="{{ lang }}">''',
+        '''<html{% if comment_system == 'facebook' %} xmlns:fb="http://ogp.me/ns/fb#" {%endif%} lang="{{ lang }}">'''
+    ]
+]
+
 
 def jinjify(in_theme, out_theme):
     """Convert in_theme into a jinja version and put it in out_theme"""
@@ -64,6 +69,7 @@ def jinjify(in_theme, out_theme):
         outf.write("jinja")
 
     # Copy assets
+    shutil.rmtree(os.path.join(out_theme, "assets"))
     shutil.copytree(os.path.join(in_theme, "assets"), os.path.join(out_theme, "assets"))
 
     # Copy bundles
