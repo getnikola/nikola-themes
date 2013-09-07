@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.png">
     <title>
-      Starter Template for Bootstrap
+      Themes for Nikola (version 6)
     </title>
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="jPages.css" rel="stylesheet">
@@ -23,7 +23,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Nikola Themes</a>
+          <a class="navbar-brand" href="#">Nikola Version 6 Themes</a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -32,8 +32,6 @@
             </li>
             <li>
               <a href="http://getnikola.com">Nikola</a>
-            </li>
-            <li>
             </li>
           </ul>
         </div>
@@ -45,21 +43,12 @@
       </div>
       <div class="row">
         <div class="col-md-4">
-          <ul class="list-group" id="itemContainer">
-          </ul>
-          <div class="holder">
+          <div class="holder"></div>
+          <div class="list-group" id="itemContainer">
           </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8" id="rightside">
           <img src="https://s3.amazonaws.com/jetstrap-site/images/website/index/what_icon.png">
-          <p>
-            Content
-          </p>
-        </div>
-        <div class="col-md-4" style="display: none;">
-          <h3>
-            Span 4
-          </h3>
           <p>
             Content
           </p>
@@ -71,25 +60,59 @@
     <script src="jPages.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="v6/theme_data.js"></script>
+    <script src="showdown.js"></script>
     <script type="text/javascript">
       $(function(){
 //      Add themes to the list
         th_list = $("#itemContainer");
-        console.log("--->", data);
         for (theme in data) {
-            var li = $('<li/>')
-                .addClass('list-group-item');
-            var span = $('<span/>').text(theme).appendTo(li);
-            li.appendTo(th_list);
-    };
-//             <li class="list-group-item">
-//               <span class="badge">14</span>
-//               Cras justo odio
-//             </li>
-
-
-        $("div.holder").jPages({ containerID : "itemContainer", perPage: 5 });
+            var anchor = $('<a/>')
+                .addClass('list-group-item')
+                .attr('id', 'li-'+ theme)
+                .attr('href', '#'+theme)
+                .text(theme)
+                .appendTo(th_list)
+        };
+//      Paginate
+        $("div.holder").jPages({ containerID : "itemContainer", perPage: 10 });
+        hash_handler();
       });
+    var converter = new Showdown.converter();
+    function hash_handler() {
+        if (location.hash) {
+            theme = location.hash.slice(1);
+        }
+        else {
+            theme = 'bootstrap';
+        }
+//      Show theme data
+        container = $('#rightside');
+        container.html('');
+        var title = $('<h3/>').text(theme).appendTo(container);
+        var small = $('<small/>').appendTo(title)
+        $('<div/>').addClass('alert').html('To install, use <tt>nikola install_theme '+theme+'</tt>').appendTo(container)
+        if (data[theme]['bootswatch']) {
+            $('<span/>').html('&nbsp;|&nbsp;Supports <a href="http://bootswatch.com">Bootswatch</a>').appendTo(small)
+        }
+        $('<span/>').html('&nbsp;|&nbsp;<a href="v6/'+theme+'/index.html">Demo</a>').appendTo(small)
+        $('<div/>').html(converter.makeHtml(data[theme]['readme'])).appendTo(container)
+        thumb = $('<div/>').appendTo(container)
+        $('<img/>').attr('src', 'v6/'+theme+'.jpg').attr('style', 'width:50%')
+            .addClass('thumbnail').appendTo(thumb)
+//      Mark theme as active and paginate to it
+        var listItems = $("#itemContainer a");
+        listItems.each(function(idx, item) {
+            console.log(item.id , 'li-'+theme)
+            if (item.id == 'li-'+theme) {
+                $('#li-'+theme).addClass('active');
+                var page = parseInt(idx/10)+1;
+                $("div.holder").jPages(page);
+            } else {
+                $('#'+item.id).removeClass('active');
+            }
+        });
+    };
+    $(window).on('hashchange', hash_handler);
     </script>
   </body>
 </html>

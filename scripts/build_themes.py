@@ -44,7 +44,8 @@ def build_theme(theme=None):
         os.mkdir(os.path.join("output", "v6"))
 
     if os.path.isdir('themes/'+theme):
-        subprocess.check_call('zip -r output/v6/{0}.zip themes/{0}'.format(theme), stdout=subprocess.PIPE, shell=True)
+        with cd('themes/'):
+            subprocess.check_call('zip -r ../output/v6/{0}.zip {0}'.format(theme), stdout=subprocess.PIPE, shell=True)
     subprocess.check_call('capty output/v6/{0}/index.html output/v6/{0}.jpg'.format(theme), stdout=subprocess.PIPE, shell=True)
 
     themes_dict = {}
