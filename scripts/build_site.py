@@ -37,7 +37,11 @@ def get_data(theme):
     else:
         data['readme'] = 'No readme file available'
     data['chain'] = utils.get_theme_chain(theme)
-    data['bootswatch'] = 'bootstrap' in data['chain'] or 'bootstrap3' in data['chain']
+    data['bootswatch'] = ('bootstrap' in data['chain'] or
+        'bootstrap-jinja' in data['chain'] or
+        'bootstrap3-jinja' in data['chain'] or
+        'bootstrap3' in data['chain']) and \
+        'bootstrap3-gradients' not in data['chain']
     data['engine'] = utils.get_template_engine(data['chain'])
     return data
 

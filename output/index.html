@@ -97,8 +97,9 @@
         $('<span/>').html('&nbsp;|&nbsp;<a href="v6/'+theme+'/index.html">Demo</a>').appendTo(small)
         $('<div/>').html(converter.makeHtml(data[theme]['readme'])).appendTo(container)
         thumb = $('<div/>').appendTo(container)
+        full_image_link = $('<a/>').attr('href', 'v6/'+theme+'.jpg').appendTo(thumb)
         $('<img/>').attr('src', 'v6/'+theme+'.jpg').attr('style', 'width:500px;')
-            .addClass('thumbnail').appendTo(thumb)
+            .addClass('thumbnail').appendTo(full_image_link)
 //      Mark theme as active and paginate to it
         var listItems = $("#itemContainer a");
         listItems.each(function(idx, item) {
