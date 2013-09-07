@@ -64,6 +64,10 @@ def jinjify(in_theme, out_theme):
     # Copy bundles
     shutil.copy(os.path.join(in_theme, "bundles"), os.path.join(out_theme, "bundles"))
 
+    # Copy README
+    if os.path.isfile(os.path.join(in_theme, "README")):
+        shutil.copy(os.path.join(in_theme, "README"), os.path.join(out_theme, "README"))
+
 def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
 
