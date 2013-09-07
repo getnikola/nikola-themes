@@ -31,8 +31,8 @@ def build_site():
 def get_data(theme):
     data = {}
     data['name'] = theme
-    readme = os.path.join("themes", theme, "README")
-    if os.path.isfile(readme):
+    readme = utils.get_asset_path('README', [theme])
+    if readme:
         data['readme'] = open(readme).read()
     else:
         data['readme'] = 'No readme file available'
