@@ -41,7 +41,7 @@ def build_theme(theme=None):
         raise
 
     if os.path.isdir('themes/'+theme):
-        subprocess.check_call('zip -r sites/{0}.zip themes/{0}'.format(theme), stdout=subprocess.PIPE, shell=True)
+        subprocess.check_call('zip -r output/{0}.zip themes/{0}'.format(theme), stdout=subprocess.PIPE, shell=True)
 
     themes_dict = {}
     for theme in glob.glob('themes/*/'):
@@ -63,7 +63,7 @@ def init_theme(theme):
 
     conf_path = "/".join([t_path,"conf.py"])
     with codecs.open(conf_path, "a", "utf-8") as conf:
-        conf.write("\n\nTHEME = '{0}'\n\nOUTPUT_FOLDER = '{1}'\n\n".format(theme, o_path))
+        conf.write("\n\nTHEME = '{0}'\n\nOUTPUT_FOLDER = '{1}'\n\nSOCIAL_BUTTONS_CODE = ''\n".format(theme, o_path))
 
 @contextmanager
 def cd(path):
