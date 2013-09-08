@@ -43,6 +43,7 @@ def get_data(theme):
         'bootstrap3' in data['chain']) and \
         'bootstrap3-gradients' not in data['chain']
     data['engine'] = utils.get_template_engine(data['chain'])
+    data['chain'] = data['chain'][::-1]
     return data
 
 if __name__ == "__main__":
