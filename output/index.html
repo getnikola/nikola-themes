@@ -10,7 +10,7 @@
     <title>
       Themes for Nikola (version 6)
     </title>
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="jPages.css" rel="stylesheet">
   </head>
 
@@ -32,10 +32,6 @@
           </div>
         </div>
         <div class="col-md-8" id="rightside" style="margin-top:14px; border: 1px solid #dddddd; border-radius: 5px; padding-bottom: 15px;">
-          <img src="https://s3.amazonaws.com/jetstrap-site/images/website/index/what_icon.png">
-          <p>
-            Content
-          </p>
         </div>
       </div>
     </div>
@@ -74,7 +70,7 @@
         container.html('');
         var title = $('<h2/>').text(theme).appendTo(container);
         var small = $('<small/>').appendTo(title)
-        $('<div/>').addClass('alert').html('<tt>To install, use <span class="label label-info" style="font-size: 120%;">nikola install_theme '+theme+'</tt></span>').appendTo(container)
+        $('<div/>').addClass('well well-sm').html('<tt>To install, use <span class="label label-info" style="font-size: 120%;">nikola install_theme '+theme+'</tt></span>').appendTo(container)
         if (data[theme]['bootswatch']) {
             $('<span/>').html('&nbsp;|&nbsp;Supports <a href="http://bootswatch.com">Bootswatch</a>').appendTo(small)
         }
@@ -96,6 +92,16 @@
                 $('#'+item.id).removeClass('active');
             }
         });
+//      Theme inheritance chain, need to find a good place for it...
+        var crumbbar = $('<ul/>')
+            .addClass('breadcrumb')
+            .attr('style', 'margin-top:8px;')
+            .appendTo(container)
+        for (idx in data[theme]['chain']) {
+            parent = data[theme]['chain'][idx]
+            crumb = $('<li/>').appendTo(crumbbar);
+            $('<a/>').attr('href', '#'+parent).text(parent).appendTo(crumb)
+        }
     };
     $(window).on('hashchange', hash_handler);
     </script>
