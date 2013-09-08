@@ -1,6 +1,12 @@
-nikola-themes
-=============
+This repo contains the publicly available themes for Nikola (http://getnikola.com)
 
-This repo creates themes.nikola.ralsina.com.ar and works as a repo for Nikola themes.
+To contribute a theme:
 
-If you want your theme included, ping @ralsina and let's make it happen.
+* Start a branch that puts your theme "foo" in themes/foo
+* Run ``scripts/test_themes.py foo`` and see if it complains of anything
+* Run ``scripts/build_themes.py foo`` and see if it works correctly (ouput is in output/v6/foo)
+* Make sure you have a README (in markdown) in your theme
+* Double check licenses for everyhing in your theme
+* Do a PR
+
+After a brief discussion it will be merged and available for everyone :-)
