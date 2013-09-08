@@ -74,7 +74,12 @@
         if (data[theme]['bootswatch']) {
             $('<span/>').html('&nbsp;|&nbsp;Supports <a href="http://bootswatch.com">Bootswatch</a>').appendTo(small)
         }
-        $('<span/>').html('&nbsp;|&nbsp;<a href="v6/'+theme+'/index.html">Demo</a>').appendTo(small)
+        if (data[theme]['engine'] == 'mako') {
+            $('<span/>').html('&nbsp;|&nbsp; Uses <a href="http://www.makotemplates.org/">Mako</a>').appendTo(small)
+        } else {
+            $('<span/>').html('&nbsp;|&nbsp; Uses <a href="http://jinja.pocoo.org/docs/">Jinja2</a>').appendTo(small)
+        }
+        $('<span/>').html('&nbsp;|&nbsp;<a href="v6/'+theme+'/index.html">See demo</a>').appendTo(small)
         $('<div/>').html(converter.makeHtml(data[theme]['readme'])).appendTo(container)
         thumb = $('<div/>').appendTo(container)
         full_image_link = $('<a/>').attr('href', 'v6/'+theme+'.jpg').appendTo(thumb)
