@@ -12,7 +12,10 @@
     </title>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="jPages.css" rel="stylesheet">
-  </head>
+    <style type="text/css">
+        code {font-size:120%; color: #333; background-color: inherit;}
+    </style>
+</head>
 
   <body style="margin-top: 20px">
     <div class="container">
@@ -70,7 +73,7 @@
         container.html('');
         var title = $('<h2/>').text(theme).appendTo(container);
         var small = $('<small/>').appendTo(title)
-        $('<div/>').addClass('well well-sm').html('<tt>To install, use <span class="label label-info" style="font-size: 120%;">nikola install_theme '+theme+'</tt></span>').appendTo(container)
+        $('<div/>').addClass('well well-sm').html('To install, use <code>nikola install_theme '+theme+'</code></span>').appendTo(container)
         if (data[theme]['bootswatch']) {
             $('<span/>').html('&nbsp;|&nbsp;Supports <a href="http://bootswatch.com">Bootswatch</a>').appendTo(small)
         }
