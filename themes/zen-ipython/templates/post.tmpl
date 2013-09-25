@@ -1,0 +1,32 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'post_helper.tmpl' as helper with context %}
+{% import 'arusahni_helper.tmpl' as arusahni with context %}
+{% import 'comments_helper.tmpl' as comments with context %}
+{% extends 'base.tmpl' %}
+{% block extra_head %}
+{{ helper.twitter_card_information(post) }}
+{% if post.meta('keywords') %}
+    <meta name="keywords" content="{{ post.meta('keywords')|e }}"/>
+{% endif %}
+{% endblock %}
+{% block content %}
+    <div class="post">
+    {{ helper.html_title() }}
+        <div class="meta">
+            <div class="authordate">
+                <time class="timeago" datetime="{{ post.date.isoformat() }}">{{ post.formatted_date(date_format) }}</time>
+            </div>
+            {{ helper.html_translations(post) }}
+            {{ arusahni.html_source(post) }}
+            {{ arusahni.html_tags(post) }}
+        </div>
+        <div class="body">
+            {{ post.text() }}
+        </div>
+        {{ helper.html_pager(post) }}
+        {% if not post.meta('nocomments') %}
+            {{ comments.comment_form(post.permalink(absolute=True), post.title(), post.base_path) }}
+        {% endif %}
+        {{ helper.mathjax_script(post) }}
+    </div>
+{% endblock %}
