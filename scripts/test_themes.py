@@ -60,9 +60,9 @@ def sanity_check(theme=None):
                 if k in data and f not in exceptions:
                     error("theme '{0}' contains deprecated name '{1}' in {2}".format(theme, k, path))
 
-    # Ensure the theme has a README
-    if utils.get_asset_path('README', [theme]) is None:
-        error("theme '{0}' has no README".format(theme))
+    # Ensure the theme has a README.md
+    if utils.get_asset_path('README.md', [theme]) is None:
+        error("theme '{0}' has no README.md".format(theme))
 
 def is_asset_duplicated(path, themes):
     # First get the path for the asset with whole theme chain

@@ -19,7 +19,7 @@ def read_theme(theme):
     theme_name = os.path.basename(theme)
     data = {}
     data['name'] = theme_name
-    readme = os.path.join(theme, 'README')
+    readme = os.path.join(theme, 'README.md')
     if os.path.isfile(readme):
         with codecs.open(readme, 'r', 'utf8') as inf:
             data['readme'] = inf.read()

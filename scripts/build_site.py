@@ -31,7 +31,7 @@ def build_site():
 def get_data(theme):
     data = {}
     data['name'] = theme
-    readme = utils.get_asset_path('README', [theme])
+    readme = utils.get_asset_path('README.md', [theme])
     if readme:
         data['readme'] = open(readme).read()
     else:
