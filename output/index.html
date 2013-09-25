@@ -73,7 +73,6 @@
         container.html('');
         var title = $('<h2/>').text(theme).appendTo(container);
         var small = $('<small/>').appendTo(title)
-        $('<div/>').addClass('well well-sm').html('To install, use <code>nikola install_theme '+theme+'</code></span>').appendTo(container)
         if (data[theme]['bootswatch']) {
             $('<span/>').html('&nbsp;|&nbsp;Supports <a href="http://bootswatch.com">Bootswatch</a>').appendTo(small)
         }
@@ -83,11 +82,12 @@
             $('<span/>').html('&nbsp;|&nbsp; Uses <a href="http://jinja.pocoo.org/docs/">Jinja2</a>').appendTo(small)
         }
         $('<span/>').html('&nbsp;|&nbsp;<a href="v6/'+theme+'/index.html">See demo</a>').appendTo(small)
-        $('<div/>').html(converter.makeHtml(data[theme]['readme'])).appendTo(container)
         thumb = $('<div/>').appendTo(container)
         full_image_link = $('<a/>').attr('href', 'v6/'+theme+'.jpg').appendTo(thumb)
         $('<img/>').attr('src', 'v6/'+theme+'.jpg').attr('style', 'width:500px;')
             .addClass('thumbnail').appendTo(full_image_link)
+        $('<div/>').addClass('well well-sm').html('To install, use <code>nikola install_theme '+theme+'</code></span>').appendTo(container)
+        $('<div/>').html(converter.makeHtml(data[theme]['readme'])).appendTo(container)
 //      Mark theme as active and paginate to it
         var listItems = $("#itemContainer a");
         listItems.each(function(idx, item) {

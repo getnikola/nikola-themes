@@ -3,6 +3,7 @@
 """Inspect themes, create a JSON describing all the data."""
 
 from __future__ import unicode_literals, print_function
+import codecs
 import glob
 import json
 import os
@@ -30,13 +31,17 @@ def build_site():
 
 def get_data(theme):
     data = {}
+    data['chain'] = utils.get_theme_chain(theme)
     data['name'] = theme
-    readme = utils.get_asset_path('README.md', [theme])
+    readme = utils.get_asset_path('README.md', data['chain'])
+    conf_sample = utils.get_asset_path('conf.py.sample', data['chain'])
     if readme:
-        data['readme'] = open(readme).read()
+        data['readme'] = codecs.open(readme, 'r', 'utf8').read()
     else:
         data['readme'] = 'No readme file available'
-    data['chain'] = utils.get_theme_chain(theme)
+    if conf_sample:
+        data['readme'] += '\n\n**Suggested Configuration:**\n```\n{0}\n```\n\n'.format(codecs.open(conf_sample, 'r', 'utf8').read())
+
     data['bootswatch'] = ('bootstrap' in data['chain'] or
         'bootstrap-jinja' in data['chain'] or
         'bootstrap3-jinja' in data['chain'] or
