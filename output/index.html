@@ -84,8 +84,8 @@
         $('<span/>').html('&nbsp;|&nbsp;<a href="v6/'+theme+'/index.html">See demo</a>').appendTo(small)
         thumb = $('<div/>').appendTo(container)
         full_image_link = $('<a/>').attr('href', 'v6/'+theme+'.jpg').appendTo(thumb)
-        $('<img/>').attr('src', 'v6/'+theme+'.jpg').attr('style', 'width:500px;')
-            .addClass('thumbnail').appendTo(full_image_link)
+        $('<img/>').attr('src', 'v6/'+theme+'.jpg').attr('style', 'width:500px; margin: 10px auto 10px auto; display: block;')
+            .addClass('img-thumbnail').appendTo(full_image_link)
         $('<div/>').addClass('well well-sm').html('To install, use <code>nikola install_theme '+theme+'</code></span>').appendTo(container)
         $('<div/>').html(converter.makeHtml(data[theme]['readme'])).appendTo(container)
 //      Mark theme as active and paginate to it
