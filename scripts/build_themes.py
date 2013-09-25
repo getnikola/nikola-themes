@@ -67,8 +67,15 @@ def init_theme(theme):
     os.symlink(os.path.abspath("themes"), os.path.abspath("/".join([t_path, "themes"])))
 
     conf_path = "/".join([t_path,"conf.py"])
+    # Get custom required settings from the theme
+    themes = utils.get_theme_chain(theme)
+    extra_conf_path = utils.get_asset_path('conf.py.sample', themes)
+    extra_conf = ''
+    if extra_conf_path:
+        extra_conf = open(extra_conf_path, 'r').read()
+
     with codecs.open(conf_path, "a", "utf-8") as conf:
-        conf.write("\n\nTHEME = '{0}'\n\nOUTPUT_FOLDER = '{1}'\n\nSOCIAL_BUTTONS_CODE = ''\n".format(theme, o_path))
+        conf.write("\n\n{2}\n\nTHEME = '{0}'\n\nOUTPUT_FOLDER = '{1}'\n\nSOCIAL_BUTTONS_CODE = ''\n".format(theme, o_path, extra_conf))
 
 @contextmanager
 def cd(path):

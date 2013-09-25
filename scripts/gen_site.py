@@ -36,7 +36,6 @@ def read_theme(theme):
         data['bs_version'] = 2
     else:
         data['bs_version'] = 0
-    print data
 
 def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
