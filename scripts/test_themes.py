@@ -69,6 +69,9 @@ def is_asset_duplicated(path, themes):
     p1 = utils.get_asset_path(path, themes)
     # Get the path for asset with truncated theme chain
     p2 = utils.get_asset_path(path, themes[1:])
+    # README.md is ok to duplicate
+    if 'README.md' in path:
+        return False, p1, p2
     # Compare
     if p1 and p2:
         return filecmp.cmp(p1, p2, False), p1, p2
