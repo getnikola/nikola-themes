@@ -1,0 +1,9 @@
+.social ul {
+margin-bottom: 1em;
+}
+
+.social ul li {
+display: block;
+padding: 0.5em;
+}
+
