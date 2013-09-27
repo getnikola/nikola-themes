@@ -13,7 +13,7 @@ from progressbar import ProgressBar
 
 from nikola import utils
 
-BASE_URL = "http://themes.nikola.ralsina.com.ar/v6/"
+BASE_URL = "http://themes.getnikola.com/v6/"
 
 def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
@@ -38,7 +38,8 @@ def get_data(theme):
     if readme:
         data['readme'] = codecs.open(readme, 'r', 'utf8').read()
     else:
-        data['readme'] = 'No readme file available'
+        data['readme'] = 'No README.md file available.'
+
     if conf_sample:
         data['readme'] += '\n\n**Suggested Configuration:**\n```\n{0}\n```\n\n'.format(codecs.open(conf_sample, 'r', 'utf8').read())
 

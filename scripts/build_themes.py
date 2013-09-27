@@ -16,7 +16,7 @@ from progressbar import ProgressBar
 
 from nikola import utils
 
-BASE_URL = "http://themes.nikola.ralsina.com.ar/v6/"
+BASE_URL = "http://themes.getnikola.com/v6/"
 
 def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
