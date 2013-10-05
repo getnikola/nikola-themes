@@ -138,7 +138,11 @@
             .addClass('img-thumbnail').appendTo(full_image_link)
         $('<div/>').addClass('well well-sm').html('To install, use <code>nikola install_theme '+theme+'</code></span>').appendTo(container)
         $('<div/>').html(converter.makeHtml(data[theme]['readme'])).appendTo(container)
-//      Mark theme as active and paginate to it
+        if (data[plugin]['confpy'] != null) {
+            $('<h3/>').html('Suggested Configuration:').appendTo(container)
+            $('<div/>').html(data[plugin]['confpy']).appendTo(container)
+        }
+        // Mark theme as active and paginate to it
         var listItems = $("#itemContainer a");
         listItems.each(function(idx, item) {
             console.log(item.id , 'li-'+theme)

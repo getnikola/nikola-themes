@@ -13,6 +13,10 @@ from progressbar import ProgressBar
 
 from nikola import utils
 
+import pygments
+from pygments.lexers import PythonLexer
+from pygments.formatters import HtmlFormatter
+
 BASE_URL = "http://themes.getnikola.com/v6/"
 
 def error(msg):
@@ -41,7 +45,11 @@ def get_data(theme):
         data['readme'] = 'No README.md file available.'
 
     if conf_sample:
-        data['readme'] += '\n\n**Suggested Configuration:**\n```\n{0}\n```\n\n'.format(codecs.open(conf_sample, 'r', 'utf8').read())
+        data['confpy'] = pygments.highlight(
+            codecs.open(conf_sample, 'r', 'utf8').read(),
+            PythonLexer(), HtmlFormatter(cssclass='code'))
+    else:
+        data['confpy'] = None
 
     data['bootswatch'] = ('bootstrap' in data['chain'] or
         'bootstrap-jinja' in data['chain'] or
