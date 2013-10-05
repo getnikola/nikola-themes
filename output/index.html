@@ -143,6 +143,11 @@
             $('<h3/>').html('Suggested Configuration:').appendTo(container)
             $('<div/>').html(data[theme]['confpy']).appendTo(container)
         }
+
+        // DISQUS comments.  This code is a mess.
+        // MAKE SURE TO :set tw=93409564302956 before editing
+        $('<div/>').html('<div id="disqus_thread"></div><sc' + 'ript type="text/javascript"> var disqus_shortname = "nikola-themes"; var disqus_identifier = "THEME_'+theme+'"; var disqus_title = "Nikola Theme: " +theme; var disqus_url = "http://themes.getnikola.com/" + theme; (function() { var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true; dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js"; (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq); })(); </s'+'cript><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>').appendTo(container)
+
         // Mark theme as active and paginate to it
         var listItems = $("#itemContainer a");
         listItems.each(function(idx, item) {
@@ -151,12 +156,12 @@
                 $('#li-'+theme).addClass('active');
                 var page = parseInt(idx/10)+1;
                 $("div.holder").jPages(page);
-                document.title = plugin + ' — Themes for Nikola (version 6)';
+                document.title = theme + ' — Themes for Nikola (version 6)';
             } else {
                 $('#'+item.id).removeClass('active');
             }
         });
-//      Theme inheritance chain, need to find a good place for it...
+        // Theme inheritance chain, need to find a good place for it...
         var crumbbar = $('<ul/>')
             .addClass('breadcrumb')
             .attr('style', 'margin-top:8px;')
