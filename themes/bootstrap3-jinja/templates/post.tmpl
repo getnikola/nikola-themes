@@ -9,11 +9,11 @@
 {% endif %}
 {% endblock %}
 {% block content %}
-    <div class="postbox">
+    <article class="postbox">
     {{ helper.html_title() }}
     <hr>
     <small>
-        {{ messages("Posted") }}: <time class="published" datetime="{{ post.date.isoformat() }}">{{ post.formatted_date(date_format) }}</time>
+        {{ messages("Posted:") }} <time class="published" datetime="{{ post.date.isoformat() }}">{{ post.formatted_date(date_format) }}</time>
         {{ helper.html_translations(post) }}
         {{ helper.html_tags(post) }}
     </small>
@@ -21,10 +21,10 @@
     {{ post.text() }}
     {{ helper.html_pager(post) }}
     {% if not post.meta('nocomments') %}
-        {{ comments.comment_form(post.permalink(absolute=True), post.title(), post.base_path) }}
+        {{ comments.comment_form(post.permalink(absolute=True), post.title(), post._base_path) }}
     {% endif %}
     {{ helper.mathjax_script(post) }}
-    </div>
+    </article>
 {% endblock %}
 
 {% block sourcelink %}

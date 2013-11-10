@@ -9,13 +9,13 @@
 {% macro comment_form(url, title, identifier) %}
     {% if comment_system == 'disqus' %}
         {{ disqus.comment_form(url, title, identifier) }}
-    {% elif 'livefyre' %}
+    {% elif comment_system == 'livefyre' %}
         {{ livefyre.comment_form(url, title, identifier) }}
-    {% elif 'intensedebate' %}
+    {% elif comment_system == 'intensedebate' %}
         {{ intensedebate.comment_form(url, title, identifier) }}
-    {% elif 'moot' %}
+    {% elif comment_system == 'moot' %}
         {{ moot.comment_form(url, title, identifier) }}
-    {% elif 'googleplus' %}
+    {% elif comment_system == 'googleplus' %}
         {{ googleplus.comment_form(url, title, identifier) }}
     {% endif %}
 {% endmacro %}
@@ -23,13 +23,13 @@
 {% macro comment_link(link, identifier) %}
     {% if comment_system == 'disqus' %}
         {{ disqus.comment_link(link, identifier) }}
-    {% elif 'livefyre' %}
+    {% elif comment_system == 'livefyre' %}
         {{ livefyre.comment_link(link, identifier) }}
-    {% elif 'intensedebate' %}
+    {% elif comment_system == 'intensedebate' %}
         {{ intensedebate.comment_link(link, identifier) }}
-    {% elif 'moot' %}
+    {% elif comment_system == 'moot' %}
         {{ moot.comment_link(link, identifier) }}
-    {% elif 'googleplus' %}
+    {% elif comment_system == 'googleplus' %}
         {{ googleplus.comment_link(link, identifier) }}
     {% endif %}
 {% endmacro %}
@@ -37,13 +37,13 @@
 {% macro comment_link_script() %}
     {% if comment_system == 'disqus' %}
         {{ disqus.comment_link_script() }}
-    {% elif 'livefyre' %}
+    {% elif comment_system == 'livefyre' %}
         {{ livefyre.comment_link_script() }}
-    {% elif 'intensedebate' %}
+    {% elif comment_system == 'intensedebate' %}
         {{ intensedebate.comment_link_script() }}
-    {% elif 'moot' %}
+    {% elif comment_system == 'moot' %}
         {{ moot.comment_link_script() }}
-    {% elif 'googleplus' %}
+    {% elif comment_system == 'googleplus' %}
         {{ googleplus.comment_link_script() }}
     {% endif %}
 {% endmacro %}

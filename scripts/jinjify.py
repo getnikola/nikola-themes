@@ -88,7 +88,7 @@ def mako2jinja(input_file):
 
     if_start = re.compile(r'(.*)% *if (.*):(.*)', re.IGNORECASE)
     if_else = re.compile(r'(.*)% *else.*:(.*)', re.IGNORECASE)
-    if_elif = re.compile(r'(.*)% *elif.* (.*):(.*)', re.IGNORECASE)
+    if_elif = re.compile(r'(.*)% *elif (.*):(.*)', re.IGNORECASE)
     if_end = re.compile(r'(.*)% *endif(.*)', re.IGNORECASE)
 
     for_start = re.compile(r'(.*)% *for (.*):(.*)', re.IGNORECASE)

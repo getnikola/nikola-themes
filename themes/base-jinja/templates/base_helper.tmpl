@@ -1,9 +1,11 @@
 {#  -*- coding: utf-8 -*- #}
 {% macro html_head() %}
     <meta charset="utf-8">
-    <meta name="description" content="{{ description }}" >
+    {% if description %}
+    <meta name="description" content="{{ description }}">
+    {% endif %}
     <meta name="author" content="{{ blog_author }}">
-    <title>{{ title|e }} | {{ blog_title|e }}</title>
+    <title>{{ title|striphtml }} | {{ blog_title|striphtml }}</title>
     {{ mathjax_config }}
     {% if use_bundles %}
         {% if use_cdn %}

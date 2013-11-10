@@ -43,8 +43,10 @@ td.label {
 .caption {
     /* Issue 292 */
     text-align: center;
+    padding-top: 1em;
 }
 
+div.figure > img,
 div.figure > a > img {
     /* Issue 292 */
     display: block;
@@ -72,4 +74,14 @@ ul.bricks > li {
     line-height: 3;
     white-space:nowrap;
     margin: 3px;
+}
+
+ul.breadcrumb > li:before {
+    content: " / ";
+}
+
+pre, pre code {
+    white-space: pre;
+    word-wrap: normal;
+    overflow: auto;
 }

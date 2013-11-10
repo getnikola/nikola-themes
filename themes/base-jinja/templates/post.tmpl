@@ -5,15 +5,16 @@
 {% block extra_head %}
 {{ helper.twitter_card_information(post) }}
 {% if post.meta('keywords') %}
-    <meta name="keywords" content="{{ post.meta('keywords')|e }}"/>
+    <meta name="keywords" content="{{ post.meta('keywords')|e }}">
 {% endif %}
 {% endblock %}
 {% block content %}
-    <div class="postbox">
+    <article class="postbox">
+    <div class="h-entry" itemscope="itemscope" itemtype="http://schema.org/Article">
     {{ helper.html_title() }}
     <hr>
     <small>
-        {{ messages("Posted") }}: <time class="published" datetime="{{ post.date.isoformat() }}">{{ post.formatted_date(date_format) }}</time>
+        {{ messages("Posted:") }} <time class="published dt-published" datetime="{{ post.date.isoformat() }}" itemprop="datePublished">{{ post.formatted_date(date_format) }}</time>
         {{ helper.html_translations(post) }}
 		{{ helper.html_tags(post) }}
         &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -24,11 +25,17 @@
 		{% endblock %}
     </small>
     <hr>
+    <div class="e-content" itemprop="articleBody text">
     {{ post.text() }}
+    </div>
+    {% if post.description() %}
+        <meta content="{{ post.description() }}" itemprop="description">
+    {% endif %}
+    </div>
     {{ helper.html_pager(post) }}
     {% if not post.meta('nocomments') %}
-        {{ comments.comment_form(post.permalink(absolute=True), post.title(), post.base_path) }}
+        {{ comments.comment_form(post.permalink(absolute=True), post.title(), post._base_path) }}
     {% endif %}
     {{ helper.mathjax_script(post) }}
-    </div>
+    </article>
 {% endblock %}

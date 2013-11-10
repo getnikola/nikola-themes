@@ -1,18 +1,27 @@
 {#  -*- coding: utf-8 -*- #}
 {% import 'base_helper.tmpl' as base with context %}
 {% import 'bootstrap_helper.tmpl' as bootstrap with context %}
+{% import 'annotation_helper.tmpl' as notes with context %}
 {{ set_locale(lang) }}
 <!DOCTYPE html>
-<html lang="{{ lang }}">
+<html
+{% if comment_system == 'facebook' %}
+xmlns:fb="http://ogp.me/ns/fb#"
+{% endif %}
+lang="{{ lang }}">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{ bootstrap.html_head() }}
     {% block extra_head %}
     {% endblock %}
+    {% if annotations and post and not post.meta('noannotations') %}
+        {{ notes.css() }}
+    {% elif not annotations and post and post.meta('annotations') %}
+        {{ notes.css() }}
+    {% endif %}
     {{ extra_head_data }}
 </head>
 <body>
-
 <!-- Menubar -->
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -65,6 +74,11 @@
 {{ bootstrap.late_load_js() }}
 {{ base.html_social() }}
     <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script>
-{% block extra_js %}{% endblock %}
+    {% block extra_js %}{% endblock %}
+    {% if annotations and post and not post.meta('noannotations') %}
+        {{ notes.code() }}
+    {% elif not annotations and post and post.meta('annotations') %}
+        {{ notes.code() }}
+    {% endif %}
 {{ body_end }}
 </body>
