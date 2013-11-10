@@ -104,6 +104,7 @@ def mako2jinja(input_file):
     val = re.compile(r'\$\{(.*?)\}', re.IGNORECASE)
     func_len = re.compile(r'len\((.*?)\)', re.IGNORECASE)
     filter_h = re.compile(r'\|h', re.IGNORECASE)
+    filter_striphtml = re.compile(r'\|striphtml', re.IGNORECASE)
 
     comment_single_line = re.compile(r'^.*##(.*?)$', re.IGNORECASE)
 
@@ -113,12 +114,16 @@ def mako2jinja(input_file):
         m_val = val.search(line)
         m_func_len = func_len.search(line)
         m_filter_h = filter_h.search(line)
+        m_filter_striphtml = filter_striphtml.search(line)
 
         if m_val:
             line = val.sub(r'{{ \1 }}', line)
 
         if m_filter_h:
             line = filter_h.sub(r'|e', line)
+
+        if m_filter_striphtml:
+            line = filter_striphtml.sub(r'|e', line)
 
         if m_func_len:
             line = func_len.sub(r'\1|length', line)
