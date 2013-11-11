@@ -1,3 +1,4 @@
 *.pyc
 .doit.db
-
+output/v6
+sites/
