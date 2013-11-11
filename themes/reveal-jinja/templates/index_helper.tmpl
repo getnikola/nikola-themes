@@ -17,7 +17,7 @@
 {% endmacro %}
 
 {% macro mathjax_script(posts) %}
-    {% if posts|rejectattr("is_mathjax") %}
+    {% if posts|selectattr("is_mathjax")|list %}
         <script src="/assets/js/mathjax.js" type="text/javascript"></script>
     {% endif %}
 {% endmacro %}
