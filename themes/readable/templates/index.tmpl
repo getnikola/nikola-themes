@@ -11,7 +11,7 @@
         </div>
         <div class="postmeta">
         <small>&nbsp;§&nbsp;
-             ${messages("Posted:")} <time class="published" datetime="${post.date.isoformat()}">${post.formatted_date(date_format)}</time>
+             ${messages("Posted")}: <time class="published" datetime="${post.date.isoformat()}">${post.formatted_date(date_format)}</time>
         </small>
         % if not post.meta('nocomments'):
             ${comments.comment_link(post.permalink(), post.base_path)}
