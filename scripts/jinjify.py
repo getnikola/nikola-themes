@@ -13,7 +13,7 @@ from nikola import utils
 
 dumb_replacements = [
     ["{% if isinstance(url, tuple) %}", "{% if url is mapping %}"],
-    ["{% if any(post.is_mathjax for post in posts) %}", '{% if posts|rejectattr("is_mathjax") %}'],
+    ["{% if any(post.is_mathjax for post in posts) %}", '{% if posts|selectattr("is_mathjax")|list %}'],
     ["json.dumps(title)", "title|tojson"],
     [
         '''<html{% if comment_system == 'facebook': xmlns:fb="http %}//ogp.me/ns/fb#" %endif lang="{{ lang }}">''',
