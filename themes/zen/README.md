@@ -6,4 +6,4 @@ Enjoy!
 
 Damián
 
-**NOTE:** The thumbnail has some problems with a font and the sidebar looks broken, see the demo for the real thing.
+**WARNING:** the zen themes require `lessc`, the official LESS compiler.
