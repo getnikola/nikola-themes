@@ -26,10 +26,10 @@ ${set_locale(lang)}
         <div class="span6" style="text-align: right; border-right: 2px solid #ccc; padding-right: 20px;">
             <ul class="unstyled bottom">
                 %for url, text in sidebar_links[lang]:
-                    % if rel_link(permalink, url) == "":
-                        <li class="active"><a href="${rel_link(permalink, url)}">${text}</a>
+                    % if rel_link(permalink, url) == "#":
+                        <li class="active"><a href="${url}">${text}</a>
                     %else:
-                        <li><a href="${rel_link(permalink, url)}">${text}</a>
+                        <li><a href="${url}">${text}</a>
                     %endif
                 %endfor
             </ul>
