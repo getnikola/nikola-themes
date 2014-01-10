@@ -5,6 +5,8 @@
 {% import 'intensedebate_helper.tmpl' as intensedebate with context %}
 {% import 'moot_helper.tmpl' as moot with context %}
 {% import 'googleplus_helper.tmpl' as googleplus with context %}
+{% import 'facebook_helper.tmpl' as facebook with context %}
+{% import 'isso_helper.tmpl' as isso with context %}
 
 {% macro comment_form(url, title, identifier) %}
     {% if comment_system == 'disqus' %}
@@ -17,6 +19,10 @@
         {{ moot.comment_form(url, title, identifier) }}
     {% elif comment_system == 'googleplus' %}
         {{ googleplus.comment_form(url, title, identifier) }}
+    {% elif comment_system == 'facebook' %}
+        {{ facebook.comment_form(url, title, identifier) }}
+    {% elif comment_system == 'isso' %}
+        {{ isso.comment_form(url, title, identifier) }}
     {% endif %}
 {% endmacro %}
 
@@ -31,6 +37,10 @@
         {{ moot.comment_link(link, identifier) }}
     {% elif comment_system == 'googleplus' %}
         {{ googleplus.comment_link(link, identifier) }}
+    {% elif comment_system == 'facebook' %}
+        {{ facebook.comment_link(link, identifier) }}
+    {% elif comment_system == 'isso' %}
+        {{ isso.comment_link(link, identifier) }}
     {% endif %}
 {% endmacro %}
 
@@ -45,5 +55,9 @@
         {{ moot.comment_link_script() }}
     {% elif comment_system == 'googleplus' %}
         {{ googleplus.comment_link_script() }}
+    {% elif comment_system == 'facebook' %}
+        {{ facebook.comment_link_script() }}
+    {% elif comment_system == 'isso' %}
+        {{ isso.comment_link_script() }}
     {% endif %}
 {% endmacro %}

@@ -9,7 +9,7 @@
 {% endif %}
 {% endblock %}
 {% block content %}
-    <article class="postbox">
+    <article class="postbox post-{{ post.meta('type') }}">
     <div class="h-entry" itemscope="itemscope" itemtype="http://schema.org/Article">
     {{ helper.html_title() }}
     <hr>
