@@ -18,7 +18,7 @@ dumb_replacements = [
     [
         '''<html{% if comment_system == 'facebook': xmlns:fb="http %}//ogp.me/ns/fb#" %endif lang="{{ lang }}">''',
         '''<html{% if comment_system == 'facebook' %} xmlns:fb="http://ogp.me/ns/fb#" {%endif%} lang="{{ lang }}">'''
-    ]
+    ],
 ]
 
 
@@ -105,6 +105,7 @@ def mako2jinja(input_file):
     func_len = re.compile(r'len\((.*?)\)', re.IGNORECASE)
     filter_h = re.compile(r'\|h', re.IGNORECASE)
     filter_striphtml = re.compile(r'\|striphtml', re.IGNORECASE)
+    filter_u = re.compile(r'\|u', re.IGNORECASE)
 
     comment_single_line = re.compile(r'^.*##(.*?)$', re.IGNORECASE)
 
@@ -115,6 +116,7 @@ def mako2jinja(input_file):
         m_func_len = func_len.search(line)
         m_filter_h = filter_h.search(line)
         m_filter_striphtml = filter_striphtml.search(line)
+        m_filter_u = filter_u.search(line)
 
         if m_val:
             line = val.sub(r'{{ \1 }}', line)
@@ -124,6 +126,9 @@ def mako2jinja(input_file):
 
         if m_filter_striphtml:
             line = filter_striphtml.sub(r'|e', line)
+
+        if m_filter_u:
+            line = filter_u.sub(r'|urlencode', line)
 
         if m_func_len:
             line = func_len.sub(r'\1|length', line)
