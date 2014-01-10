@@ -22,7 +22,7 @@ def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
 
 def theme_list():
-    return ['base', 'bootstrap', 'bootstrap3'] + [theme.split('/')[-1] for theme in glob.glob("themes/*")]
+    return sorted(['base', 'bootstrap', 'bootstrap3'] + [theme.split('/')[-1] for theme in glob.glob("themes/*")])
 
 def build_theme(theme=None):
     if theme is None:  # Check them all
@@ -37,7 +37,7 @@ def build_theme(theme=None):
         with cd("/".join(["sites", theme])):
             subprocess.check_call(["nikola", "build"], stdout=subprocess.PIPE)
     except:
-        error("can' t build theme {0}".format(theme))
+        error("can't build theme {0}".format(theme))
         raise
 
     if not os.path.isdir(os.path.join("output", "v6")):
