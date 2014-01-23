@@ -1,7 +1,6 @@
 ## Override only the functions that differ from base_helper.tmpl
 
 <%def name="html_head()">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     %if description:
@@ -34,6 +33,7 @@
             <link href="/assets/css/custom.css" rel="stylesheet" type="text/css">
         %endif
     %endif
+    <link rel="canonical" href="${abs_link(permalink)}">
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
     <![endif]-->
@@ -84,7 +84,7 @@
             <ul class="dropdown-menu">
             %for suburl, text in url:
                 % if rel_link(permalink, suburl) == "#":
-                    <li class="active"><a href="${suburl}">${text}</a>
+                    <li class="active"><a href="${permalink}">${text}</a>
                 %else:
                     <li><a href="${suburl}">${text}</a>
                 %endif
@@ -92,10 +92,19 @@
             </ul>
         % else:
             % if rel_link(permalink, url) == "#":
-                <li class="active"><a href="${url}">${text}</a>
+                <li class="active"><a href="${permalink}">${text}</a>
             %else:
                 <li><a href="${url}">${text}</a>
             %endif
         % endif
+    %endfor
+</%def>
+
+
+<%def name="html_translations()">
+    %for langname in translations.keys():
+        %if langname != lang:
+            <li><a href="${_link("index", None, langname)}" rel="alternate" hreflang="${langname}">${messages("LANGUAGE", langname)}</a></li>
+        %endif
     %endfor
 </%def>

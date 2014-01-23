@@ -1,4 +1,4 @@
-This theme is mostly equivalent to `bootstrap3-jinja`, with the optional
+This theme is mostly equivalent to `bootstrap3`, with the optional
 `bootstrap-theme.min.css` file in use.  According to the Bootstrap
 developers, it provides a visually enhanced experience, with gradients
 (hence the name), resembling Bootstrap 2.x.

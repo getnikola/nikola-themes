@@ -45,7 +45,7 @@ lang="{{ lang }}">
         <ul class="nav navbar-nav navbar-right">
             {% block belowtitle %}
             {% if translations|length > 1 %}
-                <li>{{ base.html_translations() }}</li>
+                <li>{{ bootstrap.html_translations() }}</li>
             {% endif %}
             {% endblock %}
             {% if not hide_sourcelink %}
