@@ -27,6 +27,5 @@
         {% if not post.meta('nocomments') %}
             {{ comments.comment_form(post.permalink(absolute=True), post.title(), post.base_path) }}
         {% endif %}
-        {{ helper.mathjax_script(post) }}
     </div>
 {% endblock %}
