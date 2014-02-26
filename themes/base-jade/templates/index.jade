@@ -1,0 +1,40 @@
+extends base.jade
+
+block content
+  for post in posts
+    article(class="postbox h-entry post-"+post.meta("type"))
+      h1(class="p-name")
+        a(href=post.permalink(), class="u-url")
+          = post.title()
+        small
+          != "&nbsp;&nbsp;"+messages("Posted:")
+          time(class="published dt-published, datetime=post.date.isoformat())
+            = post.formatted_date(date_format)
+      if index_teasers
+        div(class="p-summary")
+          != post.text(teaser_only=True)
+      else
+        div(class="e-content")
+          != post.text(teaser_only=False)
+
+  if prevlink or nextlink
+    div.ul(class="pager")
+      if prevlink
+        li(class="previous")
+          a(href=prevlink, rel="prev")
+            != "&larr;" + messages("Newer posts")
+      if nextlink
+        li(class="next")
+          a(href=nextlink, rel="next")
+            != "&rarr;" +  messages("Older posts")
+
+  // FIXME: add comment_link
+
+  // FIXME: this repeats because break doesn't work?
+  each post in posts
+    if post.is_mathjax
+      script(type="text/x-mathjax-config")
+        | MathJax.Hub.Config({
+        |    tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}
+        | });
+      script(src="/assets/js/mathjax.js")

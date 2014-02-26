@@ -1,0 +1,29 @@
+extends base.jade
+
+block extra_head
+  // FIXME: add twitter_card
+  if post.meta('keywords')
+    meta(name="keywords" content=post.meta(keywords))
+
+    // FIXME: add translations
+
+block content
+  article(class="postbox post-"+post.meta('type'))
+    div(class="h-entry", itemscope="itemscope", itemtype="http://schema.org/Article")
+      //FIXME add html_title
+      hr
+      small
+        = messages("Posted:")
+        time(class="published dt-published", datetime=post.date.isoformat(), itemprop="datePublished")
+          = post.formatted_date(date_format)
+        // FIXME html_translations(post)
+        // FIXME html_tags(post)
+
+        block sourcelink
+          if not post.meta('password')
+            a(href=post.source_link(), id="sourcelink")
+              = messages("Source")
+      hr
+      div(class="e-content", itemprop="articleBody text")
+        != post.text()
+
