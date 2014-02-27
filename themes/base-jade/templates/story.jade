@@ -1,1 +1,13 @@
 extends post.jade
+
+block extra_head
+  // FIXME add twitter card
+
+block content
+  if title and not post.meta('hidetitle')
+    h1
+      = title
+    != post.text()
+
+  if enable_comments and not post.meta('nocomments')
+    // FIXME comment_form

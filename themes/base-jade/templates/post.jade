@@ -1,5 +1,8 @@
 extends base.jade
 
+- import "post_helper.jade" as helper
+- import "comments_helper.jade" as comments with context
+
 block extra_head
   // FIXME: add twitter_card
   if post.meta('keywords')
@@ -10,7 +13,7 @@ block extra_head
 block content
   article(class="postbox post-"+post.meta('type'))
     div(class="h-entry", itemscope="itemscope", itemtype="http://schema.org/Article")
-      //FIXME add html_title
+      != helper.html_title(title)
       hr
       small
         = messages("Posted:")
@@ -27,3 +30,10 @@ block content
       div(class="e-content", itemprop="articleBody text")
         != post.text()
 
+      if post.description():
+          meta(content=post.description(), itemprop="description")
+
+    // FIXME ${helper.html_pager(post)}
+    if not post.meta('nocomments')
+      != comments.comment_form(post.permalink(absolute=True), post.title(), post._base_path)
+    // FIXME ${helper.mathjax_script(post)}

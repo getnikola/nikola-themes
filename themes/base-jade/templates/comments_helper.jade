@@ -1,14 +1,61 @@
-!!! 5
-include base_helper.jade
-html(lang=lang)
-  head
-    +base_head()
-    title= pageTitle
+- import "disqus_helper.jade" as disqus with context
+//- namespace name="livefyre" file="livefyre_helper"
+//- namespace name="intensedebate" file="intensedebate_helper"
+//- namespace name="moot" file="moot_helper"
+//- namespace name="googleplus" file="googleplus_helper"
+//- namespace name="facebook" file="facebook_helper"
+//- namespace name="isso" file="isso_helper"
 
-  body
-    h1.title Jade - node template engine
-    #container
-      if youAreUsingJade
-        p You are amazing
-      else
-        p Get on it!
+mixin comment_form(url, title, identifier)
+    if comment_system == 'disqus'
+        != disqus.comment_form(url, title, identifier)
+    elif comment_system == 'livefyre'
+        != livefyre.comment_form(url, title, identifier)
+    elif comment_system == 'intensedebate'
+        != intensedebate.comment_form(url, title, identifier)
+    elif comment_system == 'moot'
+        != moot.comment_form(url, title, identifier)
+    elif comment_system == 'googleplus'
+        != googleplus.comment_form(url, title, identifier)
+    elif comment_system == 'facebook'
+        != facebook.comment_form(url, title, identifier)
+    elif comment_system == 'isso'
+        != isso.comment_form(url, title, identifier)
+
+
+
+mixin comment_link(link, identifier)
+    if comment_system == 'disqus'
+        != disqus.comment_link(link, identifier)
+    elif comment_system == 'livefyre'
+        != livefyre.comment_link(link, identifier)
+    elif comment_system == 'intensedebate'
+        != intensedebate.comment_link(link, identifier)
+    elif comment_system == 'moot'
+        != moot.comment_link(link, identifier)
+    elif comment_system == 'googleplus'
+        != googleplus.comment_link(link, identifier)
+    elif comment_system == 'facebook'
+        != facebook.comment_link(link, identifier)
+    elif comment_system == 'isso'
+        != isso.comment_link(link, identifier)
+
+
+
+mixin comment_link_script()
+    if comment_system == 'disqus'
+        != disqus.comment_link_script()
+    elif comment_system == 'livefyre'
+        != livefyre.comment_link_script()
+    elif comment_system == 'intensedebate'
+        != intensedebate.comment_link_script()
+    elif comment_system == 'moot'
+        != moot.comment_link_script()
+    elif comment_system == 'googleplus'
+        != googleplus.comment_link_script()
+    elif comment_system == 'facebook'
+        != facebook.comment_link_script()
+    elif comment_system == 'isso'
+        != isso.comment_link_script()
+
+
