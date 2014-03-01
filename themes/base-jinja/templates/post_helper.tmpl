@@ -45,7 +45,6 @@
     {% endif %}
 {% endmacro %}
 
-
 {% macro html_pager(post) %}
     {% if post.prev_post or post.next_post %}
         <ul class="pager">
@@ -88,6 +87,11 @@
 
 {% macro mathjax_script(post) %}
     {% if post.is_mathjax %}
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}
+        });
+        </script>
         <script src="/assets/js/mathjax.js"></script>
     {% endif %}
 {% endmacro %}
