@@ -5,3 +5,11 @@ mixin html_title(title)
       p
         a(href=link)
           i= messages("Original site")
+
+mixin html_translations(post)
+    if len(translations) > 1
+        for langname in translation.keys()
+            if langname != lang and post.is_translation_available(langname)
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                a(href=post.permalink(langname), rel="alternate", hreflang=langname)
+                    = messages("Read in English", langname)

@@ -19,7 +19,7 @@ block content
         = messages("Posted:")
         time(class="published dt-published", datetime=post.date.isoformat(), itemprop="datePublished")
           = post.formatted_date(date_format)
-        // FIXME html_translations(post)
+        helper.html_translations(post)
         // FIXME html_tags(post)
 
         block sourcelink
