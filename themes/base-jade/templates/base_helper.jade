@@ -1,4 +1,37 @@
-mixin base_head()
+mixin html_head()
     meta(charset='utf-8')
+    if description:
+        meta(name="description" content=description)
+    meta(name="author" content=blog_author)
+    // needs striphtml
+    title(text=(title + ' | ' + blog_title))
+    = mathjax_config
+    if use_bundles
+      if use_cdn
+        link(href="/assets/css/all.css", rel="stylesheet", type="text/css")
+      else
+        link(href="/assets/css/all-nocdn.css", rel="stylesheet", type="text/css")
+    else
+      link(href="/assets/css/rst.css", rel="stylesheet", type="text/css")
+      link(href="/assets/css/code.css", rel="stylesheet", type="text/css")
+      link(href="/assets/css/theme.css", rel="stylesheet", type="text/css")
+      if has_custom_css
+        link(href="/assets/css/custom.css", rel="stylesheet", type="text/css")
 
-+base_head()
+    if permalink
+      link(rel="canonical", href=abs_link(permalink))
+
+    if rss_link
+      = rss_link
+    else
+      if translations|length > 1
+        for language in translations
+          link(rel="alternate", type="application/rss+xml", title="RSS ("+language+")", href=_link('rss', None, language))
+      else:
+        link(rel="alternate", type="application/rss+xml", title="RSS", href=_link('rss', None))
+
+    if favicons
+      for name, file, size in favicons
+        link(rel=name, href=file, sizes=size)
+
+
