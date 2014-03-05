@@ -34,4 +34,28 @@ mixin html_head()
       for name, file, size in favicons
         link(rel=name, href=file, sizes=size)
 
-
+mixin html_navigation_links()
+    // Links seem broken somehow
+    for url, text in navigation_links[lang]
+        if url|istuple
+          li
+            = text
+            ul
+              for suburl, text in url
+                if rel_link(permalink, url) == '#'
+                  li(class='active')
+                    a(href=permalink)
+                      = text
+                else
+                  li
+                    a(href=permalink)
+                      = text
+        else
+          if rel_link(permalink, url) == '#'
+            li(class='active')
+              a(href=permalink)
+                = text
+          else
+            li
+              a(href=permalink)
+                = text
