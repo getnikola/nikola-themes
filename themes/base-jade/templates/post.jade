@@ -4,7 +4,7 @@ extends base.jade
 - import "comments_helper.jade" as comments with context
 
 block extra_head
-  // FIXME: add twitter_card
+  != post_helper.twitter_card_information(post)
   if post.meta('keywords')
     meta(name="keywords", content=post.meta(keywords))
 
