@@ -1,6 +1,6 @@
 extends base.jade
 
-- import "post_helper.jade" as helper
+- import "post_helper.jade" as post_helper with context
 - import "comments_helper.jade" as comments with context
 
 block extra_head
@@ -13,7 +13,7 @@ block extra_head
 block content
   article(class="postbox post-"+post.meta('type'))
     div(class="h-entry", itemscope="itemscope", itemtype="http://schema.org/Article")
-      != helper.html_title(title)
+      != post_helper.html_title(title)
       hr
       small
         = messages("Posted:")
