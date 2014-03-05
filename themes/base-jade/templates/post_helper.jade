@@ -26,3 +26,17 @@ mixin html_tags(post)
     if post.tags
         &nbsp;&nbsp;|&nbsp;&nbsp;
         != formatmsg(messages("More posts about %s"), html_list_tags(post))
+
+mixin html_pager(post)
+    if post.prev_post or post.next_post
+        ul(class="pager")
+          if post.prev_post
+            li(class="previous")
+              a(href=post.prev_post.permalink(), rel="prev")
+                  &larr;
+                  = messages("Previous post")
+          if post.next_post:
+            li(class="next")
+                a(href=post.next_post.permalink(), rel="next")
+                = messages("Next post")
+                &rarr
