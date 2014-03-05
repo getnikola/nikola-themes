@@ -36,4 +36,4 @@ block content
     != post_helper.html_pager(post)
     if not post.meta('nocomments')
       != comments.comment_form(post.permalink(absolute=True), post.title(), post._base_path)
-    // FIXME ${helper.mathjax_script(post)}
+    != post_helper.mathjax_script(post)
