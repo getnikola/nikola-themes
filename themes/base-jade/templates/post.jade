@@ -7,8 +7,7 @@ block extra_head
   != post_helper.twitter_card_information(post)
   if post.meta('keywords')
     meta(name="keywords", content=post.meta(keywords))
-
-    // FIXME: add translations
+  != post_helper.meta_translations(post)
 
 block content
   article(class="postbox post-"+post.meta('type'))

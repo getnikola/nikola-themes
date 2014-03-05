@@ -6,6 +6,12 @@ mixin html_title(title)
         a(href=link)
           i= messages("Original site")
 
+mixin meta_translations(post)
+    if translations|length > 1
+        for langname in translations.keys()
+            if langname != lang and post.is_translation_available(langname)
+                link(rel="alternate", hreflang=langname, href=post.permalink(langname))
+
 mixin html_translations(post)
     if translations|length > 1
         for langname in translation.keys()
