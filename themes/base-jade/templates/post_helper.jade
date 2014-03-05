@@ -7,9 +7,22 @@ mixin html_title(title)
           i= messages("Original site")
 
 mixin html_translations(post)
-    if len(translations) > 1
+    if translations|length > 1
         for langname in translation.keys()
             if langname != lang and post.is_translation_available(langname)
                 &nbsp;&nbsp;|&nbsp;&nbsp;
                 a(href=post.permalink(langname), rel="alternate", hreflang=langname)
                     = messages("Read in English", langname)
+
+mixin html_list_tags(post)
+    span(itemprop="keywords")
+    for tag in post.tags
+        &nbsp;
+        a(class="tag p-category", href=_link('tag', tag))
+            span(class="badge badge-info")
+                = tag
+
+mixin html_tags(post)
+    if post.tags
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        != formatmsg(messages("More posts about %s"), html_list_tags(post))

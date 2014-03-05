@@ -19,8 +19,8 @@ block content
         = messages("Posted:")
         time(class="published dt-published", datetime=post.date.isoformat(), itemprop="datePublished")
           = post.formatted_date(date_format)
-        helper.html_translations(post)
-        // FIXME html_tags(post)
+        != post_helper.html_translations(post)
+        != post_helper.html_tags(post)
 
         block sourcelink
           if not post.meta('password')
