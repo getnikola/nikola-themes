@@ -1,4 +1,8 @@
 *.pyc
 .doit.db
-output/v6
+output/v*/*.zip
+output/v*/*.jpg
+output/v*/*.js
+output/v*/*.json
+output/v*/*/
 sites/

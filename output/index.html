@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.png">
     <title>
-      Themes for Nikola (version 6)
+      Themes for Nikola
     </title>
 <link href="http://getnikola.com/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="http://getnikola.com/assets/css/rst.css" rel="stylesheet" type="text/css">
@@ -66,6 +66,9 @@
             color: #333;
             background-color: #F9F2F4;
         }
+        .navbar-nav.navbar-right:last-child {
+            margin-right: 0;
+        }
     </style>
 </head>
 
@@ -93,121 +96,38 @@
                 </li><li><a href="http://getnikola.com/changes.html">Changelog</a>
 
         </li></ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/v7/">version 7</a></li>
+            <li><a href="/v6/">version 6</a></li>
+        </ul>
     </div><!-- /.navbar-collapse -->
 </nav>
-    <div class="container">
-      <div class="starter-template">
-      </div>
-      <div class="row jumbotron" style="padding-top: 30px;">
-      <h2>Nikola Themes <small>for version 6</small></h2>
-      <p>This is the theme repository for <a href="http://getnikola.com">Nikola</a>, a static site and
-      blog generator.</p>
-      <p style="font-size: 0.8em;">If you want to contribute a theme, you can do so at the
-      <a href="https://github.com/getnikola/nikola-themes">GitHub
-          repository</a>. <span style="font-size: 0.8em;">Or just ask in the
-      <a href="https://groups.google.com/forum/#!forum/nikola-discuss">mailing
-          list</a>.</span></p>
-      <p class="text-warning" style="font-size: 0.7em;">Warning: some
-      (Mako) themes may contain Python code.  Some of it may be
-      malicious, intentionally or not.  Use at your own risk.</p>
-      </div>
-      <div class="row">
-        <div class="col-md-4" style="padding-left: 0;">
-          <div class="holder"></div>
-          <div class="list-group" id="itemContainer">
-          </div>
+
+    <div class="container" style="text-align: center">
+        <h1>Themes for Nikola</h1>
+        <h3 class="text-muted">Choose a version to display themes for.</h3>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+          <a href="/v7/" class="btn btn-danger btn-lg">Version 7</a>
+          <p class="text-muted" style="font-size: 1.5em;">The new version of
+          Nikola, currently in development.</p>
+            </div>
+
+            <div class="col-md-3">
+          <a href="/v6/" class="btn btn-success btn-lg">Version 6</a>
+          <p class="text-muted" style="font-size: 1.5em;">The current stable
+          version of Nikola.</p>
+            </div>
         </div>
-        <div class="col-md-8" id="rightside" style="margin-top:14px; border: 1px solid #dddddd; border-radius: 5px; padding-bottom: 15px; background-color: white; margin-bottom: 10px;">
-        </div>
-      </div>
-      <div class="row well well-sm" id="footer" style='text-align: center;'>
+      <div class="row well well-sm" id="footer" style="margin-top: 100px;">
         © The Nikola Team and each theme's authors
       </div>
     </div>
     <!-- /.container -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="jPages.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script src="v6/theme_data.js"></script>
-    <script src="showdown.js"></script>
     <script type="text/javascript">
-      $(function(){
-//      Add themes to the list
-        th_list = $("#itemContainer");
-        for (theme in data) {
-            var anchor = $('<a/>')
-                .addClass('list-group-item')
-                .attr('id', 'li-'+ theme)
-                .attr('href', '#'+theme)
-                .text(theme)
-                .appendTo(th_list)
-        };
-//      Paginate
-        $("div.holder").jPages({ containerID : "itemContainer", perPage: 10 });
-        hash_handler();
-      });
-    var converter = new Showdown.converter();
-    function hash_handler() {
-        if (location.hash) {
-            theme = location.hash.slice(1);
-        }
-        else {
-            theme = 'bootstrap';
-        }
-//      Show theme data
-        container = $('#rightside');
-        container.html('');
-        var title = $('<h2/>').text(theme).appendTo(container);
-        var small = $('<small/>').appendTo(title)
-        if (data[theme]['bootswatch']) {
-            $('<span/>').html('&nbsp;|&nbsp;Supports <a href="http://bootswatch.com">Bootswatch</a>').appendTo(small)
-        }
-        if (data[theme]['engine'] == 'mako') {
-            $('<span/>').html('&nbsp;|&nbsp; Uses <a href="http://www.makotemplates.org/">Mako</a>').appendTo(small)
-        } else {
-            $('<span/>').html('&nbsp;|&nbsp; Uses <a href="http://jinja.pocoo.org/docs/">Jinja2</a>').appendTo(small)
-        }
-        $('<span/>').html('&nbsp;|&nbsp;<a href="v6/'+theme+'/index.html">See demo</a>').appendTo(small)
-        thumb = $('<div/>').appendTo(container)
-        full_image_link = $('<a/>').attr('href', 'v6/'+theme+'.jpg').appendTo(thumb)
-        $('<img/>').attr('src', 'v6/'+theme+'.jpg').attr('style', 'width:500px; margin: 10px auto 10px auto; display: block;')
-            .addClass('img-thumbnail').appendTo(full_image_link)
-        $('<div/>').addClass('well well-sm').html('To install, use <code>nikola install_theme '+theme+'</code></span>').appendTo(container)
-        $('<div/>').html(converter.makeHtml(data[theme]['readme'])).appendTo(container)
-        if (data[theme]['confpy'] != null) {
-            $('<h3/>').html('Suggested Configuration:').appendTo(container)
-            $('<div/>').html(data[theme]['confpy']).appendTo(container)
-        }
-
-        // DISQUS comments.  This code is a mess.
-        // MAKE SURE TO :set tw=93409564302956 before editing
-        $('<div/>').html('<div id="disqus_thread"></div><sc' + 'ript type="text/javascript"> var disqus_shortname = "nikolathemes"; var disqus_identifier = "THEME_'+theme+'"; var disqus_title = "Nikola Theme: " +theme; var disqus_url = "http://themes.getnikola.com/go/" + theme; (function() { var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true; dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js"; (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq); })(); </s'+'cript><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>').appendTo(container)
-
-        // Mark theme as active and paginate to it
-        var listItems = $("#itemContainer a");
-        listItems.each(function(idx, item) {
-            console.log(item.id , 'li-'+theme)
-            if (item.id == 'li-'+theme) {
-                $('#li-'+theme).addClass('active');
-                var page = parseInt(idx/10)+1;
-                $("div.holder").jPages(page);
-                document.title = theme + ' — Themes for Nikola (version 6)';
-            } else {
-                $('#'+item.id).removeClass('active');
-            }
-        });
-        // Theme inheritance chain, need to find a good place for it...
-        var crumbbar = $('<ul/>')
-            .addClass('breadcrumb')
-            .attr('style', 'margin-top:8px;')
-            .appendTo(container)
-        for (idx in data[theme]['chain']) {
-            parent = data[theme]['chain'][idx]
-            crumb = $('<li/>').appendTo(crumbbar);
-            $('<a/>').attr('href', '#'+parent).text(parent).appendTo(crumb)
-        }
-    };
-    $(window).on('hashchange', hash_handler);
     var sc_project=9276307;
     var sc_invisible=1;
     var sc_security="5f7346a9";
