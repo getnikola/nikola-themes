@@ -1,0 +1,62 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+${set_locale(lang)}
+<!DOCTYPE html>
+<html lang="${lang}">
+<head>
+    ${base.html_head()}
+    <%block name="extra_head">
+    </%block>
+    ${extra_head_data}
+</head>
+<body>
+<div id="wrapper">
+    <div id="container">
+        <div id="content">
+            <div id="header">
+                <h1 id="blog-title">
+                    <a href="${blog_url}" title="${blog_title}">${blog_title}</a>
+                </h1>
+                <%block name="belowtitle">
+                %if len(translations) > 1:
+                <small>
+                    ${messages("Also available in")}:&nbsp;
+                    %for langname in translations.keys():
+                        %if langname != lang:
+                            <a href="${_link("index", None, langname)}">${messages[langname]["LANGUAGE"]}</a>
+                        %endif
+                    %endfor
+                </small>
+                %endif
+                </%block>
+            </div>
+        <div class="hfeed">
+            <!--Body content-->
+            <%block name="content"></%block>
+            <!--End of body content-->
+        </div><!-- .hfeed -->
+    </div><!-- #content -->
+</div><!-- #container -->
+
+<div id="primary" class="theme_sidebar">
+    <ul>
+        %for url, text in sidebar_links[lang]:
+            <li><h3><a href="${rel_link(permalink, url)}">${text}</a></h3>
+        %endfor
+        <li>${license}
+        <li>${base.html_social()}
+        <li>${search_form}
+    </ul>
+</div><!-- #primary .theme_sidebar -->
+
+<div id="footer">
+    <span id="theme-link"><a href="http://www.plaintxt.org/themes/blogtxt/" title="<?php _e('blog.txt theme for WordPress', 'blogtxt' ) ?>" rel="follow designer">blog.txt</a> <?php _e('theme by', 'blogtxt') ?> <span class="vcard"><a class="url fn n" href="http://scottwallick.com/" title="scottwallick.com" rel="follow designer"><span class="given-name">Scott</span><span class="additional-name"> Allan</span><span class="family-name"> Wallick</span></a></span></span>
+    <small>${content_footer}</small><p>
+</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+    ${base.late_load_js()}
+    <%block name="extra_js"></%block>
+    ${body_end}
+</body>
+</html>

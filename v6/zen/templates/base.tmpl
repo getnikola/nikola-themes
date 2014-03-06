@@ -1,0 +1,37 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+<%namespace name="arusahni" file="arusahni_helper.tmpl" import="*" />
+${set_locale(lang)}
+<!DOCTYPE html>
+<html lang="${lang}">
+<head>
+    ${arusahni.html_head()}
+    <%block name="extra_head">
+    </%block>
+    ${extra_head_data}
+</head>
+
+<body>
+    <section class="social">
+        <ul>
+        ${arusahni.html_navigation_links()}
+        </ul>
+    </section>
+    <section class="page-content">
+        <div class="content" rel="main">
+            <%block name="content"></%block>
+            ${content_footer}
+            ${base.html_social()}
+        </div>
+    </section>
+    ${arusahni.late_load_js()}
+    <%block name="extra_js">
+        <script type="text/javascript">
+            $(function(){
+                $('.timeago').timeago();
+            });
+        </script>
+    </%block>
+    ${body_end}
+</body>
+</html>
