@@ -18,7 +18,7 @@ def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
 
 def theme_list():
-    return ['base', 'bootstrap', 'bootstrap3'] + [theme.split('/')[-1] for theme in glob.glob("themes/*")]
+    return sorted(['base', 'base-jinja', 'bootstrap', 'bootstrap-jinja', 'bootstrap3', 'bootstrap3-jinja'] + [theme.split('/')[-1] for theme in glob.glob("themes/*")])
 
 def sanity_check(theme=None):
     if theme is None:  # Check them all

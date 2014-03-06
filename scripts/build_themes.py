@@ -16,13 +16,13 @@ from progressbar import ProgressBar
 
 from nikola import utils
 
-BASE_URL = "http://themes.getnikola.com/v6/"
+BASE_URL = "http://themes.getnikola.com/v7/"
 
 def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
 
 def theme_list():
-    return sorted(['base', 'bootstrap', 'bootstrap3'] + [theme.split('/')[-1] for theme in glob.glob("themes/*")])
+    return sorted(['base', 'base-jinja', 'bootstrap', 'bootstrap-jinja', 'bootstrap3', 'bootstrap3-jinja'] + [theme.split('/')[-1] for theme in glob.glob("themes/*")])
 
 def build_theme(theme=None):
     if theme is None:  # Check them all
@@ -40,25 +40,25 @@ def build_theme(theme=None):
         error("can't build theme {0}".format(theme))
         raise
 
-    if not os.path.isdir(os.path.join("output", "v6")):
-        os.mkdir(os.path.join("output", "v6"))
+    if not os.path.isdir(os.path.join("output", "v7")):
+        os.mkdir(os.path.join("output", "v7"))
 
     if os.path.isdir('themes/'+theme):
         with cd('themes/'):
-            subprocess.check_call('zip -r ../output/v6/{0}.zip {0}'.format(theme), stdout=subprocess.PIPE, shell=True)
-    subprocess.check_call('capty output/v6/{0}/index.html output/v6/{0}.jpg'.format(theme), stdout=subprocess.PIPE, shell=True)
+            subprocess.check_call('zip -r ../output/v7/{0}.zip {0}'.format(theme), stdout=subprocess.PIPE, shell=True)
+    subprocess.check_call('capty output/v7/{0}/index.html output/v7/{0}.jpg'.format(theme), stdout=subprocess.PIPE, shell=True)
 
     themes_dict = {}
     for theme in glob.glob('themes/*/'):
         t_name = os.path.basename(theme[:-1])
         themes_dict[t_name] = BASE_URL + t_name + ".zip"
-    with open(os.path.join("output", "v6", "themes.json"), "wb+") as outf:
+    with open(os.path.join("output", "v7", "themes.json"), "wb+") as outf:
         json.dump(themes_dict, outf, indent=4, ensure_ascii=True, sort_keys=True)
 
 
 def init_theme(theme):
     t_path = "/".join(["sites", theme])
-    o_path = os.path.abspath("/".join(["output", "v6", theme]))
+    o_path = os.path.abspath("/".join(["output", "v7", theme]))
     if os.path.isdir(t_path):
         shutil.rmtree(t_path)
     if os.path.isdir(o_path):

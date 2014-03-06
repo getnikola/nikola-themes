@@ -17,20 +17,20 @@ import pygments
 from pygments.lexers import PythonLexer
 from pygments.formatters import HtmlFormatter
 
-BASE_URL = "http://themes.getnikola.com/v6/"
+BASE_URL = "http://themes.getnikola.com/v7/"
 
 def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
 
 def theme_list():
-    return ['base', 'bootstrap', 'bootstrap3'] + [theme.split('/')[-1] for theme in glob.glob("themes/*")]
+    return sorted(['base', 'base-jinja', 'bootstrap', 'bootstrap-jinja', 'bootstrap3', 'bootstrap3-jinja'] + [theme.split('/')[-1] for theme in glob.glob("themes/*")])
 
 def build_site():
     data = {}
     progress = ProgressBar()
     for theme in progress(theme_list()):
         data[theme] = get_data(theme)
-    with open(os.path.join('output', 'v6', 'theme_data.js'), 'wb+') as outf:
+    with open(os.path.join('output', 'v7', 'theme_data.js'), 'wb+') as outf:
         outf.write("var data = " + json.dumps(data, indent=4, ensure_ascii=True, sort_keys=True))
 
 def get_data(theme):
