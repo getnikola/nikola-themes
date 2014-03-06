@@ -6,7 +6,7 @@
         <div style="border: 2px solid darkgrey; margin-bottom: 12px; border-radius: 4px; padding:12px; overflow: auto;">
         <a href="${post.meta('link')}"><h1>${post.title(lang)}</a>
         <small>&nbsp;&nbsp;
-            ${messages("Posted")}: <time class="published" datetime="${post.date.isoformat()}">${post.formatted_date(date_format)}</time>
+            ${messages("Posted:")} <time class="published" datetime="${post.date.isoformat()}">${post.formatted_date(date_format)}</time>
         </small></h1>
         ${post.text(lang)}
         </div>
