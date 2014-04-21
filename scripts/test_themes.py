@@ -8,6 +8,7 @@ import filecmp
 import glob
 import hashlib
 import os
+import sys
 import re
 
 import colorama
@@ -88,6 +89,9 @@ blacklist = (
 )
 
 if __name__ == "__main__":
-    import commandline
     colorama.init()
-    commandline.run_as_main(sanity_check)
+    if len(sys.argv) == 1:
+        sanity_check()
+    else:
+        for a in sys.argv[1:]:
+            sanity_check(a)

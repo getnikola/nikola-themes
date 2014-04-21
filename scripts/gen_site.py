@@ -41,6 +41,5 @@ def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
 
 if __name__ == "__main__":
-    import commandline
     colorama.init()
-    commandline.run_as_main(create_site)
+    create_site()

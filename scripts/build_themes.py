@@ -8,6 +8,7 @@ from contextlib import contextmanager
 import glob
 import json
 import os
+import sys
 import shutil
 import subprocess
 
@@ -85,6 +86,9 @@ def cd(path):
     os.chdir(old_dir)
 
 if __name__ == "__main__":
-    import commandline
     colorama.init()
-    commandline.run_as_main(build_theme)
+    if len(sys.argv) == 1:
+        build_theme()
+    else:
+        for a in sys.argv[1:]:
+            build_theme(a)

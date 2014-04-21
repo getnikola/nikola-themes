@@ -61,6 +61,5 @@ def get_data(theme):
     return data
 
 if __name__ == "__main__":
-    import commandline
     colorama.init()
-    commandline.run_as_main(build_site)
+    build_site()
