@@ -1,40 +1,45 @@
 ## -*- coding: utf-8 -*-
 <%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="pheader" file="post_header.tmpl"/>
 <%namespace name="comments" file="comments_helper.tmpl"/>
 <%inherit file="base.tmpl"/>
+
 <%block name="extra_head">
-${helper.twitter_card_information(post)}
-% if post.meta('keywords'):
-    <meta name="keywords" content="${post.meta('keywords')|h}"/>
-% endif
-</%block>
-<%block name="content">
-    <section>
-    <div class="postbox">
-    ${helper.html_title()}
-    <hr>
-    <medium>
-        ${messages("Posted:")} <time class="published" datetime="${post.date.isoformat()}">${post.formatted_date(date_format)}</time>
-        ${helper.html_translations(post)}
-        ${helper.html_tags(post)}
-        &nbsp;&nbsp;|&nbsp;&nbsp;
-        <%block name="sourcelink">
-        % if not post.meta('password'):
-            <a href="${post.source_link()}" id="sourcelink">${messages("Source")}</a>
-        % endif
-        </%block>
-    </medium>
-    <hr>
-    ${post.text()}
-    ${helper.html_pager(post)}
-    ${helper.mathjax_script(post)}
-    </div>
-    </section>
-    <section>
-    % if not post.meta('nocomments'):
-        ${comments.comment_form(post.permalink(absolute=True), post.title(), post.base_path)}
+    ${parent.extra_head()}
+    % if post.meta('keywords'):
+        <meta name="keywords" content="${post.meta('keywords')|h}">
     % endif
-    </section>
+    <meta name="author" content="${post.author()}">
+    ${helper.open_graph_metadata(post)}
+    ${helper.twitter_card_information(post)}
+    ${helper.meta_translations(post)}
+</%block>
+
+<%block name="content">
+<section>
+<article class="post-${post.meta('type')} h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article">
+    ${pheader.html_post_header()}
+    <div class="e-content entry-content" itemprop="articleBody text">
+    ${post.text()}
+    </div>
+    <aside class="postpromonav">
+    <nav>
+    ${helper.html_tags(post)}
+    ${helper.html_pager(post)}
+    </nav>
+    </aside>
+    ${helper.mathjax_script(post)}
+</article>
+</section>
+<section>
+    % if not post.meta('nocomments') and site_has_comments:
+        <section class="comments">
+        <h2>${messages("Comments")}</h2>
+        ${comments.comment_form(post.permalink(absolute=True), post.title(), post._base_path)}
+        </section>
+    % endif
+${comments.comment_link_script()}
+</section>
 </%block>
 
 <%block name="custom_reveal">

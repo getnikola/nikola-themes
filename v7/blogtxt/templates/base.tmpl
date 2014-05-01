@@ -1,13 +1,11 @@
 ## -*- coding: utf-8 -*-
 <%namespace name="base" file="base_helper.tmpl" import="*"/>
 ${set_locale(lang)}
-<!DOCTYPE html>
-<html lang="${lang}">
-<head>
-    ${base.html_head()}
-    <%block name="extra_head">
-    </%block>
-    ${extra_head_data}
+${base.html_headstart()}
+<%block name="extra_head">
+### Leave this block alone.
+</%block>
+${template_hooks['extra_head']()}
 </head>
 <body>
 <div id="wrapper">
@@ -40,23 +38,26 @@ ${set_locale(lang)}
 
 <div id="primary" class="theme_sidebar">
     <ul>
-        %for url, text in sidebar_links[lang]:
+        %for url, text in navigation_links[lang]:
             <li><h3><a href="${rel_link(permalink, url)}">${text}</a></h3>
+            ${template_hooks['menu']()}
+            ${template_hooks['menu_alt']()}
         %endfor
         <li>${license}
-        <li>${base.html_social()}
         <li>${search_form}
     </ul>
 </div><!-- #primary .theme_sidebar -->
 
 <div id="footer">
-    <span id="theme-link"><a href="http://www.plaintxt.org/themes/blogtxt/" title="<?php _e('blog.txt theme for WordPress', 'blogtxt' ) ?>" rel="follow designer">blog.txt</a> <?php _e('theme by', 'blogtxt') ?> <span class="vcard"><a class="url fn n" href="http://scottwallick.com/" title="scottwallick.com" rel="follow designer"><span class="given-name">Scott</span><span class="additional-name"> Allan</span><span class="family-name"> Wallick</span></a></span></span>
-    <small>${content_footer}</small><p>
+    <span id="theme-link"><a href="http://www.plaintxt.org/themes/blogtxt/" title="blog.txt theme for WordPress" rel="follow designer">blog.txt</a> 'theme by <span class="vcard"><a class="url fn n" href="http://scottwallick.com/" title="scottwallick.com" rel="follow designer"><span class="given-name">Scott</span><span class="additional-name"> Allan</span><span class="family-name"> Wallick</span></a></span></span>
+    <small>${content_footer}
+            ${template_hooks['page_footer']()}
+ </small><p>
 </div><!-- #footer -->
 
 </div><!-- #wrapper -->
-    ${base.late_load_js()}
-    <%block name="extra_js"></%block>
     ${body_end}
+    ${template_hooks['body_end']()}
+    ${base.late_load_js()}
 </body>
 </html>

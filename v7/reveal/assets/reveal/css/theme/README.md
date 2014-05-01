@@ -1,25 +1,25 @@
 ## Dependencies
 
-Themes are written using Sass to keep things modular and reduce the need for repeated selectors across files. Find out how to install Sass here http://sass-lang.com/, once Sass is installed run the follwing command to start monitoring the source files for changes.
+Themes are written using Sass to keep things modular and reduce the need for repeated selectors across files. Make sure that you have the reveal.js development environment including the Grunt dependencies installed before proceding: https://github.com/hakimel/reveal.js#full-setup
 
-```
-sass --watch css/theme/source/:css/theme --style expanded
-```
-
-
+You also need to install Ruby and then Sass (with `gem install sass`).
 
 ## Creating a Theme
 
-To create your own theme, start by duplicating any ```.scss``` file in [/css/theme/source](https://github.com/hakimel/reveal.js/blob/master/css/theme/source). Each theme does four things in the following order:
+To create your own theme, start by duplicating any ```.scss``` file in [/css/theme/source](https://github.com/hakimel/reveal.js/blob/master/css/theme/source) and adding it to the compilation list in the [Gruntfile](https://github.com/hakimel/reveal.js/blob/master/Gruntfile.js).
 
-1. **Include [/css/theme/template/mixins.scss](https://github.com/hakimel/reveal.js/blob/master/css/theme/template/mixins.scss)**  
+Each theme file does four things in the following order:
+
+1. **Include [/css/theme/template/mixins.scss](https://github.com/hakimel/reveal.js/blob/master/css/theme/template/mixins.scss)**
 Shared utility functions.
 
-2. **Include [/css/theme/template/settings.scss](https://github.com/hakimel/reveal.js/blob/master/css/theme/template/settings.scss)**  
+2. **Include [/css/theme/template/settings.scss](https://github.com/hakimel/reveal.js/blob/master/css/theme/template/settings.scss)**
 Declares a set of custom variables that the template file (step 4) expects. Can be overridden in step 3.
 
-3. **Override**  
+3. **Override**
 This is where you override the default theme. Either by specifying variables (see [settings.scss](https://github.com/hakimel/reveal.js/blob/master/css/theme/template/settings.scss) for reference) or by adding full selectors with hardcoded styles.
 
-4. **Include [/css/theme/template/theme.scss](https://github.com/hakimel/reveal.js/blob/master/css/theme/template/theme.scss)**  
+4. **Include [/css/theme/template/theme.scss](https://github.com/hakimel/reveal.js/blob/master/css/theme/template/theme.scss)**
 The template theme file which will generate final CSS output based on the currently defined variables.
+
+When you are done, run `grunt themes` to compile the Sass file to CSS and you are ready to use your new theme.

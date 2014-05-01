@@ -1,18 +1,13 @@
 ## -*- coding: utf-8 -*-
 <%namespace name="base" file="base_helper.tmpl" import="*"/>
 ${set_locale(lang)}
-<!DOCTYPE html>
-<html lang="${lang}">
-<head>
-    ${base.html_head()}
-    <%block name="extra_head">
-    </%block>
-    ${extra_head_data}
+${base.html_headstart()}
+<%block name="extra_head">
+### Leave this block alone.
+</%block>
+${template_hooks['extra_head']()}
 </head>
 <body>
-<!-- topbar -->
-<!-- End of topbar -->
-
 <div class="container" id="container">
     <!--Body content-->
     <!--End of body content-->
@@ -20,18 +15,20 @@ ${set_locale(lang)}
     <a href="${blog_url}"><h1>${blog_title}</h1></a>
     </div>
     <div id="content">
+        ${template_hooks['page_header']()}
         <%block name="content"></%block>
     </div>
     <div class="row-fluid">
         <div class="span6" style="text-align: right; border-right: 2px solid #ccc; padding-right: 20px;">
             <ul class="unstyled bottom">
-                %for url, text in sidebar_links[lang]:
+                %for url, text in navigation_links[lang]:
                     % if rel_link(permalink, url) == "#":
                         <li class="active"><a href="${url}">${text}</a>
                     %else:
                         <li><a href="${url}">${text}</a>
                     %endif
                 %endfor
+                ${template_hooks['menu']()}
             </ul>
         </div>
         <div class="span6" style="margin-left: 20px;">
@@ -54,12 +51,14 @@ ${set_locale(lang)}
             %if search_form:
                 ${search_form}
             %endif
+            ${template_hooks['menu_alt']()}
             </div>
         </div>
     </div>
     <hr>
     <div class="footer">
     ${content_footer}
+    ${template_hooks['page_footer']()}
     </div>
 </div>
     ${base.late_load_js()}
@@ -86,4 +85,5 @@ ${set_locale(lang)}
         });
     </script>
     ${body_end}
+    ${template_hooks['body_end']()}
 </body>
