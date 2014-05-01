@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Make sanity checks on the provided themes."""
+"""Build themes."""
 
 from __future__ import unicode_literals, print_function
 import codecs
@@ -13,9 +13,10 @@ import shutil
 import subprocess
 
 import colorama
-from progressbar import ProgressBar
 
 from nikola import utils
+
+# s/v7/vX/ to upgrade
 
 BASE_URL = "http://themes.getnikola.com/v7/"
 
@@ -23,13 +24,15 @@ def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
 
 def theme_list():
-    return sorted(['base', 'base-jinja', 'bootstrap', 'bootstrap-jinja', 'bootstrap3', 'bootstrap3-jinja'] + [theme.split('/')[-1] for theme in glob.glob("themes/*")])
+    return sorted(['base', 'base-jinja', 'bootstrap', 'bootstrap-jinja', 'bootstrap3', 'bootstrap3-jinja'] + [theme.split('/')[-1] for theme in glob.glob("v7/*")])
 
 def build_theme(theme=None):
     if theme is None:  # Check them all
         print("\nBuilding all themes\n")
-        progress = ProgressBar()
-        for theme in progress(theme_list()):
+        tl = theme_list()
+        ltl = len(tl)
+        for i, theme in enumerate(tl):
+            print('--- Building theme "{0}" ({1}/{2}) ---'.format(theme, i + 1, ltl))
             build_theme(theme)
         return
     init_theme(theme)
@@ -44,13 +47,13 @@ def build_theme(theme=None):
     if not os.path.isdir(os.path.join("output", "v7")):
         os.mkdir(os.path.join("output", "v7"))
 
-    if os.path.isdir('themes/'+theme):
-        with cd('themes/'):
+    if os.path.isdir('v7/'+theme):
+        with cd('v7/'):
             subprocess.check_call('zip -r ../output/v7/{0}.zip {0}'.format(theme), stdout=subprocess.PIPE, shell=True)
     subprocess.check_call('capty output/v7/{0}/index.html output/v7/{0}.jpg'.format(theme), stdout=subprocess.PIPE, shell=True)
 
     themes_dict = {}
-    for theme in glob.glob('themes/*/'):
+    for theme in glob.glob('v7/*/'):
         t_name = os.path.basename(theme[:-1])
         themes_dict[t_name] = BASE_URL + t_name + ".zip"
     with open(os.path.join("output", "v7", "themes.json"), "wb+") as outf:
@@ -64,13 +67,13 @@ def init_theme(theme):
         shutil.rmtree(t_path)
     if os.path.isdir(o_path):
         shutil.rmtree(o_path)
-    subprocess.check_call(["nikola", "init", "--demo", t_path], stdout=subprocess.PIPE)
-    os.symlink(os.path.abspath("themes"), os.path.abspath("/".join([t_path, "themes"])))
+    subprocess.check_call(["nikola", "init", "-qd", t_path], stdout=subprocess.PIPE)
+    os.symlink(os.path.abspath("v7"), os.path.abspath("/".join([t_path, "themes"])))
 
     conf_path = "/".join([t_path,"conf.py"])
     # Get custom required settings from the theme
-    themes = utils.get_theme_chain(theme)
-    extra_conf_path = utils.get_asset_path('conf.py.sample', themes)
+    themes = utils.get_theme_chain(theme, _themes_dir='v7')
+    extra_conf_path = utils.get_asset_path('conf.py.sample', themes, _themes_dir='v7')
     extra_conf = ''
     if extra_conf_path:
         extra_conf = open(extra_conf_path, 'r').read()

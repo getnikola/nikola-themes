@@ -59,6 +59,7 @@
             color: #333;
             background-color: #F9F2F4;
         }
+
         .navbar-nav.navbar-right:last-child {
             margin-right: 0;
         }
@@ -124,30 +125,155 @@
 
 <!-- End of Menubar -->
 
-    <div class="container" style="text-align: center">
-        <h1>Themes for Nikola</h1>
-        <h3 class="text-muted">Choose a version to display themes for.</h3>
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-3">
-          <a href="/v7/" class="btn btn-danger btn-lg">Version 7</a>
-          <p class="text-muted" style="font-size: 1.5em;">The new version of
-          Nikola, currently in development.</p>
-            </div>
-
-            <div class="col-md-3">
-          <a href="/v6/" class="btn btn-success btn-lg">Version 6</a>
-          <p class="text-muted" style="font-size: 1.5em;">The current stable
-          version of Nikola.</p>
-            </div>
+    <div class="container" style="margin-top: 60px;">
+      <div class="starter-template">
+      </div>
+      <div class="row jumbotron" style="padding-top: 30px;">
+      <h2>Themes for Nikola <small>version
+<div class="btn-group" id="version-picker">
+</div>
+      </small></h2>
+      <p>This is the theme repository for <a href="http://getnikola.com">Nikola</a>, a static site and
+      blog generator.</p>
+      <p style="font-size: 0.8em;">If you want to contribute a theme, you can do so at the
+      <a href="https://github.com/getnikola/nikola-themes">GitHub
+          repository</a>. <span style="font-size: 0.8em;">Or just ask in the
+      <a href="https://groups.google.com/forum/#!forum/nikola-discuss">mailing
+          list</a>.</span></p>
+      <p class="text-warning" style="font-size: 0.7em;">Warning: some
+      themes may contain Python code.  Some of it may be malicious,
+      intentionally or not.  Use at your own risk.</p>
+      </div>
+      <div class="row">
+        <div class="col-md-4" style="padding-left: 0;">
+          <div class="holder"></div>
+          <div class="list-group" id="itemContainer">
+          </div>
         </div>
-      <div class="row well well-sm" id="footer" style="margin-top: 100px;">
+        <div class="col-md-8" id="rightside" style="margin-top:14px; border: 1px solid #dddddd; border-radius: 5px; padding-bottom: 15px; background-color: white; margin-bottom: 10px;">
+        </div>
+      </div>
+      <div class="row well well-sm" id="footer" style='text-align: center;'>
         © The Nikola Team and each theme's authors
       </div>
     </div>
     <!-- /.container -->
     <script src="http://getnikola.com/assets/js/all-nocdn.js" type="text/javascript"></script>
+    <script src="../jPages.min.js"></script>
+    <script src="theme_data.js"></script>
+    <script src="../showdown.js"></script>
     <script type="text/javascript">
+    var converter = new Showdown.converter();
+      function get_supported_and_eat_meta() {
+          var supported = data['__meta__']['allver'];
+          delete data.__meta__;
+          for (i in supported) {
+              var v = supported[i];
+              var o = $('<button/>');
+              o.attr('id', 'p-v' + v);
+              o.attr('type', 'button');
+              o.data('version', v);
+              o.addClass('btn');
+              o.addClass('btn-info');
+              o.html(v.toString());
+              o.click(function() {fetch($(this).data('version'))});
+              $('#version-picker').append(o);
+          }
+          return supported;
+      }
+      function fetch(version){
+          current_version = version;
+//      Change picker
+          for (i in supported) {
+              var v = supported[i];
+              var o = $('#p-v' + v);
+              o.removeClass('active');
+          }
+          $('#p-v' + version).addClass('active');
+//      Add plugins to the list
+        th_list = $("#itemContainer");
+        th_list.html('');
+        for (plugin in data) {
+            if (data[plugin]['allver'].indexOf(version) != -1) {
+                var anchor = $('<a/>')
+                    .addClass('list-group-item')
+                    .attr('id', 'li-'+ plugin)
+                    .attr('href', '#'+plugin)
+                    .text(plugin)
+                    .appendTo(th_list)
+            }
+        };
+//      Paginate
+        $("div.holder").jPages({ containerID : "itemContainer", perPage: 10 });
+        hash_handler();
+      }
+
+    var supported = get_supported_and_eat_meta();
+    // DEFAULT VERSION SET HERE
+    var current_version = 7;
+    fetch(current_version);
+
+    function hash_handler() {
+        if (location.hash) {
+            theme = location.hash.slice(1);
+        }
+        else {
+            theme = 'bootstrap';
+        }
+//      Show theme data
+        container = $('#rightside');
+        container.html('');
+        var title = $('<h2/>').text(theme).appendTo(container);
+        var small = $('<small/>').appendTo(title)
+        if (data[theme]['bootswatch']) {
+            $('<span/>').html('&nbsp;|&nbsp;Supports <a href="http://bootswatch.com">Bootswatch</a>').appendTo(small)
+        }
+        if (data[theme]['engine'] == 'mako') {
+            $('<span/>').html('&nbsp;|&nbsp; Uses <a href="http://www.makotemplates.org/">Mako</a>').appendTo(small)
+        } else {
+            $('<span/>').html('&nbsp;|&nbsp; Uses <a href="http://jinja.pocoo.org/docs/">Jinja2</a>').appendTo(small)
+        }
+        $('<span/>').html('&nbsp;|&nbsp;<a href="v'+current_version+'/'+theme+'/index.html">See demo</a>').appendTo(small)
+        thumb = $('<div/>').appendTo(container)
+        full_image_link = $('<a/>').attr('href', 'v'+current_version+'/'+theme+'.jpg').appendTo(thumb)
+        $('<img/>').attr('src', 'v'+current_version+'/'+theme+'.jpg').attr('style', 'width:500px; margin: 10px auto 10px auto; display: block;')
+            .addClass('img-thumbnail').appendTo(full_image_link)
+        $('<div/>').addClass('well well-sm').html('To install, use <code>nikola install_theme '+theme+'</code></span>').appendTo(container)
+        $('<div/>').html(converter.makeHtml(data[theme]['readme'])).appendTo(container)
+        if (data[theme]['confpy'] != null) {
+            $('<h3/>').html('Suggested Configuration:').appendTo(container)
+            $('<div/>').html(data[theme]['confpy']).appendTo(container)
+        }
+
+        // DISQUS comments.  This code is a mess.
+        // MAKE SURE TO :set tw=93409564302956 before editing
+        $('<div/>').html('<div id="disqus_thread"></div><sc' + 'ript type="text/javascript"> var disqus_shortname = "nikolathemes"; var disqus_identifier = "THEME_'+theme+'"; var disqus_title = "Nikola Theme: " +theme; var disqus_url = "http://themes.getnikola.com/go/" + theme; (function() { var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true; dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js"; (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq); })(); </s'+'cript><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>').appendTo(container)
+
+        // Mark theme as active and paginate to it
+        var listItems = $("#itemContainer a");
+        listItems.each(function(idx, item) {
+            console.log(item.id , 'li-'+theme)
+            if (item.id == 'li-'+theme) {
+                $('#li-'+theme).addClass('active');
+                var page = parseInt(idx/10)+1;
+                $("div.holder").jPages(page);
+                document.title = theme + ' — Themes for Nikola';
+            } else {
+                $('#'+item.id).removeClass('active');
+            }
+        });
+        // Theme inheritance chain, need to find a good place for it...
+        var crumbbar = $('<ul/>')
+            .addClass('breadcrumb')
+            .attr('style', 'margin-top:8px;')
+            .appendTo(container)
+        for (idx in data[theme]['chain']) {
+            parent = data[theme]['chain'][idx]
+            crumb = $('<li/>').appendTo(crumbbar);
+            $('<a/>').attr('href', '#'+parent).text(parent).appendTo(crumb)
+        }
+    };
+    $(window).on('hashchange', hash_handler);
     var sc_project=9276307;
     var sc_invisible=1;
     var sc_security="5f7346a9";

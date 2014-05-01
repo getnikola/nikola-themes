@@ -19,7 +19,7 @@ def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
 
 def theme_list():
-    return sorted(['base', 'base-jinja', 'bootstrap', 'bootstrap-jinja', 'bootstrap3', 'bootstrap3-jinja'] + [theme.split('/')[-1] for theme in glob.glob("themes/*")])
+    return sorted(['base', 'base-jinja', 'bootstrap', 'bootstrap-jinja', 'bootstrap3', 'bootstrap3-jinja'] + [theme.split('/')[-1] for theme in glob.glob("v7/*")])
 
 def sanity_check(theme=None):
     if theme is None:  # Check them all
@@ -42,7 +42,7 @@ def sanity_check(theme=None):
         error("theme {0} is mako-based and inherits from base-jinja".format(theme))
 
     # Detect exact asset duplication in theme chain
-    for root, dirs, files in os.walk("themes/"+theme):
+    for root, dirs, files in os.walk("v7/"+theme):
         for f in files:
             path = "/".join([root, f])
             asset = path.split("/",2)[-1]
@@ -52,7 +52,7 @@ def sanity_check(theme=None):
 
 
     # Detect deprecated names and anonymous namespaces
-    for root, dirs, files in os.walk("themes/"+theme+"/templates"):
+    for root, dirs, files in os.walk("v7/"+theme+"/templates"):
         for f in files:
             path = "/".join([root, f])
             with codecs.open(path, "r", "utf8") as inf:

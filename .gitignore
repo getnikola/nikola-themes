@@ -5,4 +5,5 @@ output/v*/*.jpg
 output/v*/*.js
 output/v*/*.json
 output/v*/*/
+output/theme_data.js
 sites/
