@@ -1,8 +1,9 @@
 ## -*- coding: utf-8 -*-
-<%namespace name="helper" file="index_helper.tmpl"/>
 <%namespace name="arusahni" file="arusahni_helper.tmpl" import="*" />
+<%namespace name="helper" file="index_helper.tmpl"/>
 <%namespace name="comments" file="comments_helper.tmpl"/>
 <%inherit file="base.tmpl"/>
+
 <%block name="content">
     % for post in posts:
         <div class="post">
@@ -16,10 +17,14 @@
                     ${comments.comment_link(post.permalink(), post.base_path)}
                 % endif
                 </div>
-                ${arusahni.html_tags(post)}
+            ${arusahni.html_tags(post)}
             </div>
             <div class="body">
-                ${post.text(teaser_only=index_teasers)}
+            %if index_teasers:
+                ${post.text(teaser_only=True)}
+            %else:
+                ${post.text(teaser_only=False)}
+            %endif
             </div>
         </div>
     % endfor
