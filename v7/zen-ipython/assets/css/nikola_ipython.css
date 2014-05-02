@@ -1,5 +1,5 @@
 body {
-position: static;
+  position: static;
 }
 
 pre {
@@ -10,46 +10,65 @@ pre {
 }
 
 div.prompt {
-padding: 0.6em;
-font-size: 13px;
+  padding: 0.6em;
+  font-size: 13px;
+  background: url('../images/blue-mocha-grunge-reversed.jpg');
+  margin-right: 1em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+div.input_prompt {
+
 }
 
 div.output_prompt {
-    /* 5px right shift to account for margin in parent container */
-    margin: 0 5px 0 0px;
+  /* 5px right shift to account for margin in parent container */
+  margin: 0 5px 0 0px;
 }
 
 div.output_area pre {
-font-size: 13px;
+  font-size: 13px;
 }
 
 div.text_cell_render {
-padding: 0px;
-color: #333333;
+  padding: 0px;
+  color: #333333;
 }
 
 .rendered_html p {
-text-align: left;
+  text-align: left;
 }
 
 .rendered_html ul {
-margin: 0 0 12px 25px;
+  margin: 0 0 12px 25px;
 }
 
 .rendered_html :visited {
-text-decoration: none;
+  text-decoration: none;
 }
 
 .rendered_html :link {
-text-decoration: none;
+  text-decoration: none;
 }
 
 .rendered_html pre, .rendered_html code {
-background-color: #DDDDDD;
-padding: 3px;
+  background-color: #DDDDDD;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-top: 0.05em;
+  padding-bottom: 0.05em;
+  margin: 1em 0em;
+  font-size: 14px;
+}
+
+.page-content > .content p {
+  margin: 0 0 0px;
 }
 
 .highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
 .highlight .c { color: #408080; font-style: italic } /* Comment */
 .highlight .err { border: 1px solid #FF0000 } /* Error */
 .highlight .k { color: #008000; font-weight: bold } /* Keyword */

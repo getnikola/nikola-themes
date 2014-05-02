@@ -3,6 +3,7 @@
 {% import 'arusahni_helper.tmpl' as arusahni with context %}
 {% import 'comments_helper.tmpl' as comments with context %}
 {% extends 'base.tmpl' %}
+
 {% block content %}
     {% for post in posts %}
         <div class="post">
@@ -19,7 +20,11 @@
                 {{ arusahni.html_tags(post) }}
             </div>
             <div class="body">
-                {{ post.text(teaser_only=index_teasers) }}
+            {% if index_teasers %}
+                {{ post.text(teaser_only=True) }}
+            {% else %}
+                {{ post.text(teaser_only=False) }}
+            {% endif %}
             </div>
         </div>
     {% endfor %}
