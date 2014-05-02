@@ -1,5 +1,5 @@
 ## -*- coding: utf-8 -*-
-## Override only the functions that differ from boopstrap/templates/base_helper.tmpl
+## Override only the functions that differ from base or boopstrap/templates/base_helper.tmpl
 <%def name="html_headstart()">
 <!DOCTYPE html>
 <html
@@ -88,7 +88,6 @@ lang="${lang}">
         %if use_cdn:
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
             <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.1.0/jquery.timeago.min.js"></script>
-            <script src="/assets/js/all.js" type="text/javascript"></script>
         %else:
             <script src="/assets/js/all-nocdn.js" type="text/javascript"></script>
         %endif
