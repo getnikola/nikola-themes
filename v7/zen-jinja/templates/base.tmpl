@@ -1,16 +1,14 @@
 {#  -*- coding: utf-8 -*- #}
-{% import 'base_helper.tmpl' as base with context %}
 {% import 'arusahni_helper.tmpl' as arusahni with context %}
+{% import 'base_footer.tmpl' as footer with context %}
+{% import 'annotation_helper.tmpl' as annotations with context %}
 {{ set_locale(lang) }}
-<!DOCTYPE html>
-<html lang="{{ lang }}">
-<head>
-    {{ arusahni.html_head() }}
-    {% block extra_head %}
-    {% endblock %}
-    {{ extra_head_data }}
+{{ arusahni.html_headstart() }}
+{% block extra_head %}
+{#  Leave this block alone. #}
+{% endblock %}
+{{ template_hooks['extra_head']() }}
 </head>
-
 <body>
     <section class="social">
         <ul>
@@ -20,10 +18,11 @@
     <section class="page-content">
         <div class="content" rel="main">
             {% block content %}{% endblock %}
-            {{ content_footer }}
-            {{ base.html_social() }}
+            {{ footer.html_footer() }}
         </div>
     </section>
+    {{ body_end }}
+    {{ template_hooks['body_end']() }}
     {{ arusahni.late_load_js() }}
     {% block extra_js %}
         <script type="text/javascript">
@@ -32,6 +31,5 @@
             });
         </script>
     {% endblock %}
-    {{ body_end }}
 </body>
 </html>
