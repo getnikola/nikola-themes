@@ -1,5 +1,6 @@
 *.pyc
 .doit.db
+.venv
 output/v*/*.zip
 output/v*/*.jpg
 output/v*/*.js
