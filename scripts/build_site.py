@@ -70,4 +70,5 @@ def get_data(theme):
 
 if __name__ == "__main__":
     colorama.init()
+    print("Building theme_data.js")
     build_site()
