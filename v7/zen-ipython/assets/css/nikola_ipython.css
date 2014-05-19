@@ -9,6 +9,10 @@ pre {
   border: none;
 }
 
+.page-content > .content h1, .page-content > .content .h1 {
+  text-align: center;
+}
+
 div.prompt {
   padding: 0.6em;
   font-size: 13px;
@@ -17,10 +21,6 @@ div.prompt {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-}
-
-div.input_prompt {
-
 }
 
 div.output_prompt {
