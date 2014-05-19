@@ -16,3 +16,7 @@
   font-weight: 400;
   src: local('Bitter-Italic'), url('../fonts/eMS0tViDqryBl0EG1pqFZfesZW2xOQ-xsNqO47m55DA.woff') format('woff');
 }
+
+.addthis_peekaboo_style a {
+  font-family: 'Bitter';
+}
