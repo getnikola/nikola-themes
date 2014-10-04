@@ -159,11 +159,12 @@
     </div>
     <!-- /.container -->
     <script src="http://getnikola.com/assets/js/all-nocdn.js" type="text/javascript"></script>
-    <script src="../jPages.min.js"></script>
+    <script src="jPages.min.js"></script>
     <script src="theme_data.js"></script>
-    <script src="../showdown.js"></script>
+    <script src="stmd.js"></script>
     <script type="text/javascript">
-    var converter = new Showdown.converter();
+    var writer = new stmd.HtmlRenderer();
+    var reader = new stmd.DocParser();
       function get_supported_and_eat_meta() {
           var supported = data['__meta__']['allver'];
           delete data.__meta__;
@@ -239,7 +240,7 @@
         $('<img/>').attr('src', 'v'+current_version+'/'+theme+'.jpg').attr('style', 'width:500px; margin: 10px auto 10px auto; display: block;')
             .addClass('img-thumbnail').appendTo(full_image_link)
         $('<div/>').addClass('well well-sm').html('To install, use <code>nikola install_theme '+theme+'</code></span>').appendTo(container)
-        $('<div/>').html(converter.makeHtml(data[theme]['readme'])).appendTo(container)
+        $('<div/>').html(writer.renderBlock(reader.parse(data[theme]['readme']))).appendTo(container)
         if (data[theme]['confpy'] != null) {
             $('<h3/>').html('Suggested Configuration:').appendTo(container)
             $('<div/>').html(data[theme]['confpy']).appendTo(container)
