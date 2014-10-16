@@ -1,0 +1,30 @@
+<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>{{ blog_title }} &mdash; {{ blog_description }} </p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <!-- The code below dynamically generates a sidebar nav of pages with -->
+    <!-- `layout: page` in the front-matter. See readme for usage. -->
+
+    {% set pages_list = navigation_links() %}
+    {% for link, name in pages_list %}
+      <a class="sidebar-nav-item{% if permalink == link %} active{% endif %}" href="{{ link }}">{{ name }}</a>
+    {% endfor %}
+
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      {{ search_form }}
+    </p>
+    <p>
+      {{ content_footer }}
+    </p>
+  </div>
+</div>
