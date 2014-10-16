@@ -1,0 +1,16 @@
+{#  -*- coding: utf-8 -*- #}
+
+{% macro html_title() %}
+{% if title and not post.meta('hidetitle') %}
+    <h1 class="post-title p-name entry-title" itemprop="headline name"><a href="{{ post.permalink() }}" class="u-url">{{ title|e }}</a></h1>
+{% endif %}
+{% endmacro %}
+
+{% macro html_post_header() %}
+    {% if not post.meta('hideheader') %}
+        <header>
+            {{ html_title() }}
+            <span class="post-date">{{ post.formatted_date(date_format) }}</span>
+        </header>
+    {% endif %}
+{% endmacro %}

@@ -1,0 +1,26 @@
+{#  -*- coding: utf-8 -*- #}
+
+{% macro html_pager(post) -%}
+    {% if post.prev_post or post.next_post %}
+        <div class="pagination">
+        {% if post.prev_post %}
+            <span class="pagination-item older">
+                <a href="{{ post.prev_post.permalink() }}" rel="prev" title="{{ post.prev_post.title() }}">{{ messages("Previous post") }}</a>
+            </span>
+        {% endif %}
+        {% if post.next_post %}
+            <span class="pagination-item newer">
+                <a href="{{ post.next_post.permalink() }}" rel="next" title="{{ post.next_post.title() }}">{{ messages("Next post") }}</a>
+            </span>
+        {% endif %}
+        </div>
+    {% endif %}
+{%- endmacro %}
+
+{% macro mathjax_script(post) -%}
+    {% if post.is_mathjax %}
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});</script>
+        <script src="/assets/js/mathjax.js"></script>
+    {% endif %}
+{%- endmacro %}
