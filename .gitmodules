@@ -1,3 +1,6 @@
 [submodule "nikola-master"]
 	path = nikola-master
 	url = git://github.com/ralsina/nikola.git
+[submodule "v7/octopress"]
+	path = v7/octopress
+	url = git@github.com:magmax/nikola-theme-octopress.git
