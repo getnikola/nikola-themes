@@ -159,7 +159,7 @@
     </div>
     <!-- /.container -->
     <script src="https://getnikola.com/assets/js/all-nocdn.js" type="text/javascript"></script>
-    <script src="jPages.min.js"></script>
+<!--     <script src="jPages.min.js"></script> -->
     <script src="theme_data.js"></script>
     <script src="stmd.js"></script>
     <script type="text/javascript">
@@ -220,7 +220,7 @@
             theme = location.hash.slice(1);
         }
         else {
-            theme = 'bootstrap';
+            theme = 'bootstrap3';
         }
 //      Show theme data
         container = $('#rightside');
@@ -257,8 +257,8 @@
             console.log(item.id , 'li-'+theme)
             if (item.id == 'li-'+theme) {
                 $('#li-'+theme).addClass('active');
-                var page = parseInt(idx/30)+1;
-                $("div.holder").jPages(page);
+//                 var page = parseInt(idx/30)+1;
+//                 $("div.holder").jPages(page);
                 document.title = theme + ' — Themes for Nikola';
             } else {
                 $('#'+item.id).removeClass('active');
