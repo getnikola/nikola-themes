@@ -88,7 +88,7 @@
 <!-- /.navbar-header -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                
+
                 <li>
 <a href="https://getnikola.com/documentation.html">Documentation</a>
                 </li>
@@ -115,7 +115,7 @@
 
             </li>
 </ul>
-                 
+
 
         </div>
 <!-- /.navbar-collapse -->
@@ -146,8 +146,8 @@
       </div>
       <div class="row">
         <div class="col-md-4" style="padding-left: 0;">
-          <div class="holder"></div>
-          <div class="list-group" id="itemContainer">
+<!--           <div class="holder"></div> let's do this once we have 100 themes-->
+          <div class="list-group" style="margin-top: 14px" id="itemContainer">
           </div>
         </div>
         <div class="col-md-8" id="rightside" style="margin-top:14px; border: 1px solid #dddddd; border-radius: 5px; padding-bottom: 15px; background-color: white; margin-bottom: 10px;">
@@ -205,7 +205,8 @@
             }
         };
 //      Paginate
-        $("div.holder").jPages({ containerID : "itemContainer", perPage: 10 });
+// Let's do this once we have 100 themes, dude
+        //$("div.holder").jPages({ containerID : "itemContainer", perPage: 30 });
         hash_handler();
       }
 
@@ -256,7 +257,7 @@
             console.log(item.id , 'li-'+theme)
             if (item.id == 'li-'+theme) {
                 $('#li-'+theme).addClass('active');
-                var page = parseInt(idx/10)+1;
+                var page = parseInt(idx/30)+1;
                 $("div.holder").jPages(page);
                 document.title = theme + ' — Themes for Nikola';
             } else {
