@@ -4,3 +4,6 @@
 [submodule "v7/octopress"]
 	path = v7/octopress
 	url = git@github.com:magmax/nikola-theme-octopress.git
+[submodule "v7/srcco.de"]
+	path = v7/srcco.de
+	url = git@github.com:ralsina/srcco.de.git
