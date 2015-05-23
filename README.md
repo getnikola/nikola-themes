@@ -1,4 +1,4 @@
-This repo contains the publicly available themes for Nikola (http://getnikola.com/)
+This repo contains the publicly available themes for Nikola (https://getnikola.com/)
 
 To contribute a theme:
 

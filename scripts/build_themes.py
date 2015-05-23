@@ -18,7 +18,7 @@ from nikola import utils
 
 # s/v7/vX/ to upgrade
 
-BASE_URL = "http://themes.getnikola.com/v7/"
+BASE_URL = "https://themes.getnikola.com/v7/"
 
 def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
