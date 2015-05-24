@@ -1,0 +1,35 @@
+## -*- coding: utf-8 -*-
+<%namespace name="arusahni" file="arusahni_helper.tmpl" import="*" />
+<%namespace name="footer" file="base_footer.tmpl" import="*"/>
+<%namespace name="annotations" file="annotation_helper.tmpl"/>
+${set_locale(lang)}
+${arusahni.html_headstart()}
+<%block name="extra_head">
+### Leave this block alone.
+</%block>
+${template_hooks['extra_head']()}
+</head>
+<body>
+    <section class="social">
+        <ul>
+        ${arusahni.html_navigation_links()}
+        </ul>
+    </section>
+    <section class="page-content">
+        <div class="content" rel="main">
+            <%block name="content"></%block>
+             ${footer.html_footer()}
+        </div>
+    </section>
+    ${body_end}
+    ${template_hooks['body_end']()}
+    ${arusahni.late_load_js()}
+    <%block name="extra_js">
+        <script type="text/javascript">
+            $(function(){
+                $('.timeago').timeago();
+            });
+        </script>
+    </%block>
+</body>
+</html>

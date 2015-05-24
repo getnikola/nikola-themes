@@ -1,0 +1,22 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="index_helper.tmpl"/>
+<%inherit file="base.tmpl"/>
+
+<%block name="content">
+<div class="postindex">
+% for post in posts:
+    <article class="h-entry" style="border: 2px solid darkgrey; margin-bottom: 12px; border-radius: 4px; padding:12px; overflow: auto;">
+    <header>
+        <h1 class="p-name entry-title"><a href="${post.meta('link')}" class="u-url">${post.title()}</h1></a>
+        <div class="metadata">
+            <p class="dateline"><a href="${post.meta('link')}" rel="bookmark"><time class="published dt-published" datetime="${post.date.isoformat()}" itemprop="datePublished" title="${messages("Publication date")}">${post.formatted_date(date_format)}</time></a></p>
+        </div>
+    </header>
+    <div class="p-summary entry-summary">
+    ${post.text()}
+    </div>
+    </article>
+% endfor
+</div>
+${helper.html_pager()}
+</%block>

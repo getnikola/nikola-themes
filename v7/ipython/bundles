@@ -1,0 +1,4 @@
+assets/css/all-nocdn.css=bootstrap.css,rst.css,code.css,colorbox.css,theme.css,custom.css,ipython.min.css,nikola_ipython.css
+assets/css/all.css=rst.css,code.css,colorbox.css,theme.css,custom.css,ipython.min.css,nikola_ipython.css
+assets/js/all-nocdn.js=jquery.min.js,bootstrap.min.js,jquery.colorbox-min.js,mathjax.js,moment-with-locales.min.js,fancydates.js
+assets/js/all.js=jquery.colorbox-min.js,mathjax.js,moment-with-locales.min.js,fancydates.js

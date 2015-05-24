@@ -8,6 +8,7 @@ import filecmp
 import glob
 import hashlib
 import os
+import sys
 import re
 
 import colorama
@@ -18,15 +19,15 @@ def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
 
 def theme_list():
-    return ['base', 'bootstrap', 'bootstrap3'] + [theme.split('/')[-1] for theme in glob.glob("themes/*")]
+    return sorted(['base', 'base-jinja', 'bootstrap', 'bootstrap-jinja', 'bootstrap3', 'bootstrap3-jinja'] + [theme.split('/')[-1] for theme in glob.glob("v7/*")])
 
 def sanity_check(theme=None):
     if theme is None:  # Check them all
         for theme in theme_list():
             sanity_check(theme)
         return
-    themes = utils.get_theme_chain(theme)
-    engine = utils.get_template_engine(themes)
+    themes = utils.get_theme_chain(theme, _themes_dir='v7')
+    engine = utils.get_template_engine(themes, _themes_dir='v7')
 
     # Inheritance checks
 
@@ -41,7 +42,7 @@ def sanity_check(theme=None):
         error("theme {0} is mako-based and inherits from base-jinja".format(theme))
 
     # Detect exact asset duplication in theme chain
-    for root, dirs, files in os.walk("themes/"+theme):
+    for root, dirs, files in os.walk("v7/"+theme):
         for f in files:
             path = "/".join([root, f])
             asset = path.split("/",2)[-1]
@@ -51,7 +52,7 @@ def sanity_check(theme=None):
 
 
     # Detect deprecated names and anonymous namespaces
-    for root, dirs, files in os.walk("themes/"+theme+"/templates"):
+    for root, dirs, files in os.walk("v7/"+theme+"/templates"):
         for f in files:
             path = "/".join([root, f])
             with codecs.open(path, "r", "utf8") as inf:
@@ -61,14 +62,14 @@ def sanity_check(theme=None):
                     error("theme '{0}' contains deprecated name '{1}' in {2}".format(theme, k, path))
 
     # Ensure the theme has a README.md
-    if utils.get_asset_path('README.md', [theme]) is None:
+    if utils.get_asset_path('README.md', [theme], _themes_dir='v7') is None:
         error("theme '{0}' has no README.md".format(theme))
 
 def is_asset_duplicated(path, themes):
     # First get the path for the asset with whole theme chain
-    p1 = utils.get_asset_path(path, themes)
+    p1 = utils.get_asset_path(path, themes, _themes_dir='v7')
     # Get the path for asset with truncated theme chain
-    p2 = utils.get_asset_path(path, themes[1:])
+    p2 = utils.get_asset_path(path, themes[1:], _themes_dir='v7')
     # README.md is ok to duplicate
     if 'README.md' in path:
         return False, p1, p2
@@ -88,6 +89,9 @@ blacklist = (
 )
 
 if __name__ == "__main__":
-    import commandline
     colorama.init()
-    commandline.run_as_main(sanity_check)
+    if len(sys.argv) == 1:
+        sanity_check()
+    else:
+        for a in sys.argv[1:]:
+            sanity_check(a)

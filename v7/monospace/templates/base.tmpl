@@ -1,0 +1,47 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+${set_locale(lang)}
+${base.html_headstart()}
+<%block name="extra_head">
+### Leave this block alone.
+</%block>
+${template_hooks['extra_head']()}
+</head>
+<body class="home blog">
+    <div id="wrap" style="width:850px">
+        <div id="container" style="width:560px">
+            ${template_hooks['page_header']()}
+            <%block name="content"></%block>
+        </div>
+        <div id="sidebar">
+            <!--Sidebar content-->
+            <h1 id="blog-title">
+                <a href="${abs_link('/')}" title="${blog_title}">${blog_title}</a>
+            </h1>
+            <%block name="belowtitle">
+            %if len(translations) > 1:
+            <small>
+                ${messages("Also available in:")}&nbsp;
+                ${base.html_translations()}
+            </small>
+            %endif
+            </%block>
+            <ul class="unstyled">
+            <li>${license}</li>
+            ${base.html_navigation_links()}
+            <li>${search_form}</li>
+            ${template_hooks['menu']()}
+            ${template_hooks['menu_alt']()}
+            </ul>
+        </div>
+        <div id="footer">
+            ${content_footer}
+            ${template_hooks['page_footer']()}
+        </div>
+    </div>
+    ${base.late_load_js()}
+    <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script>
+    <%block name="extra_js"></%block>
+    ${body_end}
+    ${template_hooks['body_end']()}
+</body>
