@@ -1,14 +1,13 @@
-!!! 5
-include base_helper.jade
-html(lang=lang)
-  head
-    +base_head()
-    title= pageTitle
-
-  body
-    h1.title Jade - node template engine
-    #container
-      if youAreUsingJade
-        p You are amazing
-      else
-        p Get on it!
+mixin bar(crumbs)
+  if crumbs
+    nav(class='breadcrumbs')
+    ul(class='breadcrumb')
+    for link, text in crumbs
+      if text != index_file
+        if link == '#'
+          li
+            = text
+        else
+          li
+            a(href=link)
+              = text
