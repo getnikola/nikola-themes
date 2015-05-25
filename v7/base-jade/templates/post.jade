@@ -1,38 +1,51 @@
-extends base.jade
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="pheader" file="post_header.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%inherit file="base.tmpl"/>
 
-- import "post_helper.jade" as post_helper with context
-- import "comments_helper.jade" as comments with context
+<%block name="extra_head">
+    ${parent.extra_head()}
+    % if post.meta('keywords'):
+    <meta name="keywords" content="${post.meta('keywords')|h}">
+    % endif
+    %if post.description():
+    <meta name="description" content="${post.description()}">
+    %endif
+    <meta name="author" content="${post.author()}">
+    %if post.prev_post:
+        <link rel="prev" href="${post.prev_post.permalink()}" title="${post.prev_post.title()|h}" type="text/html">
+    %endif
+    %if post.next_post:
+        <link rel="next" href="${post.next_post.permalink()}" title="${post.next_post.title()|h}" type="text/html">
+    %endif
+    % if post.is_draft:
+        <meta name="robots" content="noindex">
+    % endif
+    ${helper.open_graph_metadata(post)}
+    ${helper.twitter_card_information(post)}
+    ${helper.meta_translations(post)}
+</%block>
 
-block extra_head
-  != post_helper.twitter_card_information(post)
-  if post.meta('keywords')
-    meta(name="keywords", content=post.meta(keywords))
-  != post_helper.meta_translations(post)
-
-block content
-  article(class="postbox post-"+post.meta('type'))
-    div(class="h-entry", itemscope="itemscope", itemtype="http://schema.org/Article")
-      != post_helper.html_title(title)
-      hr
-      small
-        = messages("Posted:")
-        time(class="published dt-published", datetime=post.date.isoformat(), itemprop="datePublished")
-          = post.formatted_date(date_format)
-        != post_helper.html_translations(post)
-        != post_helper.html_tags(post)
-
-        block sourcelink
-          if not post.meta('password')
-            a(href=post.source_link(), id="sourcelink")
-              = messages("Source")
-      hr
-      div(class="e-content", itemprop="articleBody text")
-        != post.text()
-
-      if post.description():
-          meta(content=post.description(), itemprop="description")
-
-    != post_helper.html_pager(post)
-    if not post.meta('nocomments')
-      != comments.comment_form(post.permalink(absolute=True), post.title(), post._base_path)
-    != post_helper.mathjax_script(post)
+<%block name="content">
+<article class="post-${post.meta('type')} h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article">
+    ${pheader.html_post_header()}
+    <div class="e-content entry-content" itemprop="articleBody text">
+    ${post.text()}
+    </div>
+    <aside class="postpromonav">
+    <nav>
+    ${helper.html_tags(post)}
+    ${helper.html_pager(post)}
+    </nav>
+    </aside>
+    % if not post.meta('nocomments') and site_has_comments:
+        <section class="comments">
+        <h2>${messages("Comments")}</h2>
+        ${comments.comment_form(post.permalink(absolute=True), post.title(), post._base_path)}
+        </section>
+    % endif
+    ${helper.mathjax_script(post)}
+</article>
+${comments.comment_link_script()}
+</%block>

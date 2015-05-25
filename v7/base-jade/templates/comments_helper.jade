@@ -1,61 +1,63 @@
-- import "disqus_helper.jade" as disqus with context
-//- namespace name="livefyre" file="livefyre_helper"
-//- namespace name="intensedebate" file="intensedebate_helper"
-//- namespace name="moot" file="moot_helper"
-//- namespace name="googleplus" file="googleplus_helper"
-//- namespace name="facebook" file="facebook_helper"
-//- namespace name="isso" file="isso_helper"
+## -*- coding: utf-8 -*-
 
-mixin comment_form(url, title, identifier)
-    if comment_system == 'disqus'
-        != disqus.comment_form(url, title, identifier)
-    elif comment_system == 'livefyre'
-        != livefyre.comment_form(url, title, identifier)
-    elif comment_system == 'intensedebate'
-        != intensedebate.comment_form(url, title, identifier)
-    elif comment_system == 'moot'
-        != moot.comment_form(url, title, identifier)
-    elif comment_system == 'googleplus'
-        != googleplus.comment_form(url, title, identifier)
-    elif comment_system == 'facebook'
-        != facebook.comment_form(url, title, identifier)
-    elif comment_system == 'isso'
-        != isso.comment_form(url, title, identifier)
+<%namespace name="disqus" file="comments_helper_disqus.tmpl"/>
+<%namespace name="livefyre" file="comments_helper_livefyre.tmpl"/>
+<%namespace name="intensedebate" file="comments_helper_intensedebate.tmpl"/>
+<%namespace name="muut" file="comments_helper_muut.tmpl"/>
+<%namespace name="googleplus" file="comments_helper_googleplus.tmpl"/>
+<%namespace name="facebook" file="comments_helper_facebook.tmpl"/>
+<%namespace name="isso" file="comments_helper_isso.tmpl"/>
 
+<%def name="comment_form(url, title, identifier)">
+    %if comment_system == 'disqus':
+        ${disqus.comment_form(url, title, identifier)}
+    % elif comment_system == 'livefyre':
+        ${livefyre.comment_form(url, title, identifier)}
+    % elif comment_system == 'intensedebate':
+        ${intensedebate.comment_form(url, title, identifier)}
+    % elif comment_system == 'muut':
+        ${muut.comment_form(url, title, identifier)}
+    % elif comment_system == 'googleplus':
+        ${googleplus.comment_form(url, title, identifier)}
+    % elif comment_system == 'facebook':
+        ${facebook.comment_form(url, title, identifier)}
+    % elif comment_system == 'isso':
+        ${isso.comment_form(url, title, identifier)}
+    %endif
+</%def>
 
+<%def name="comment_link(link, identifier)">
+    %if comment_system == 'disqus':
+        ${disqus.comment_link(link, identifier)}
+    % elif comment_system == 'livefyre':
+        ${livefyre.comment_link(link, identifier)}
+    % elif comment_system == 'intensedebate':
+        ${intensedebate.comment_link(link, identifier)}
+    % elif comment_system == 'muut':
+        ${muut.comment_link(link, identifier)}
+    % elif comment_system == 'googleplus':
+        ${googleplus.comment_link(link, identifier)}
+    % elif comment_system == 'facebook':
+        ${facebook.comment_link(link, identifier)}
+    % elif comment_system == 'isso':
+        ${isso.comment_link(link, identifier)}
+    %endif
+</%def>
 
-mixin comment_link(link, identifier)
-    if comment_system == 'disqus'
-        != disqus.comment_link(link, identifier)
-    elif comment_system == 'livefyre'
-        != livefyre.comment_link(link, identifier)
-    elif comment_system == 'intensedebate'
-        != intensedebate.comment_link(link, identifier)
-    elif comment_system == 'moot'
-        != moot.comment_link(link, identifier)
-    elif comment_system == 'googleplus'
-        != googleplus.comment_link(link, identifier)
-    elif comment_system == 'facebook'
-        != facebook.comment_link(link, identifier)
-    elif comment_system == 'isso'
-        != isso.comment_link(link, identifier)
-
-
-
-mixin comment_link_script()
-    if comment_system == 'disqus'
-        != disqus.comment_link_script()
-    elif comment_system == 'livefyre'
-        != livefyre.comment_link_script()
-    elif comment_system == 'intensedebate'
-        != intensedebate.comment_link_script()
-    elif comment_system == 'moot'
-        != moot.comment_link_script()
-    elif comment_system == 'googleplus'
-        != googleplus.comment_link_script()
-    elif comment_system == 'facebook'
-        != facebook.comment_link_script()
-    elif comment_system == 'isso'
-        != isso.comment_link_script()
-
-
+<%def name="comment_link_script()">
+    %if comment_system == 'disqus':
+        ${disqus.comment_link_script()}
+    % elif comment_system == 'livefyre':
+        ${livefyre.comment_link_script()}
+    % elif comment_system == 'intensedebate':
+        ${intensedebate.comment_link_script()}
+    % elif comment_system == 'muut':
+        ${muut.comment_link_script()}
+    % elif comment_system == 'googleplus':
+        ${googleplus.comment_link_script()}
+    % elif comment_system == 'facebook':
+        ${facebook.comment_link_script()}
+    % elif comment_system == 'isso':
+        ${isso.comment_link_script()}
+    %endif
+</%def>

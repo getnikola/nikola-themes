@@ -1,17 +1,23 @@
-extends base
-- import 'crumbs.jade' as crumbbar
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+<%namespace name="ui" file="crumbs.tmpl" import="bar"/>
+<%block name="content">
+${ui.bar(crumbs)}
+%if folders or files:
+<ul>
+% for name in folders:
+    <li><a href="${name}"><i class="icon-folder-open"></i> ${name}</a>
+% endfor
+% for name in files:
+    <li><a href="${name}.html"><i class="icon-file"></i> ${name}</a>
+% endfor
+</ul>
+%endif
+% if code:
+    ${code}
+% endif
+% if source_link:
+    <p class="sourceline"><a href="${source_link}" id="sourcelink">${messages("Source")}</a></p>
+% endif
+</%block>
 
-block content
-  != crumbbar.bar(crumbs)
-  if folders or files
-    ul(class="unstyled")
-      for name in folders
-        li.a(href=name)
-          i(class="icon-folder-open")
-          = name
-      for name in files
-        li.a(href=name)
-          i(class="icon-file")
-          = name
-  if code
-    != code

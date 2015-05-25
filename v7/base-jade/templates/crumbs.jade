@@ -1,13 +1,19 @@
-mixin bar(crumbs)
-  if crumbs
-    nav(class='breadcrumbs')
-    ul(class='breadcrumb')
-    for link, text in crumbs
-      if text != index_file
-        if link == '#'
-          li
-            = text
-        else
-          li
-            a(href=link)
-              = text
+## -*- coding: utf-8 -*-
+
+<%def name="bar(crumbs)">
+%if crumbs:
+<nav class="breadcrumbs">
+<ul class="breadcrumb">
+    % for link, text in crumbs:
+        % if text != index_file:
+            % if link == '#':
+                <li>${text}</li>
+            % else:
+                <li><a href="${link}">${text}</a></li>
+            % endif
+        % endif
+    % endfor
+</ul>
+</nav>
+%endif
+</%def>

@@ -1,39 +1,26 @@
-!!! 5
-
-- import "base_helper.jade" as helper with context
-
-html(lang=lang)
-  head
-    != helper.html_head()
-    = extra_head_data
-
-  body
-    h1(id="blog-title")
-      a(href=abs_link('/'), title=blog_title, rel="home")
-        = blog_title
-
-    block belowtitle
-      if translations|length > 1
-        small
-        = messages("Also available in:") + "&nbsp"
-        for langname in translations
-            if langname != lang
-              a(href=_link("index", None, langname), rel="alternate", hreflang=langname)
-                = messages("LANGUAGE", langname)
-
-    block content
-      // Nothing in this template, override
-
-    small
-      != content_footer
-
-    // Sidebar
-    ul.unstyled
-      if license
-        li
-          = license
-      != helper.html_navigation_links()
-      if search_form
-        != search_form
-    != late_load_js
-    != social_buttons_code
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+<%namespace name="header" file="base_header.tmpl" import="*"/>
+<%namespace name="footer" file="base_footer.tmpl" import="*"/>
+<%namespace name="annotations" file="annotation_helper.tmpl"/>
+${set_locale(lang)}
+${base.html_headstart()}
+<%block name="extra_head">
+### Leave this block alone.
+</%block>
+${template_hooks['extra_head']()}
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">${messages("Skip to main content")}</a>
+    <div id="container">
+         ${header.html_header()}
+         <main id="content" role="main">
+            <%block name="content"></%block>
+         </main>
+         ${footer.html_footer()}
+    </div>
+    ${body_end}
+    ${template_hooks['body_end']()}
+    ${base.late_load_js()}
+</body>
+</html>
