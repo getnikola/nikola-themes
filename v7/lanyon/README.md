@@ -1,4 +1,4 @@
-This theme is a port of the [Lanyon theme by mvo](http://lanyon.getpoole.com/) Everything that's good in it
+This theme is a port of the [Lanyon theme by mdo](http://lanyon.getpoole.com/) Everything that's good in it
 is mvo's fault, everything bad is mine.
 
 It supports one variable set in the config:
