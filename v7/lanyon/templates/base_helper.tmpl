@@ -66,21 +66,17 @@ lang="${lang}">
 
 <%def name="html_stylesheets()">
     %if use_bundles:
-        %if use_cdn:
-            <link href="/assets/css/all.css" rel="stylesheet" type="text/css">
-        %else:
-            <link href="/assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-        %endif
+        <link href="/assets/css/all.css" rel="stylesheet" type="text/css">
     %else:
         <link href="/assets/css/rst.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/poole.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/lanyon.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/code.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
         %if has_custom_css:
             <link href="/assets/css/custom.css" rel="stylesheet" type="text/css">
         %endif
     %endif
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
 </%def>
 
 <%def name="html_feedlinks()">
