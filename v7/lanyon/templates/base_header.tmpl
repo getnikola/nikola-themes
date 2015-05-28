@@ -1,0 +1,42 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+
+<%def name="html_header()">
+    <header id="header" role="banner">
+        ${html_site_title()}
+        ${html_translation_header()}
+        ${html_navigation_links()}
+        %if search_form:
+            <div class="searchform" role="search">
+                ${search_form}
+            </div>
+        %endif
+    </header>
+    ${template_hooks['page_header']()}
+</%def>
+
+<%def name="html_site_title()">
+    <h3 id="brand" class="masthead-title">
+      <a href="${abs_link(_link("root", None, lang))}" title="${blog_title}" rel="home">${blog_title}</a>
+    </h3>
+</%def>
+
+<%def name="html_navigation_links()">
+    <nav id="menu" role="navigation" class="sidebar-nav">
+    %for url, text in navigation_links[lang]:
+        <a class="sidebar-nav-item" href="${url}">${text}</a>
+    %endfor
+    ${template_hooks['menu']()}
+    ${template_hooks['menu_alt']()}
+    </nav>
+</%def>
+
+
+<%def name="html_translation_header()">
+    %if len(translations) > 1:
+        <div id="toptranslations">
+            <h2>${messages("Languages:")}</h2>
+            ${base.html_translations()}
+        </div>
+    %endif
+</%def>
