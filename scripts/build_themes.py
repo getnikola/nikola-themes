@@ -79,7 +79,7 @@ def init_theme(theme):
         extra_conf = open(extra_conf_path, 'r').read()
 
     with codecs.open(conf_path, "a", "utf-8") as conf:
-        conf.write("\n\n{2}\n\nTHEME = '{0}'\n\nOUTPUT_FOLDER = '{1}'\n\nSOCIAL_BUTTONS_CODE = ''\n".format(theme, o_path, extra_conf))
+        conf.write("\n\n{2}\n\nTHEME = '{0}'\n\nUSE_BUNDLES = False\n\nOUTPUT_FOLDER = '{1}'\n\nSOCIAL_BUTTONS_CODE = ''\n".format(theme, o_path, extra_conf))
 
 @contextmanager
 def cd(path):

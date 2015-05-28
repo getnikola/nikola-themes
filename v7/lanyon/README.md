@@ -11,4 +11,6 @@ It supports one variable set in the config:
 
 That changes the color scheme, replace 08 with one of 09, 0a, 0b, 0c, 0d, 0e, 0f.
 
-You can read a tutorial about how this theme was created [at Nikola's site]()_
+You can read a tutorial about how this theme was created [at Nikola's site](https://getnikola.com/creating-a-theme.html)
+
+License is MIT
