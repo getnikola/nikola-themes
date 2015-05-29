@@ -14,3 +14,11 @@ That changes the color scheme, replace 08 with one of 09, 0a, 0b, 0c, 0d, 0e, 0f
 You can read a tutorial about how this theme was created [at Nikola's site](https://getnikola.com/creating-a-theme.html)
 
 License is MIT
+
+Known Issues:
+
+* Not all features of Nikola are tested.
+* Galleries will not work until [Issue #1764](https://github.com/getnikola/nikola/issues/1764) is fixed.
+* Crumb bars are not done well
+* Submenus in navigation links are not supported
+* CDNs are not used regardless of ``USE_CDN``
