@@ -1,0 +1,56 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+
+<%def name="html_header()">
+${html_navigation_links()}
+<div class="entry-header">
+<!-- FIXME: get credit from settings -->
+  <div class="image-credit">Image source: <a href="http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/">dargadgetz</a></div><!-- /.image-credit -->
+    <div class="entry-image">
+      <img src="//mmistakes.github.io/hpstr-jekyll-theme/images/abstract-1.jpg" alt="Latest Posts">
+    </div><!-- /.entry-image -->
+      ${html_site_title()}
+</div><!-- /.entry-header -->
+</%def>
+
+<%def name="html_site_title()">
+  <div class="header-title">
+    <div class="header-title-wrap">
+    <h1 id="brand"><a href="${abs_link(_link("root", None, lang))}" title="${blog_title}" rel="home">
+    ${blog_title}</a></h1>
+      <h2>${title}</h2>
+    </div><!-- /.header-title-wrap -->
+  </div><!-- /.header-title -->
+</%def>
+
+<%def name="html_navigation_links()">
+    <nav id="dl-menu" class="dl-menuwrapper" role="navigation">
+    <button class="dl-trigger">Open Menu</button>
+    <ul class="dl-menu">
+    %for url, text in navigation_links[lang]:
+        % if isinstance(url, tuple):
+            <li>
+                <a href="#">${text}</a>
+                <ul class="dl-submenu">
+                %for suburl, text in url:
+                    <li><a href="${suburl}">${text}</a></li>
+                %endfor
+                </ul>
+        % else:
+            <li><a href="${url}">${text}</a></li>
+        % endif
+    %endfor
+    ${template_hooks['menu']()}
+    ${template_hooks['menu_alt']()}
+    </ul>
+    </nav>
+</%def>
+
+<%def name="html_translation_header()">
+    %if len(translations) > 1:
+        <div id="toptranslations">
+            <h2>${messages("Languages:")}</h2>
+            ${base.html_translations()}
+        </div>
+    %endif
+</%def>

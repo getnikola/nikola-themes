@@ -1,0 +1,51 @@
+.sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+}
+
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        clip: auto;
+}
+
+.breadcrumb {
+        padding: 8px 15px;
+        margin-bottom: 20px;
+        list-style: none;
+}
+
+.breadcrumb > li {
+        display: inline-block;
+        margin-right: 0;
+        margin-left: 0;
+}
+
+.breadcrumb > li:after {
+        content: ' / ';
+        color: #888;
+}
+
+.breadcrumb > li:last-of-type:after {
+        content: '';
+        margin-left: 0;
+}
+
+.thumbnails > li {
+        display: inline-block;
+        margin-right: 10px;
+}
+
+.thumbnails > li:last-of-type {
+        margin-right: 0;
+}

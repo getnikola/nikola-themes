@@ -1,0 +1,49 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+
+<%def name="html_title()">
+%if title and not post.meta('hidetitle'):
+    <h1 class="p-name entry-title" itemprop="headline name"><a href="${post.permalink()}" class="u-url">${post.title()|h}</a></h1>
+%endif
+</%def>
+
+<%def name="html_translations(post)">
+    % if len(post.translated_to) > 1:
+        <div class="metadata posttranslations translations">
+            <h3 class="posttranslations-intro">${messages("Also available in:")}</h3>
+            % for langname in translations.keys():
+                % if langname != lang and post.is_translation_available(langname):
+                <p><a href="${post.permalink(langname)}" rel="alternate" hreflang="${langname}">${messages("LANGUAGE", langname)}</a></p>
+                % endif
+            % endfor
+        </div>
+    % endif
+</%def>
+
+<%def name="html_sourcelink()">
+    % if show_sourcelink:
+        <span class="sourceline"><a href="${post.source_link()}" id="sourcelink">${messages("Source")}</a></span>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+    % endif
+</%def>
+
+<%def name="html_post_header()">
+    <header>
+        <div class="entry-meta">
+            <span class="dateline"><a href="${post.permalink()}" rel="bookmark"><time class="published dt-published" datetime="${post.date.isoformat()}" itemprop="datePublished" title="${post.formatted_date(date_format)}">${post.formatted_date(date_format)}</time></a></span>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+            <span class="byline author vcard">${post.author()}</span>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+            % if not post.meta('nocomments') and site_has_comments:
+                <span class="commentline">${comments.comment_link(post.permalink(), post._base_path)}</span>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+            % endif
+            ${html_sourcelink()}
+            % if post.meta('link'):
+                    <span><a href='${post.meta('link')}'>${messages("Original site")}</a></span>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+            % endif
+            %if post.description():
+                <meta name="description" itemprop="description" content="${post.description()}">
+            %endif
+        </div>
+        ${html_translations(post)}
+    ${html_title()}
+    </header>
+</%def>
