@@ -1,7 +1,0 @@
-# Themes that are bootstrap-based
-default
-jinja-default
-site
-readable
-xkcd-site-ipython
-jinja-site-ipython

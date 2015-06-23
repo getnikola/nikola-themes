@@ -1,4 +1,0 @@
-# Themes that are not bootstrap-based
-monospace
-orphan
-blogtxt
