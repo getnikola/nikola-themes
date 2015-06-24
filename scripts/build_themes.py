@@ -3,7 +3,7 @@
 """Build themes."""
 
 from __future__ import unicode_literals, print_function
-import codecs
+import io
 from contextlib import contextmanager
 import glob
 import json
@@ -76,10 +76,10 @@ def init_theme(theme):
     extra_conf_path = utils.get_asset_path('conf.py.sample', themes, _themes_dir='v7')
     extra_conf = ''
     if extra_conf_path:
-        extra_conf = open(extra_conf_path, 'r').read()
+        extra_conf = io.open(extra_conf_path, 'r', encoding="utf-8").read()
 
-    with codecs.open(conf_path, "a", "utf-8") as conf:
-        conf.write("\n\n{2}\n\nTHEME = '{0}'\n\nUSE_BUNDLES = False\n\nOUTPUT_FOLDER = '{1}'\n\nSOCIAL_BUTTONS_CODE = ''\n".format(theme, o_path, extra_conf))
+    with io.open(conf_path, "a", encoding="utf-8") as conf:
+        conf.write(u"\n\n{2}\n\nTHEME = '{0}'\n\nUSE_BUNDLES = False\n\nOUTPUT_FOLDER = '{1}'\n\nSOCIAL_BUTTONS_CODE = ''\n".format(theme, o_path, extra_conf))
 
 @contextmanager
 def cd(path):
