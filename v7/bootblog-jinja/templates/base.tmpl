@@ -1,0 +1,92 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'base_helper.tmpl' as base with context %}
+{% import 'annotation_helper.tmpl' as notes with context %}
+{{ set_locale(lang) }}
+{{ base.html_headstart() }}
+{% block extra_head %}
+{#  Leave this block alone. #}
+{% endblock %}
+{{ template_hooks['extra_head']() }}
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">{{ messages("Skip to main content") }}</a>
+
+<!-- Menubar -->
+
+<div class="blog-masthead">
+    <div class="container"><!-- This keeps the margins nice -->
+        <nav class="blog-nav" role="navigation">
+            {{ base.html_navigation_links() }}
+            {{ template_hooks['menu']() }}
+            {% if search_form %}
+                {{ search_form }}
+            {% endif %}
+
+                {% block belowtitle %}
+                {% if translations|length > 1 %}
+                    {{ base.html_translations() }}
+                {% endif %}
+                {% endblock %}
+                {% if show_sourcelink %}
+                    {% block sourcelink %}{% endblock %}
+                {% endif %}
+                {{ template_hooks['menu_alt']() }}
+            </ul>
+        </nav>
+    </div><!-- /.container -->
+</div>
+<!-- End of Menubar -->
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <div class="blog-header">
+            <h1 class="blog-title">
+                <a href="{{ abs_link(_link("root", None, lang)) }}">
+                {% if logo_url %}
+                    <img src="{{ logo_url }}" alt="{{ blog_title }}" id="logo">
+                {% endif %}
+
+                {% if show_blog_title %}
+                    <span id="blog-title">{{ blog_title }}</span>
+                {% endif %}
+                </a>
+            </h1>
+            <p class="lead blog-description">{{ blog_description }}</p>
+            {{ template_hooks['page_header']() }}
+        </div>
+        <!--Body content-->
+        <div class="row">
+            <div class="col-sm-8 blog-main">
+                {% block content %}{% endblock %}
+            </div>
+            <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+                {{ blog_sidebar }}
+            </div>
+        <!--End of body content-->
+        </div>
+    </div>
+</div>
+
+<footer class="blog-footer" id="footer">
+    {{ content_footer }}
+    {{ template_hooks['page_footer']() }}
+</footer>
+
+{{ base.late_load_js() }}
+    <script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script>
+    <!-- fancy dates -->
+    <script>
+    moment.locale("{{ momentjs_locales[lang] }}");
+    fancydates({{ date_fanciness }}, {{ js_date_format }});
+    </script>
+    <!-- end fancy dates -->
+    {% block extra_js %}{% endblock %}
+    {% if annotations and post and not post.meta('noannotations') %}
+        {{ notes.code() }}
+    {% elif not annotations and post and post.meta('annotations') %}
+        {{ notes.code() }}
+    {% endif %}
+{{ body_end }}
+{{ template_hooks['body_end']() }}
+</body>
+</html>
