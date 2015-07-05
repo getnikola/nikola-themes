@@ -31,7 +31,7 @@ def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
 
 def theme_list():
-    return sorted(['base', 'base-jinja', 'bootstrap', 'bootstrap-jinja', 'bootstrap3', 'bootstrap3-jinja'] + [theme.split('/')[-1] for theme in glob.glob(GLOB)])
+    return sorted(['base', 'base-jinja', 'bootstrap3', 'bootstrap3-jinja'] + [theme.split('/')[-1] for theme in glob.glob(GLOB)])
 
 def build_site():
     data = {}
