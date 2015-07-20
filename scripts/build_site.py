@@ -3,7 +3,7 @@
 """Inspect themes, create a JSON describing all the data."""
 
 from __future__ import unicode_literals, print_function
-import codecs
+import io
 import glob
 import json
 import os
@@ -39,7 +39,7 @@ def build_site():
         data[theme] = get_data(theme)
 
     data['__meta__'] = {'allver': ALL_VERSIONS_DISPLAYED}
-    with open(os.path.join('output', 'theme_data.js'), 'wb+') as outf:
+    with io.open(os.path.join('output', 'theme_data.js'), 'w+', encoding='utf-8') as outf:
         outf.write("var data = " + json.dumps(data, indent=4, ensure_ascii=True, sort_keys=True))
 
 def get_data(theme):
@@ -49,13 +49,13 @@ def get_data(theme):
     readme = utils.get_asset_path('README.md', data['chain'], _themes_dir=DIR)
     conf_sample = utils.get_asset_path('conf.py.sample', data['chain'], _themes_dir=DIR)
     if readme:
-        data['readme'] = codecs.open(readme, 'r', 'utf8').read()
+        data['readme'] = io.open(readme, 'r', encoding='utf-8').read()
     else:
         data['readme'] = 'No README.md file available.'
 
     if conf_sample:
         data['confpy'] = pygments.highlight(
-            codecs.open(conf_sample, 'r', 'utf8').read(),
+            io.open(conf_sample, 'r', encoding='utf-8').read(),
             PythonLexer(), HtmlFormatter(cssclass='code'))
     else:
         data['confpy'] = None
