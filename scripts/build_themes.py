@@ -11,7 +11,7 @@ import os
 import sys
 import shutil
 import subprocess
-
+import io
 import colorama
 
 from nikola import utils
@@ -56,7 +56,7 @@ def build_theme(theme=None):
     for theme in glob.glob('v7/*/'):
         t_name = os.path.basename(theme[:-1])
         themes_dict[t_name] = BASE_URL + t_name + ".zip"
-    with open(os.path.join("output", "v7", "themes.json"), "wb+") as outf:
+    with io.open(os.path.join("output", "v7", "themes.json"), "w+", encoding="utf-8") as outf:
         json.dump(themes_dict, outf, indent=4, ensure_ascii=True, sort_keys=True)
 
 
