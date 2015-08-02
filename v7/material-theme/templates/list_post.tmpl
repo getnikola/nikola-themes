@@ -1,0 +1,32 @@
+{#  -*- coding: utf-8 -*- #}
+{% extends 'base.tmpl' %}
+
+{% block content %}
+<article class="listpage">
+    <header>
+        <h1>{{ title }}</h1>
+    </header>
+    {% if posts %}
+    <div class="postlist list-group">
+    {% for post in posts %}
+        <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="mdi-content-create"></i>
+                </div>
+                <div class="row-content">
+                    <div class="least-content">
+                            <time class="listdate" datetime="{{ post.date.isoformat() }}" title="{{ post.formatted_date(date_format) }}">{{ post.formatted_date(date_format) }}</time></div>
+                    <h4 class="list-group-item-heading">
+                            <a href="{{ post.permalink() }}" class="listtitle">{{ post.title()|e }}</a>
+                    </h4>
+                    <p class="list-group-item-text">{{ post.description()|e }}</p>
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+    {% endfor %}
+    </div>
+    {% else %}
+    <p>{{ messages("No posts found.") }}</p>
+    {% endif %}
+</article>
+{% endblock %}

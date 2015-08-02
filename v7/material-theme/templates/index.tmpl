@@ -1,0 +1,44 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'index_helper.tmpl' as helper with context %}
+{% import 'comments_helper.tmpl' as comments with context %}
+{% extends 'base.tmpl' %}
+
+{% block extra_head %}
+    {{ super() }}
+    {% if posts and (permalink == '/' or permalink == '/' + index_file) %}
+        <link rel="prefetch" href="{{ posts[0].permalink() }}" type="text/html">
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="postindex well post-material ">
+    {% for post in posts %}
+        <article class="h-entry post-{{ post.meta('type') }}">
+        <header>
+            <h1 class="p-name entry-title header"><a href="{{ post.permalink() }}" class="u-url">{{ post.title()|e }}</a></h1>
+            <div class="metadata">
+                <span class="byline author vcard"><i class="mdi-action-face-unlock"></i>{{ post.author() }}</span>
+                <span class="dateline"><a href="{{ post.permalink() }}" rel="bookmark">
+                    <i class="mdi-device-access-time"></i><time class="published dt-published" datetime="{{ post.date.isoformat() }}" title="{{ post.formatted_date(date_format) }}">{{ post.formatted_date(date_format) }}</time></a></span>
+                {% if not post.meta('nocomments') and site_has_comments %}
+                    <span class="commentline">{{ comments.comment_link(post.permalink(), post._base_path) }}</span>
+                {% endif %}
+            </div>
+            <hr />
+        </header>
+        {% if index_teasers %}
+        <div class="p-summary entry-summary">
+        {{ post.text(teaser_only=True) }}
+        {% else %}
+        <div class="e-content entry-content">
+        {{ post.text(teaser_only=False) }}
+        {% endif %}
+        </div>
+        </article>
+    {% endfor %}
+    </div>
+{{ helper.html_pager() }}
+{{ comments.comment_link_script() }}
+{{ helper.mathjax_script(posts) }}
+{% endblock %}
