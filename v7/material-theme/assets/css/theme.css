@@ -1,0 +1,227 @@
+@font-face {
+    font-family: 'ralewaymedium';
+    src: url('../fonts/raleway-medium-webfont.eot');
+    src: url('../fonts/raleway-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/raleway-medium-webfont.woff2') format('woff2'),
+         url('../fonts/raleway-medium-webfont.woff') format('woff'),
+         url('../fonts/raleway-medium-webfont.ttf') format('truetype'),
+         url('../fonts/raleway-medium-webfont.svg#ralewaymedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1, h2, h3, h4 {
+    font-family: "ralewaymedium";
+    color: #009688;
+}
+
+h2 {
+    color: #333;
+}
+
+/* header */
+.header-panel {
+    z-index: 3;
+    height: 156px;
+}
+
+.header-panel h1 {
+    color: #FFF;
+    font-size: 35px;
+    font-weight: 400;
+    position: absolute;
+    bottom: 10px;
+    padding-left: 35px;
+}
+
+.header-panel div {
+    position: relative;
+    height: 100%;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+#blog-title {
+    color: #fff;
+}
+
+.source-button > a {
+    position: fixed;
+    z-index: 1000;
+    top: 35px;
+    right: 8%;
+}
+
+.footer {
+    z-index: 30;
+    height: 40px;
+    background-color: #eee;
+}
+
+/* menu */
+.menu {
+    overflow: auto;
+    padding: 0;
+}
+
+.menu, .menu * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.menu ul {
+    padding: 0;
+    margin: 7px 0;
+}
+
+.menu ul li {
+    list-style: none;
+    padding: 20px 0 20px 50px;
+    font-size: 15px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.menu ul li.active {
+    background-color: #dedede;
+    position: relative;
+}
+
+.menu ul li a {
+    color: rgb(51, 51, 51);
+    text-decoration: none;
+}
+
+/* articles */
+article > header span > a {
+    color: #333;
+}
+
+article.postpage > header hr, article.post-text > header hr {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+article.postpage > header div.metadata span {
+    padding: 0px 5px;
+}
+
+article.postpage > header i, article.post-text > header i {
+    position: relative;
+    top: 2px;
+    margin-right: 2px;
+}
+
+/* carousel */
+.carousel.slide {
+    margin-bottom: 15px;
+}
+
+.carousel.slide .arrow-back {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+
+.carousel.slide .arrow-forward {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.carousel-inner > .item {
+    margin: 30px 20px 70px;
+}
+.carousel-indicators{
+    left: 45%;
+    width: 70%;
+}
+.carousel-indicators li {
+    width: 15px;
+    height: 15px;
+    margin: 3px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: rgba(0, 202, 197, 0.2);
+    border: 1px solid #009587;
+    border-radius: 15px;
+}
+
+.carousel-indicators .active {
+    width: 18px;
+    height: 18px;
+    margin: 2px;
+    border-radius: 18px;
+    background-color: #009688;
+}
+
+/* layout */
+.content-material {
+    min-height: 75%;
+}
+
+.posts-material {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 4;
+    padding: 0px;
+    overflow: auto;
+}
+
+.posts-material> div {
+    padding: 64px 5px 0px;
+}
+
+.post-material, .content-material > article, .content-material > .page {
+    opacity: 1;
+    transform: translateY(0px);
+    transition: all 0.3s ease-out 0s;
+    display: block;
+    background-color: #fff;
+    padding: 19px;
+    margin-bottom: 20px;
+    box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19);
+    border-radius: 2px;
+    border: 0px none;
+}
+
+.search-form {
+    z-index: 10;
+}
+
+.btn-footer {
+    margin: 20px;
+}
+
+ul > li {
+    list-style: none;
+}
+
+.postlist a.reference > i {
+    position: relative;
+    top: 2px;
+    margin-right: 2px;
+}
+
+img.thumbnail {
+    box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.12), 0px 1px 6px 0px rgba(0, 0, 0, 0.12);
+    max-width: 100%;
+    height: auto;
+    padding: 0px;
+}
+
+@media only screen and (max-width: 990px) {
+    .source-button > a {
+        top:35px;
+        right: 20px;
+    }
+}
+
+div.admonition {
+    border: 0px solid transparent;
+    box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19)
+}
