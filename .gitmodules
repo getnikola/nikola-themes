@@ -10,3 +10,6 @@
 [submodule "v7/cadair"]
 	path = v7/cadair
 	url = git@github.com:Cadair/cadair-nikola-theme.git
+[submodule "v7/lotabout"]
+	path = v7/lotabout
+	url = git@github.com:lotabout/zzz.git
