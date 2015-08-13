@@ -13,3 +13,6 @@
 [submodule "v7/lotabout"]
 	path = v7/lotabout
 	url = git@github.com:lotabout/zzz.git
+[submodule "v7/bnw"]
+	path = v7/bnw
+	url = git@github.com:lotabout/nikola-bnw.git
