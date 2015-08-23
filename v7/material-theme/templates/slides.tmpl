@@ -1,0 +1,28 @@
+{% block content %}
+<div id="{{ carousel_id }}" class="carousel slide">
+    <ol class="carousel-indicators">
+    {% for i in range(slides_content|length) %}
+        {% if i == 0 %}
+            <li data-target="#{{ carousel_id }}" data-slide-to="{{ i }}" class="active"></li>
+        {% else %}
+            <li data-target="#{{ carousel_id }}" data-slide-to="{{ i }}"></li>
+        {% endif %}
+    {% endfor %}
+    </ol>
+    <div class="carousel-inner">
+        {% for i, image in enumerate(slides_content) %}
+            {% if i == 0 %}
+                <div class="item active"><img class=" shadow-z-3" src="{{ image }}" alt="" style="margin: 0 auto 0 auto;"></div>
+            {% else %}
+                <div class="item"><img class=" shadow-z-3" src="{{ image }}" alt="" style="margin: 0 auto 0 auto;"></div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <a class="btn btn-fab btn-raised btn-material-teal arrow-back" href="#{{ carousel_id }}" data-slide="prev">
+        <i class="mdi-navigation-arrow-back"></i>
+    </a>
+    <a class="btn btn-fab btn-raised btn-material-teal arrow-forward" href="#{{ carousel_id }}" data-slide="next">
+        <i class="mdi-navigation-arrow-forward"></i>
+    </a>
+</div>
+{% endblock %}

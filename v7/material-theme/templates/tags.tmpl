@@ -1,0 +1,34 @@
+{#  -*- coding: utf-8 -*- #}
+{% extends 'base.tmpl' %}
+
+{% block content %}
+<div class="page">
+
+    <h1>{{ title }}</h1>
+    <hr />
+    {% if cat_items %}
+        {% if items %}
+            <h2>{{ messages("Categories") }}</h2>
+        {% endif %}
+        <div class="postlist">
+            {% for text, link in cat_items %}
+                {% if text and text not in hidden_categories %}
+                    <div><a class="reference" href="{{ link }}"> <i class="mdi-action-done"></i>{{ text }}</a></div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% if items %}
+            <h2>{{ messages("Tags") }}</h2>
+        {% endif %}
+    {% endif %}
+    {% if items %}
+        <ul class="list-inline">
+        {% for text, link in items %}
+            {% if text not in hidden_tags %}
+                <li><a class="reference badge" href="{{ link }}">{{ text }}</a></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+{% endblock %}
