@@ -120,14 +120,8 @@ lang="{{ lang }}">
               }).trigger("resize");
 
              $(".menu li").click(function() {
-                // Menu
-                if (!$(this).data("target")) return;
-                if ($(this).is(".active")) return;
-                $(".menu li").not($(this)).removeClass("active");
-                window.page = $(this).data("target");
-                setTimeout(function() {
-                    window.location.href= window.page;
-                }, 500);
+                if (!$(this).data("location")) return;
+                window.location.href = $(this).data("location");
             });
         </script>
 {% endmacro %}
@@ -172,17 +166,17 @@ lang="{{ lang }}">
             <ul class="dropdown-menu">
             {% for suburl, text in url %}
                 {% if rel_link(permalink, suburl) == "#" %}
-                    <li class="active" data-target="{{ permalink }}">{{ text }}</li>
+                    <li class="active" data-location="{{ permalink }}"><a href="{{ permalink }}"><div class="ripple-wrapper"></div>{{ text }}</a></li>
                 {% else %}
-                    <li data-target="{{ suburl }}">{{ text }}<div class="ripple-wrapper"></li>
+                    <li data-location="{{ suburl }}"><a href="{{ suburl }}"><div class="ripple-wrapper"></div>{{ text }}</a></li>
                 {% endif %}
             {% endfor %}
             </ul>
         {% else %}
             {% if rel_link(permalink, url) == "#" %}
-                <li class="withripple active" data-target="{{ permalink }}">{{ text }}<div class="ripple-wrapper"></div></li>
+                <li class="withripple active" data-location="{{ permalink }}"><a href="{{ permalink }}"><div  class="ripple-wrapper"></div>{{ text }}</a></li>
             {% else %}
-                <li class="withripple" data-target="{{ abs_link(_link("root", None, lang)) }}{{ url }}">{{ text }}<div class="ripple-wrapper"></div></li>
+                <li class="withripple" data-location="{{ url }}"><a href="{{ url }}"><div class="ripple-wrapper"></div>{{ text }}</a></li>
             {% endif %}
         {% endif %}
     {% endfor %}
