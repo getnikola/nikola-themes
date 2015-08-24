@@ -5,8 +5,6 @@ Based on [bootstrap-material-design](https://github.com/FezVrasta/bootstrap-mate
 
 ## Customization
 
-This options must be specify in conf.py, into GLOBAL_CONTEXT variable:
-
 ### Navbar color schema 
 
     GLOBAL_CONTEXT = {                                                               
