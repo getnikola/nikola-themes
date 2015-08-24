@@ -95,11 +95,12 @@ lang="{{ lang }}">
         {% else %}
             <script src="/assets/js/jquery.min.js"></script>
             <script src="/assets/js/bootstrap.min.js"></script>
-            <script src="/assets/js/moment-with-locales.min.js"></script>
-            <script src="/assets/js/fancydates.js"></script>
-            <script src="/assets/js/ripples.min.js"></script>
-            <script src="/assets/js/material.min.js"></script>
         {% endif %}
+        <script src="/assets/js/kc.fab.js"></script>
+        <script src="/assets/js/moment-with-locales.min.js"></script>
+        <script src="/assets/js/fancydates.js"></script>
+        <script src="/assets/js/ripples.min.js"></script>
+        <script src="/assets/js/material.min.js"></script>
         <script src="/assets/js/jquery.colorbox-min.js"></script>
     {% endif %}
     {% if colorbox_locales[lang] %}
@@ -107,22 +108,31 @@ lang="{{ lang }}">
     {% endif %}
     {{ social_buttons_code }}
         <script>
+            {% if social_links %}
+                var links = [
+                    {% for item in social_links %}
+                        {
+                        {% for k,v in item.iteritems() %}
+                            "{{ k }}": "{{ v }}",
+                        {% endfor %}
+                        },
+                    {% endfor %}
+                ];
+            {% endif %}
 
             $(document).ready(function() {
                 // This command is used to initialize some elements and make them work properly
                 $.material.init();
+                {% if social_links %}
+                    $('.kc_fab_wrapper').kc_fab(links);
+                {% endif %}
             });
 
-             $(window).on("resize", function() {
+            $(window).on("resize", function() {
                 $("html, body").height($(window).height());
                 $(".main, .menu").height($(window).height() - $(".header-panel").outerHeight() - 76 ); // footer margin: $("footer.footer").outerHeight()
                 $(".posts-material").height($(window).height());
-              }).trigger("resize");
-
-             $(".menu li").click(function() {
-                if (!$(this).data("location")) return;
-                window.location.href = $(this).data("location");
-            });
+            }).trigger("resize");
         </script>
 {% endmacro %}
 
@@ -131,6 +141,7 @@ lang="{{ lang }}">
     {% if use_bundles %}
         {% if use_cdn %}
             <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
             <link href="/assets/css/all.css" rel="stylesheet" type="text/css">
         {% else %}
             <link href="/assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
@@ -138,8 +149,10 @@ lang="{{ lang }}">
     {% else %}
         {% if use_cdn %}
             <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         {% else %}
             <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+            <link href="/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         {% endif %}
         <link href="/assets/css/rst.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/code.css" rel="stylesheet" type="text/css">
@@ -147,6 +160,7 @@ lang="{{ lang }}">
         <link href="/assets/css/roboto.min.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/material.min.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/ripples.min.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/kc.fab.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/theme.css" rel="stylesheet" type="text/css">
         {% if has_custom_css %}
             <link href="/assets/css/custom.css" rel="stylesheet" type="text/css">
@@ -166,17 +180,17 @@ lang="{{ lang }}">
             <ul class="dropdown-menu">
             {% for suburl, text in url %}
                 {% if rel_link(permalink, suburl) == "#" %}
-                    <li class="active" data-location="{{ permalink }}"><a href="{{ permalink }}"><div class="ripple-wrapper"></div>{{ text }}</a></li>
+                    <li class="active"><a href="{{ permalink }}">{{ text }}</a></li>
                 {% else %}
-                    <li data-location="{{ suburl }}"><a href="{{ suburl }}"><div class="ripple-wrapper"></div>{{ text }}</a></li>
+                    <li><a href="{{ suburl }}">{{ text }}</a></li>
                 {% endif %}
             {% endfor %}
             </ul>
         {% else %}
             {% if rel_link(permalink, url) == "#" %}
-                <li class="withripple active" data-location="{{ permalink }}"><a href="{{ permalink }}"><div  class="ripple-wrapper"></div>{{ text }}</a></li>
+                <li class="withripple active"><a href="{{ permalink }}">{{ text }}</a></li>
             {% else %}
-                <li class="withripple" data-location="{{ url }}"><a href="{{ url }}"><div class="ripple-wrapper"></div>{{ text }}</a></li>
+                <li class="withripple"><a href="{{ url }}">{{ text }}</a></li>
             {% endif %}
         {% endif %}
     {% endfor %}
