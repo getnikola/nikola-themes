@@ -1,0 +1,116 @@
+.kc_fab_overlay{
+  z-index: 9998;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.3); /*dim the background*/
+}
+.kc_fab_wrapper{
+  z-index: 9999;
+  width:100%;
+  height:240px;
+  position:fixed;
+  right:0px;
+  bottom:0px;
+  pointer-events:none;
+}
+.sub_fab_btns_wrapper{
+  right:0;
+  bottom:75px;
+  position:absolute;
+  display:none;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-in;
+       -moz-transition: opacity 0.3s ease-in;
+        -ms-transition: opacity 0.3s ease-in;
+         -o-transition: opacity 0.3s ease-in;
+            transition: opacity 0.3s ease-in;
+  pointer-events:all;
+}
+.sub_fab_btns_wrapper.show{
+  display:block;
+  opacity: 1;
+}
+.sub_fab_btns_wrapper button{
+  width:40px;
+  height:40px;
+  border-radius:100%;
+  background:#F44336;
+  margin-bottom:12px;
+  margin-right:30px;
+  padding:0;
+  border:none;
+  outline:none;
+  color:#FFF;
+  font-size: 19px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition:.3s;  
+  pointer-events:all;
+}
+button.kc_fab_main_btn{
+  background-color:#F44336;
+  width:56px;
+  height:56px;
+  border-radius:100%;
+  background:#F44336;
+  right:22px;
+  bottom:22px;
+  position:absolute;
+  margin-right:0;
+  margin-bottom:0;
+  padding:0;
+  border:none;
+  outline:none;
+  color:#FFF;
+  font-size:36px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition:.3s;  
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  pointer-events:all;
+}
+.kc_fab_main_btn span{
+  transition:.5s;  
+}
+.kc_fab_main_btn:focus {
+  transform:scale(1.1);
+  transform:rotate(45deg);
+  -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.ink {
+  display: block;
+  position: absolute;
+  background:rgba(255, 255, 255, 0.3);
+  border-radius: 100%;
+  -webkit-transform:scale(0);
+     -moz-transform:scale(0);
+       -o-transform:scale(0);
+          transform:scale(0);
+  pointer-events:all;
+}
+
+.animate {
+  -webkit-animation:ripple 0.65s linear;
+   -moz-animation:ripple 0.65s linear;
+    -ms-animation:ripple 0.65s linear;
+     -o-animation:ripple 0.65s linear;
+        animation:ripple 0.65s linear;
+
+}
+
+@-webkit-keyframes ripple {
+    100% {opacity: 0; -webkit-transform: scale(2.5);}
+}
+@-moz-keyframes ripple {
+    100% {opacity: 0; -moz-transform: scale(2.5);}
+}
+@-o-keyframes ripple {
+    100% {opacity: 0; -o-transform: scale(2.5);}
+}
+@keyframes ripple {
+    100% {opacity: 0; transform: scale(2.5);}
+}

@@ -5,12 +5,10 @@ Based on [bootstrap-material-design](https://github.com/FezVrasta/bootstrap-mate
 
 ## Customization
 
-#### Navbar color scheme
+### Navbar color schema 
 
-In conf.py:
-
-    GLOBAL_CONTEXT = {
-         'header_color': 'default'
+    GLOBAL_CONTEXT = {                                                               
+         'header_color': 'default'                                                    
     }
 
 Options available:
@@ -22,4 +20,67 @@ Options available:
 * `danger`
 
 ![headers examples](https://themes.getnikola.com/resources/material-theme-navbars.png)
+
+
+### Social links in floating action button
+
+    GLOBAL_CONTEXT = {
+        "social_links": [
+        {
+            'bgcolor': "#F44336",
+            'icon': "<i class='fa fa-share-square-o'></i>"
+        },
+        {
+            "url": "https://twitter.com/",
+            "bgcolor": "#55ACEE",
+            "color": "#fffff",
+            "icon": "<i class='fa fa-twitter'></i>",
+            "target": "_blank"
+        },
+        {
+            "url": "https://github.com/",
+            "bgcolor": "#666666",
+            "color": "#fffff",
+            "icon": "<i class='fa fa-github-square'></i>",
+            "target": "_blank"
+        },
+        {
+            "url": "https://www.facebook.com",
+            "bgcolor": "#3B5998",
+            "color": "#fffff",
+            "icon": "<i class='fa fa-facebook'></i>",
+            "target": "_blank"
+        },
+        ]
+    }
+    
+![actions-links-gif](https://github.com/matuu/material-theme-nikola/blob/master/screenshots/actions-links.gif)
+
+
+### Set author's avatar in header post
+
+    GLOBAL_CONTEXT = {
+        'author_avatar': '/images/avatar.jpg',
+    }
+    
+![author's avatar](https://github.com/matuu/material-theme-nikola/blob/master/screenshots/avatar_author.png)
+
+
+### Show author's biography into the dialog of credits (or footer)
+
+For convenience, first define a variable with the html biography.
+
+    BIOGRAPHY = """
+    <img class="img-circle" style="float:left;margin:10px 20px 10px 0px;max-height:200px;" src="/images/avatar.jpg">
+    <p>Nikola Tesla (Serbian Cyrillic: Никола Тесла; 10 July 1856 – 7 January 1943) was a Serbian American inventor, electrical engineer, mechanical engineer, physicist, and futurist best known for his contributions to the design of the modern alternating current (AC) electricity supply system.
+    </p>
+    """
+    
+Then, add it to `biography` viariable into `GLOBAL_CONTEXT`
+
+    GLOBAL_CONTEXT = {
+        "biography": BIOGRAPHY,
+    }
+
+![biography](https://github.com/matuu/material-theme-nikola/blob/master/screenshots/biography-demo.png)
 

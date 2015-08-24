@@ -18,7 +18,14 @@
         <header>
             <h1 class="p-name entry-title header"><a href="{{ post.permalink() }}" class="u-url">{{ post.title()|e }}</a></h1>
             <div class="metadata">
-                <span class="byline author vcard"><i class="mdi-action-face-unlock"></i>{{ post.author() }}</span>
+                <span class="byline author vcard">
+                    {% if author_avatar %}
+                        <img class="img-circle" src="{{ author_avatar }}" alt="icon"/>
+                    {% else %}
+                        <i class="mdi-action-face-unlock"></i>
+                    {% endif %}
+                    {{ post.author() }}
+                </span>
                 <span class="dateline"><a href="{{ post.permalink() }}" rel="bookmark">
                     <i class="mdi-device-access-time"></i><time class="published dt-published" datetime="{{ post.date.isoformat() }}" title="{{ post.formatted_date(date_format) }}">{{ post.formatted_date(date_format) }}</time></a></span>
                 {% if not post.meta('nocomments') and site_has_comments %}

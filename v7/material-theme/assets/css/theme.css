@@ -79,7 +79,6 @@ h2 {
 
 .menu ul li {
     list-style: none;
-    padding: 20px 0 20px 50px;
     font-size: 15px;
     font-weight: normal;
     cursor: pointer;
@@ -93,6 +92,9 @@ h2 {
 .menu ul li a {
     color: rgb(51, 51, 51);
     text-decoration: none;
+    padding: 20px 0 20px 50px;
+    display: block;
+    outline: 0;
 }
 
 /* articles */
@@ -113,6 +115,12 @@ article.postpage > header i, article.post-text > header i {
     position: relative;
     top: 2px;
     margin-right: 2px;
+}
+
+span.vcard img.img-circle {
+    width: 30px;
+    position: relative;
+    top: -5px;
 }
 
 /* carousel */

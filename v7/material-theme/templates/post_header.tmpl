@@ -32,7 +32,15 @@
         {{ html_title() }}
         <div class="metadata">
             <span class="byline author vcard">
-                <a href="{{ post.permalink() }}" ><i class="mdi-action-face-unlock"></i>{{ post.author() }}</a></span>
+                <a href="{{ post.permalink() }}" >
+                    {% if author_avatar %}
+                        <img class="img-circle" src="{{ author_avatar }}" alt="icon"/>
+                    {% else %}
+                        <i class="mdi-action-face-unlock"></i>
+                    {% endif %}
+                    {{ post.author() }}
+                </a>
+            </span>
             <span class="dateline">
                 <a href="{{ post.permalink() }}" rel="bookmark"><i class="mdi-device-access-time"></i>
                     <time class="published dt-published" datetime="{{ post.date.isoformat() }}" itemprop="datePublished" title="{{ post.formatted_date(date_format) }}">{{ post.formatted_date(date_format) }}</time>
