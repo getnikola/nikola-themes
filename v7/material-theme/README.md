@@ -54,7 +54,7 @@ Options available:
         ]
     }
     
-![actions-links-gif](https://github.com/matuu/material-theme-nikola/blob/master/screenshots/actions-links.gif)
+![actions-links-gif](https://themes.getnikola.com/resources/material-theme-actions-links.gif)
 
 
 ### Set author's avatar in header post
@@ -63,7 +63,7 @@ Options available:
         'author_avatar': '/images/avatar.jpg',
     }
     
-![author's avatar](https://github.com/matuu/material-theme-nikola/blob/master/screenshots/avatar_author.png)
+![author's avatar](https://themes.getnikola.com/resources/material-theme-avatar-author.png)
 
 
 ### Show author's biography into the dialog of credits (or footer)
@@ -82,5 +82,5 @@ Then, add it to `biography` viariable into `GLOBAL_CONTEXT`
         "biography": BIOGRAPHY,
     }
 
-![biography](https://github.com/matuu/material-theme-nikola/blob/master/screenshots/biography-demo.png)
+![biography](https://themes.getnikola.com/resources/material-theme-biography.png)
 
