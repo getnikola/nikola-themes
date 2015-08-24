@@ -1,4 +1,4 @@
-$!/bin/sh
+#!/bin/sh
 workon nikola
 git submodule foreach git pull origin master
 ./scripts/build_themes.py
