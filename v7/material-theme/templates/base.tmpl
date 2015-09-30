@@ -7,6 +7,9 @@
 {#  Leave this block alone. #}
 {% endblock %}
 {{ template_hooks['extra_head']() }}
+{% if analytics %}
+    {{ analytics }}
+{% endif %}
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">{{ messages("Skip to main content") }}</a>
@@ -76,7 +79,7 @@
                 <hr />
                 {% else %}
                 <h4 class="modal-title">{{ blog_title }} credits</h4>
-                {% endif %} 
+                {% endif %}      
               </div>
               <div class="modal-body">
                     {{ content_footer }}

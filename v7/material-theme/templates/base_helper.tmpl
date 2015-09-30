@@ -32,6 +32,10 @@ lang="{{ lang }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title|e }} | {{ blog_title|e }}</title>
 
+    {% if use_pace %}
+        <script src="/assets/js/pace.min.js"></script>
+        <link href="/assets/css/pace.css" rel="stylesheet" />
+    {% endif %}
     {{ html_stylesheets() }}
     {{ html_feedlinks() }}
     {% if permalink %}
@@ -96,7 +100,7 @@ lang="{{ lang }}">
             <script src="/assets/js/jquery.min.js"></script>
             <script src="/assets/js/bootstrap.min.js"></script>
         {% endif %}
-        <script src="/assets/js/kc.fab.js"></script>
+        <script src="/assets/js/kc.fab.js"></script> 
         <script src="/assets/js/moment-with-locales.min.js"></script>
         <script src="/assets/js/fancydates.js"></script>
         <script src="/assets/js/ripples.min.js"></script>
@@ -113,7 +117,7 @@ lang="{{ lang }}">
                     {% for item in social_links %}
                         {
                         {% for k,v in item.iteritems() %}
-                            "{{ k }}": "{{ v }}",
+                            "{{ k }}": "{{ v }}",    
                         {% endfor %}
                         },
                     {% endfor %}
