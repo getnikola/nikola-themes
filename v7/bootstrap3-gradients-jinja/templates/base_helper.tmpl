@@ -26,17 +26,23 @@ dir="rtl"
 lang="{{ lang }}">
     <head>
     <meta charset="utf-8">
+    {% if use_base_tag %}
+    <base href="{{ abs_link(permalink) }}">
+    {% endif %}
     {% if description %}
-    <meta name="description" content="{{ description }}">
+    <meta name="description" content="{{ description|e }}">
     {% endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ title|e }} | {{ blog_title|e }}</title>
+    {% if title == blog_title %}
+        <title>{{ blog_title|e }}</title>
+    {% else %}
+        <title>{{ title|e }} | {{ blog_title|e }}</title>
+    {% endif %}
 
     {{ html_stylesheets() }}
+    <meta content="{{ theme_color }}" name="theme-color">
     {{ html_feedlinks() }}
-    {% if permalink %}
-      <link rel="canonical" href="{{ abs_link(permalink) }}">
-    {% endif %}
+    <link rel="canonical" href="{{ abs_link(permalink) }}">
 
     {% if favicons %}
         {% for name, file, size in favicons %}
@@ -132,7 +138,7 @@ lang="{{ lang }}">
 {% macro html_navigation_links() %}
     {% for url, text in navigation_links[lang] %}
         {% if isinstance(url, tuple) %}
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ text }} <b class="caret"></b></a>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ text }} <b class="caret"></b></a>
             <ul class="dropdown-menu">
             {% for suburl, text in url %}
                 {% if rel_link(permalink, suburl) == "#" %}
@@ -157,7 +163,7 @@ lang="{{ lang }}">
         {{ rss_link }}
     {% elif generate_rss %}
         {% if translations|length > 1 %}
-            {% for language in translations %}
+            {% for language in translations|sort %}
                 <link rel="alternate" type="application/rss+xml" title="RSS ({{ language }})" href="{{ _link('rss', None, language) }}">
             {% endfor %}
         {% else %}
@@ -166,7 +172,7 @@ lang="{{ lang }}">
     {% endif %}
     {% if generate_atom %}
         {% if translations|length > 1 %}
-            {% for language in translations %}
+            {% for language in translations|sort %}
                 <link rel="alternate" type="application/atom+xml" title="Atom ({{ language }})" href="{{ _link('index_atom', None, language) }}">
             {% endfor %}
         {% else %}
@@ -176,7 +182,7 @@ lang="{{ lang }}">
 {% endmacro %}
 
 {% macro html_translations() %}
-    {% for langname in translations.keys() %}
+    {% for langname in translations|sort %}
         {% if langname != lang %}
             <li><a href="{{ abs_link(_link("root", None, langname)) }}" rel="alternate" hreflang="{{ langname }}">{{ messages("LANGUAGE", langname) }}</a></li>
         {% endif %}
