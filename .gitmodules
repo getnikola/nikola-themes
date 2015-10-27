@@ -18,4 +18,4 @@
 	url = git@github.com:lotabout/nikola-bnw.git
 [submodule "v7/mdl"]
 	path = v7/mdl
-	url = https://github.com/ivanteoh/nikola-mdl-mako
+	url = git@github.com:ivanteoh/nikola-mdl-mako.git
