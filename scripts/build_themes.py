@@ -79,7 +79,7 @@ def init_theme(theme):
         extra_conf = io.open(extra_conf_path, 'r', encoding="utf-8").read()
 
     with io.open(conf_path, "a", encoding="utf-8") as conf:
-        conf.write(u"\n\n{2}\n\nTHEME = '{0}'\n\nUSE_BUNDLES = False\n\nOUTPUT_FOLDER = '{1}'\n\nSOCIAL_BUTTONS_CODE = ''\n".format(theme, o_path, extra_conf))
+        conf.write(u"\n\n{2}\n\nTHEME = '{0}'\n\nUSE_BUNDLES = False\n\nOUTPUT_FOLDER = '{1}'\n\nSOCIAL_BUTTONS_CODE = ''\nUSE_BASE_TAG = False\n".format(theme, o_path, extra_conf))
 
 @contextmanager
 def cd(path):
