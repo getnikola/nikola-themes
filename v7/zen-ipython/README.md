@@ -1,3 +1,7 @@
+This is the `zen` theme with Jupyter (IPython Notebook) support built-in.
+**For a Bootstrap 3-based theme, check out the built-in ``bootstrap3`` theme
+family — IPython support is built into them.**
+
 The zen and zen-based themes are very customizable, so to make these themes work, you have to use this [conf.py](https://github.com/damianavila/damian_blog/blob/master/conf.py), obviously with your custom changes ;-)
 
 More info about the zen themes family [here](http://www.damian.oquanta.info/posts/nikolas-zen-theme-finally-released.html).
