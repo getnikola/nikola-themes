@@ -10,3 +10,6 @@ To contribute a theme:
 * Do a PR
 
 After a brief discussion it will be merged and available for everyone :-)
+
+
+[![Join the chat at https://gitter.im/getnikola/nikola-themes](https://badges.gitter.im/getnikola/nikola-themes.svg)](https://gitter.im/getnikola/nikola-themes?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
