@@ -112,7 +112,7 @@ lang="{{ lang }}">
                 var links = [
                     {% for item in social_links %}
                         {
-                        {% for k,v in item.iteritems() %}
+                        {% for k,v in item.items() %}
                             "{{ k }}": "{{ v }}",
                         {% endfor %}
                         },
