@@ -311,9 +311,9 @@
             $('<div/>').html(data[theme]['confpy']).appendTo(container)
         }
 
-        // DISQUS comments.  This code is a mess.
-        // MAKE SURE TO :set tw=93409564302956 before editing
-        $('<div/>').html('<div id="disqus_thread"></div><sc' + 'ript type="text/javascript"> var disqus_shortname = "nikolathemes"; var disqus_identifier = "THEME_'+theme+'"; var disqus_title = "Nikola Theme: " +theme; var disqus_url = "https://themes.getnikola.com/go/" + theme; (function() { var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true; dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js"; (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq); })(); </s'+'cript><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>').appendTo(container)
+        // Add a note about comments.
+        $('<h3/>').html('Issues? Questions?').appendTo(container);
+        $('<p/>').html('You can report issues with this theme and request help via <a href="https://github.com/getnikola/plugins/issues/new?title=[' + theme + ']">GitHub Issues</a>.');
 
         // Mark theme as active and paginate to it
         var listItems = $("#itemContainer a");
