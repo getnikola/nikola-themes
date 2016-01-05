@@ -1,0 +1,58 @@
+<%doc>
+  Used to display the list of tags and categories.
+</%doc>
+
+<%inherit file="/_base.tmpl"/>
+
+<%block name="page_title">
+    ${messages("Categories")}
+</%block>
+
+
+<article class="yp-post-group__body">
+
+  % if cat_items:
+    <h2>Categories</h2>
+
+    % for text, full_name, path, link, indent_levels, indent_change_before, indent_change_after in cat_hierarchy:
+        % for i in range(indent_change_before):
+            <ul class="yp-post-list">
+        % endfor
+
+        <li class="yp-post-list__item">
+          <h3 class="yp-post-list__title">
+            <a class="reference yp-post-list__link" href="${link}">${text}</a>
+          </h3>
+
+        % if indent_change_after <= 0:
+            </li>
+        % endif
+
+        % for i in range(-indent_change_after):
+            </ul>
+            % if i + 1 < len(indent_levels):
+                </li>
+            % endif
+        % endfor
+
+    % endfor
+  % endif
+
+  % if items:
+
+    <h2>Tags</h2>
+
+    <ul class="yp-post-list">
+      % for text, link in items:
+        % if text not in hidden_tags:
+          <li class="yp-post-list__item">
+            <h3 class="yp-post-list__title">
+              <a class="reference yp-post-list__link" href="${link}">${text|h}</a>
+            </h3>
+          </li>
+        % endif
+      % endfor
+    </ul>
+
+  % endif
+</article>

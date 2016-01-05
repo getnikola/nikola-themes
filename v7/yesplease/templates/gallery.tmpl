@@ -1,0 +1,85 @@
+<%doc>
+Template used for image galleries.
+
+If ``folders`` contains items then this is a listing of galleries or is a gallery
+which contains sub-galleries.
+
+Interesting variables include:
+
+* post: A post object, containing descriptive post.text() for the gallery.
+* crumbs: A list of link, crumb to implement breadcrumbs.
+* folders: A list of folders to implement hierarchical gallery navigation.
+* enable_comments: To enable/disable comments in galleries.
+* thumbnail_size: The THUMBNAIL_SIZE option.
+* photo_array: a list of dictionaries, each containing:
+
+    * url: URL for the full-sized image.
+    * url_thumb: URL for the thumbnail.
+    * title: The title of the image.
+    * size: A dict containing w and h, the real size of the thumbnail.
+
+</%doc>
+
+<%inherit file="/_base.tmpl"/>
+<%block name="page_title">
+  ## galleries is the default title for the listing of galleries
+  % if title != 'galleries':
+    ${title}
+  % elif folders:
+    Photo Galleries
+  % endif
+</%block>
+
+% if post:
+  <article class="yp-post__body">
+    <div>
+      ${post.text()}
+    </div>
+  </article>
+% endif
+
+
+% if folders:
+  <article class="yp-post-group__body">
+
+    % if photo_array:
+      ## This gallery contains sub-galleries.
+      <h3>Sub-Galleries:</h3>
+    % endif
+
+    <ul class="yp-post-list">
+      % for link, text in folders:
+        <li class="yp-post-list__item">
+          <h3 class="yp-post-list__title">
+            <a class="reference yp-post-list__link" href="${link}">${text|h}</a>
+          </h3>
+        </li>
+      % endfor
+    </ul>
+  </article>
+% endif
+
+
+<article class="yp-gallery__body">
+  <div class="yp-gallery__container">
+    % if photo_array:
+      % for image in photo_array:
+        <%
+          link = image['url']
+          title = image['title']
+          thumb_link = image['url_thumb']
+          # Add the narrow class to figures in portrait
+          extra_class = 'yp-gallery__figure--narrow' if image['size']['h'] > image['size']['w'] else ''
+        %>
+
+        <figure class="yp-gallery__figure ${extra_class}">
+          <a href="${link}" class="yp-gallery__link image-reference" title="${title}">
+            <img class="yp-gallery__image" src="${thumb_link}" alt="${title}" title="${title}"/>
+          </a>
+        </figure>
+
+      % endfor
+    % endif
+  </div>
+
+</article>

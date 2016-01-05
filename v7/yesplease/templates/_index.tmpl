@@ -1,0 +1,50 @@
+<%doc>
+Use for index of posts. The include_content page arg is used
+to determine whether to include the post content in the listing.
+</%doc>
+<%page args="include_content=True"/>
+<%namespace name="comp" file="/_components.tmpl" />
+
+<div class="pure-g">
+  % for post in posts:
+
+    <div class="pure-u-1-5">
+      <div class="yp-index-meta">
+        <i class="fa fa-clock-o"></i>
+        <time datetime="${post.formatted_date('webiso')}"
+              class="yp-index-meta__date">
+              ${comp.fancy_date(post.date)}
+        </time>
+##         <div class="yp-index-meta__category">
+##           ## TODO: figure out how to display the category
+##         </div>
+        <div class="yp-index-meta__tags">
+          % for tag in post.tags:
+            <span class="yp-index-meta__tag">${tag}</span>
+          % endfor
+        </div>
+##         <div class="yp-index-meta__reading-time">
+##           ${post.reading_time}
+##         </div>
+      </div>
+    </div>
+
+    <div class="pure-u-4-5">
+      <article class="yp-index-post">
+        <h2 class="yp-index-post__title">
+          <a href="${post.permalink()}" class="yp-index-post__link">
+            ${post.title()}
+          </a>
+        </h2>
+        <h3 class="yp-index-post__subtitle">
+          ${post.description()}
+        </h3>
+        % if include_content and not exclude_index_content:
+          <div class="yp-index-post__body">
+            ${post.text(teaser_only=index_teasers)}
+          </div>
+        % endif
+      </article>
+    </div>
+  % endfor
+</div>

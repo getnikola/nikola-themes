@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>
+      ## Prefix the title with blog name if the title doesn't only contain the blog name.
+      ${'{} - '.format(blog_title) if capture(self.page_title) != blog_title else ''}<%block name="page_title"></%block>
+    </title>
+
+    <%include file="_style.tmpl"/>
+    <%block name="extra_links"/>
+
+    <%include file="_scripts.tmpl"/>
+    <%block name="extra_scripts"/>
+
+    ${extra_head_data}
+    ${template_hooks['extra_head']()}
+  </head>
+  <body>
+    <div id="layout">
+      <%include file="_menu.tmpl"/>
+
+      <div id="main">
+
+        ## This allows inheriting templates to define a def named header_image that outputs
+        ## an URL to an image to use as the background for the title. See post.tmpl for an example.
+        <% header_image_url = None %>
+        % if hasattr(self, 'header_image'):
+          ## Capture the output of the def and save it in a variable so it can be used multiple times easily.
+          <% header_image_url = capture(self.header_image).strip() %>
+        % endif
+
+        ## If there is no header_image_url set and the page title is the same as the blog title
+        ## then show the header image url defined in GLOBAL_CONTEXT blog_header_image variable.
+        ## The idea here is that if the page title is your blog title, then the header image should be your blog image.
+        % if not header_image_url and capture(self.page_title) == blog_title:
+          <% header_image_url = blog_header_image %>
+        % endif
+
+        <div class="yp-header-container">
+          % if header_image_url:
+
+            <div class="yp-header-background"
+                 style="background-image: url(${header_image_url})">
+              ## Duplicating the title in the yp-header-background and the yp-header
+              ## allows the background image to resize to fit the title automatically.
+              <div class="yp-header">
+                <h1 class="yp-header__title${'--overlay' if header_image_url else ''}">${self.page_title()}</h1>
+                <h2 class="yp-header__subtitle${'--overlay' if header_image_url else ''}"><%block name="subtitle"/></h2>
+                ${template_hooks['page_header']()}
+              </div>
+            </div>
+
+            ## Duplicating the yp-header-background with yp-header-background--blur
+            ## allows a blurred header image while keeping straight edges of the non-blurred version
+            ## on the border. This should not cause extra network trips because it's the same image URL
+            <div class="yp-header-background--blur"
+                 style="background-image: url(${header_image_url})">
+              <div class="yp-header">
+                <h1 class="yp-header__title${'--overlay' if header_image_url else ''}">${self.page_title()}</h1>
+                <h2 class="yp-header__subtitle${'--overlay' if header_image_url else ''}">${self.subtitle()}</h2>
+                ${template_hooks['page_header']()}
+              </div>
+            </div>
+
+            <div class="yp-header">
+          % else:
+            ## Only place a border at the bottom of the header if there is no header image
+            <div class="yp-header" style="border-bottom: 1px solid #eee;">
+          % endif
+
+            <h1 class="yp-header__title${'--overlay' if header_image_url else ''}">
+              ${self.page_title()}
+            </h1>
+            <h2 class="yp-header__subtitle${'--overlay' if header_image_url else ''}">
+              ${self.subtitle()}
+            </h2>
+            ${template_hooks['page_header']()}
+          </div>
+        </div>
+
+        <div class="yp-content">
+          ${next.body()}
+        </div>
+
+
+        <%include file="_footer.tmpl"/>
+      </div>
+    </div>
+
+    ${body_end}
+    ${template_hooks['body_end']()}
+  </body>
+</html>

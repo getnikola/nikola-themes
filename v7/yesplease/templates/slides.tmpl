@@ -1,0 +1,36 @@
+<%doc>
+  Implements the ``slides`` ReST directive.
+</%doc>
+
+<div class="yp-slides yp-well">
+  <div class="yp-gallery__container">
+    % for image in slides_content:
+
+      <figure class="yp-gallery__figure">
+        <a href="${image}" class="yp-gallery__link image-reference">
+          <img class="yp-gallery__image" src="${image}"/>
+        </a>
+      </figure>
+
+    % endfor
+  </div>
+</div>
+
+<script>
+  ## Add the narrow class to images that are taller than they are wide.
+  ## The slides directive does not pass the image height and width to this template.
+  ## Unlike gallery.tmpl which does receive height and width information.
+
+  $(function(){
+    $('.yp-gallery__image').each(function(){
+      var img = this;
+      var $figure = $(img).closest('.yp-gallery__figure');
+
+      if(img.clientHeight > img.clientWidth){
+        $figure.addClass('yp-gallery__figure--narrow');
+      }
+    });
+  });
+
+</script>
+

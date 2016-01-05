@@ -1,0 +1,12 @@
+<%doc>
+  Used to show the contents of a single tag or category.
+</%doc>
+
+<%inherit file="/index.tmpl"/>
+
+<%block name="page_title">${title}</%block>
+<%block name="subtitle">
+  % if description:
+    ${description}
+  % endif
+</%block>

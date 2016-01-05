@@ -1,0 +1,2 @@
+assets/css/bundle.css=highlight/default.css,fluidbox.min.css,font-awesome.css,pure.css,grids-responsive.css,side-menu.css,site.css
+assets/js/bundle.js=jquery-2.1.4.min.js,jquery.ba-throttle-debounce.min.js,jquery.fluidbox.min.js,moment.js,highlight.pack.js,sidebar.js,init.js

@@ -1,0 +1,34 @@
+<%doc>
+  Template used to display generic lists of links, which it gets in items, a list of (text, link, count) elements.
+
+  This is used to display groups of posts such as years or months in the archive listing. In that case the
+  link will go to the list_post.tmpl which displays the actual links to the posts themselves.
+
+  For example this page may contain:
+
+  * 2015
+  * 2014
+  * 2013
+
+  Clicking on one of the links will go to the list of posts for that year as displayed by list_post.tmpl.
+</%doc>
+
+<%inherit file="/_base.tmpl"/>
+
+<%block name="page_title">${title}</%block>
+
+<article class="yp-post-group__body">
+  % if items:
+    <ul class="yp-post-list">
+    % for text, link, count in items:
+      <li class="yp-post-list__item">
+        <h3 class="yp-post-list__title">
+          <a class="reference yp-post-list__link" href="${link}">${text|h}</a>
+        </h3>
+      </li>
+    % endfor
+    </ul>
+  % else:
+    <p>${messages("Nothing found.")}</p>
+  % endif
+</article>
