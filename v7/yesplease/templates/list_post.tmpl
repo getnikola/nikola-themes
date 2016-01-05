@@ -1,0 +1,9 @@
+<%doc>
+  Template used to display generic lists of posts, which it gets in posts.
+
+  This is very similar to index.tmpl.
+</%doc>
+<%inherit file="/_base.tmpl"/>
+<%block name="page_title">${title}</%block>
+
+<%include file="_index.tmpl" args="include_content=False"/>

@@ -1,0 +1,26 @@
+<%doc>
+  Mako defs which generate formatted output or HTML components.
+
+  This can be used as a namespace in other templates.
+</%doc>
+<%! from uuid import uuid4 %>
+
+<%def name="fancy_date(date_value)">
+  <%doc>
+    Show the date in plain language as relative to now. Eg "1 year ago".
+
+    This requires the moment.js library.
+  </%doc>
+
+  <% id_ = uuid4() %>
+  <span id="${id_}">
+
+  </span>
+  <script>
+    (function(){
+      var el = document.getElementById("${id_}");
+      var fromNow = moment("${date_value.isoformat()}").fromNow();
+      el.innerHTML = fromNow;
+    })();
+  </script>
+</%def>

@@ -1,0 +1,13 @@
+% if use_bundles:
+  <script src="/assets/js/bundle.js"></script>
+% else:
+  <script src="/assets/js/jquery-2.1.4.min.js"></script>
+  <script src="/assets/js/jquery.ba-throttle-debounce.min.js"></script>
+  <script src="/assets/js/moment.js"></script>
+  <script defer src="/assets/js/sidebar.js"></script>
+  <script defer src="/assets/js/jquery.fluidbox.min.js"></script>
+  <script defer src="/assets/js/highlight.pack.js"></script>
+
+  ## Initialization for page runs last.
+  <script defer src="/assets/js/init.js"></script>
+% endif

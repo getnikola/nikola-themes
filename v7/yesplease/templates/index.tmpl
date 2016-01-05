@@ -1,0 +1,28 @@
+<%doc>
+  Used for multi-post indexes.
+
+  This should (according to the Nikola docs) show the full text of each post, unless index_teasers is True.
+  Then it should display the text in post.text(teaser_only=True).
+
+  Local variables:
+
+  * posts - list of post instances
+  * date_format
+
+  Posts have relevant methods:
+
+  * permalink
+  * title
+  * formatted_date
+
+  Properties:
+
+  * tags
+  * reading_time
+
+</%doc>
+
+<%inherit file="/_base.tmpl"/>
+<%block name="page_title">${blog_title}</%block>
+
+<%include file="_index.tmpl" args="include_content=True"/>

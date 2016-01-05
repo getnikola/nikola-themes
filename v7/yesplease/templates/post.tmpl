@@ -1,0 +1,28 @@
+<%doc>
+  Template used by default for blog posts, gets the data in a post object which is an instance of the Post class.
+</%doc>
+
+<%namespace name="comp" file="/_components.tmpl"/>
+<%inherit file="/_base.tmpl"/>
+
+<%block name="page_title">${post.title()}</%block>
+<%block name="subtitle">${post.description()}</%block>
+<%def name="header_image()">
+  ## post.meta[lang]['header-image']This value is set when the post has an ".. header-image" directive
+  ## containing the URL to the header image.
+  % if post.meta[lang].get('header-image'):
+    ${post.meta[lang]['header-image']}
+  % elif default_header_image:
+    ## If no header_image exists then the GLOBAL_CONTEXT is checked for default_header_image and this
+    ## is used as the default header image. Otherwise no image is displayed.
+    ${default_header_image}
+  % endif
+</%def>
+
+<div class="pure-g">
+  <div class="pure-u-1">
+    <article class="yp-post__body">
+      ${post.text()}
+    </article>
+  </div>
+</div>
