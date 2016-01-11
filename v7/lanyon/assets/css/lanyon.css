@@ -159,7 +159,7 @@ div.sidebar,.sidebar {
           transition: all .3s ease-in-out;
 }
 @media (min-width: 30em) {
-  .sidebar {
+  div.sidebar {
     font-size: .75rem; /* 14px */
   }
 }
