@@ -4,6 +4,7 @@
 
 from __future__ import unicode_literals, print_function
 import io
+import tempfile
 from contextlib import contextmanager
 import glob
 import json
@@ -11,7 +12,6 @@ import os
 import sys
 import shutil
 import subprocess
-import io
 import colorama
 
 from nikola import utils
@@ -20,11 +20,14 @@ from nikola import utils
 
 BASE_URL = "https://themes.getnikola.com/v7/"
 
+
 def error(msg):
     print(colorama.Fore.RED + "ERROR:" + msg)
 
+
 def theme_list():
     return sorted(['base', 'base-jinja', 'bootstrap3', 'bootstrap3-jinja'] + [theme.split('/')[-1] for theme in glob.glob("v7/*")])
+
 
 def build_theme(theme=None):
     if theme is None:  # Check them all
@@ -47,9 +50,20 @@ def build_theme(theme=None):
     if not os.path.isdir(os.path.join("output", "v7")):
         os.mkdir(os.path.join("output", "v7"))
 
-    if os.path.isdir('v7/'+theme):
+    if os.path.isdir('v7/' + theme):
         with cd('v7/'):
+            # If there is a .git file, move it away for a while (Issues #72 and #76)
+            if os.path.exists(os.path.join(theme, '.git')):
+                has_tmp = True
+                tmpdir = tempfile.mkdtemp()
+                shutil.move(os.path.join(theme, '.git'), os.path.join(tmpdir, 'git-bkp'))
+            else:
+                has_tmp = False
+
             subprocess.check_call('zip -r ../output/v7/{0}.zip {0}'.format(theme), stdout=subprocess.PIPE, shell=True)
+            if has_tmp:
+                shutil.move(os.path.join(tmpdir, 'git-bkp'), os.path.join(theme, '.git'))
+                os.rmdir(tmpdir)
     subprocess.check_call('capty output/v7/{0}/index.html output/v7/{0}.jpg'.format(theme), stdout=subprocess.PIPE, shell=True)
 
     themes_dict = {}
@@ -80,6 +94,7 @@ def init_theme(theme):
 
     with io.open(conf_path, "a", encoding="utf-8") as conf:
         conf.write(u"\n\n{2}\n\nTHEME = '{0}'\n\nUSE_BUNDLES = False\n\nOUTPUT_FOLDER = '{1}'\n\nSOCIAL_BUTTONS_CODE = ''\nUSE_BASE_TAG = False\n".format(theme, o_path, extra_conf))
+
 
 @contextmanager
 def cd(path):
