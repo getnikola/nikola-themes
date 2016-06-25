@@ -61,6 +61,22 @@ lang="${lang}">
 </%def>
 
 <%def name="late_load_js()">
+    %if use_bundles:
+        %if use_cdn:
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <script src="/assets/js/all.js"></script>
+        %else:
+            <script src="/assets/js/all-nocdn.js"></script>
+        %endif
+    %else:
+        %if use_cdn:
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        %else:
+            <script src="/assets/js/jquery.min.js"></script>
+        %endif
+        <script src="/assets/js/moment-with-locales.min.js"></script>
+        <script src="/assets/js/fancydates.js"></script>
+    %endif
     ${social_buttons_code}
 </%def>
 
