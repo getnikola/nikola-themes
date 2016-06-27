@@ -1,1 +1,3 @@
 assets/css/all.css=rst.css,code.css,poole.css,lanyon.css
+assets/js/all-nocdn.js=jquery.min.js,moment-with-locales.min.js,fancydates.js
+assets/js/all.js=moment-with-locales.min.js,fancydates.js

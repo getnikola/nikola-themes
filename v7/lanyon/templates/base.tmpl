@@ -47,6 +47,12 @@ ${template_hooks['extra_head']()}
     ${body_end}
     ${template_hooks['body_end']()}
     ${base.late_load_js()}
+    <!-- fancy dates -->
+    <script>
+    moment.locale("${momentjs_locales[lang]}");
+    fancydates(${date_fanciness}, ${js_date_format});
+    </script>
+    <!-- end fancy dates -->
     <%block name="extra_js"></%block>
 </body>
 </html>
