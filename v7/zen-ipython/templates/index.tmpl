@@ -1,6 +1,6 @@
 {#  -*- coding: utf-8 -*- #}
-{% import 'index_helper.tmpl' as helper with context %}
 {% import 'arusahni_helper.tmpl' as arusahni with context %}
+{% import 'index_helper.tmpl' as helper with context %}
 {% import 'comments_helper.tmpl' as comments with context %}
 {% extends 'base.tmpl' %}
 
@@ -26,7 +26,7 @@
                     {{ comments.comment_link(post.permalink(), post.base_path) }}
                 {% endif %}
                 </div>
-                {{ arusahni.html_tags(post) }}
+            {{ arusahni.html_tags(post) }}
             </div>
             <div class="body">
             {% if index_teasers %}

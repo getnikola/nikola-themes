@@ -1,5 +1,5 @@
 {#  -*- coding: utf-8 -*- #}
-{#  Override only the functions that differ from base_helper.tmpl #}
+{#  Override only the functions that differ from base or boopstrap/templates/base_helper.tmpl #}
 {% macro html_headstart() %}
 <!DOCTYPE html>
 <html
@@ -129,6 +129,7 @@ lang="{{ lang }}">
     {% endfor %}
 {% endmacro %}
 
+{#  Override only the functions that differ from base/templates/post_helper.tmpl #}
 {% macro html_tags(post) %}
     {% if post.tags %}
         <div itemprop="keywords" class="tags">
@@ -142,6 +143,7 @@ lang="{{ lang }}">
     {% endif %}
 {% endmacro %}
 
+{#  Override only the functions that differ from base/templates/post_header.tmpl #}
 {% macro html_title() %}
 {% if title and not post.meta('hidetitle') %}
     <h1 class="p-name entry-title" itemprop="headline name">{{ title|e }}</h1>
@@ -150,12 +152,12 @@ lang="{{ lang }}">
 
 {% macro html_translations(post) %}
     {% if translations|length > 1 %}
-            {% for langname in translations.keys() %}
-                {% if langname != lang and post.is_translation_available(langname) %}
+        {% for langname in translations.keys() %}
+            {% if langname != lang and post.is_translation_available(langname) %}
                 <a href="{{ post.permalink(langname) }}" rel="alternate" hreflang="{{ langname }}">
                 {{ messages("LANGUAGE", langname) }}</a>
-                {% endif %}
-            {% endfor %}
+            {% endif %}
+        {% endfor %}
     {% endif %}
 {% endmacro %}
 

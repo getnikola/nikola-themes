@@ -31,8 +31,9 @@
         </div>
         {{ helper.html_pager(post) }}
         {% if not post.meta('nocomments') and site_has_comments %}
-            {{ comments.comment_form(post.permalink(absolute=True), post.title(), post.base_path) }}
+            {{ comments.comment_form(post.permalink(absolute=True), post.title(), post._base_path) }}
         {% endif %}
         {{ helper.mathjax_script(post) }}
     </div>
+{{ comments.comment_link_script() }}
 {% endblock %}

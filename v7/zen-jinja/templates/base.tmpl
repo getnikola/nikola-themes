@@ -12,13 +12,20 @@
 <body>
     <section class="social">
         <ul>
+        {% if logo_url %}
+            <li>
+                <a href="{{ abs_link(_link("root", None, lang)) }}">
+                    <img src="{{ logo_url }}" alt="{{ blog_title|e }}" id="logo">
+                </a>
+            </li>
+        {% endif %}
         {{ arusahni.html_navigation_links() }}
         </ul>
     </section>
     <section class="page-content">
         <div class="content" rel="main">
             {% block content %}{% endblock %}
-            {{ footer.html_footer() }}
+             {{ footer.html_footer() }}
         </div>
     </section>
     {{ body_end }}
