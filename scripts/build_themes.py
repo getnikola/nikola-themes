@@ -86,8 +86,8 @@ def init_theme(theme):
 
     conf_path = "/".join([t_path,"conf.py"])
     # Get custom required settings from the theme
-    themes = utils.get_theme_chain(theme, _themes_dir='v7')
-    extra_conf_path = utils.get_asset_path('conf.py.sample', themes, _themes_dir='v7')
+    themes = utils.get_theme_chain(theme, themes_dirs=['v7', 'themes'])
+    extra_conf_path = utils.get_asset_path('conf.py.sample', themes)
     extra_conf = ''
     if extra_conf_path:
         extra_conf = io.open(extra_conf_path, 'r', encoding="utf-8").read()
