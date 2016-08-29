@@ -7,6 +7,7 @@ import io
 import glob
 import json
 import os
+import os.path
 
 import colorama
 
@@ -66,7 +67,7 @@ def get_data(theme):
         'bootstrap3' in data['chain']) and \
         'bootstrap3-gradients' not in data['chain']
     data['engine'] = utils.get_template_engine(data['chain'])
-    data['chain'] = data['chain'][::-1]
+    data['chain'] = [os.path.basename(i) for i in reversed(data['chain'])]
 
     data['allver'] = []
     for v in ALL_VERSIONS_SUPPORTED:
