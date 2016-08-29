@@ -44,10 +44,10 @@ def build_site():
 
 def get_data(theme):
     data = {}
-    data['chain'] = utils.get_theme_chain(theme, DIR)
+    data['chain'] = utils.get_theme_chain(theme, [DIR, 'themes'])
     data['name'] = theme
-    readme = utils.get_asset_path('README.md', data['chain'], _themes_dir=DIR)
-    conf_sample = utils.get_asset_path('conf.py.sample', data['chain'], _themes_dir=DIR)
+    readme = utils.get_asset_path('README.md', data['chain'])
+    conf_sample = utils.get_asset_path('conf.py.sample', data['chain'])
     if readme:
         data['readme'] = io.open(readme, 'r', encoding='utf-8').read()
     else:
@@ -65,7 +65,7 @@ def get_data(theme):
         'bootstrap3-jinja' in data['chain'] or
         'bootstrap3' in data['chain']) and \
         'bootstrap3-gradients' not in data['chain']
-    data['engine'] = utils.get_template_engine(data['chain'], DIR)
+    data['engine'] = utils.get_template_engine(data['chain'])
     data['chain'] = data['chain'][::-1]
 
     data['allver'] = []
