@@ -1,4 +1,4 @@
-assets/css/all-nocdn.css=bitter.css,main.css,custom.css
-assets/css/all.css=main.css,custom.css
-assets/js/all-nocdn.js=jquery-1.10.2.min.js,jquery.timeago.js
-assets/js/all.js=
+assets/css/all-nocdn.css=bitter.css,main.css,custom.css,ipython.min.css,nikola_ipython.css
+assets/css/all.css=main.css,custom.css,ipython.min.css,nikola_ipython.css
+assets/js/all-nocdn.js=jquery-1.10.2.min.js,jquery.timeago.js,mathjax.js
+assets/js/all.js=mathjax.js
