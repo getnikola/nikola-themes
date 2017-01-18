@@ -13,6 +13,9 @@
 {% block content %}
 
     <div class="postindex well post-material ">
+    {% if 'main_index' in pagekind %}
+    {{ front_index_header }}
+    {% endif %}
     {% for post in posts %}
         <article class="h-entry post-{{ post.meta('type') }}">
         <header>
