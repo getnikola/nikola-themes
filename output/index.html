@@ -299,10 +299,17 @@
         } else {
             $('<span/>').html('&nbsp;|&nbsp; Uses <a href="https://jinja.pocoo.org/docs/">Jinja2</a>').appendTo(small)
         }
-        $('<span/>').html('&nbsp;|&nbsp;<a href="v'+current_version+'/'+theme+'/index.html">See demo</a>').appendTo(small)
+
+        themeDEMO = theme
+        if (theme === 'zen-jinja' || theme === 'zen-ipython') themeDEMO = 'zen';
+        if (theme === 'bootstrap3-jinja') themeDEMO = 'bootstrap3';
+        if (theme === 'bootstrap3-gradients-jinja') themeDEMO = 'bootstrap3-gradients';
+        if (theme === 'bootblog-jinja') themeDEMO = 'bootblog';
+
+        $('<span/>').html('&nbsp;|&nbsp;<a href="v'+current_version+'/'+themeDEMO+'/index.html">See demo</a>').appendTo(small)
         thumb = $('<div/>').appendTo(container)
-        full_image_link = $('<a/>').attr('href', 'v'+current_version+'/'+theme+'.jpg').appendTo(thumb)
-        $('<img/>').attr('src', 'v'+current_version+'/'+theme+'.jpg').attr('style', 'width:500px; margin: 10px auto 10px auto; display: block;')
+        full_image_link = $('<a/>').attr('href', 'v'+current_version+'/'+themeDEMO+'.jpg').appendTo(thumb)
+        $('<img/>').attr('src', 'v'+current_version+'/'+themeDEMO+'.jpg').attr('style', 'width:500px; margin: 10px auto 10px auto; display: block;')
             .addClass('img-thumbnail').appendTo(full_image_link)
         $('<div/>').addClass('well well-sm').html('To install, use <code>nikola install_theme '+theme+'</code></span>').appendTo(container)
         $('<div/>').html(writer.renderBlock(reader.parse(data[theme]['readme']))).appendTo(container)

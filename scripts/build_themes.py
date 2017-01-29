@@ -64,7 +64,11 @@ def build_theme(theme=None):
             if has_tmp:
                 shutil.move(os.path.join(tmpdir, 'git-bkp'), os.path.join(theme, '.git'))
                 os.rmdir(tmpdir)
-    subprocess.check_call('capty output/v7/{0}/index.html output/v7/{0}.jpg'.format(theme), stdout=subprocess.PIPE, shell=True)
+    try:
+        subprocess.check_call('webkit2png output/v7/{0}/index.html -W 1024 -H 768 -Fo screenshot'.format(theme), stdout=subprocess.PIPE, shell=True)
+        subprocess.check_call('convert screenshot-full.png output/v7/{0}.jpg && rm screenshot-full.png'.format(theme), stdout=subprocess.PIPE, shell=True)
+    except subprocess.CalledProcessError:
+        subprocess.check_call('capty output/v7/{0}/index.html output/v7/{0}.jpg'.format(theme), stdout=subprocess.PIPE, shell=True)
 
     themes_dict = {}
     for theme in glob.glob('v7/*/'):
@@ -84,7 +88,7 @@ def init_theme(theme):
     subprocess.check_call(["nikola", "init", "-qd", t_path], stdout=subprocess.PIPE)
     os.symlink(os.path.abspath("v7"), os.path.abspath("/".join([t_path, "themes"])))
 
-    conf_path = "/".join([t_path,"conf.py"])
+    conf_path = "/".join([t_path, "conf.py"])
     # Get custom required settings from the theme
     themes = utils.get_theme_chain(theme, themes_dirs=['v7', 'themes'])
     extra_conf_path = utils.get_asset_path('conf.py.sample', themes)
