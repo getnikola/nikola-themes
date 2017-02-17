@@ -1061,6 +1061,46 @@ a:active {
     border-right: 0;
 }
 
+.tag-head {
+    color: #787065;
+    display: block;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-size: 1.6rem;
+    font-style: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: left;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.tag-head:before {
+    content: "\E027\ ";
+    display: inline-block;
+    font-family: libretto-icons;
+    font-size: 20px;
+    font-size: 2.0rem;
+    margin: 0 0.25rem;
+    text-shadow: none;
+    text-transform: none;
+    vertical-align: -4px;
+}
+
+.tag-list {
+    margin-bottom: -20px;
+}
+
+.tag-list a {
+    display: inline-block;
+    background: #faf9f5;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
+    padding: 0.5rem;
+    font-size: 14px;
+    color: #787065;
+    margin: 0.5rem 0.25rem;
+}
+
 
 /*--------------------------------------------------------------
 7.0 Content
@@ -1396,6 +1436,27 @@ article .title-block h1 a {
     .navigation-post .previous,
     .navigation-post .next {
         text-align: center;
+    }
+
+    .tag-head {
+        text-align: center;
+        font-size: 14px;
+        font-size: 1.4rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .tag-head:before {
+        font-size: 18px;
+        font-size: 1.8rem;
+        vertical-align: -3px;
+    }
+
+    .tag-list {
+        text-align: center;
+        border-bottom: 1px solid #d9d6d0;
+        padding-bottom: 10px;
+        margin-bottom: 0px;
     }
 
 }
