@@ -1,0 +1,48 @@
+{% extends 'base.tmpl' %}
+
+{% block center_section %}
+    {% for post in posts %}
+        <div class="site-content">
+            <article class="format-standard libretto-long-form">
+                <div class="title-block post-format-icon-pin">
+                    <div class="entry-meta">
+                        <span class="posted-on">
+                            Posted on <a href="{{ post.permalink() }}" rel="bookmark">{{ post.formatted_date('%B %-d, %Y')|e }}</a>
+                        </span>
+                    </div>
+                    <h1><a href="{{ post.permalink() }}">{{ post.title()|e }}</a></h1>
+                </div>
+                <div class="entry-content">
+                    {% if index_teasers %}
+                        {{ post.text(teaser_only=True) }}
+                    {% else %}
+                        {{ post.text(teaser_only=False) }}
+                    {% endif %}
+                </div>
+            </article>
+        </div>
+    {% endfor %}
+    <!-- Lower Navigation links -->
+    <nav class="site-content navigation-post" role="navigation">
+        {% if nextlink %}
+            <div class="previous">
+                <a href="{{ nextlink }}" rel="prev">
+                    <span class="meta-nav">Older Entries</span>{#  #}
+                </a>
+            </div>
+        {% else %}
+            <div class="previous">
+                <a href="/" rel="prev" onclick="return false;">
+                    <span class="meta-nav">No More Older Entries</span>{#  #}
+                </a>
+            </div>
+        {% endif %}
+        {% if prevlink %}
+            <div class="next">
+                <a href="{{ prevlink }}" rel="next">
+                    <span class="meta-nav">Newer Entries</span>{#  #}
+                </a>
+            </div>
+        {% endif %}
+    </nav>
+{% endblock %}

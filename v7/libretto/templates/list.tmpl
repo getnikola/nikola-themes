@@ -1,0 +1,32 @@
+{% extends 'base.tmpl' %}
+
+{% block content_header %}
+    <div class="title-block post-format-icon-search">
+        <div class="entry-meta">
+            <span class="posted-on">Every post on this Blog</span>
+        </div>
+        <h1>Archives</h1>
+    </div>
+{% endblock %}
+
+{% block content_post %}
+    <div class="site-content" role="main">
+        <article class="format-standard libretto-long-form">
+            <div class="entry-content">
+                {% if items %}
+                    <table>
+                        {% for text, link, count in items %}
+                            <tr>
+                                <td style="text-align:center"><a href="{{ link }}">{{ text|e }}</a></td>
+                                <td style="text-align:center"><a href="{{ link }}">{{ count }} post(s)</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p>There's nothing to show here.</p>
+                {% endif %}
+            </div>
+        </article>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,32 @@
+{% extends 'base.tmpl' %}
+
+{% block content_header %}
+    <div class="title-block post-format-icon-search">
+        <div class="entry-meta">
+            <span class="posted-on"> </span>
+        </div>
+        <h1>{{ title|e }}</h1>
+    </div>
+{% endblock %}
+
+{% block content_post %}
+    <div class="site-content" role="main">
+        <article class="format-standard libretto-long-form">
+            <div class="entry-content">
+                {% if posts %}
+                    <table>
+                        {% for post in posts %}
+                            <tr>
+                                <td style="text-align:center"><a href="{{ post.permalink() }}">{{ post.formatted_date('%B %-d, %Y')|e }}</a></td>
+                                <td style="text-align:center"><a href="{{ post.permalink() }}">{{ post.title()|e }}</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p>There's nothing to show here.</p>
+                {% endif %}
+            </div>
+        </article>
+    </div>
+{% endblock %}
+
