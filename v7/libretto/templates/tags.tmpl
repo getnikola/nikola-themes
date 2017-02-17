@@ -1,0 +1,31 @@
+{% extends 'base.tmpl' %}
+
+{% block content_header %}
+    <div class="title-block post-format-icon-lock">
+        <div class="entry-meta">
+            <span class="posted-on">Collected from Every Post</span>
+        </div>
+        <h1>Tags</h1>
+    </div>
+{% endblock %}
+
+{% block content_post %}
+    <div class="site-content" role="main">
+        <article class="format-standard libretto-long-form">
+            <div class="entry-content">
+                {% if items %}
+                    <table>
+                        {% for text, link in items %}
+                            <tr>
+                                <td style="text-align:center"><a href="{{ link }}">{{ text|e }}</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p>There's nothing to show here.</p>
+                {% endif %}
+            </div>
+        </article>
+    </div>
+{% endblock %}
+

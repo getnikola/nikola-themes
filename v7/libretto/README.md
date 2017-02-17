@@ -12,6 +12,7 @@ the theme is responsive - yes, it works on mobiles and tablets too!!
 * Support for custom copyright notices at bottom-left
 * Icon links to social sites at bottom-right
 * Mobile support! (Looks good on my android phone, at least!)
+* Tag support!
 * No Javascript! (for now..?)
 
 This is my first effort at making a theme and I hope you will enjoy using it!
@@ -38,7 +39,6 @@ Here is a list of Nikola features (that I'm aware of) which are currently not
 supported with this theme,
 
 * 3rd-party comment system  (is it even possible to do this without JS ?)
-* Tags
 
 If you want a feature to be supported by this theme, please make a request for
 it via the theme's official Github issues tracker,

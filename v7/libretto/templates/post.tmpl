@@ -11,6 +11,23 @@
     </div>
 {% endblock %}
 
+{% block content_tags %}
+{% if post.tags %}
+    <div class="site-content navigation-post">
+        <div class="tag-head">Tags</div>
+        <div class="tag-list">
+            {% for tag in post.tags %}
+                <a href="{{ _link('tag', tag) }}">{{ tag|e }}</a>
+                {% if not loop.last %}
+                    <span>  </span>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
+
+
 {% block bottom_nav_links %}
 <nav class="site-content navigation-post" role="navigation">
     {% if post.prev_post %}
