@@ -1,0 +1,1522 @@
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+1.0 Reset
+2.0 Typography
+3.0 Elements
+4.0 Forms
+5.0 Overall Site Structure
+  5.1 Header
+6.0 Navigation
+  6.1 Links
+  6.2 Menus
+7.0 Content
+  7.1 Posts and pages
+8.0 Widgets
+11.0 Clearings
+14 Media Queries
+  14.1 Phone-sized devices
+  14.2 Tablets and up
+  14.3 Desktops and big things
+
+--------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------
+1.0 Reset
+--------------------------------------------------------------*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+    border: 0;
+    font-family: inherit;
+    font-size: 100%;
+    font-style: inherit;
+    font-weight: inherit;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+
+html {
+    /* Apply a natural box layout model to the document; see
+    http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+    box-sizing: border-box;
+    /* Corrects text resizing oddly in IE6/7 when body font-size is set
+    using em units http://clagnut.com/blog/348/#c790 */
+    font-size: 62.5%;
+    /* Keeps page centered in all browsers regardless of content height */
+    overflow-y: scroll;
+
+    /* Prevents iOS text size adjust after orientation change, without
+    disabling user zoom
+    www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+*,
+*:before,
+*:after {
+    /* Inherit box-sizing to make it easier to change the property for
+    components that leverage other behavior; see
+    http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+    box-sizing: inherit;
+}
+
+body {
+    /* Fallback for when there is no custom background color defined. */
+    background: #fff;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+nav,
+section {
+    display: block;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+table {
+    /* tables still need 'cellspacing="0"' in the markup */
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+caption,
+th,
+td {
+    font-weight: normal;
+    text-align: left;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: "";
+}
+
+blockquote,
+q {
+    quotes: "" "";
+}
+
+a:focus {
+    outline: thin dotted;
+}
+
+a:hover,
+a:active {
+    outline: 0;
+}
+
+a img {
+    border: 0;
+}
+
+
+/*--------------------------------------------------------------
+2.0 Typography
+--------------------------------------------------------------*/
+body,
+button,
+input,
+select,
+textarea {
+    color: #363431;
+    font-family: "Libre Baskerville", Baskerville, "Book Antiqua", Georgia, Times, serif;
+    font-size: 17px;
+    font-size: 1.7rem;
+    line-height: 2;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    clear: both;
+    line-height: 1.6;
+}
+
+h1 {
+    color: #a09a92;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 44px;
+    font-size: 4.4rem;
+    font-style: italic;
+    margin: 1em 0 0.5em;
+}
+
+h2 {
+    border-bottom: 1px solid #787065;
+    color: #787065;
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 21px;
+    font-size: 2.1rem;
+    letter-spacing: 2px;
+    margin: 4em 0 2em;
+    padding-bottom: 0.5em;
+    text-transform: uppercase;
+}
+
+h3 {
+    color: #a09a92;
+    font-size: 25px;
+    font-size: 2.5rem;
+    font-style: italic;
+    margin: 2em 0 1em;
+}
+
+h4 {
+    color: #787065;
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    margin: 3em 0 1.5em;
+    text-transform: uppercase;
+}
+
+h5 {
+    color: #a09a92;
+    font-size: 21px;
+    font-size: 2.1rem;
+    font-style: italic;
+    margin: 1.5em 0 0.75em;
+}
+
+h6 {
+    color: #787065;
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    margin: 1.5em 0 0.75em;
+    text-transform: uppercase;
+}
+
+p {
+    margin-bottom: 1.5em;
+}
+
+b,
+strong {
+    font-weight: bold;
+}
+
+dfn,
+cite,
+em,
+i {
+    font-style: italic;
+}
+
+blockquote {
+    color: #a09a92;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 28px;
+    font-size: 2.8rem;
+    font-style: italic;
+    line-height: 1.4;
+    position: relative;
+    z-index: 10000;
+}
+
+blockquote::before {
+    color: #ebe7e1;
+    content: "\201C";
+    display: block;
+    font-size: 208px;
+    font-size: 20.8rem;
+    font-style: normal;
+    left: -35px;
+    line-height: 1;
+    position: absolute;
+    top: -40px;
+    z-index: -1;
+}
+
+blockquote cite {
+    color: #787065;
+    float: right;
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-size: 1.6rem;
+    font-style: normal;
+    letter-spacing: 1px;
+    margin-top: 1em;
+    text-transform: uppercase;
+}
+
+blockquote cite::before {
+    content: "\2013";
+    display: inline;
+}
+
+blockquote.alignleft,
+blockquote.alignright {
+    background: #fff;
+    border-bottom: 1px solid #ebe7e1;
+    border-top: 2px solid #a09a92;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.025);
+    font-size: 27px;
+    font-size: 2.7rem;
+    max-width: 75%;
+    padding: 0.5em;
+}
+
+blockquote.alignleft p:last-of-type,
+blockquote.alignright p:last-of-type {
+    margin-bottom: 0;
+}
+
+blockquote.alignleft::before,
+blockquote.alignright::before {
+    display: none;
+}
+
+address {
+    margin: 0 0 1.5em;
+}
+
+pre {
+    background: #d9d6d0;
+    font-family: "Droid Sans Mono", "Andale Mono", Consolas, "DejaVu Sans Mono", monospace;
+    font-size: 16px;
+    font-size: 1.6rem;
+    line-height: 1.6;
+    margin-bottom: 1.6em;
+    max-width: 100%;
+    padding: 1.6em;
+    white-space: pre;
+    white-space: pre-wrap;
+}
+
+code,
+kbd,
+tt,
+var {
+    font-family: "Droid Sans Mono", "Andale Mono", Consolas, "DejaVu Sans Mono", monospace;
+    font-size: 16px;
+    font-size: 1.6rem;
+}
+
+abbr,
+acronym {
+    border-bottom: 1px dotted #a09a92;
+    cursor: help;
+}
+
+mark,
+ins {
+    background: #faf9f5;
+    text-decoration: none;
+}
+
+sup,
+sub {
+    font-size: 75%;
+    height: 0;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    bottom: 1ex;
+}
+
+sub {
+    top: 0.5ex;
+}
+
+small {
+    font-size: 75%;
+}
+
+big {
+    font-size: 125%;
+}
+
+strong em,
+em strong,
+b i,
+i b,
+b em,
+em b,
+strong i,
+i strong,
+.wp-caption strong {
+    background: rgba(234, 233, 230, 0.5);
+    color: #787065;
+    font-size: 0.8em;
+    font-style: normal;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 2px 0;
+    text-transform: uppercase;
+}
+
+em code,
+strong code,
+i code,
+b code {
+    font-style: normal;
+    font-weight: normal;
+}
+
+/* Prettier select colours for insane people like me who select text constantly
+while reading */
+::selection {
+    background: #eae9e6;
+    color: #787065;
+}
+
+::-moz-selection {
+    background: #eae9e6;
+    color: #787065;
+}
+
+
+/*--------------------------------------------------------------
+3.0 Elements
+--------------------------------------------------------------*/
+hr {
+    background-color: #d9d6d0;
+    border: 0;
+    height: 1px;
+    margin-bottom: 1.5em;
+}
+
+ul,
+ol {
+    margin: 0 0 1.5em;
+}
+
+ul {
+    list-style: disc outside;
+}
+
+ul ul {
+    list-style: circle outside;
+}
+
+ol {
+    list-style: decimal outside;
+}
+
+ol ol {
+    list-style: lower-alpha outside;
+}
+
+li {
+    line-height: 1.6;
+    margin: 0.5em 0;
+}
+
+li > ul,
+li > ol {
+    margin-bottom: 0;
+    margin-left: 1em;
+}
+
+dt {
+    font-weight: bold;
+}
+
+dd {
+    margin: 0 1.5em 1.5em;
+}
+
+img {
+    /* Make sure images are scaled correctly. */
+    height: auto;
+    /* Adhere to container width. */
+    max-width: 100%;
+}
+
+figure {
+    margin: 0;
+}
+
+table {
+    font-size: 0.85em;
+    line-height: 1.4;
+    margin: 0.5em 0 1.5em;
+    width: 100%;
+}
+
+tr:nth-of-type(odd) {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+th,
+td {
+    border-bottom: 1px solid #d9d6d0;
+    padding: 0.8em 1em;
+}
+
+th {
+    font-style: italic;
+}
+
+thead:nth-of-type(odd) tr {
+    background: none;
+}
+
+thead th {
+    border-width: 2px;
+    color: #a09a92;
+    font-style: normal;
+    font-weight: bold;
+    padding: 0.4em 1em;
+}
+
+tr:hover {
+    background: #a09a92;
+}
+
+
+/*--------------------------------------------------------------
+4.0 Forms
+--------------------------------------------------------------*/
+button,
+input,
+select,
+textarea {
+    /* Corrects font size not being inherited in all browsers */
+    font-size: 100%;
+    /* Addresses margins set differently in IE6/7, F3/4, S5, Chrome */
+    margin: 0;
+    /* Improves appearance and consistency in all browsers */
+    vertical-align: baseline;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    /* Improves usability and consistency of cursor style between image-type
+    'input' and others */
+    cursor: pointer;
+
+    /* Corrects inability to style clickable 'input' types in iOS */
+    -webkit-appearance: button;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    /* Addresses box sizing set to content-box in IE8/9 */
+    box-sizing: border-box;
+    /* Addresses excess padding in IE8/9 */
+    padding: 0;
+}
+
+input[type="search"]::-webkit-search-decoration {
+    /* Corrects inner padding displayed oddly in S5, Chrome on OSX */
+    -webkit-appearance: none;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    /* Corrects inner padding and border displayed oddly in FF3/4
+    www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/ */
+    border: 0;
+    padding: 0;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+textarea {
+    -moz-transition: all 0.15s ease-in-out;
+    -ms-transition: all 0.15s ease-in-out;
+    -o-transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    background: rgba(255, 255, 255, 0.75);
+    border: 0;
+    border-bottom: 2px solid #a09a92;
+    color: #a09a92;
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    padding: 1.2rem 1.4rem;
+    width: 100%;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="url"]:focus,
+textarea:focus {
+    background: #fff;
+    border: 1px solid #d9d6d0;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 1);
+    color: #363431;
+    outline: none;
+}
+
+textarea {
+    /* Removes default vertical scrollbar in IE6/7/8/9 */
+    overflow: auto;
+    /* Improves readability and alignment in all browsers */
+    vertical-align: top;
+    width: 100%;
+}
+
+/* Vendor prefixes for placeholder text */
+::-webkit-input-placeholder {
+    color: #d9d6d0;
+}
+
+::-moz-placeholder {
+    color: #d9d6d0;
+}
+
+:-ms-input-placeholder {
+    color: #d9d6d0;
+}
+
+/* Submit buttons */
+.form-submit,
+.contact-submit,
+form p {
+    margin: 1em 0;
+    text-align: center;
+}
+
+input[type="submit"],
+button {
+    background: #a09a92;
+    border: 1px solid #eae9e6;
+    color: #eae9e6;
+    font-size: 12px;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    outline: 4px solid #a09a92;
+    padding: 0.7rem 1.4rem;
+    position: relative;
+    text-transform: uppercase;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background: #a09a92;
+    color: #faf9f5;
+    outline: 2px solid #a09a92;
+}
+
+input[type="submit"]:active,
+button:active {
+    background: #363431;
+    outline: 5px solid #363431;
+}
+
+/* Labels */
+label {
+    color: #a09a92;
+    font-size: 18px;
+    font-size: 1.8rem;
+    font-style: italic;
+    text-align: left;
+}
+
+label span {
+    font-size: 0.9em;
+    padding-left: 2px;
+}
+
+/* Selected text */
+input::selection {
+    background: #eae9e6;
+}
+
+input::-moz-selection {
+    background: #eae9e6;
+}
+
+
+/*--------------------------------------------------------------
+5.0 Overall Site Structure
+--------------------------------------------------------------*/
+body {
+    background: #f2f1ed;
+}
+
+.site-content {
+    margin: 4rem auto;
+    max-width: 680px;
+    padding: 0;
+    width: auto;
+}
+
+.widget {
+    margin: 4rem auto;
+    max-width: 680px;
+    padding: 0;
+    width: auto;
+}
+
+
+/*--------------------------------------------------------------
+  5.1 Header
+--------------------------------------------------------------*/
+.nav-bar {
+    background: #fAf9f5;
+    border-bottom: 1px solid #d9d6d0;
+    position: relative;
+    width: 100%;
+}
+
+.nav-bar:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.site-branding h1 {
+    color: #a09a92;
+    font-family: "Playfair Display";
+    font-size: 36px;
+    font-size: 3.6rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0;
+}
+
+/* Style page title blocks */
+.title-block {
+    text-align: center;
+}
+
+.title-block h1 {
+    font-style: normal;
+    line-height: 1.2;
+    margin: 0;
+}
+
+/* If header image is not present */
+body:not(.libretto-has-header-image) .title-block {
+    margin: 2rem auto;
+    max-width: 680px;
+}
+
+
+/*--------------------------------------------------------------
+  5.2 Footer
+---------------------------------------------------------------*/
+
+.site-footer .site-info {
+    color: #a09a92;
+    font-size: 12px;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.site-footer a {
+    color: #787065;
+}
+
+.site-footer .site-info p {
+    margin-bottom: 0;
+}
+
+.social ul {
+    list-style-type: none;
+    margin-bottom: 0;
+}
+
+.social li {
+    display: inline;
+}
+
+.social a:before {
+    background: #d9d6d0;
+    border-radius: 2px;
+    color: #faf9f5;
+    content: "y";
+    display: inline-block;
+    font-family: libretto-icons;
+    font-size: 22px;
+    height: 30px;
+    line-height: 26px;
+    padding: 2px;
+    text-align: center;
+    text-shadow: none;
+    transition: background-color 0.75s ease;
+    width: 30px;
+}
+
+.social a:hover:before {
+    background-color: #787065;
+}
+
+/* Icons */
+.social a[href*="dribbble.com"]:before {
+  content: "D";
+}
+
+.social a[href*="facebook.com"]:before {
+  content: "F";
+}
+
+.social a[href*="flickr.com"]:before {
+  content: "K";
+}
+
+.social a[href*="google.com"]:before {
+  content: "G";
+}
+
+.social a[href*="instagram.com"]:before {
+  content: "I";
+}
+
+.social a[href*="linkedin.com"]:before {
+  content: "L";
+}
+
+.social a[href*="pinterest.com"]:before {
+  content: "N";
+}
+
+.social a[href*="getpocket.com"]:before {
+  content: "O";
+}
+
+.social a[href*="reddit.com"]:before {
+  content: "E";
+}
+
+.social a[href*="stumbleupon.com"]:before {
+  content: "S";
+}
+
+.social a[href*="tumblr.com"]:before {
+  content: "U";
+}
+
+.social a[href*="twitter.com"]:before {
+  content: "T";
+}
+
+.social a[href*="vimeo.com"]:before {
+  content: "V";
+}
+
+.social a[href*="youtube.com"]:before {
+  content: "Y";
+}
+
+/* Colours */
+.social a[href*="dribbble.com"]:hover:before {
+  background: #ea4c89;
+}
+
+.social a[href*="facebook.com"]:hover:before {
+  background: #3b5998;
+}
+
+.social a[href*="flickr.com"]:hover:before {
+  background: #ff0084;
+}
+
+.social a[href*="google.com"]:hover:before {
+  background: #dd4b39;
+}
+
+.social a[href*="instagram.com"]:hover:before {
+  background: #517fa4;
+}
+
+.social a[href*="linkedin.com"]:hover:before {
+  background: #007bb6;
+}
+
+.social a[href*="pinterest.com"]:hover:before {
+  background: #cb2027;
+}
+
+.social a[href*="getpocket.com"]:hover:before {
+  background: #ef4056;
+}
+
+.social a[href*="reddit.com"]:hover:before {
+  background: #ff5700;
+}
+
+.social a[href*="stumbleupon.com"]:hover:before {
+  background: #eb4924;
+}
+
+.social a[href*="tumblr.com"]:hover:before {
+  background: #2c4762;
+}
+
+.social a[href*="twitter.com"]:hover:before {
+  background: #00aced;
+}
+
+.social a[href*="vimeo.com"]:hover:before {
+  background: #aad450;
+}
+
+.social a[href*="youtube.com"]:hover:before {
+  background: #b00;
+}
+
+/*--------------------------------------------------------------
+6.0 Navigation
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+  6.1 Links
+--------------------------------------------------------------*/
+a {
+    color: #932817;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #943526;
+}
+
+a:hover,
+a:focus,
+a:active {
+    color: #712012;
+}
+
+
+/*--------------------------------------------------------------
+  6.2 Menus
+--------------------------------------------------------------*/
+/* Main site navigation (most code is within media queries) */
+.site-navigation {
+    border-top: none;
+}
+
+.site-navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0 5px 0 0;
+}
+
+.site-navigation .menu li {
+    margin: 0;
+}
+
+.site-navigation a {
+    display: block;
+    padding: 1.5rem 1.5rem;
+    text-decoration: none;
+}
+
+/* In-page or in-post navigation */
+.navigation-post {
+    line-height: 1.6;
+}
+
+.navigation-post .previous {
+    text-align: left;
+}
+
+.navigation-post .next {
+    text-align: right;
+}
+
+.navigation-post .previous a,
+.navigation-post .next a {
+    color: #a09a92;
+    display: block;
+    font-style: italic;
+    position: relative;
+}
+
+.previous .meta-nav,
+.next .meta-nav {
+    color: #787065;
+    display: block;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-size: 1.2rem;
+    font-style: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.previous .meta-nav a,
+.next .meta-nav a {
+    color: #787065;
+    display: inline;
+    font-style: normal;
+}
+
+.previous .meta-nav a:before,
+.next .meta-nav a:after,
+.previous a .meta-nav:before,
+.next a .meta-nav:after {
+    border: solid transparent 4px;
+    content: "";
+    display: inline-block;
+    height: 0;
+    margin: 0 0.5rem;
+    top: 0.8em;
+    width: 0;
+}
+
+.previous .meta-nav a:before,
+.previous a .meta-nav:before {
+    border-left: 0;
+    border-right-color: #a09a92;
+}
+
+.next .meta-nav a:after,
+.next a .meta-nav:after {
+    border-left-color: #a09a92;
+    border-right: 0;
+}
+
+
+/*--------------------------------------------------------------
+7.0 Content
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+  7.1 Posts and pages
+--------------------------------------------------------------*/
+
+/* Post format icons, need title-block to work */
+.post-format-icon-pin:before {
+    content: "p";
+}
+
+.post-format-icon-star:before {
+    content: "y";
+}
+
+.post-format-icon-lock:before {
+    content: "w";
+}
+
+.post-format-icon-search:before {
+    content: "o";
+}
+
+.title-block:before {
+    background: #faf9f5;
+    border: 1px solid #d9d6d0;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px #faf9f5;
+    color: #a09a92;
+    display: inline-block;
+    font-family: libretto-icons;
+    font-size: 21px;
+    line-height: 21px;
+    margin: 1rem auto 2rem;
+    padding: 10px;
+    text-shadow: none;
+}
+
+.title-block {
+    border-bottom: 1px solid #d9d6d0;
+    margin-bottom: 4rem;
+    padding-bottom: 2rem;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.entry-meta {
+    color: #a09a92;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.entry-meta a {
+    color: #787065;
+}
+
+.title-block .entry-meta:before,
+.title-block .entry-meta:after {
+    color: #d9d6d0;
+    content: "~";
+    display: inline-block;
+    font-family: libretto-icons;
+    font-size: 24px;
+    margin: 0 0.25rem;
+    text-shadow: none;
+    vertical-align: -6px;
+}
+
+.title-block .entry-meta:after {
+    content: "`";
+    margin-left: -4px;
+}
+
+/* Drop cap and first line */
+.format-standard .entry-content div:first-child > p:not(.no-emphasis):first-of-type:first-letter {
+    color: #b7b1a9;
+    display: inline-block;
+    float: left;
+    font-family: "Playfair Display";
+    font-size: 70px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    margin: 6px 10px 0 -5px;
+}
+
+.format-standard .entry-content div:first-child > p:not(.no-emphasis):first-of-type:first-line {
+    color: #787065;
+    font-family: "Playfair Display SC";
+    font-size: 1em;
+    font-style: normal !important; /* Cheat to preserve visual sanity */
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.format-standard .entry-content div:first-child > p:not(.no-emphasis):first-of-type::after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.format-standard .entry-content div:first-child > p:not(.no-emphasis):first-of-type + p {
+    clear: left;
+}
+
+.libretto-long-form {
+    background: #faf9f5;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* "Read more" link */
+.more,
+.more>a {
+    color: #a09a92;
+    display: inline-block;
+    font-family: "Playfair Display";
+    font-size: 21px;
+    font-size: 2.1rem;
+    font-style: italic;
+    line-height: 1.4;
+    text-align: center;
+    text-transform: lowercase;
+    width: 100%;
+}
+
+.more>a:before,
+.more>a:after {
+    display: inline;
+    font-size: 1.5em;
+    font-style: normal;
+    padding: 0 10px;
+    vertical-align: -0.15em;
+}
+
+.more>a:before {
+    content: "{";
+}
+
+.more>a:after {
+    content: "}";
+}
+
+.more>a:hover {
+    color: #712012;
+}
+
+/* Different color for index titles */
+article .title-block h1 a {
+    color: #787065;
+}
+
+/*--------------------------------------------------------------
+8.0 Widgets
+--------------------------------------------------------------*/
+
+.footer-sidebar {
+    background: #faf9f5;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+    margin: 2rem 0 2rem 0;
+    width: 100%;
+}
+
+.footer-sidebar .widget-block {
+    font-size: 12px;
+    font-size: 1.2rem;
+    padding: 0rem 3rem;
+}
+
+.widget-title {
+    border-bottom: 1px solid #d9d6d0;
+    font-size: 14px;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
+.widget-text {
+    color: #a09a92;
+    font-size: 1.1em;
+    font-style: italic;
+    text-align: center;
+}
+
+
+/*--------------------------------------------------------------
+11.0 Clearings
+--------------------------------------------------------------*/
+
+.clear:before,
+.clear:after,
+.entry-content:before,
+.entry-content:after,
+.site-content:before,
+.site-content:after,
+.site-footer:before,
+.site-footer:after {
+    content: "";
+    display: table;
+}
+
+.clear:after,
+.entry-content:after,
+.site-content:after,
+.site-footer:after {
+    clear: both;
+}
+
+
+/*--------------------------------------------------------------
+14 Media Queries
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+  14.1 Phone-sized devices
+--------------------------------------------------------------*/
+@media only screen and (max-width: 640px) {
+
+    /* Tweak font sizes and margins */
+    body {
+        font-size: 16px;
+        font-size: 1.6rem;
+    }
+
+    blockquote {
+        font-size: 24px;
+        font-size: 2.4rem;
+    }
+
+    ul,
+    ol {
+        margin-left: 1em;
+    }
+
+    .site-content {
+        font-size: 16px;
+        font-size: 1.6rem;
+        margin: 0;
+        max-width: none;
+        min-width: 320px;
+        padding: 0 10px;
+    }
+
+    .site-branding {
+        display: none;
+    }
+
+    /* Use a condensed mobile menu */
+    .site-navigation {
+        background: #26231e;
+        width: 100%;
+    }
+
+    .site-navigation a {
+        color: #cacabc;
+    }
+
+    .menu-toggle {
+        background: #363431;
+        border-bottom: 2px solid #787065;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+        color: #eae9e6;
+        cursor: pointer;
+        display: block;
+        font-size: 21px;
+        font-size: 2.1rem;
+        line-height: 1.4;
+        margin: 0;
+        min-height: 5rem;
+        padding: 1.5rem 1.5rem;
+        position: relative;
+        z-index: 50;
+    }
+
+    /* Style menu items a bit differently */
+    .site-navigation .menu li {
+        border-top: 1px solid #787065;
+        display: block;
+        text-align: left;
+    }
+
+    .title-block:before {
+        display: none;
+    }
+
+    .title-block {
+        margin-bottom: 2rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .entry-meta {
+        font-size: 14px;
+        font-size: 1.4rem;
+    }
+
+    .title-block h1 {
+        font-size: 28px;
+        font-size: 2.8rem;
+    }
+
+    /* Long-form posts should be full-width, plus padding */
+    .libretto-long-form {
+        margin-left: -10px;
+        padding: 10px;
+        width: calc(100% + 20px);
+    }
+
+    /* Footer is arranged in a stack */
+    .site-footer .site-info,
+    .social {
+        padding: 0.75rem 0.5rem;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* In-page navigation should be pretty simple */
+    .navigation-post .previous,
+    .navigation-post .next {
+        padding: 1rem 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    .navigation-post .previous {
+        border-bottom: 1px solid #d9d6d0;
+    }
+
+    .navigation-post .previous,
+    .navigation-post .next {
+        text-align: center;
+    }
+
+}
+
+
+/*--------------------------------------------------------------
+  14.2 Tablets and up
+--------------------------------------------------------------*/
+@media only screen and (min-width: 641px) {
+
+    .site-branding {
+        float: left;
+        margin: 0.75rem 1rem 1rem 1.5rem;
+    }
+
+    /* Main menu is styled differently from mobile */
+    .menu-toggle {
+        display: none;
+    }
+
+    .site-navigation {
+        display: block;
+        float: right;
+        font-size: 16px;
+        font-size: 1.6rem;
+        margin: 0.75rem 2rem 0.5rem 1rem;
+        position: relative;
+    }
+
+    .site-navigation .menu > li {
+        display: inline-block;
+        line-height: 1;
+        margin: 0.25rem 0;
+        position: relative;
+    }
+
+    .site-navigation li a {
+        border-bottom: 2px solid transparent;
+        color: #787065;
+        padding: 1rem 1rem 0.8rem;
+    }
+
+    .site-navigation a:hover {
+        border-bottom: 2px solid #999;
+        color: #363431;
+    }
+
+    .title-block {
+        margin: 10rem auto 1.5rem;
+        display: block;
+    }
+
+    .libretto-long-form {
+        margin-left: -1.5em;
+        margin-right: -1.5em;
+        max-width: calc(100% + 3em);
+        padding: 1.5em;
+    }
+
+    /* Use a bigger drop cap */
+    .format-standard .entry-content div:first-child > p:not(.no-emphasis):first-of-type:first-letter {
+        font-size: 121px;
+        line-height: 70px;
+        margin: 6px 10px 0 -5px;
+    }
+
+    /* Footer can stretch out a bit */
+    .site-footer {
+        padding: 0 2rem 1rem;
+        width: 100%;
+    }
+
+    .site-footer .site-info {
+        float: left;
+    }
+
+    .social {
+        float: right;
+        line-height: 1;
+    }
+
+    /* In-page navigation can be arranged in floats and take up a bit more space */
+    .navigation-post {
+        border-top: 1px solid #d9d6d0;
+    }
+
+    .navigation-post .previous,
+    .navigation-post .next {
+        float: left;
+        margin: 2rem 0;
+        width: 50%;
+    }
+
+    .navigation-post .next {
+        border-left: 1px solid #d9d6d0;
+        min-height: 4.8rem;
+    }
+
+}
+
+
+/*--------------------------------------------------------------
+  14.3 Desktops and big things
+--------------------------------------------------------------*/
+@media only screen and (min-width: 860px) {
+
+    .site-branding {
+        margin-left: 4rem;
+    }
+
+    .libretto-long-form {
+        margin-left: -3em;
+        margin-right: -3em;
+        max-width: calc(100% + 6em);
+        padding: 3em 3em 1em;
+    }
+
+    /* Footer can be spaced out more, too */
+    .site-footer {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+
+}

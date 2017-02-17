@@ -1,0 +1,38 @@
+{% extends 'story.tmpl' %}
+
+{% block content_header %}
+    <div class="title-block post-format-icon-pin">
+        <div class="entry-meta">
+            <span class="posted-on">
+                Posted on <a href="{{ post.permalink() }}" rel="bookmark">{{ post.formatted_date('%B %-d, %Y')|e }}</a>
+            </span>
+        </div>
+        <h1>{{ post.title()|e }}</h1>
+    </div>
+{% endblock %}
+
+{% block bottom_nav_links %}
+<nav class="site-content navigation-post" role="navigation">
+    {% if post.prev_post %}
+        <div class="previous">
+            <a href="{{ post.prev_post.permalink() }}" rel="prev">
+                <span class="meta-nav">Older Post</span>{{ post.prev_post.title()|e }}
+            </a>
+        </div>
+    {% else %}
+        <div class="previous">
+            <a href="/" rel="prev" onclick="return false;">
+                <span class="meta-nav">No More Older Posts</span>{#  #}
+            </a>
+        </div>
+    {% endif %}
+    {% if post.next_post %}
+        <div class="next">
+            <a href="{{ post.next_post.permalink() }}" rel="next">
+                <span class="meta-nav">Newer Post</span>{{ post.next_post.title()|e }}
+            </a>
+        </div>
+    {% endif %}
+</nav>
+{% endblock %}
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if blog_title in title %}
+        <title>{{ title|e }}</title>
+    {% else %}
+        <title>{{ title|e }} | {{ blog_title|e }}</title>
+    {% endif %}
+    <style>
+        @font-face {
+            font-family: "libretto-icons";
+            src:url(/assets/fonts/libretto-icons.eot);
+            src:url(/assets/fonts/libretto-icons.eot?#iefix) format("embedded-opentype"),
+            url(/assets/fonts/libretto-icons.woff) format("woff"),
+            url(/assets/fonts/libretto-icons.ttf) format("truetype"),
+            url(/assets/fonts/libretto-icons.svg#libretto-icons) format("svg");
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono|Libre+Baskerville|Montserrat|Playfair+Display">
+    <link rel="stylesheet" href="/assets/css/libretto_styles.css">
+
+</head>
+<body>
+    <!-- Navigation bar -->
+    <header class="nav-bar">
+        <div class="site-branding">
+            <h1 class="site-title">
+                <a href="{{ abs_link(_link("root", None, lang)) }}" title="{{ blog_title|e }}" rel="home">{{ blog_title|e }}</a>
+            </h1>
+        </div>
+        <nav class="site-navigation" role="navigation">
+            <div class="menu-toggle">
+                <span class="mobile-site-title">{{ blog_title|e }}</span>
+            </div>
+            <ul class="menu">
+                {% for url, text in navigation_links[lang] %}
+                    <li><a href="{{ url }}">{{ text|e }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </header>
+
+    {% block center_section %}
+        <!-- Page Header -->
+        {% block content_header %}
+            <p> content - header </p>
+        {% endblock %}
+
+        <!-- Page Content -->
+        {% block content_post %}
+            <p> content - post </p>
+        {% endblock %}
+
+        <!-- Post Navigation links -->
+        {% block bottom_nav_links %}
+        {% endblock %}
+    {% endblock %}
+
+    <!-- Page Footer -->
+    <section class="footer-sidebar clear" role="complementary">
+        <div class="widget-block">
+            <aside class="widget">
+                <h2 class="widget-title">{{ blog_title|e }}</h2>
+                <div class="widget-text">{{ blog_description|e }}</div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- Site Attributions -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="site-info">
+            <p>{{ content_footer }}</p>
+            <p>Powered by <a href="https://getnikola.com/">Nikola</a> using the <a href="https://note2self.abraham-v.com/libretto-theme-for-nikola/">Libretto theme</a>.</p>
+        </div>
+        <div class="social">
+            <ul class="menu">
+                {% for link in social_buttons_code %}
+                    <li><a href="{{ link }}"></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </footer>
+</body>
+
+</html>
+
