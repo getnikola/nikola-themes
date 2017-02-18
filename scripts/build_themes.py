@@ -65,8 +65,7 @@ def build_theme(theme=None):
                 shutil.move(os.path.join(tmpdir, 'git-bkp'), os.path.join(theme, '.git'))
                 os.rmdir(tmpdir)
     try:
-        subprocess.check_call('webkit2png output/v7/{0}/index.html -W 1024 -H 768 -Fo screenshot'.format(theme), stdout=subprocess.PIPE, shell=True)
-        subprocess.check_call('convert screenshot-full.png output/v7/{0}.jpg && rm screenshot-full.png'.format(theme), stdout=subprocess.PIPE, shell=True)
+        subprocess.check_call('phantomjs scripts/take_screenshot.js output/v7/{0}/index.html 1024 768 output/v7/{0}.jpg'.format(theme), stdout=subprocess.PIPE, shell=True)
     except subprocess.CalledProcessError:
         subprocess.check_call('capty output/v7/{0}/index.html output/v7/{0}.jpg'.format(theme), stdout=subprocess.PIPE, shell=True)
 
