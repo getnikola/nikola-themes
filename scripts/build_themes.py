@@ -17,8 +17,9 @@ import colorama
 from nikola import utils
 
 # s/v7/vX/ to upgrade
-
 BASE_URL = "https://themes.getnikola.com/v7/"
+# See index.html — use for identical themes
+NO_SCREENSHOTS_AND_DEMOS = ['zen-jinja', 'zen-ipython', 'bootstrap3-jinja', 'bootstrap3-gradients-jinja', 'bootblog-jinja', 'base-jinja']
 
 
 def error(msg):
@@ -40,12 +41,16 @@ def build_theme(theme=None):
         return
     init_theme(theme)
 
-    try:
-        with cd("/".join(["sites", theme])):
-            subprocess.check_call(["nikola", "build"], stdout=subprocess.PIPE)
-    except:
-        error("can't build theme {0}".format(theme))
-        raise
+    if theme in NO_SCREENSHOTS_AND_DEMOS:
+        print(">> Skipping building demo site for", theme)
+    else:
+        print(">> Building demo site for", theme)
+        try:
+            with cd("/".join(["sites", theme])):
+                subprocess.check_call(["nikola", "build"], stdout=subprocess.PIPE)
+        except:
+            error("can't build theme {0}".format(theme))
+            raise
 
     if not os.path.isdir(os.path.join("output", "v7")):
         os.mkdir(os.path.join("output", "v7"))
@@ -60,15 +65,27 @@ def build_theme(theme=None):
             else:
                 has_tmp = False
 
+            print(">> Creating ZIP file for", theme)
             subprocess.check_call('zip -r ../output/v7/{0}.zip {0}'.format(theme), stdout=subprocess.PIPE, shell=True)
             if has_tmp:
                 shutil.move(os.path.join(tmpdir, 'git-bkp'), os.path.join(theme, '.git'))
                 os.rmdir(tmpdir)
-    try:
-        subprocess.check_call('webkit2png output/v7/{0}/index.html -W 1024 -H 768 -Fo screenshot'.format(theme), stdout=subprocess.PIPE, shell=True)
-        subprocess.check_call('convert screenshot-full.png output/v7/{0}.jpg && rm screenshot-full.png'.format(theme), stdout=subprocess.PIPE, shell=True)
-    except subprocess.CalledProcessError:
-        subprocess.check_call('capty output/v7/{0}/index.html output/v7/{0}.jpg'.format(theme), stdout=subprocess.PIPE, shell=True)
+
+    if theme in NO_SCREENSHOTS_AND_DEMOS:
+        print(">> Skipping creating screenshot for", theme)
+    else:
+        try:
+            print(">> Creating screenshot with PhantomJS for", theme)
+            subprocess.check_call('phantomjs scripts/take_screenshot.js output/v7/{0}/index.html 1024 768 output/v7/{0}.png'.format(theme), stdout=subprocess.PIPE, shell=True)
+        except subprocess.CalledProcessError:
+            print(">> Creating screenshot with Capty (!) for", theme)
+            subprocess.check_call('capty output/v7/{0}/index.html output/v7/{0}.png'.format(theme), stdout=subprocess.PIPE, shell=True)
+
+        try:
+            print(">> Optimizing screenshot for", theme)
+            subprocess.check_call('optipng output/v7/{0}.png'.format(theme), stdout=subprocess.PIPE, shell=True)
+        except subprocess.CalledProcessError:
+            pass
 
     themes_dict = {}
     for theme in glob.glob('v7/*/'):
