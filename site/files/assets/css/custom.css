@@ -1,0 +1,127 @@
+ul.bricks {
+    text-align: justify;
+}
+ul.bricks > li {
+    display: inline;
+    background-color: lightblue;
+    padding: 8px;
+    border-radius: 5px;
+    line-height: 3;
+    white-space:nowrap;
+}
+
+.postbox { max-width: 60em; margin-left: auto; margin-right: auto; }
+
+blockquote p, blockquote, p {
+    text-align: justify;
+    /*font-size: 16px;*/
+}
+
+.previous a,.next a{border-radius:4px}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #cccfd5;
+}
+
+.navbar-brand #logo {
+    height: 50px;
+}
+
+.col-md-4 p {
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+.btn-primary.get-started {
+    -webkit-filter: brightness(100%);
+    filter: brightness(100%);
+    transition: filter,-webkit-filter 0.25s ease-in-out;
+}
+
+.btn-primary.get-started:hover {
+    -webkit-filter: brightness(107.5%);
+    filter: brightness(107.5%);
+    transition: filter,-webkit-filter 0.2s ease-out;
+}
+
+.feature-icon {
+    text-align: center;
+}
+
+.feature-icon .fa-stack,
+a .index-feature {
+    color: #3e4445;
+    transition: color 0.3s ease;
+}
+
+a:hover .feature-icon .fa-stack,
+a:hover .index-feature {
+    color: #f5ab14;
+    transition: color 0.25s ease;
+}
+
+a.feature-link:hover {
+    text-decoration: none;
+}
+
+.index-feature {
+    margin-top: 0;
+    padding-top: 20px;
+    text-align: center;
+}
+
+pre.gs-console {
+    background: #272822;
+    color: #f8f8f2
+}
+
+code.gs-code {
+    background: #272822;
+    color: #f8f8f2;
+    white-space: nowrap;
+}
+
+.gs-command, code.gs-command {
+    color: #66d9ef;
+}
+
+.gs-root, code.gs-root {
+    color: #f92672;
+}
+
+.gs-input, code.gs-input {
+    color: #a6e22e;
+}
+
+/* from bootstrap docs.css*/
+@media (min-width: 992px) {
+  /* Widen the fixed sidebar */
+  #features-toc {
+    width: 213px;
+  }
+  #features-toc.affix {
+    position: fixed; /* Undo the static from mobile first approach */
+    top: 20px;
+  }
+  #features-toc.affix-bottom {
+    position: absolute; /* Undo the static from mobile first approach */
+  }
+  #features-toc.affix-bottom .bs-docs-sidenav,
+  #features-toc.affix .bs-docs-sidenav {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+@media (min-width: 1200px) {
+  /* Widen the fixed sidebar again */
+  #features-toc {
+    width: 263px;
+  }
+}
+
+.pygal-chart {
+    max-height: 80vh;
+    width: auto;
+}

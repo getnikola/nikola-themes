@@ -1,11 +1,6 @@
 *.pyc
 .doit.db
 .venv
-output/v*/*.zip
-output/v*/*.jpg
-output/v*/*.png
-output/v*/*.js
-output/v*/*.json
-output/v*/*/
-output/theme_data.js
-sites/
+site/output
+site/demo_sites
+site/cache

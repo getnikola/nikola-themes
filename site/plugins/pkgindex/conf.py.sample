@@ -1,0 +1,39 @@
+# Directories to use for package indexes. This is a dictionary mapping input
+# directory to a tuple of (destination, template name)
+PKGINDEX_DIRS = {
+    'v7': ('v7', 'plugin.tmpl')
+}
+
+# Handlers for metadata.
+# Built-in handlers:
+# * dirname_as_title    takes post title (package name) from directory name
+# * parse_plugin_file   parse .plugin file and other Nikola-specific data
+#                       (used on plugins.getnikola.com)
+# * parse_theme_info    parse files related to Nikola themes
+#                       (used on themes.getnikola.com)
+# * add_category        add category meta data (useful with functools.partial)
+# You may add custom callables to those lists.
+PKGINDEX_HANDLERS = {
+    'v7': ['dirname_as_title', 'parse_plugin_file']
+}
+
+# Configuration variables. They are used by handlers and plugins -- the default
+# Nikola set (parse_plugin_file) needs a list of versions that have plugins for them.
+# The 'extension' key is mandatory and is used to find pkgindex_compiler -- it
+# must be COMPILERS['pkgindex_compiler'][0].
+PKGINDEX_CONFIG = {
+    'extension': '.plugin',
+    'versions_supported': [7],
+    'json_filename': 'plugins.json',
+}
+
+# Required supporting config. You may change `.plugin` to anything else.
+POSTS = (
+    ("posts/*.plugin", "posts", "post.tmpl"),
+    ("posts/*.md", "posts", "post.tmpl"),
+)
+COMPILERS = {
+    "markdown": ('.md', '.mdown', '.markdown'),
+    "pkgindex_compiler": ('.plugin',),
+}
+

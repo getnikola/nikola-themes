@@ -1,0 +1,13 @@
+[Core]
+Name = pkgindex_theme_demo_screenshots
+Module = pkgindex_theme_demo_screenshots
+
+[Nikola]
+PluginCategory = Task
+MinVersion = 7.8.1+
+
+[Documentation]
+Author = Chris Warrick, Roberto Alsina
+Version = 0.1.0
+Website = https://plugins.getnikola.com/
+Description = Generate demos and screenshots for themes

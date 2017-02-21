@@ -1,0 +1,53 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="pheader" file="post_header.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%inherit file="post.tmpl"/>
+
+<%block name="content">
+<div class="row">
+<div class="col-md-9">
+<article class="post-${post.meta('type')} storypage" itemscope="itemscope" itemtype="http://schema.org/Article">
+    <header>
+        ${pheader.html_title()}
+        <div class="metadata">
+        % if post.meta('engine') == 'mako':
+        <p class="engineline engine">Uses <a href="http://www.makotemplates.org/">Mako</a></p>
+        % else:
+        <p class="engineline engine">Uses <a href="http://jinja.pocoo.org/docs/">Jinja2</a></p>
+        % endif
+        % if post.meta('bootswatch'):
+        <p class="bootswatchline bootswatch">Supports <a href="https://bootswatch.com/">Bootswatch</a></p>
+        % endif
+        <p class="demoline demo"><a href="${post.meta('demo_link')}">See demo</a></p>
+        </div>
+    </header>
+    <div class="e-content entry-content" itemprop="articleBody text">
+    <div class="well well-sm">To install, run <code>nikola theme -i ${post.meta('slug')}</code></div>
+    <div><a href="${post.meta('previewimage')}"><img src="${post.meta('previewimage')}" style="width:500px; margin: 10px auto 10px auto; display: block;" class="img-thumbnail"></a></div>
+    ${post.text()}
+    % if post.meta('confpy'):
+        <h3>Suggested Configuration:</h3>
+        ${post.meta('confpy')}
+    % endif
+    <h3>Issues? Questions?</h3>
+    <p>You can report issues with this theme and request help via <a href="https://github.com/getnikola/nikola-themes/issues/new?title=[${post.meta('slug')}]">GitHub Issues</a>.</p>
+    <h3>Theme inheritance chain</h3>
+    <ul class="breadcrumb">
+        % for i in post.meta('chain'):
+        <li><a href="../${i}/">${i}</a></li>
+        % endfor
+    </ul>
+    </div>
+    %if site_has_comments and enable_comments and not post.meta('nocomments'):
+        <section class="comments">
+        <h2>${messages("Comments")}</h2>
+        ${comments.comment_form(post.permalink(absolute=True), post.title(), post.base_path)}
+        </section>
+    %endif
+    ${helper.mathjax_script(post)}
+</article>
+</div>
+<div class="col-md-3 hidden-xs hidden-sm" id="sidemenu-container"></div>
+<script>var pkgindex_item_name = "${post.meta('slug')}";</script>
+</%block>

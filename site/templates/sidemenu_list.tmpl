@@ -1,0 +1,10 @@
+## -*- coding: utf-8 -*-
+<div id="sidemenu">
+%if posts:
+<div class="list-group">
+% for post in posts:
+<a class="list-group-item sidemenu-item" data-name="${post.meta('slug')}" href="${post.permalink(lang)}">${post.title(lang)|h}</a>
+% endfor
+</div>
+%endif
+</div>

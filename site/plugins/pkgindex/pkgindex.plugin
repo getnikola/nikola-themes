@@ -1,0 +1,13 @@
+[Core]
+Name = pkgindex
+Module = pkgindex
+
+[Nikola]
+PluginCategory = ConfigPlugin
+MinVersion = 7.8.2
+
+[Documentation]
+Author = Chris Warrick
+Version = 0.2.0
+Website = https://plugins.getnikola.com/
+Description = Generate package indexes (meta-plugin)
