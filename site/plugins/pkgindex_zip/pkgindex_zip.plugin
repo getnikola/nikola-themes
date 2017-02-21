@@ -1,0 +1,13 @@
+[Core]
+Name = pkgindex_zip
+Module = pkgindex_zip
+
+[Nikola]
+PluginCategory = Task
+MinVersion = 7.8.1+
+
+[Documentation]
+Author = Chris Warrick
+Version = 0.2.0
+Website = https://plugins.getnikola.com/
+Description = Generate ZIP (and JSON) files for package indexes

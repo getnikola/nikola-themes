@@ -1,0 +1,20 @@
+## -*- coding: utf-8 -*-
+<%block name="content">
+<!-- Begin post-list ${post_list_id} -->
+<div id="${post_list_id}" class="post-list row">
+    %if posts:
+        % for post in posts:
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail post-list-item">
+                <a href="${post.permalink(lang)}">
+                    <img src="${post.meta('previewimage_thumbnail')}">
+                    <h2>${post.title(lang)|h}<h2>
+                </a>
+                </div>
+            </div>
+        % endfor
+    </ul>
+    %endif
+</div>
+<!-- End post-list ${post_list_id} -->
+</%block>

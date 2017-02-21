@@ -1,0 +1,3 @@
+pkgindex_compiler
+pkgindex_scan
+pkgindex_zip

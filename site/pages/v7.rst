@@ -1,0 +1,10 @@
+.. title: Version 7
+.. slug: v7
+.. date: 1970-01-01 00:00:00 UTC
+.. category: version_page
+
+.. post-list::
+   :sort: slug
+   :tags: theme, v7
+   :post_type: pages
+   :template: theme_list.tmpl
