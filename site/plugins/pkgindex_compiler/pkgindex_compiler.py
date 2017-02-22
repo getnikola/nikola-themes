@@ -143,7 +143,6 @@ def parse_theme_info(post, pkg_dir, config):
     theme = os.path.basename(pkg_dir)
     data = {}
     data['name'] = theme
-    data['tags'] = 'theme'
     out_path = post.folder_relative + '/' + theme
     demo_dir = config['demo_screenshots_map'].get(out_path, out_path)
     data['previewimage'] = '/' + demo_dir + '.png'
@@ -182,6 +181,7 @@ def parse_theme_info(post, pkg_dir, config):
                            'bootstrap3-jinja' in data['chain'] or
                            'bootstrap3' in data['chain']) and
                           'bootstrap3-gradients' not in data['chain'])
+    data['tags'] = 'theme,' + data['engine']
 
     return data
 

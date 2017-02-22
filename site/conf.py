@@ -63,7 +63,8 @@ for theme in PKGINDEX_CONFIG['builtin_themes']:
 
 themes_submenu = (
     ('/', 'Themes Home'),
-    ('/categories/', 'Categories'),
+    ('/mako/', 'Mako'),
+    ('/jinja/', 'Jinja2'),
     ('/v7/', 'Version 7'),
 )
 
