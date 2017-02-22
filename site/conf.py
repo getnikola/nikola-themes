@@ -45,6 +45,7 @@ PKGINDEX_CONFIG = {
         'v7/bootblog-jinja': 'v7/bootblog',
         'v7/bootstrap3-gradients-jinja': 'v7/bootstrap3-gradients',
         'v7/bootstrap3-jinja': 'v7/bootstrap3',
+        'v7/reveal-jinja': 'v7/reveal',
         'v7/zen-ipython': 'v7/zen',
         'v7/zen-jinja': 'v7/zen',
     },
@@ -635,11 +636,11 @@ REDIRECTIONS = []
 # to `nikola deploy`.  If no arguments are specified, a preset
 # named `default` will be executed.  You can use as many presets
 # in a `nikola deploy` command as you like.
-# DEPLOY_COMMANDS = {
-#     'default': [
-#         "rsync -rav --delete output/ joe@my.site:/srv/www/site",
-#     ]
-# }
+DEPLOY_COMMANDS = {
+    'default': [
+        "rsync -rav output/ getnikola@direct.ralsina.me:/srv/www/themes.getnikola.com:80",
+    ]
+}
 
 # github_deploy configuration
 # For more details, read the manual:

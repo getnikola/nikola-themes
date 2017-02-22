@@ -154,7 +154,7 @@ class PackageIndexThemeDS(Task):
                 # Get list of dependencies and files to zip
                 for root, dirs, files in os.walk(directory):
                     for file in files:
-                        if file.endswith(('.pyc', '.DS_Store')):
+                        if file.endswith(('.pyc', '.DS_Store')) or file == '.git':
                             continue
                         zip_files.append((os.path.join(root, file),
                                           os.path.join(root[d:], file)))
