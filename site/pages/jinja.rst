@@ -5,6 +5,6 @@
 
 .. post-list::
    :sort: slug
-   :tags: theme, jinja
+   :tags: jinja
    :post_type: pages
    :template: theme_list.tmpl
