@@ -26,13 +26,13 @@ def sanity_check(theme=None):
         for theme in theme_list():
             sanity_check(theme)
         return
-    themes = utils.get_theme_chain(theme, _themes_dir='v7')
-    engine = utils.get_template_engine(themes, _themes_dir='v7')
+    themes = utils.get_theme_chain(theme, themes_dirs=['v7'])
+    engine = utils.get_template_engine(themes)
 
     # Inheritance checks
 
     # All themes must inherit from base
-    if themes[-1] != 'base':
+    if not themes[-1].endswith('base'):
         error("theme {0} doesn't inherit from base".format(theme))
     # All jinja themes must inherit from base-jinja
     if engine == "jinja" and "base-jinja" not in themes:
@@ -62,14 +62,14 @@ def sanity_check(theme=None):
                     error("theme '{0}' contains deprecated name '{1}' in {2}".format(theme, k, path))
 
     # Ensure the theme has a README.md
-    if utils.get_asset_path('README.md', [theme], _themes_dir='v7') is None:
+    if utils.get_asset_path('README.md', themes) is None:
         error("theme '{0}' has no README.md".format(theme))
 
 def is_asset_duplicated(path, themes):
     # First get the path for the asset with whole theme chain
-    p1 = utils.get_asset_path(path, themes, _themes_dir='v7')
+    p1 = utils.get_asset_path(path, themes)
     # Get the path for asset with truncated theme chain
-    p2 = utils.get_asset_path(path, themes[1:], _themes_dir='v7')
+    p2 = utils.get_asset_path(path, themes[1:])
     # README.md is ok to duplicate
     if 'README.md' in path:
         return False, p1, p2
