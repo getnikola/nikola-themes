@@ -67,6 +67,9 @@ lang="{{ lang }}">
             <script src="{{ url_replacer(permalink, '/assets/js/respond.min.js', lang) }}"></script>
         <![endif]-->
     {% endif %}
+    {% if base_font_size %}
+	<style>body { font-size: {{ base_font_size }} ;}</style>
+    {% endif %}
 
     {{ extra_head_data }}
 {% endmacro %}

@@ -84,3 +84,14 @@ Then, add it to `biography` viariable into `GLOBAL_CONTEXT`
 
 ![biography](https://themes.getnikola.com/resources/material-theme-biography.png)
 
+
+### Customize the font size
+
+Add this to GLOBAL_CONTEXT variable:
+
+    GLOBAL_CONTEXT = {
+        'base_font_size': "17px",
+    }
+
+Default is 14px.
+
