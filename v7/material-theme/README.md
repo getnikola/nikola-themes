@@ -85,6 +85,15 @@ Then, add it to `biography` viariable into `GLOBAL_CONTEXT`
 ![biography](https://themes.getnikola.com/resources/material-theme-biography.png)
 
 
+### Enable use of pace.js
+
+For enable use of [PACE](http://github.hubspot.com/pace/docs/welcome/), add a variable into GLOBAL_CONTEXT:
+
+    GLOBAL_CONTEXT = {
+        'use_pace': True,
+    }
+
+
 ### Customize the font size
 
 Add this to GLOBAL_CONTEXT variable:

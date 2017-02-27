@@ -63,12 +63,18 @@ def build_demo(theme, themes_dir, demo_source, demo_destination):
     os.symlink(os.path.abspath(themes_dir), os.path.abspath("/".join([demo_source, "themes"])))
 
     conf_path = "/".join([demo_source, "conf.py"])
+    book_path = "/".join([demo_source, "templates", "book.tmpl"])
     # Get custom required settings from the theme
     themes = utils.get_theme_chain(theme, themes_dirs=[themes_dir, 'themes'])
+    engine_path = utils.get_asset_path('engine', themes)
     extra_conf_path = utils.get_asset_path('conf.py.sample', themes)
     extra_conf = ''
     if extra_conf_path:
         extra_conf = io.open(extra_conf_path, 'r', encoding="utf-8").read()
+    if engine_path:
+        engine = io.open(engine_path, 'r', encoding="utf-8").read().strip()
+        if engine == 'jinja':
+            shutil.copy('book-jinja.tmpl', book_path)
 
     with io.open(conf_path, "a", encoding="utf-8") as conf:
         conf.write(u"\n\n{2}\n\nTHEME = '{0}'\n\nUSE_BUNDLES = False\n\nOUTPUT_FOLDER = '{1}'\n\nSOCIAL_BUTTONS_CODE = ''\nUSE_BASE_TAG = False\n".format(theme, demo_destination, extra_conf))

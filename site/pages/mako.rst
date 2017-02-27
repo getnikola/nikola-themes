@@ -5,6 +5,6 @@
 
 .. post-list::
    :sort: slug
-   :tags: theme, mako
+   :tags: mako
    :post_type: pages
    :template: theme_list.tmpl
