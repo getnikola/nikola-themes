@@ -27,7 +27,7 @@ h2 {
 
 .header-panel h1 {
     color: #FFF;
-    font-size: 35px;
+    font-size: 3em;
     font-weight: 400;
     position: absolute;
     bottom: 10px;
@@ -79,7 +79,6 @@ h2 {
 
 .menu ul li {
     list-style: none;
-    font-size: 15px;
     font-weight: normal;
     cursor: pointer;
 }

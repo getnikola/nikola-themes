@@ -93,3 +93,11 @@ For enable use of [PACE](http://github.hubspot.com/pace/docs/welcome/), add a va
         'use_pace': True,
     }
 
+
+### Customize the font size
+
+You can add <style> tag to EXTRA_HEAD_DATA as below:
+
+EXTRA_HEAD_DATA = `"<style>body { font-size: 16px; }</style>"`  # Default is 14px.
+Alternatively, you can create one css file in `files/asserts/css/custom.css` and nikola will load it automatically.
+
