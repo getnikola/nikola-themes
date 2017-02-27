@@ -5,10 +5,10 @@ Based on [bootstrap-material-design](https://github.com/FezVrasta/bootstrap-mate
 
 ## Customization
 
-### Navbar color schema 
+### Navbar color schema
 
-    GLOBAL_CONTEXT = {                                                               
-         'header_color': 'default'                                                    
+    GLOBAL_CONTEXT = {
+         'header_color': 'default'
     }
 
 Options available:
@@ -53,7 +53,7 @@ Options available:
         },
         ]
     }
-    
+
 ![actions-links-gif](https://themes.getnikola.com/resources/material-theme-actions-links.gif)
 
 
@@ -62,7 +62,7 @@ Options available:
     GLOBAL_CONTEXT = {
         'author_avatar': '/images/avatar.jpg',
     }
-    
+
 ![author's avatar](https://themes.getnikola.com/resources/material-theme-avatar-author.png)
 
 
@@ -75,7 +75,7 @@ For convenience, first define a variable with the html biography.
     <p>Nikola Tesla (Serbian Cyrillic: Никола Тесла; 10 July 1856 – 7 January 1943) was a Serbian American inventor, electrical engineer, mechanical engineer, physicist, and futurist best known for his contributions to the design of the modern alternating current (AC) electricity supply system.
     </p>
     """
-    
+
 Then, add it to `biography` viariable into `GLOBAL_CONTEXT`
 
     GLOBAL_CONTEXT = {
@@ -98,6 +98,7 @@ For enable use of [PACE](http://github.hubspot.com/pace/docs/welcome/), add a va
 
 You can add <style> tag to EXTRA_HEAD_DATA as below:
 
-EXTRA_HEAD_DATA = `"<style>body { font-size: 16px; }</style>"`  # Default is 14px.
+    EXTRA_HEAD_DATA = "<style>body { font-size: 16px; }</style>"  # Default is 14px.
+
 Alternatively, you can create one css file in `files/asserts/css/custom.css` and nikola will load it automatically.
 
