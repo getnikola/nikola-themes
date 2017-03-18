@@ -45,6 +45,7 @@ PKGINDEX_CONFIG = {
         'v7/bootblog-jinja': 'v7/bootblog',
         'v7/bootstrap3-gradients-jinja': 'v7/bootstrap3-gradients',
         'v7/bootstrap3-jinja': 'v7/bootstrap3',
+        'v7/bootstrap-jinja': 'v7/bootstrap',
         'v7/reveal-jinja': 'v7/reveal',
         'v7/zen-ipython': 'v7/zen',
         'v7/zen-jinja': 'v7/zen',
