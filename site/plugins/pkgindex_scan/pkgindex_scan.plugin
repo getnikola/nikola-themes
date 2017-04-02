@@ -8,6 +8,6 @@ MinVersion = 7.8.1+
 
 [Documentation]
 Author = Chris Warrick
-Version = 0.2.0
+Version = 0.2.1
 Website = https://plugins.getnikola.com/
 Description = Scan packages for package indexes

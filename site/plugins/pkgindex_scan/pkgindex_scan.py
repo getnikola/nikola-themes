@@ -90,3 +90,9 @@ class PackageIndexScanner(PostScanner):
                 self.site.pkgindex_entries[topdir].append(post)
 
         return timeline
+
+    def supported_extensions(self):
+        """Return a list of supported file extensions, or None if such a list isn't known beforehand."""
+        if 'PKGINDEX_CONFIG' not in self.site.config:
+            return None
+        return [self.site.config['PKGINDEX_CONFIG']['extension']]
