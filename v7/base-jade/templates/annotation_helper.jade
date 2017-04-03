@@ -1,0 +1,13 @@
+mixin css()
+    link(rel="stylesheet", href="http://assets.annotateit.org/annotator/v1.2.5/annotator.min.css")
+
+mixin code()
+    script(src="http://code.jquery.com/jquery-migrate-1.2.1.js")
+    script(src="http://assets.annotateit.org/annotator/v1.2.7/annotator-full.js")
+    script
+        jQuery(function ($) {
+            $('body').annotator().annotator('setupPlugins', {}, {
+                // Disable filter bar
+                Filter: false
+            });
+        });

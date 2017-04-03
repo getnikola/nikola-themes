@@ -1,0 +1,7 @@
+//- namespace name="base" file="base_helper.tmpl" import="*"
+
+mixin html_footer()
+    if content_footer
+        footer (id="footer", role="contentinfo")
+            p #{content_footer}
+            != template_hooks['page_footer']()
