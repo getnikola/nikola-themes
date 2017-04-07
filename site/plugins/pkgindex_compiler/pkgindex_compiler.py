@@ -66,6 +66,7 @@ def parse_plugin_file(post, pkg_dir, config):
     reqplugins = os.path.join(pkg_dir, 'requirements-plugins.txt')
 
     if os.path.exists(ini):
+        post.add_dependency(ini)
         try:
             c = configparser.ConfigParser()
             c.read(ini)
@@ -107,6 +108,7 @@ def parse_plugin_file(post, pkg_dir, config):
                          'directory.'.format(plugin))
 
     if os.path.exists(conf_sample):
+        post.add_dependency(conf_sample)
         with io.open(conf_sample, 'r', encoding='utf-8') as f:
             data['confpy'] = pygments.highlight(
                 f.read(),
@@ -115,12 +117,14 @@ def parse_plugin_file(post, pkg_dir, config):
         data['confpy'] = None
 
     if os.path.exists(reqpy):
+        post.add_dependency(reqpy)
         with io.open(reqpy, 'r', encoding='utf-8') as f:
             data['pyreqs'] = f.readlines()
     else:
         data['pyreqs'] = []
 
     if os.path.exists(reqnonpy):
+        post.add_dependency(reqnonpy)
         with io.open(reqnonpy, 'r', encoding='utf-8') as f:
             r = f.readlines()
 
@@ -129,6 +133,7 @@ def parse_plugin_file(post, pkg_dir, config):
         data['nonpyreqs'] = []
 
     if os.path.exists(reqplugins):
+        post.add_dependency(reqplugins)
         with io.open(reqplugins, 'r', encoding='utf-8') as f:
             data['pluginreqs'] = f.readlines()
     else:
@@ -153,6 +158,7 @@ def parse_theme_info(post, pkg_dir, config):
     parent = os.path.join(pkg_dir, 'parent')
 
     if os.path.exists(conf_sample):
+        post.add_dependency(conf_sample)
         with io.open(conf_sample, 'r', encoding='utf-8') as f:
             data['confpy'] = pygments.highlight(
                 f.read(),
@@ -161,12 +167,14 @@ def parse_theme_info(post, pkg_dir, config):
         data['confpy'] = None
 
     if os.path.exists(engine):
+        post.add_dependency(engine)
         with io.open(engine, 'r', encoding='utf-8') as f:
             data['engine'] = f.read().strip()
     else:
         data['engine'] = 'mako'
 
     if os.path.exists(parent):
+        post.add_dependency(parent)
         with io.open(parent, 'r', encoding='utf-8') as f:
             data['parent'] = f.read().strip()
     elif theme == 'base':
