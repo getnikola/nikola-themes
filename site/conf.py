@@ -187,6 +187,7 @@ NAVIGATION_LINKS = {
                 ('https://getnikola.com/conf.html', 'conf.py'),
                 ('https://getnikola.com/changes.html', 'Changelog'),
                 ('https://getnikola.com/creating-a-theme.html', 'Theming Tutorial'),
+                ('https://getnikola.com/theming.html', 'Theming Reference'),
                 ('https://getnikola.com/extending.html', 'Extending'),
                 ('https://getnikola.com/internals.html', 'Internals'),
                 ('https://getnikola.com/creating-a-site-not-a-blog-with-nikola.html', 'Creating a Site (Not a Blog)'),
