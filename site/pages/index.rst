@@ -15,6 +15,9 @@
     <https://github.com/getnikola/nikola-themes>`_ and check out the `README.md
     <https://github.com/getnikola/nikola-themes/blob/master/README.md>`_ file for
     instructions and requirements.
+    To create a theme, check out `Theming Tutorial
+    <https://getnikola.com/creating-a-theme.html>`_ and `Theming Reference
+    <https://getnikola.com/theming.html>`_.
 
 .. class:: text-warning
 
