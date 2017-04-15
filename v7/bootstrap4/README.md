@@ -13,4 +13,5 @@ With issues:
 * galleries (errors in console, requires non-slim jQuery, icons replaced by emoji)
 
 Broken:
+
 * slides
