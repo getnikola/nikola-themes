@@ -1,0 +1,7 @@
+# Settings for the Reveal theme must be added to the global context.
+# subtheme selection:   beige/serif/simple/sky/night/default
+# transition selection: cube/page/concave/linear/none/default
+GLOBAL_CONTEXT.update({
+    'subtheme': 'sky',
+    'transition': 'cube'
+})
