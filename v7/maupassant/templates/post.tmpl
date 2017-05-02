@@ -26,16 +26,22 @@
 
 <%block name="content">
 <div class="post post-page">
-  <h1 class="post-title">${post.title()|h}</h1>
-  <div class="post-meta">${post.formatted_date(date_format)|h} ${helper.html_tags(post)} </div>
-  <div class="post-content">
-    ${post.text()}
-  </div>
+    <h1 class="post-title">${post.title()|h}</h1>
+    <div class="post-meta">${post.formatted_date(date_format)|h}</div>
+    <div class="post-content">
+        ${post.text()}
+    </div>
+    <div class="postpromonav">
+        <nav>
+            ${helper.html_tags(post)}
+            ${helper.html_pager(post)}
+        </nav>
+    </div>
     % if not post.meta('nocomments') and site_has_comments:
-        <section class="comments hidden-print">
+    <section class="comments hidden-print">
         <h2>${messages("Comments")}</h2>
         ${comments.comment_form(post.permalink(absolute=True), post.title(), post._base_path)}
-        </section>
+    </section>
     % endif
     ${helper.mathjax_script(post)}
     ${comments.comment_link_script()}
@@ -45,7 +51,7 @@
 <%block name="sourcelink">
 % if show_sourcelink:
     <li>
-    <a href="${post.source_link()}" id="sourcelink">${messages("Source")}</a>
+        <a href="${post.source_link()}" id="sourcelink">${messages("Source")}</a>
     </li>
 % endif
 </%block>

@@ -495,3 +495,14 @@ a.back_to_top:hover span {
 .doc_comments {
     margin-top: 0 !important
 }
+
+.postpromonav {
+        border-bottom: 0;
+        border-top: 0;
+        margin-top: 1em;
+        padding: .5em 0;
+}
+
+.image-block {
+    display: inline;
+}
