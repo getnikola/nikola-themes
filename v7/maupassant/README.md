@@ -23,5 +23,4 @@ TODO:
 
 * Could add support for fontawesome icons in nav bar like some forks of
   this theme have.
-* Surely doesn't need to inherit bootstrap3 since it doesn't use
-  bootstrap at all :-)
+* Image gallery is somewhat broken
