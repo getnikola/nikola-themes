@@ -5,4 +5,5 @@ site/output
 site/demo_sites
 site/cache
 site/builtin_themes
+site/state_data.json
 .idea

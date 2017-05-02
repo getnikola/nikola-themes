@@ -1,13 +1,13 @@
-Nikola theme forked from https://github.com/pagecho/maupassant
+Nikola theme forked from <https://github.com/pagecho/maupassant>
 
 Description from the original:
 
-"A simple typecho template with great performance on different devices."
+> A simple typecho template with great performance on different devices.
 
 Suggested configuration is to add Home to nav links so you see the
 "tabs" properly:
 
-```
+```python
 NAVIGATION_LINKS = {
     DEFAULT_LANG: (
         ("/", "Home"),
