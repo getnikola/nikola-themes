@@ -1,0 +1,95 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*" />
+<%namespace name="notes" file="annotation_helper.tmpl" import="*" />
+${set_locale(lang)}
+${base.html_headstart()}
+<%block name="extra_head">
+### Leave this block alone.
+</%block>
+${template_hooks['extra_head']()}
+</head>
+<body>
+<div class="body_container">
+    <div id="header">
+        <div class="site-name">
+            %if logo_url:
+            <a id="logo" href="${blog_url}"><img src="${logo_url}" alt="${blog_title|h}"></a>
+            %else:
+                <h1>${blog_title|h}</h1>
+            %endif
+        </div>
+
+        <div id="nav-menu">
+            <div class="bitcron_nav_container">
+                <div class="bitcron_nav">
+                    <div class="site_nav_wrap">
+                        <ul class="site_nav sm sm-base">
+                            ${base.html_navigation_links()}
+                            ${template_hooks['menu']()}
+                        </ul>
+                        <div class="clear clear_nav_inline_end"></div>
+                    </div>
+                </div>
+                <div class="clear clear_nav_end"></div>
+            </div>
+        </div>
+    </div>
+    <div id="layout">
+        <div class="pure-g">
+            <div class=" pure-u-24-24 pure-u-sm-24-24 pure-u-md-18-24 pure_cell">
+                <div class="content_container">
+                    <!--Body content-->
+                    <div class="row">
+                        ${template_hooks['page_header']()}
+                        <%block name="content"></%block>
+                </div>
+                <!--End of body content-->
+                <div style="clear:both;height:0;"></div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+
+        <div class=" pure-u-6-24 pure_cell">
+            <div id="sidebar">
+                <div class="widget">
+                    <div id="search_bar">
+                        %if search_form:
+                        ${search_form}
+                        %endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        ${content_footer}
+        ${template_hooks['page_footer']()}
+    </div>
+
+    <!--FIXME: put these somewhere                            -->
+    <!--%if len(translations) > 1:-->
+    <!--<li>${base.html_translations()}</li>-->
+    <!--%endif-->
+    <!--% if show_sourcelink:-->
+    <!--<%block name="sourcelink"></%block>-->
+    <!--%endif-->
+    <link href="/assets/css/duoshuo.css" type="text/css" rel="stylesheet"/>
+    ${base.late_load_js()}
+    <script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script>
+    <!-- fancy dates -->
+    <script>
+    moment.locale("${momentjs_locales[lang]}");
+    fancydates(${date_fanciness}, ${js_date_format});
+    </script>
+    <!-- end fancy dates -->
+    <%block name="extra_js"></%block>
+% if annotations and post and not post.meta('noannotations'):
+${notes.code()}
+% elif not annotations and post and post.meta('annotations'):
+${notes.code()}
+% endif
+${body_end}
+${template_hooks['body_end']()}
+</body>
+</html>

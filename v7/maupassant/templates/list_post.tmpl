@@ -1,0 +1,21 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+<%namespace name="archive_nav" file="archive_navigation_helper.tmpl" import="*"/>
+
+<%block name="content">
+<div class="post-archive">
+    <header>
+        <h2>${title|h}</h2>
+    </header>
+    ${archive_nav.archive_navigation()}
+    %if posts:
+    <ul class="listing">
+    % for post in posts:
+        <li>${post.formatted_date(date_format)|h} <a href="${post.permalink()}" class="listtitle">${post.title()|h}</a></li>
+    % endfor
+    </ul>
+    %else:
+    <p>${messages("No posts found.")}</p>
+    %endif
+</div>
+</%block>
