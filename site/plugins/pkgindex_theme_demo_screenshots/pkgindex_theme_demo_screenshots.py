@@ -44,6 +44,9 @@ except ImportError:
     from urllib.parse import urljoin  # NOQA
 
 
+LOREM_BASE = "lorem-ipsum.rst"
+
+
 @contextmanager
 def cd(path):
     old_dir = os.getcwd()
@@ -64,6 +67,7 @@ def build_demo(theme, themes_dir, demo_source, demo_destination):
 
     conf_path = "/".join([demo_source, "conf.py"])
     book_path = "/".join([demo_source, "templates", "book.tmpl"])
+    lorem_path = "/".join([demo_source, "posts", "lorem-ipsum.rst"])
     # Get custom required settings from the theme
     themes = utils.get_theme_chain(theme, themes_dirs=[themes_dir, 'themes'])
     engine_path = utils.get_asset_path('engine', themes)
@@ -77,7 +81,9 @@ def build_demo(theme, themes_dir, demo_source, demo_destination):
             shutil.copy('book-jinja.tmpl', book_path)
 
     with io.open(conf_path, "a", encoding="utf-8") as conf:
-        conf.write(u"\n\n{2}\n\nTHEME = '{0}'\n\nUSE_BUNDLES = False\n\nOUTPUT_FOLDER = '{1}'\n\nSOCIAL_BUTTONS_CODE = ''\nUSE_BASE_TAG = False\n".format(theme, demo_destination, extra_conf))
+        conf.write(u"\n\nTHEME = '{0}'\nUSE_BUNDLES = False\nOUTPUT_FOLDER = '{1}'\nSOCIAL_BUTTONS_CODE = ''\nUSE_BASE_TAG = False\n\n{2}\n".format(theme, demo_destination, extra_conf))
+
+    shutil.copy(LOREM_BASE, lorem_path)
 
     with cd(demo_source):
         subprocess.check_call(["nikola", "build"], stdout=subprocess.PIPE)
@@ -114,6 +120,7 @@ class PackageIndexThemeDS(Task):
             'pkgindex_handlers': self.site.config['PKGINDEX_HANDLERS'],
             'pkgindex_config': self.site.config['PKGINDEX_CONFIG'],
             'base_url': self.site.config['BASE_URL'],
+            'revision': '2',
         }
         yield self.group_task()
         self.site.scan_posts()
@@ -165,6 +172,9 @@ class PackageIndexThemeDS(Task):
                         zip_files.append((os.path.join(root, file),
                                           os.path.join(root[d:], file)))
                         file_dep.append(os.path.join(root, file))
+
+                # those are separate variables to avoid cyclic dependencies
+                file_dep += [LOREM_BASE]
                 file_dep_png = file_dep + [index]
 
                 yield utils.apply_filters({
