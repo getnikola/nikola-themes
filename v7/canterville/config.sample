@@ -1,0 +1,7 @@
+THEME = 'canterville'
+
+GLOBAL_CONTEXT = {
+        'TWITTER_URL': 'https://twitter.com/getnikola',
+        'GITHUB_URL': 'https://github.com/getnikola',
+        'BANNER_URL': '/assets/img/silk-road.jpg'
+}
