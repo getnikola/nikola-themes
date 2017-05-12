@@ -641,7 +641,7 @@ REDIRECTIONS = []
 # in a `nikola deploy` command as you like.
 DEPLOY_COMMANDS = {
     'default': [
-        "rsync -rav output/ getnikola@direct.ralsina.me:/srv/www/themes.getnikola.com:80",
+        "rsync -ravz output/ getnikola@direct.ralsina.me:/srv/www/themes.getnikola.com:80",
     ]
 }
 
