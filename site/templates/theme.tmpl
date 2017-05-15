@@ -24,7 +24,7 @@
     </header>
     <div class="e-content entry-content" itemprop="articleBody text">
     <div class="well well-sm">To install, run <code>nikola theme -i ${post.meta('slug')}</code></div>
-    <div><a href="${post.meta('previewimage')}"><img src="${post.meta('previewimage')}" style="width:500px; margin: 10px auto 10px auto; display: block;" class="img-thumbnail"></a></div>
+    <div><a href="${post.meta('demo_link')}"><img src="${post.meta('previewimage')}" style="width:500px; margin: 10px auto 10px auto; display: block;" class="img-thumbnail"></a></div>
     ${post.text()}
     % if post.meta('confpy'):
         <h3>Suggested Configuration:</h3>
