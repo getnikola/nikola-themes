@@ -1,0 +1,89 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="pheader" file="post_header.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%namespace name="math" file="math_helper.tmpl"/>
+<%inherit file="base.tmpl"/>
+
+<%block name="extra_head">
+    ${parent.extra_head()}
+    % if post.meta('keywords'):
+    <meta name="keywords" content="${post.meta('keywords')|h}">
+    % endif
+    <meta name="author" content="${post.author()|h}">
+    %if post.prev_post:
+        <link rel="prev" href="${post.prev_post.permalink()}" title="${post.prev_post.title()|h}" type="text/html">
+    %endif
+    %if post.next_post:
+        <link rel="next" href="${post.next_post.permalink()}" title="${post.next_post.title()|h}" type="text/html">
+    %endif
+    % if post.is_draft:
+        <meta name="robots" content="noindex">
+    % endif
+    ${helper.open_graph_metadata(post)}
+    ${helper.twitter_card_information(post)}
+    ${helper.meta_translations(post)}
+    ${math.math_styles_ifpost(post)}
+</%block>
+
+<%block name="content">
+<article class="post">
+	<header class="post-header">
+        <h3 class="p-post-title">${post.title()}</h3>
+    </header>
+
+    <section class="post-content">
+
+    ${post.text()}
+ </section>
+
+    <hr>
+
+    <footer class="post-footer">
+        <section class="f-1">
+
+            <section class="author"><p>
+            % if author_pages_generated:
+                <a href="${_link('author', post.author())}">${post.author()|h}</a>
+            % else:
+                ${post.author()|h}
+            % endif
+            </p></section>
+
+
+            <p class="f-post-time"><time datetime="${post.formatted_date('webiso')}">${post.formatted_date(date_format)|h}</time></p>
+        </section>
+        <section class="f-2">
+            <section class="share">
+                <span>Share:
+                <a class="icon-twitter" href="http://twitter.com/share?text=${post.title()|u}&url=${post.permalink(absolute=True)|u}"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=${post.permalink(absolute=True)|u}"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=${post.permalink(absolute=True)|u}"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+                </span>
+            </section>
+
+
+        </section>
+
+    % if not post.meta('nocomments') and site_has_comments:
+        <section class="comments hidden-print">
+        <h2>${messages("Comments")}</h2>
+        ${comments.comment_form(post.permalink(absolute=True), post.title(), post._base_path)}
+        </section>
+    % endif
+    ${math.math_styles_ifpost(post)}
+
+    </footer>
+
+</article>
+${comments.comment_link_script()}
+</%block>

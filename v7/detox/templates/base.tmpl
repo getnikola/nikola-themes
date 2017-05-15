@@ -1,0 +1,35 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+<%namespace name="header" file="base_header.tmpl" import="*"/>
+<%namespace name="footer" file="base_footer.tmpl" import="*"/>
+<%namespace name="annotations" file="annotation_helper.tmpl"/>
+${set_locale(lang)}
+${base.html_headstart()}
+<%block name="extra_head">
+### Leave this block alone.
+</%block>
+${template_hooks['extra_head']()}
+</head>
+
+<main>
+<!--[if lt IE 7]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chrome/‎">install Google Chrome</a> to experience this site.</p><![endif]-->
+
+    <header id="site-header">
+        <div class="container">
+            <h1 class="blog-title heading">${blog_title}</h1></a>
+            <p class="blog-description">${blog_description}</p>
+        </div>
+    </header>
+<main class="content" role="main">
+	<div class="container">
+
+            <%block name="content"></%block>
+    </div>
+</main>
+         ${footer.html_footer()}
+    ${base.late_load_js()}
+    <%block name="extra_js"></%block>
+    ${body_end}
+    ${template_hooks['body_end']()}
+</body>
+</html>

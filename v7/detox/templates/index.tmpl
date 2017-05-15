@@ -1,0 +1,65 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="index_helper.tmpl"/>
+<%namespace name="math" file="math_helper.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%namespace name="pagination" file="pagination_helper.tmpl"/>
+<%inherit file="base.tmpl"/>
+
+<%block name="extra_head">
+    ${parent.extra_head()}
+    % if posts and (permalink == '/' or permalink == '/' + index_file):
+        <link rel="prefetch" href="${posts[0].permalink()}" type="text/html">
+    % endif
+    ${math.math_styles_ifposts(posts)}
+</%block>
+
+<%block name="content">
+<%block name="content_header"></%block>
+% if 'main_index' in pagekind:
+    ${front_index_header}
+% endif
+% if page_links:
+    ${pagination.page_navigation(current_page, page_links, prevlink, nextlink, prev_next_links_reversed)}
+% endif
+
+% for post in posts:
+<article class="li post">
+    <header class="post-header">
+        <h3 class="post-title"><a href="${post.permalink()}">${post.title()|h}</a></h3>
+        <p class="post-time"><time datetime="${post.formatted_date('webiso')}">${post.formatted_date(date_format)|h}</time>
+        by
+            % if author_pages_generated:
+                <a href="${_link('author', post.author())}">${post.author()|h}</a>
+            % else:
+                ${post.author()|h}
+            % endif
+        </p>
+    </header>
+
+
+
+    <section class="post-excerpt">
+    %if index_teasers:
+    ${post.text(teaser_only=True)}
+    %else:
+    ${post.text(teaser_only=False)}
+    %endif
+    </section>
+
+    <footer class="post-footer">
+        <span>
+            % if not post.meta('nocomments') and site_has_comments:
+                <p class="commentline">${comments.comment_link(post.permalink(), post._base_path)}
+            % endif
+
+            &nbsp;&nbsp;
+
+        </span>
+    </footer>
+</article>
+% endfor
+
+${helper.html_pager()}
+${comments.comment_link_script()}
+${math.math_scripts_ifposts(posts)}
+</%block>
