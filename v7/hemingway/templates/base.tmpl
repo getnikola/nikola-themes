@@ -1,0 +1,64 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+<%namespace name="header" file="base_header.tmpl" import="*"/>
+<%namespace name="footer" file="base_footer.tmpl" import="*"/>
+<%namespace name="annotations" file="annotation_helper.tmpl"/>
+${set_locale(lang)}
+
+<link href="/assets/css/rst.css" rel="stylesheet" type="text/css">
+<link href="/assets/css/code.css" rel="stylesheet" type="text/css">
+<link href="/assets/css/theme.css" rel="stylesheet" type="text/css">
+%if has_custom_css:
+    <link href="/assets/css/custom.css" rel="stylesheet" type="text/css">
+%endif
+% if needs_ipython_css:
+    <link href="/assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+% endif
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+<%block name="extra_head">
+### Leave this block alone.
+</%block>
+${template_hooks['extra_head']()}
+</head>
+<body>
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="${blog_url}"><h1 class="title is-4">${blog_title}</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          % for link, icon in navigation_links[lang]:
+          <a class="level-item" href="${link}">
+            <span class="icon">
+              <i class="${icon}"></i>
+            </span>
+          </a>
+          % endfor
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<%block name="content"></%block>
+
+<section class="section">
+%if content_footer:
+  <div class="container has-text-centered">
+            <p>${content_footer}</p>
+            ${template_hooks['page_footer']()}
+  </div>
+%endif
+</section>
+
+    ${base.late_load_js()}
+    <%block name="extra_js"></%block>
+    ${body_end}
+    ${template_hooks['body_end']()}
+</body>
+</html>
