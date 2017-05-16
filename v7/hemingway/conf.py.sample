@@ -1,0 +1,8 @@
+INDEX_READ_MORE_LINK = '<a class="button is-link" href="{link}" style="height:28px"> {read_more} <span class="icon is-small"> <i class="fa fa-angle-double-right"></i></span></a>'
+NAVIGATION_LINKS = {
+    DEFAULT_LANG: (
+        ("http://twitter.com/getnikola", "fa fa-twitter"),
+        ("http://github.com/getnikola", "fa fa-github"),
+        ("/rss.xml", "fa fa-rss"),
+    ),
+}
