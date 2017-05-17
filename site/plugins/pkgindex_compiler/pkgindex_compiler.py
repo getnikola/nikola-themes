@@ -31,6 +31,7 @@ from __future__ import unicode_literals
 import configparser
 import io
 import os
+import re
 import pygments
 from nikola import utils
 from nikola.plugin_categories import PageCompiler
@@ -176,8 +177,35 @@ def parse_theme_info(post, pkg_dir, config):
         c.read(ini)
         data['parent'] = c.get('Theme', 'parent', fallback=None)
         data['engine'] = c.get('Theme', 'engine', fallback='mako')
+        data['family'] = c.get('Family', 'family', fallback=theme)
+        data['family_head'] = data['family'] == theme
+        if data['engine'] == 'mako':
+            data['family_mako_variant'] = theme
+            data['family_jinja_variant'] = c.get('Family', 'jinja_variant', fallback=None)
+        else:
+            data['family_mako_variant'] = c.get('Family', 'mako_variant', fallback=None)
+            data['family_jinja_variant'] = theme
+        data['family_variants'] = [i.strip() for i in c.get('Family', 'variants', fallback='').split(',')]
         data['bootswatch'] = c.getboolean('Nikola', 'bootswatch', fallback=False)
         data['tags'] = 'theme,' + data['engine']
+        data['license'] = c.get('Theme', 'license', fallback=None)
+        data['author'] = c.get('Theme', 'author', fallback=None)
+        data['author_url'] = c.get('Theme', 'author_url', fallback=None)
+        data['author_url'] = c.get('Theme', 'author_url', fallback=None)
+        based_on = c.get('Theme', 'based_on', fallback=None)
+        based_on_list = []
+        if based_on:
+            for i in based_on.split(','):
+                i = i.strip()
+                m = re.match("(.*?) ?<(.*?)>", i)
+                if m:
+                    based_on_list.append('<a href="{0[1]}">{0[0]}</a>'.format(
+                        m.groups()))
+                else:
+                    based_on_list.append(i)
+
+        data['based_on'] = ', '.join(based_on_list)
+
         theme_tags = c.get('Theme', 'tags', fallback='')
         if theme_tags:
             data['tags'] += ',' + theme_tags
