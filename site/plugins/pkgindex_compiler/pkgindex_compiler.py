@@ -154,8 +154,12 @@ def parse_theme_info(post, pkg_dir, config):
     data['previewimage_thumbnail'] = '/' + demo_dir + '.thumbnail.png'
     data['demo_link'] = '/' + demo_dir + '/demo/'
     conf_sample = os.path.join(pkg_dir, 'conf.py.sample')
+    ini = os.path.join(pkg_dir, theme + '.theme')
     engine = os.path.join(pkg_dir, 'engine')
     parent = os.path.join(pkg_dir, 'parent')
+
+    data['chain'] = utils.get_theme_chain(theme, [os.path.dirname(pkg_dir), 'themes'])
+    data['chain'] = [os.path.basename(i) for i in reversed(data['chain'])]
 
     if os.path.exists(conf_sample):
         post.add_dependency(conf_sample)
@@ -166,30 +170,42 @@ def parse_theme_info(post, pkg_dir, config):
     else:
         data['confpy'] = None
 
-    if os.path.exists(engine):
-        post.add_dependency(engine)
-        with io.open(engine, 'r', encoding='utf-8') as f:
-            data['engine'] = f.read().strip()
-    else:
-        data['engine'] = 'mako'
+    if os.path.exists(ini):
+        post.add_dependency(ini)
+        c = configparser.ConfigParser()
+        c.read(ini)
+        data['parent'] = c.get('Theme', 'parent', fallback=None)
+        data['engine'] = c.get('Theme', 'engine', fallback='mako')
+        data['bootswatch'] = c.getboolean('Nikola', 'bootswatch', fallback=False)
+        data['tags'] = 'theme,' + data['engine']
+        theme_tags = c.get('Theme', 'tags', fallback='')
+        if theme_tags:
+            data['tags'] += ',' + theme_tags
 
-    if os.path.exists(parent):
-        post.add_dependency(parent)
-        with io.open(parent, 'r', encoding='utf-8') as f:
-            data['parent'] = f.read().strip()
-    elif theme == 'base':
-        pass
+        if data['parent'] is None and theme != 'base':
+            raise ValueError("Theme {0} has no parent.".format(theme))
     else:
-        raise ValueError("Theme {0} has no parent.".format(theme))
+        if os.path.exists(engine):
+            post.add_dependency(engine)
+            with io.open(engine, 'r', encoding='utf-8') as f:
+                data['engine'] = f.read().strip()
+        else:
+            data['engine'] = 'mako'
 
-    data['chain'] = utils.get_theme_chain(theme, [os.path.dirname(pkg_dir), 'themes'])
-    data['chain'] = [os.path.basename(i) for i in reversed(data['chain'])]
-    data['bootswatch'] = (('bootstrap' in data['chain'] or
-                           'bootstrap-jinja' in data['chain'] or
-                           'bootstrap3-jinja' in data['chain'] or
-                           'bootstrap3' in data['chain']) and
-                          'bootstrap3-gradients' not in data['chain'])
-    data['tags'] = 'theme,' + data['engine']
+        if os.path.exists(parent):
+            post.add_dependency(parent)
+            with io.open(parent, 'r', encoding='utf-8') as f:
+                data['parent'] = f.read().strip()
+        elif theme == 'base':
+            pass
+        else:
+            raise ValueError("Theme {0} has no parent.".format(theme))
+        data['bootswatch'] = (('bootstrap' in data['chain'] or
+                               'bootstrap-jinja' in data['chain'] or
+                               'bootstrap3-jinja' in data['chain'] or
+                               'bootstrap3' in data['chain']) and
+                              'bootstrap3-gradients' not in data['chain'])
+        data['tags'] = 'theme,' + data['engine']
 
     return data
 
