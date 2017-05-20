@@ -11,20 +11,34 @@
     <header>
         ${pheader.html_title()}
         <div class="metadata">
+        % if post.meta('author'):
+            % if post.meta('author_url'):
+            <p class="authorline author">By <a href="${post.meta('author_url')|h}">${post.meta('author')|h}</a></p>
+            % else:
+            <p class="authorline author">By ${post.meta('author')|h}</p>
+            % endif
+        % endif
+        % if post.meta('based_on'):
+            <p class="basedonline basedon">Based on ${post.meta('based_on')}</p>
+        % endif
         % if post.meta('engine') == 'mako':
         <p class="engineline engine">Uses <a href="http://www.makotemplates.org/">Mako</a></p>
         % else:
         <p class="engineline engine">Uses <a href="http://jinja.pocoo.org/docs/">Jinja2</a></p>
         % endif
+        % if post.meta('license'):
+        <p class="licenseline license">License: ${post.meta('license')}</p>
+        % endif
         % if post.meta('bootswatch'):
         <p class="bootswatchline bootswatch">Supports <a href="https://bootswatch.com/">Bootswatch</a></p>
         % endif
-        <p class="demoline demo"><a href="${post.meta('demo_link')}" class="btn btn-primary">See demo</a></p>
         </div>
     </header>
     <div class="e-content entry-content" itemprop="articleBody text">
     <div class="well well-sm">To install, run <code>nikola theme -i ${post.meta('slug')}</code></div>
-    <div><a href="${post.meta('demo_link')}"><img src="${post.meta('previewimage')}" style="width:500px; margin: 10px auto 10px auto; display: block;" class="img-thumbnail"></a></div>
+    <div class="thumbnail demo-thumbnail">
+      <a href="${post.meta('demo_link')}"><img src="${post.meta('previewimage')}" alt="Screenshot of ${post.meta('title')}" title="See demo of theme ${post.meta('title')}"><p class="demo-thumbnail-link">See demo</p></a>
+    </div>
     ${post.text()}
     % if post.meta('confpy'):
         <h3>Suggested Configuration:</h3>
@@ -32,6 +46,27 @@
     % endif
     <h3>Issues? Questions?</h3>
     <p>You can report issues with this theme and request help via <a href="https://github.com/getnikola/nikola-themes/issues/new?title=[${post.meta('slug')}]">GitHub Issues</a>.</p>
+    % if post.meta('show_family_data'):
+        <h3>Related themes</h3>
+        <div class="metadata">
+        <p class="familyline family">Theme family: <a href="../${post.meta('family')}/">${post.meta('family')}</a>
+        </p>
+        % if post.meta('engine') == 'jinja' and post.meta('family_mako_version'):
+            <p class="engineversionline engineversion">Mako version: <a href="../${post.meta('family_mako_version')}/">${post.meta('family_mako_version')}</a></p>
+        % endif
+        % if post.meta('engine') == 'mako' and post.meta('family_jinja_version'):
+            <p class="engineversionline engineversion">Jinja2 version: <a href="../${post.meta('family_jinja_version')}/">${post.meta('family_jinja_version')}</a></p>
+        % endif
+        </div>
+        % if post.meta('family_variants'):
+            <p id="variants">Variants:</p>
+            <ul>
+                % for i in post.meta('family_variants'):
+                <li><a href="../${i}/">${i}</a></li>
+                % endfor
+            </ul>
+        % endif
+    % endif
     <h3>Theme inheritance chain</h3>
     <ul class="breadcrumb">
         % for i in post.meta('chain'):
@@ -39,12 +74,6 @@
         % endfor
     </ul>
     </div>
-    %if site_has_comments and enable_comments and not post.meta('nocomments'):
-        <section class="comments">
-        <h2>${messages("Comments")}</h2>
-        ${comments.comment_form(post.permalink(absolute=True), post.title(), post.base_path)}
-        </section>
-    %endif
     ${helper.mathjax_script(post)}
 </article>
 </div>

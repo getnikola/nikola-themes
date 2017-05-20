@@ -4,14 +4,27 @@
 <div id="${post_list_id}" class="post-list row">
     %if posts:
         % for post in posts:
+        % if post.meta('family_head'):
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail post-list-item">
                 <a href="${post.permalink(lang)}">
                     <img src="${post.meta('previewimage_thumbnail')}">
-                    <h2>${post.title(lang)|h}<h2>
+                    <h2>${post.title(lang)|h}</h2>
                 </a>
+                <div class="theme-versions-index metadata">
+                % if post.meta('family_mako_version'):
+                <p class="makoversionline"><a href="${_link('slug', post.meta('family_mako_version'), lang)}">Mako</a></p>
+                % endif
+                % if post.meta('family_jinja_version'):
+                <p class="jinjaversionline"><a href="${_link('slug', post.meta('family_jinja_version'), lang)}">Jinja2</a></p>
+                % endif
+                % if post.meta('family_variants'):
+                <p class="variantsline"><a href="${post.permalink(lang)}#variants">${post.meta('family_variants_text')}</a></p>
+                % endif
+                </div>
                 </div>
             </div>
+        % endif
         % endfor
     </ul>
     %endif

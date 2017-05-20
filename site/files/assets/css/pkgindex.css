@@ -10,3 +10,19 @@
 .post-list-item h3 {
     text-align: center;
 }
+
+.theme-versions-index {
+    text-align: center;
+}
+
+.demo-thumbnail {
+    width: 500px;
+    margin: 10px auto;
+}
+
+.demo-thumbnail-link {
+    font-style: italic;
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+}

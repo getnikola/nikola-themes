@@ -180,14 +180,24 @@ def parse_theme_info(post, pkg_dir, config):
         data['family'] = c.get('Family', 'family', fallback=theme)
         data['family_head'] = data['family'] == theme
         if data['engine'] == 'mako':
-            data['family_mako_variant'] = theme
-            data['family_jinja_variant'] = c.get('Family', 'jinja_variant', fallback=None)
+            data['family_mako_version'] = theme
+            _other = c.get('Family', 'jinja_version', fallback=None)
+            data['family_jinja_version'] = _other
+            data['show_family_data'] = bool(_other)
         else:
-            data['family_mako_variant'] = c.get('Family', 'mako_variant', fallback=None)
-            data['family_jinja_variant'] = theme
+            data['family_jinja_version'] = theme
+            _other = c.get('Family', 'mako_version', fallback=None)
+            data['family_mako_version'] = _other
+            data['show_family_data'] = bool(_other)
+
         data['family_variants'] = [i.strip() for i in c.get('Family', 'variants', fallback='').split(',')]
+        data['family_variants'] = [i for i in data['family_variants'] if i]  # remove empty strings
+        _variants_count = len(data['family_variants'])
+        data['family_variants_text'] = '1 variant' if _variants_count == 1 else '{0} variants'.format(_variants_count)
+
+        data['show_family_data'] = data['show_family_data'] or bool(data['family_variants'])
         data['bootswatch'] = c.getboolean('Nikola', 'bootswatch', fallback=False)
-        data['tags'] = 'theme,' + data['engine']
+        data['tags'] = 'newmeta,theme,' + data['engine']
         data['license'] = c.get('Theme', 'license', fallback=None)
         data['author'] = c.get('Theme', 'author', fallback=None)
         data['author_url'] = c.get('Theme', 'author_url', fallback=None)
@@ -213,6 +223,7 @@ def parse_theme_info(post, pkg_dir, config):
         if data['parent'] is None and theme != 'base':
             raise ValueError("Theme {0} has no parent.".format(theme))
     else:
+        # Old-style metadata
         if os.path.exists(engine):
             post.add_dependency(engine)
             with io.open(engine, 'r', encoding='utf-8') as f:
@@ -234,6 +245,9 @@ def parse_theme_info(post, pkg_dir, config):
                                'bootstrap3' in data['chain']) and
                               'bootstrap3-gradients' not in data['chain'])
         data['tags'] = 'theme,' + data['engine']
+        data['family'] = theme
+        data['family_head'] = True
+        data['family_{0}_version'.format(data['engine'])] = theme
 
     return data
 
