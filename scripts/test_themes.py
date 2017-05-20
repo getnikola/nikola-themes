@@ -9,13 +9,16 @@ import glob
 import os
 import sys
 
-import colorama
 
 from nikola import utils
 
 
 def error(msg):
-    print(colorama.Fore.RED + "ERROR:" + msg)
+    print("\x1b[31;1mERROR:", msg)
+
+
+def warning(msg):
+    print("\x1b[33;1mWARNING:", msg)
 
 
 def theme_list():
@@ -66,6 +69,10 @@ def sanity_check(theme=None):
     if utils.get_asset_path('README.md', themes) is None:
         error("theme '{0}' has no README.md".format(theme))
 
+    # Ensure the theme has a meta file
+    if utils.get_asset_path(theme + '.theme', themes) is None:
+        warning("theme '{0}' has no {0}.theme meta file".format(theme))
+
 
 def is_asset_duplicated(path, themes):
     # First get the path for the asset with whole theme chain
@@ -91,7 +98,6 @@ blacklist = (
 )
 
 if __name__ == "__main__":
-    colorama.init()
     if len(sys.argv) == 1:
         sanity_check()
     else:
