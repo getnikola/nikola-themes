@@ -1,4 +1,5 @@
-This theme has almost no styling, it's meant as a basis from which other
-themes can be developed.
+This theme has no styling information beyond what is built in for handling
+reStructuredText and IPython.
 
-Therefore, most "advanced" features, such as slides or galleries, are broken.
+This template supports all the functionality of nikola and can be used for
+building out framework agnostic themes.
