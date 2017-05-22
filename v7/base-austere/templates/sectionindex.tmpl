@@ -1,5 +1,6 @@
 ## -*- coding: utf-8 -*-
 <%inherit file="index.tmpl"/>
+<%namespace name="feed" file="feed_helper.tmpl" import="*"/>
 
 <%block name="extra_head">
     ${parent.extra_head()}
@@ -15,7 +16,7 @@
         % if generate_atom:
             <p class="feedlink"><a href="${_link('section_index_atom', posts[0].section_slug())}" type="application/atom+xml">${messages('Updates')}</a></p>
         % endif
-    </header>    
+    </header>
     ${parent.content()}
 </div>
 </%block>

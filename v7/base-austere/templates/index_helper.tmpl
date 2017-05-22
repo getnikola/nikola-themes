@@ -1,5 +1,4 @@
 ## -*- coding: utf-8 -*-
-<%namespace name="math" file="math_helper.tmpl"/>
 <%def name="html_pager()">
     %if prevlink or nextlink:
         <nav class="postindexpager">
@@ -17,8 +16,4 @@
         </ul>
         </nav>
     %endif
-</%def>
-
-<%def name="mathjax_script(posts)">
-    ${math.math_scripts_ifposts(posts)}
 </%def>

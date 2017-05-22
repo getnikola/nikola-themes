@@ -1,5 +1,4 @@
 ## -*- coding: utf-8 -*-
-<%namespace name="base" file="base_helper.tmpl" import="*"/>
 
 <%def name="html_header()">
     <header id="header">
@@ -36,7 +35,7 @@
             <ul>
             %for suburl, text in url:
                 % if rel_link(permalink, suburl) == "#":
-                    <li class="active"><a href="${permalink}">${text} <span class="sr-only">${messages("(active)", lang)}</span></a></li>
+                    <li class="active"><a href="${permalink}" aria-label="${messages('(active)', lang)}">${text}</a></li>
                 %else:
                     <li><a href="${suburl}">${text}</a></li>
                 %endif
@@ -44,7 +43,7 @@
             </ul>
         % else:
             % if rel_link(permalink, url) == "#":
-                <li class="active"><a href="${permalink}">${text} <span class="sr-only">${messages("(active)", lang)}</span></a></li>
+                <li class="active"><a href="${permalink}" aria-label="${messages('(active)', lang)}">${text}</a></li>
             %else:
                 <li><a href="${url}">${text}</a></li>
             %endif
@@ -60,7 +59,13 @@
     %if len(translations) > 1:
         <div id="toptranslations">
             <h2>${messages("Languages:")}</h2>
-            ${base.html_translations()}
+            <ul class="translations">
+            %for langname in sorted(translations):
+                %if langname != lang:
+                    <li><a href="${abs_link(_link("root", None, langname))}" rel="alternate" hreflang="${langname}">${messages("LANGUAGE", langname)}</a></li>
+                %endif
+            %endfor
+            </ul>
         </div>
     %endif
 </%def>
