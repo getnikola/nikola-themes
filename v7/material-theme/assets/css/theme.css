@@ -204,9 +204,14 @@ span.vcard img.img-circle {
     margin: 20px;
 }
 
-ul > li {
-    list-style: none;
-}
+ ul > li {
+     list-style: disc;
+     margin-top: 3px
+ }
+ 
+ ul {
+    padding-left: 25px;
+ } 
 
 .postlist a.reference > i {
     position: relative;
