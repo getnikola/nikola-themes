@@ -1,0 +1,41 @@
+{#  -*- coding: utf-8 -*- #}
+{% macro html_title() %}
+    <h1 class="p-name" itemprop="headline name">{{ title|e }}</h1>
+    {% if link %}
+            <p><a href='{{ link }}'>{{ messages("Original site") }}</a></p>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro html_tags(post) %}
+    {% if post.tags %}
+        &nbsp;&nbsp;|&nbsp;&nbsp;More posts about
+        {% for tag in post.tags %}
+            <a class="tag" href="{{ _link('tag', tag) }}"><span class="badge badge-info">{{ tag }}</span></a>
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
+
+
+{% macro html_pager(post) %}
+    {% if post.prev_post or post.next_post %}
+        <ul class="pager">
+        {% if post.prev_post %}
+            <li class="previous">
+                <a href="{{ post.prev_post.permalink() }}" rel="prev">&larr; {{ messages("Previous post") }}</a>
+            </li>
+        {% endif %}
+        {% if post.next_post %}
+            <li class="next">
+                <a href="{{ post.next_post.permalink() }}" rel="next">{{ messages("Next post") }} &rarr;</a>
+            </li>
+        {% endif %}
+        </ul>
+    {% endif %}
+{% endmacro %}
+
+{% macro mathjax_script(post) %}
+    {% if post.is_mathjax %}
+        <script src="/assets/js/mathjax.js"></script>
+    {% endif %}
+{% endmacro %}

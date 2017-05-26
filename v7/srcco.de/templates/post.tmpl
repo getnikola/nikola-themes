@@ -1,0 +1,28 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'post_helper.tmpl' as helper with context %}
+{% import 'comments_helper.tmpl' as comments with context %}
+{% extends 'base.tmpl' %}
+{% block extra_head %}
+{% if post.meta('keywords') %}
+    <meta name="keywords" content="{{ post.meta('keywords')|e }}">
+{% endif %}
+{% endblock %}
+{% block content %}
+    <article class="post-{{ post.meta('type') }}">
+    <div class="h-entry" itemscope="itemscope" itemtype="http://schema.org/Article">
+    {{ helper.html_title() }}
+    <small>
+        Posted: <time class="published dt-published" datetime="{{ post.date.isoformat() }}" itemprop="datePublished">{{ post.formatted_date(date_format) }}</time>
+		{{ helper.html_tags(post) }}
+    </small>
+    <div class="e-content" itemprop="articleBody text">
+    {{ post.text() }}
+    </div>
+    {% if post.description() %}
+        <meta content="{{ post.description() }}" itemprop="description">
+    {% endif %}
+    </div>
+    {{ helper.html_pager(post) }}
+    {{ helper.mathjax_script(post) }}
+    </article>
+{% endblock %}

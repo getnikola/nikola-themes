@@ -1,0 +1,46 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'base_helper.tmpl' as base with context %}
+{% import 'annotation_helper.tmpl' as annotations with context %}
+{{ set_locale(lang) }}
+<!DOCTYPE html>
+<html
+lang="{{ lang }}">
+<head>
+    {{ base.html_head() }}
+    {% block extra_head %}
+    {% endblock %}
+    {{ extra_head_data }}
+</head>
+<body>
+    <div id="wrp">
+        <div id="cont">
+            <div id="page">
+                <header>
+                    <h1>
+                        <a href="{{ abs_link('/') }}" title="{{ blog_title }}" rel="home">{{ blog_title }}</a>
+                    </h1>
+                </header>
+                <div id="body">
+                    <nav>
+                        <ul>
+                            <li><a href="{{ abs_link('/') }}" title="Home" rel="home"><i class="fa fa-fw fa-home"></i></a></li>
+                            <li><a href="{{ abs_link('/categories/') }}" title="Tags"><i class="fa fa-fw fa-tags"></i></a></li>
+                            <li><a href="{{ abs_link('/rss.xml') }}" title="RSS feed"><i class="fa fa-fw fa-rss"></i></a></li>
+                            <li><a href="{{ abs_link('/pages/about.html') }}" title="About"><i class="fa fa-fw fa-user"></i></a></li>
+                            <li><a href="https://github.com/hjacobs" title="My GitHub repo"><i class="fa fa-fw fa-github"></i></a></li>
+                        </ul>
+                    </nav>
+                    <div id="content">
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+                <div id="ftr">
+                </div>
+            </div>
+        </div>
+    </div>
+	<footer>
+        <small>{{ content_footer }}</small>
+	</footer>
+    {{ base.late_load_js() }}
+</body>

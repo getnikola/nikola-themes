@@ -1,0 +1,254 @@
+body
+{
+	margin: 0;
+	color: #8c837a;
+	background: #494949;
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}
+a
+{
+	color: #417ebe;
+	text-decoration: none;
+}
+a:hover
+{
+	color: #a7794f;
+	text-decoration: underline;
+}
+hr {
+    border-top: 1px solid #8c837a;
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+}
+img
+{
+	border: none;
+    opacity: 0.9;
+}
+p
+{
+	margin: 10px 0;
+}
+h1
+{
+	font-size: 17px;
+	font-weight: bold;
+	color: #505050;
+	margin: 0 0 16px 0;
+	text-transform: uppercase;
+}
+.teaser h1 {
+    padding-right: 160px;
+    position: relative;
+}
+.teaser h1 time {
+    position: absolute;
+    text-align: right;
+	color: #8c837a;
+    top: 1px;
+    right: 0px;
+    font-size: 14px;
+}
+h2
+{
+	font-size: 16px;
+	font-weight: bold;
+	color: #6d6964;
+	margin: 16px 0 10px 0;
+}
+h3
+{
+	font-size: 14px;
+	font-weight: bold;
+	color: #8c837a;
+	margin: 10px 0 6px 0;
+}
+ul
+{
+	margin: 10px 0 10px 20px;
+	padding: 0;
+}
+li 
+{
+	background: transparent url(../img/bullet.png) no-repeat 2px 4px;
+	padding: 0 0 0 24px;
+	margin: 6px 0px;
+	list-style: none; 
+}
+#wrp
+{
+	margin: 0;
+	background: #5c5c5c url(../img/wrp.png) repeat top left;
+}
+#cont
+{
+	width: 815px;
+	text-align: left;
+	margin: 0 auto;
+	background: transparent url(../img/cont.png) repeat-y top left;
+}
+#page 
+{
+	position: relative;
+	width: 775px;
+	margin: 0px 20px;
+	background: #fbf7f1 url(../img/page.png) repeat-y top left;
+}
+header
+{
+	height: 248px;
+	background: transparent url(../img/header.jpg) no-repeat top left;
+}
+header h1
+{
+	display: none;
+}
+nav
+{
+    font-size: 20px;
+	border-right: 1px solid #d3c8c4;
+	float: left;
+	width: 50px;
+	margin-left: 18px;
+	display: inline; /* FIX IE double margin bug */
+    opacity: 0.8;
+}
+nav:hover {
+    opacity: 1.0;
+}
+nav ul
+{
+	margin: 0;
+	padding: 10px 0 0 0;
+}
+nav li
+{
+	padding: 0;
+	list-style: none;
+    background: transparent;
+	margin: 0 0 10px 0;
+}
+nav li a {
+    display: block;
+    padding: 0 10px;
+}
+#content
+{
+	margin-left: 130px;
+	width: 610px;
+}
+#ftr
+{
+	position: relative;
+	clear: both;
+	font-size: 11px;
+	height: 47px;
+	background: transparent url(../img/ftr.jpg) no-repeat top left;
+}
+
+footer
+{
+	background: transparent url(../img/footer.png) repeat-x top left;
+	padding: 20px;
+	text-align: left;
+}
+footer small
+{
+	font-size: 10px;
+	color: #606060;
+}
+footer small a
+{
+	color: #606060;
+	text-decoration: none;
+}
+
+ul.pager {
+    margin: 40px 0 0 0;
+}
+ul.pager li {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+ul.pager .next {
+    float: right;
+    width: 300px;
+    text-align: right;
+}
+
+article {
+    margin-bottom: 32px;
+}
+article small {
+    display: block;
+    margin: -10px 0 20px 0;
+}
+img.left {
+    float: left;
+    margin: 0 16px 16px 0;
+    max-height: 140px;
+    max-width: 140px;
+}
+img.center {
+    display: block;
+    margin: 16px auto;
+    max-height: 300px;
+    max-width: 300px;
+}
+.clear {
+    clear: both;
+}
+.option-group .option,
+tt.literal {
+    color: #444;
+}
+dd {
+    margin-left: 2em;
+}
+ul.breadcrumb {
+    margin: 10px 0;
+    padding: 0;
+}
+ul.breadcrumb li {
+    float: left;
+    background: transparent;
+    padding: 0 1em 0 0;
+    margin: 0;
+}
+pre {
+    overflow-x: auto;
+}
+
+@media (max-width: 480px) {
+    #cont {
+        width: 408px;
+        background-size: 100% 1px;
+    }
+    #page {
+        width: 388px;
+        margin: 0 10px;
+        background-size: 100% 217px;
+    }
+    header {
+        height: 124px;
+        background-size: 100% 124px;
+    }
+    nav { margin: 0 16px 16px 0; width: auto; }
+    nav ul { padding: 0; }
+    nav li a { padding: 0 10px 0 16px; }
+    .teaser h1 { padding: 0; }
+    .teaser h1 time { position: static; display: block; }
+    
+    #content {
+        width: auto;
+        margin: 0 16px;
+    }
+    #ftr {
+        height: 25px;
+        background-size: 100% 25px;
+    }
+}
