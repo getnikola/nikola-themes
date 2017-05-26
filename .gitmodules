@@ -1,9 +1,6 @@
 [submodule "nikola-master"]
 	path = nikola-master
 	url = git://github.com/ralsina/nikola.git
-[submodule "v7/srcco.de"]
-	path = v7/srcco.de
-	url = git@github.com:ralsina/srcco.de.git
 [submodule "v7/cadair"]
 	path = v7/cadair
 	url = git@github.com:Cadair/cadair-nikola-theme.git
