@@ -1,0 +1,25 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+
+<%block name="content">
+  <div class="meta-header">
+    <div class="container">
+      <div class="title">
+	${title}
+      </div>
+    </div>
+  </div>
+  <div id="post-list" class="main">
+    <div class="container">
+    %if posts:
+    <ul class="postlist">
+    % for post in posts:
+          <li> <time class="listdate" datetime="${post.date.isoformat()}" title="${post.formatted_date(date_format)}">${post.formatted_date('%Y-%m-%d')}</time> <a href="${post.permalink()}" class="listtitle">${post.title()|h}</a> </li>
+    % endfor
+    </ul>
+    %else:
+    <p>${messages("No posts found.")}</p>
+    %endif
+    </div>
+  </div>
+</%block>

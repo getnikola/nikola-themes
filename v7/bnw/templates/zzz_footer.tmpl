@@ -1,0 +1,47 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+
+<%def name="html_footer()">
+    <footer>
+        <div class="container">
+            <div class="social">
+                %if email:
+                <div class="social-entry">
+                    <a href="mailto:${email}" target="_blank">
+                        <i class="fa fa-envelope-o"></i>
+                    </a>
+                </div>
+                %endif
+
+                %if twitter:
+                <div class="social-entry">
+                    <a href="http://twitter.com/${twitter}" target="_blank">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                </div>
+                %endif
+
+                %if github:
+                <div class="social-entry">
+                    <a href="https://github.com/${github}" target="_blank">
+                        <i class="fa fa-github"></i>
+                    </a>
+                </div>
+                %endif
+
+                <div class="social-entry">
+                    <a href="${_link('rss', None, lang)}" target="_blank">
+                        <i class="fa fa-rss"></i> 
+                    </a>
+                </div>
+            </div>
+            %if content_footer:
+                <div class="copyright">
+                    ${content_footer}
+                    ${template_hooks['page_footer']()}
+                </div>
+           %endif
+           ${template_hooks['page_footer']()}
+        </div>
+    </footer>
+</%def>

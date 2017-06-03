@@ -1,0 +1,31 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+
+<%block name="content">
+  <div class="meta-header">
+    <div class="container">
+      <div class="title">
+        ${title}
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="container">
+    %if items:
+    <ul class="postlist">
+    % for text, link, count in items:
+        <li><a href="${link}">${text}</a>
+        % if count:
+        (${count})
+        % endif
+    % endfor
+    </ul>
+    %else:
+    <p>${messages("Nothing found.")}</p>
+    %endif
+
+    </div>
+  </div>
+
+</%block>
