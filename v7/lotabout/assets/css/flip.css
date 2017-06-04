@@ -1,0 +1,117 @@
+
+.flip_container p a {
+  margin: 0;
+  text-transform: uppercase;
+  /* font-size: 22px; */
+  /* font-weight: bold; */
+  /* color: #3A8ABD; */
+  /* text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.6); */
+}
+
+/* Flip ==== */
+@media (min-width: 0px) {
+.flip_container,
+.flipper,
+.front,
+.back {
+  /*width: 100px;*/
+  height: 36px;
+}
+
+.flip_container .front a {
+  font-size: 18px;
+}
+
+.flip_container .back a {
+  font-size: 14px;
+}
+}
+
+@media (min-width: 641px) {
+.flip_container,
+.flipper,
+.front,
+.back {
+  width: 240px;
+  height: 50px;
+}
+
+.flip_container .front a {
+  font-size: 22px;
+}
+.flip_container .back a {
+  font-size: 16px;
+}
+}
+.flip_container {
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  perspective: 1000;
+  margin: -15px auto 0px;
+  position: relative;
+  display:inline-block;
+}
+.flip_container:hover .front {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+.flip_container:hover .back {
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+.flip_container .flipper {
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  transition: 0.5s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  margin: auto;
+  position: relative;
+}
+.flip_container .front, .flip_container .back {
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  transition: 0.5s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  box-shadow: 0px 3px 5px rgba(153,153,153,0.3);
+  display: table;
+  text-align: center;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.flip_container .front p, .flip_container .back p {
+  display: table-cell;
+  vertical-align: middle;
+}
+.flip_container .front {
+  -webkit-transform: rotateY(0deg);
+  -moz-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  -o-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+  z-index: 2;
+}
+.flip_container .back {
+  -webkit-transform: rotateY(-180deg);
+  -moz-transform: rotateY(-180deg);
+  -ms-transform: rotateY(-180deg);
+  -o-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+}

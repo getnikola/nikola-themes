@@ -1,0 +1,81 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+
+<%def name="html_header()">
+
+    <header id="header" class="header transparent">
+        <div class="container">
+            <div class="scroll top">
+                <a href='#'><i class="icon-chevron-up icon-large"></i></a>
+            </div>
+
+            ${html_site_title()}
+            ${html_navigation_links()}
+            ##%if search_form:
+                ##<div class="searchform" role="search">
+                    ##${search_form}
+                ##</div>
+            ##%endif
+        </div>
+        <div class='separator clearfix'></div>
+    </header>
+</%def>
+
+
+<%def name="html_site_title()">
+    <div class="brand">
+        <div class="flip_container">
+            <div class="flipper">
+                <div class="front">
+                    <p><a href="${abs_link('/')}" title="${blog_title}" rel="home">
+                    %if logo_url:
+                        <img src="${logo_url}" alt="${blog_title}" id="logo">
+                    %endif
+
+                    %if show_blog_title:
+                        <span id="blog-title">${blog_title}</span>
+                    %endif
+                    </a></p>
+                </div>
+
+                %if show_blog_title and blog_description:
+                <div class="back">
+                    <p><a href="${abs_link('/')}" title="${blog_description}" rel="home">
+                        <span id="blog-description">${blog_description}</span>
+                    </a></p>
+                </div>			
+                %endif
+            </div>
+        </div>
+    </div>
+</%def>
+
+
+<%def name="html_navigation_links()">
+    <nav id="menu" role="navigation">
+    <ul>
+    %for url, text in navigation_links[lang]:
+        % if isinstance(url, tuple):
+            <li> ${text}
+            <ul>
+            %for suburl, text in url:
+                % if rel_link(permalink, suburl) == "#":
+                    <li class="active"><a href="${permalink}">${text}</a></li>
+                %else:
+                    <li><a href="${suburl}">${text}</a></li>
+                %endif
+            %endfor
+            </ul>
+        % else:
+            % if rel_link(permalink, url) == "#":
+                <li class="active"><a href="${permalink}">${text}</a></li>
+            %else:
+                <li><a href="${url}">${text}</a></li>
+            %endif
+        % endif
+    %endfor
+    ${template_hooks['menu']()}
+    ${template_hooks['menu_alt']()}
+    </ul>
+    </nav>
+</%def>

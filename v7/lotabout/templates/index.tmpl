@@ -1,0 +1,106 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="index_helper.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%inherit file="base.tmpl"/>
+
+<%block name="content">
+
+
+    % for post in posts:
+    <div class="post-entry">
+        <div class="num-of-comments">
+            % if not post.meta('nocomments'):
+                ##${comments.comment_link(post.permalink(), post.base_path)}
+                ${comments.comment_link(post.permalink(), post.base_path)}
+            % endif
+        </div>
+        <div class="info">
+            <div class="title"><a
+            href="${post.permalink()}">${post.title()}</a></div>
+            <div class="tags">
+                <ul>
+                    %for tag in post.tags:
+                    <li>
+                    <a 
+                    %if theme_tag is not UNDEFINED:
+                        %for (theme, tag_name) in theme_tag.items():
+                            %if tag_name == tag:
+                                class='tag-theme ${theme}'
+                            %endif
+                        %endfor
+                    %endif
+                    href="${_link('tag', tag)}" rel="tag">${tag}</a>
+                    </li>
+                    %endfor
+                </ul>
+            </div>
+            <time class="timeago" datetime="${post.date.isoformat()}">${post.formatted_date('%Y-%m-%d')}</time>
+            <div class="description"> ${post.description()} </div>
+        </div>
+    </div>
+    % endfor
+
+    ##% for post in posts:
+    ##<div class='entry-overview clearfix'>
+        ##<div class=date>
+            ##<time class="timeago" datetime="${post.date.isoformat()}">${post.formatted_date('%Y-%m-%d')}</time>
+        ##</div>
+        ##<div class=detail>
+            ##<h1 class="title"><a href="${post.permalink()}">${post.title()}</a></h1>
+
+            ##%if post.tags:
+            ##<div class='index-tag'>
+                ##<span class='muted'> <i class="icon-tag"></i> </span>
+
+                ##%for tag in post.tags:
+                ##<a 
+                ##%if theme_tag is not UNDEFINED:
+                    ##%for (theme, tag_name) in theme_tag.items():
+                        ##%if tag_name == tag:
+                            ##class='tag-theme ${theme}'
+                        ##%endif
+                    ##%endfor
+                ##%endif
+                ##href="${_link('tag', tag)}" rel="tag">${tag}</a>
+                ##%endfor
+            ##</div>
+            ##%endif
+
+            ##<div class='summary clearfix'>
+                ##<small> 
+                ##${post.description()}
+                ##</small> 
+            ##</div>
+        ##</div>
+        ##<div class="separator"></div>
+    ##</div>
+    ##% endfor
+
+    ##% for post in posts:
+        ##<div class="post">
+            ##<h1 class="title"><a href="${post.permalink()}">${post.title()}</a></h1>
+            ##<div class="meta">
+                ##<div class="authordate">
+                    ##<time class="timeago" datetime="${post.date.isoformat()}">${post.formatted_date(date_format)}</time>
+                ##</div>
+                ##<div class="stats">
+                ##% if not post.meta('nocomments'):
+                    ##${comments.comment_link(post.permalink(), post.base_path)}
+                ##% endif
+                ##</div>
+            ####${arusahni.html_tags(post)}
+            ##</div>
+            ####<div class="body">
+            ####%if index_teasers:
+                ####${post.text(teaser_only=True)}
+            ####%else:
+                ####${post.text(teaser_only=False)}
+            ####%endif
+            ####</div>
+        ##</div>
+    ##% endfor
+
+    ${helper.html_pager()}
+    ${comments.comment_link_script()}
+    ${helper.mathjax_script(posts)}
+</%block>

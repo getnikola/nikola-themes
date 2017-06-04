@@ -1,0 +1,39 @@
+html {
+  background-color: #e9eaf5;
+}
+body {
+  background-color: #e9eaf5;
+  background-repeat: none;
+  background-image: -webkit-linear-gradient(150deg, #c6c9e5 0px, #e9eaf5 300px);
+  background-image: -moz-linear-gradient(150deg, #c6c9e5 0px, #e9eaf5 300px);
+  background-image: -o-linear-gradient(150deg, #c6c9e5 0px, #e9eaf5 300px);
+  background-image: linear-gradient(150deg, #c6c9e5 0px, #e9eaf5 300px);
+}
+pre {
+  /*background-color: #d7d9ed;*/
+  background-color: rgba(215, 217, 237, 0.7)
+}
+.header {
+  background-color: #e9eaf5;
+}
+.front a {
+  color: #888;
+  text-shadow: 1px 1px 0px #fff;
+}
+.front {
+  background-color: #dee0f0;
+}
+.back a {
+  color: #333;
+  text-shadow: 1px 1px 0px #fff;
+}
+.back {
+  background-color: #dee0f0;
+}
+body {
+  background-repeat: none;
+  background-image: -webkit-linear-gradient(200deg, #c6c9e5 0px, #e9eaf5 300px);
+  background-image: -moz-linear-gradient(200deg, #c6c9e5 0px, #e9eaf5 300px);
+  background-image: -o-linear-gradient(200deg, #c6c9e5 0px, #e9eaf5 300px);
+  background-image: linear-gradient(200deg, #c6c9e5 0px, #e9eaf5 300px);
+}

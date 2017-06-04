@@ -1,0 +1,32 @@
+html {
+  background-color: #fcfcfa;
+}
+body {
+  background-color: #fcfcfa;
+  background-repeat: none;
+  background-image: -webkit-linear-gradient(150deg, #e9e9da 0px, #fcfcfa 300px);
+  background-image: -moz-linear-gradient(150deg, #e9e9da 0px, #fcfcfa 300px);
+  background-image: -o-linear-gradient(150deg, #e9e9da 0px, #fcfcfa 300px);
+  background-image: linear-gradient(150deg, #e9e9da 0px, #fcfcfa 300px);
+}
+pre {
+  /*background-color: #f2f2ea;*/
+  background-color: rgba(242, 242, 234, 0.7);
+}
+.header {
+  background-color: #fcfcfa;
+}
+.front a {
+  color: #888;
+  text-shadow: 1px 1px 0px #fff;
+}
+.front {
+  background-color: #f6f6f0;
+}
+.back a {
+  color: #333;
+  text-shadow: 1px 1px 0px #fff;
+}
+.back {
+  background-color: #f6f6f0;
+}

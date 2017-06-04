@@ -1,0 +1,1133 @@
+/*body {*/
+   /*[> For showing gradient effects without blocked by html background <]*/
+    /*min-height: 400px;*/
+    /*[> font: 18px/25px Helvetica, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei; <]*/
+    /*[> font: 18px/25px'Palatino', 'Palatino Linotype', 'Georgia', serif, Fangsong, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei; <]*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*color: #3C3C3C;*/
+/*}*/
+
+/*h1,h2,h3,h4,h5,h6 {*/
+    /*font-family: 'Palatino', 'Palatino Linotype', 'Georgia', Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, serif;*/
+    /*text-shadow: 1px 1px 1px;*/
+/*}*/
+
+/*body, button, input, select, textarea{*/
+    /*font-family: Avenir, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;*/
+/*}*/
+
+/*[>header<]*/
+/*.header {*/
+    /*position: fixed;*/
+    /*z-index: 199;*/
+    /*display: block;*/
+/*}*/
+
+/*.header {*/
+    /*width: 100%;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*top: 0;*/
+    /*padding-top:15px;*/
+    /*opacity: 1;*/
+/*}*/
+
+/*.header.transparent {*/
+    /*background: transparent;*/
+/*}*/
+
+/*[> separator <]*/
+/*.separator {*/
+    /*border-bottom: 1px dotted #ddd;*/
+    /*font-size: 16px;*/
+    /*color: #777;*/
+    /*text-align: center;*/
+/*}*/
+
+/*.header.transparent .separator {*/
+    /*background: transparent;*/
+    /*opacity: 0;*/
+/*}*/
+
+/*[> container <]*/
+/*.container {*/
+    /*margin: 0px auto;*/
+    /*padding: 0;*/
+/*}*/
+
+/*.header .container {*/
+    /*position: relative;*/
+/*}*/
+
+/*[> scroll top <]*/
+/*.scroll {*/
+    /*position: absolute;*/
+    /*z-index: 20;*/
+    /*left: 0px;*/
+/*}*/
+
+/*[> brand banner <]*/
+/*.brand {*/
+    /*position: absolute;*/
+    /*left: 0px;*/
+    /*z-index: 50;*/
+    /*width: 35%;*/
+    /*text-align: left;*/
+/*}*/
+
+/*[> dynamic header <]*/
+/*.dynamic .scroll,*/
+/*.navigation {*/
+    /*opacity: 1;*/
+/*}*/
+/*.scroll,*/
+/*.dynamic .navigation {*/
+    /*opacity: 0;*/
+/*}*/
+/*.scroll a,*/
+/*.dynamic .navigation a {*/
+    /*pointer-events: none;*/
+    /*cursor: default;*/
+/*}*/
+/*.dynamic .scroll a {*/
+    /*pointer-events: auto;*/
+    /*cursor: pointer;*/
+/*}*/
+
+/*.dynamic .brand {*/
+    /*left: 65%;*/
+    /*text-align: right;*/
+/*}*/
+
+/*.separator,*/
+/*nav,*/
+/*.scroll,*/
+/*.brand {*/
+    /*line-height: 0;*/
+    /*vertical-align: top;*/
+/*}*/
+
+
+/*.scroll,*/
+/*nav,*/
+/*.brand {*/
+    /*transition: left 0.5s ease-in-out 0s, opacity 0.5s ease-in-out 0s, color 0.5s ease-in-out 0s;*/
+/*}*/
+
+/*.dynamic .brand {*/
+    /*left: 65%;*/
+    /*text-align: right;*/
+/*}*/
+
+/*nav a,*/
+/*.scroll a {*/
+    /*color: #777;*/
+/*}*/
+
+/*nav ul {*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*list-style: none;*/
+/*}*/
+/*nav ul li {*/
+    /*display: inline;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+/*}*/
+
+/*.scroll,*/
+/*nav,*/
+/*.brand {*/
+    /*transition: left 0.5s ease-in-out 0s, opacity 0.5s ease-in-out 0s, color 0.5s ease-in-out 0s;*/
+/*}*/
+/*.dynamic .scroll,*/
+/*nav {*/
+    /*opacity: 1;*/
+/*}*/
+/*.scroll,*/
+/*.dynamic nav {*/
+    /*opacity: 0;*/
+/*}*/
+/*.scroll a,*/
+/*.dynamic nav a {*/
+    /*pointer-events: none;*/
+    /*cursor: default;*/
+/*}*/
+
+
+/*nav {*/
+    /*position: absolute;*/
+    /*right: 0px;*/
+    /*z-index: 40;*/
+/*}*/
+
+/*.front a ,*/
+/*.back a ,*/
+/*.tags a ,*/
+/*.archive a,*/
+/*.pagination a,*/
+/*.scroll a,*/
+/*.social a,*/
+/*nav a {*/
+    /*text-decoration: none;*/
+/*}*/
+
+/*a.active,*/
+/*h1 a:hover,*/
+/*h2 a:hover,*/
+/*h3 a:hover,*/
+/*.pagination a:hover,*/
+/*.archive a:hover,*/
+/*.tags a:hover,*/
+/*.tagcloud a:hover,*/
+/*.index-tag a:hover,*/
+/*nav a:hover,*/
+/*.scroll a:hover,*/
+/*.social a:hover*/
+/*{*/
+    /*background-color: #777;*/
+    /*color: #FCFCFA;*/
+/*}*/
+
+
+/*[> footer <]*/
+/*.footer {*/
+    /*border-top: 1px dotted #ddd;*/
+    /*padding-top: 20px;*/
+    /*margin-top:15px;*/
+    /*margin-bottom: 15px;*/
+    /*font-size: 16px;*/
+    /*color: #777;*/
+    /*text-align: center;*/
+/*}*/
+/*.footer a {*/
+    /*color: #777;*/
+/*}*/
+/*.footer p {*/
+    /*margin: 0;*/
+    /*line-height: 40px;*/
+/*}*/
+
+/*.pull-left {*/
+    /*float:left;*/
+/*}*/
+/*.pull-right {*/
+    /*float:right;*/
+/*}*/
+
+
+/*.social a,*/
+/*.pagination a,*/
+/*.scroll a {*/
+  /*display: inline-block;*/
+/*}*/
+
+
+/*.social a {*/
+  /*font-size: 16px;*/
+  /*line-height: 16px;*/
+  /*padding: 15px 5px;*/
+/*}*/
+/*.social ul {*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*list-style: none;*/
+    /*display: inline;*/
+/*}*/
+/*.social ul li {*/
+    /*display: inline;*/
+    /*margin: 0 2px;*/
+    /*padding: 0;*/
+/*}*/
+
+/*[> main content <]*/
+
+/*.body {*/
+    /*clear: both;*/
+    /*font-size: 1.1em;*/
+/*}*/
+
+/*[> table of contents <]*/
+/*div.topic {*/
+    /*border-left: solid;*/
+    /*padding-left: 2em;*/
+/*}*/
+
+/*[> index page entry-overview <]*/
+/*.entry-overview h1,*/
+/*.entry-overview .summary,*/
+/*.entry-overview .summary p {*/
+    /*display: inline;*/
+    /*line-height: 25px;*/
+/*}*/
+/*.entry-overview h1 {*/
+    /*margin: 0;*/
+    /*font-size: 20px;*/
+/*}*/
+
+/*.entry-overview h1,*/
+/*.entry-overview h2,*/
+/*.entry-overview h3,*/
+/*.entry-overview h4,*/
+/*.entry-overview h5,*/
+/*.entry-overview h6 {*/
+    /*text-shadow: none;*/
+/*}*/
+
+/*.entry-overview .summary,*/
+/*.entry-overview .date,*/
+/*.entry-overview .summary small {*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*color: #777;*/
+/*}*/
+
+/*.entry-overview .date {*/
+    /*color: #777;*/
+    /*font-style: italic;*/
+    /*font-family: 'Noticia Text', serif;*/
+/*}*/
+
+/*.clearfix:before, .clearfix:after {*/
+    /*display: table;*/
+    /*clear: both;*/
+    /*content: "";*/
+/*}*/
+
+/*[> anchors <]*/
+
+/*a {*/
+    /*[>color: #432165;<]*/
+    /*color: #4785CC;*/
+/*}*/
+
+/*a {*/
+    /*font: 18px/25px 'Palatino', 'Palatino Linotype', 'Georgia', Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, serif;*/
+/*}*/
+/*[> a {text-decoration: none;} <]*/
+
+/*a:hover {*/
+    /*color: #3b185f;*/
+/*}*/
+
+/*[> h1 a:hover, h2 a:hover, <]*/
+
+/*[> h3 a:hover, h4 a:hover      { color: #432165; text-decoration: underline; } <]*/
+
+/*a:focus,*/
+/*a:active {*/
+    /*outline: none;*/
+/*}*/
+/*h1 a,*/
+/*h2 a,*/
+/*h3 a,*/
+/*h4 a,*/
+/*h5 a,*/
+/*h6 a {*/
+    /*text-decoration: none;*/
+/*}*/
+/*h1 a,*/
+/*h2 a,*/
+/*h3 a,*/
+/*.archive a,*/
+/*.pagination a,*/
+/*.tags a {*/
+    /*line-height: 32px;*/
+    /*padding: 3px;*/
+/*}*/
+
+/*[> index tag links <]*/
+
+/*.index-tag {*/
+    /*font-size: 14px;*/
+    /*color: #777;*/
+/*}*/
+/*.tagcloud a,*/
+/*.index-tag a {*/
+    /*[> color: #7AA0CC; <]*/
+    /*color: #777;*/
+    /*padding: 3px;*/
+    /*text-decoration: none;*/
+/*}*/
+
+/*a.active,*/
+/*h1 a:hover,*/
+/*h2 a:hover,*/
+/*h3 a:hover,*/
+/*.pagination a:hover,*/
+/*.archive a:hover,*/
+/*.tags a:hover,*/
+/*.tagcloud a:hover,*/
+/*.index-tag a:hover,*/
+/*.navigation a:hover,*/
+/*.scroll a:hover,*/
+/*.social a:hover*/
+/*{*/
+    /*background-color: #777;*/
+    /*color: #FCFCFA;*/
+/*}*/
+
+/*[> offseting anchor tag link <]*/
+/*:target:before {*/
+    /*content:"";*/
+    /*display:block;*/
+    /*height:50px; [> fixed header height<]*/
+    /*margin:-50px 0 0; [> negative fixed header height <]*/
+/*}*/
+
+/*[> meta align middle <]*/
+/*.meta {*/
+    /*display: table;*/
+    /*width: 100%;*/
+/*}*/
+
+/*.meta .left{*/
+    /*display: table-cell;*/
+    /*vertical-align: middle;*/
+/*}*/
+
+/*.meta .right{*/
+    /*display: table-cell;*/
+    /*vertical-align: middle;*/
+    /*text-align: right;*/
+/*}*/
+
+/*.meta .tags {*/
+    /*opacity: 0.7;*/
+    /*transition: opacity 0.2s linear 0s;*/
+/*}*/
+/*.meta .tags:hover {*/
+    /*opacity: 1;*/
+/*}*/
+
+/*.meta a {*/
+    /*text-decoration: none;*/
+/*}*/
+
+/*[> Paragraph <]*/
+/*p + p {*/
+  /*text-indent: 1.5em;*/
+/*}*/
+
+/*[> setting size according to screen <]*/
+/*@media (min-width: 0px) {*/
+
+    /*.header .separator {*/
+        /*padding-bottom: 21px;*/
+        /*margin-bottom: 0px;*/
+    /*}*/
+
+    /*.scroll a, .brand a {*/
+        /*font-size: 22px;*/
+        /*line-height: 4px*/
+    /*}*/
+
+    /*.scroll a {*/
+        /*padding: 18px 15px 13px 15px;*/
+        /*margin-top:-15px;*/
+    /*}*/
+
+    /*.entry-overview {*/
+        /*margin: 10px 0px 12px 0px;*/
+        /*clear: left;*/
+    /*}*/
+    /*.entry-overview .separator {*/
+        /*padding-bottom: 2px;*/
+        /*margin-bottom: 2px;*/
+    /*}*/
+/*}*/
+
+/*@media (min-width: 641px) {*/
+    /*.container {*/
+        /*width: 600px;*/
+    /*}*/
+
+    /*nav a {*/
+        /*font-size: 22px;*/
+        /*line-height: 22px;*/
+        /*padding: 12px 8px 9px;*/
+    /*}*/
+
+    /*.body {*/
+        /*padding-top: 50px;*/
+    /*}*/
+
+    /*.header .separator {*/
+        /*padding-bottom: 35px;*/
+        /*margin-bottom: 0px;*/
+    /*}*/
+    /*.separator {*/
+        /*padding-bottom: 28px;*/
+        /*margin-bottom: 28px;*/
+    /*}*/
+
+    /*.scroll, .brand {*/
+        /*height: 36px;*/
+    /*}*/
+
+    /*.scroll a, .brand a {*/
+        /*font-size: 28px;*/
+        /*line-height: 17px*/
+    /*}*/
+
+
+    /*.entry-overview {*/
+        /*margin: 25px 20px 25px 12px;*/
+        /*clear: left;*/
+    /*}*/
+    /*.entry-overview .date {*/
+        /*float: left;*/
+        /*width: 100px;*/
+        /*text-align: left;*/
+        /*line-height: 33px*/
+    /*}*/
+    /*.entry-overview .detail {*/
+        /*margin-left: 140px;*/
+    /*}*/
+    /*.entry-overview .index-tag {*/
+      /*float:right;*/
+    /*}*/
+    /*.entry-overview .separator {*/
+      /*display: none;*/
+    /*}*/
+/*}*/
+
+/*@media (min-width: 1025px) {*/
+    /*[> big landscape tablets, laptops, and desktops <]*/
+    /*.container {*/
+        /*width: 780px;*/
+    /*}*/
+/*}*/
+
+
+/*[> Colors <]*/
+/*.navy {*/
+/*color: #001F3F; }*/
+/*.blue {*/
+/*color: #0074D9; }*/
+/*.aqua {*/
+/*color: #7FDBFF; }*/
+/*.teal {*/
+/*color: #39CCCC; }*/
+/*.olive {*/
+/*color: #3D9970; }*/
+/*.green {*/
+/*color: #2ECC40; }*/
+/*.lime {*/
+/*color: #01FF70; }*/
+/*.yellow {*/
+/*color: #FFDC00; }*/
+/*.orange {*/
+/*color: #FF851B; }*/
+/*.red {*/
+/*color: #FF4136; }*/
+/*.fuchsia {*/
+/*color: #F012BE; }*/
+/*.purple {*/
+/*color: #B10DC9; }*/
+/*.maroon {*/
+/*color: #85144B; }*/
+/*.white {*/
+/*color: #fff; }*/
+/*.silver {*/
+/*color: #ddd; }*/
+/*.gray {*/
+/*color: #aaa; }*/
+/*.black {*/
+/*color: #111; }*/
+
+/*a.green {*/
+    /*color: #2ECC40;*/
+/*}*/
+/*a.green:hover  {*/
+    /*color: #FCFCFA;*/
+    /*background-color: #2ECC40;*/
+/*}*/
+/*a.blue {*/
+    /*color: #0074D9;*/
+/*}*/
+/*a.blue:hover  {*/
+    /*color: #FCFCFA;*/
+    /*background-color: #0074D9;*/
+/*}*/
+/*a.red {*/
+    /*color: #FF4136;*/
+/*}*/
+/*a.red:hover  {*/
+    /*color: #FCFCFA;*/
+    /*background-color: #FF4136;*/
+/*}*/
+
+
+/* ========================================================
+ * */
+/*blockquote {*/
+    /*position: relative;*/
+    /*color: #999;*/
+    /*font-weight:300;*/
+    /*font-family:Avenir, 'Helvetica Neue', 'Microsoft Yahei', 'Hiragino Sans GB', 'Microsoft Sans Serif', 'WenQuanYi Micro Hei', sans-serif;*/
+    /*border-left:1px solid #1abc9c;*/
+    /*padding-left:1em;*/
+    /*margin:1em 3em 1em 2em;*/
+/*}*/
+
+/* ========================================================
+ * Overrite Styles in rst.css */
+/*pre.address {*/
+  /*margin-bottom: 0 ;*/
+  /*margin-top: 0 ;*/
+  /*font: inherit }*/
+
+
+/*pre.literal-block, pre.doctest-block, pre.math, pre.code {*/
+    /*margin-left: 0px;*/
+    /*margin-right: 0px;*/
+/*}*/
+
+/*pre {*/
+    /*padding: 10px;*/
+    /*margin: 7px 0px 10px;*/
+    /*border: 1px solid #DDD;*/
+    /*font-family: Monaco, Menlo, Consolas, "Deja Vu Sans Mono", "Courier New", monospace;*/
+    /*font-size: 0.85em;*/
+    /*overflow: auto;*/
+/*}*/
+
+/*code {*/
+  /*padding: 2px 4px;*/
+  /*background-color: #f7f7f9;*/
+  /*border: 1px solid #BBB;*/
+  /*white-space: nowrap;*/
+  /*-webkit-border-radius: 3px;*/
+  /*-moz-border-radius: 3px;*/
+  /*border-radius: 3px;*/
+/*}*/
+
+/*.linenodiv a {*/
+    /*text-decoration: none;*/
+    /*font-family: Monaco, Menlo, Consolas, "Deja Vu Sans Mono", "Courier New", monospace;*/
+/*}*/
+
+
+
+
+
+
+
+
+/* ======================================================
+ * New format
+ * ======================================================*/
+body {
+   /* For showing gradient effects without blocked by html background */
+    min-height: 400px;
+    /* font: 18px/25px Helvetica, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei; */
+    /* font: 18px/25px'Palatino', 'Palatino Linotype', 'Georgia', serif, Fangsong, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei; */
+    margin: 0;
+    padding: 0;
+    color: #3C3C3C;
+}
+
+/* font for body */
+body, textarea{
+    font-family: Avenir, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+}
+
+
+/* font for all links */
+a {
+    font-family: 'Palatino', 'Palatino Linotype', 'Georgia', Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, serif;
+    font-size: 18px;
+}
+
+.post-entry {
+    margin: 25px 0px;
+    color: #6F6F6F;
+}
+
+.post-entry:hover {
+    color: #444;
+    transition: color 0.2s linear 0s;
+}
+
+.info {
+    position: relative;
+    display: inline-block;
+    width: 80%;
+}
+
+.num-of-comments {
+    float: left;
+    display: inline-block;
+    width: 20%;
+}
+
+.post-entry .title {
+    display: inline-block;
+}
+
+.post-entry .tags {
+    float: right;
+}
+
+.post-entry .tags:after {
+    content: "";
+    border-bottom: 1.5px solid #BBB;
+    position: absolute;
+    width: 100%;
+    left: 0px
+}
+
+.post-entry .tags ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+.post-entry .tags li {
+    text-decoration: none;
+    list-style: none;
+    display: inline-block;
+}
+
+.post-entry time {
+    float: right;
+    clear: both;
+    font-size: 0.9em;
+}
+
+.post-entry .description {
+    padding-right: 120px;
+    font-size: 0.9em;
+}
+
+
+#main a {
+    text-decoration: none;
+    color: rgb(30, 70, 180);
+}
+
+#main a:hover, 
+.social a:hover,
+nav a:hover,
+.scroll a:hover
+{
+    background-color: #777;
+    color: #FCFCFA;
+}
+
+.post-entry .tags a {
+    padding-top: 0.5ex;
+    padding-left: 0.2ex;
+    padding-right: 0.2ex;
+    border-radius: 2px 2px 0px 0px;
+    border: 0.5px solid #BBB;
+}
+
+.post-entry .tags a:hover {
+    background-color: #CCC;
+}
+
+.container {
+    margin: 0px auto;
+    padding: 0;
+}
+
+.clearfix:before, .clearfix:after {
+    display: table;
+    clear: both;
+    content: "";
+}
+
+.pull-left {
+    float:left;
+}
+.pull-right {
+    float:right;
+}
+
+/* Style for footer */
+.footer {
+    border-top: 1px dotted #ddd;
+    padding-top: 20px;
+    margin-top:15px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #777;
+    text-align: center;
+}
+.footer a {
+    color: #777;
+}
+.footer p {
+    margin: 0;
+    line-height: 40px;
+}
+
+.social a {
+  font-size: 16px;
+  line-height: 16px;
+  padding: 15px 5px;
+}
+.social ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: inline;
+}
+.social ul li {
+    display: inline;
+    margin: 0 2px;
+    padding: 0;
+}
+
+.social a, .scroll a {
+  display: inline-block;
+}
+
+/* Header */
+.header {
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding-top:15px;
+    position: fixed;
+    z-index: 199;
+    display: block;
+    opacity: 1;
+}
+
+.header .container {
+    position: relative;
+}
+
+/* scroll to top */
+.scroll {
+    position: absolute;
+    z-index: 20;
+    left: 0px;
+}
+
+.scroll a {
+    text-decoration: none;
+    padding: 18px 15px 15px;
+    margin-top: -15px;
+}
+
+.scroll a, .brand a {
+    font-size: 28px;
+    line-height: 17px;
+}
+
+
+.header.transparent {
+    background: transparent;
+}
+
+
+.dynamic .scroll,
+nav {
+    opacity: 1;
+}
+
+.dynamic .scroll,
+nav {
+    opacity: 1;
+}
+.scroll,
+.dynamic nav{
+    opacity: 0;
+}
+
+/* navigation links */
+nav {
+    position: absolute;
+    right: 0px;
+    z-index: 40;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+nav a{
+    text-decoration: none;
+    font-size: 1.3em;
+    padding: 12px 8px 9px;
+}
+
+nav a,
+.scroll a {
+    color: #777;
+}
+
+nav,
+.scroll,
+.brand {
+    vertical-align: top;
+}
+
+.scroll,
+nav,
+.brand {
+    transition: left 0.5s ease-in-out 0s, opacity 0.5s ease-in-out 0s, color 0.5s ease-in-out 0s;
+}
+
+/* brand banner */
+.brand {
+    position: absolute;
+    left: 0px;
+    z-index: 50;
+    width: 35%;
+    text-align: left;
+}
+
+.dynamic .brand {
+    left: 65%;
+    text-align: right;
+}
+
+/* separator */
+.separator {
+    border-bottom: 1px dotted #ddd;
+    font-size: 16px;
+    color: #777;
+    text-align: center;
+}
+
+.header.transparent .separator {
+    background: transparent;
+    opacity: 0;
+}
+
+.header .separator {
+    padding-bottom: 35px;
+    margin-bottom: 0px;
+}
+
+/* offseting anchor tag link */
+:target:before {
+    content:"";
+    display:block;
+    height:50px; /* fixed header height*/
+    margin:-50px 0 0; /* negative fixed header height */
+}
+
+/* Article */
+
+/* meta align middle */
+.meta {
+    display: table;
+    width: 100%;
+}
+
+.meta .left{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.meta .right{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+}
+
+.meta .tags {
+    opacity: 0.7;
+    transition: opacity 0.2s linear 0s;
+}
+.meta .tags:hover {
+    opacity: 1;
+}
+
+.meta a {
+    text-decoration: none;
+}
+
+
+/* Main contents */
+/* table of contents */
+div.topic {
+    border-left: solid;
+    padding-left: 2em;
+}
+
+div.authordate {
+    font-size: 0.9em;
+}
+
+div.authordate time{
+    padding: 0px 10px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Palatino', 'Palatino Linotype', 'Georgia', Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, serif;
+}
+
+.section h1,
+.section h2,
+.section h3,
+.section h4,
+.section h5,
+.section h6 {
+    border-bottom: 1px solid #AAA;
+}
+
+
+
+
+.body {
+    clear: both;
+    font-size: 1.1em;
+}
+
+/* code blocks */
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+pre {
+    padding: 10px;
+    margin: 7px 0px 10px;
+    border: 1px solid #DDD;
+    font-family: Monaco, Menlo, Consolas, "Deja Vu Sans Mono", "Courier New", monospace;
+    font-size: 0.85em;
+    overflow: auto;
+}
+
+code {
+  padding: 2px 4px;
+  background-color: #f7f7f9;
+  border: 1px solid #BBB;
+  white-space: nowrap;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+
+/* pager */
+
+.pager {
+  margin: 24px 0;
+  list-style: none;
+  text-align: center;
+  *zoom: 1;
+}
+
+.pager:before,
+.pager:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+
+.pager:after {
+  clear: both;
+}
+
+ul.pager {
+    padding: 2%;
+    border: 2px dashed #CCC;
+}
+
+.pager li {
+  display: inline;
+}
+
+.pager li > a,
+.pager li > span {
+    display: inline-block;
+    padding: 5px 14px;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    position: relative;
+}
+
+.pager li > a:hover,
+.pager li > a:focus {
+    text-decoration: none;
+    background-color: #f5f5f5;
+}
+
+.pager .next > a,
+.pager .next > span {
+    float: right;
+}
+
+.pager .previous > a,
+.pager .previous > span {
+    float: left;
+}
+
+/*.pager .previous > a:before,*/
+/*.pager .previous > a:after{*/
+    /*content: '';*/
+    /*height: 0px;*/
+    /*width: 0px;*/
+    /*top: 50%;*/
+    /*right: 100%;*/
+    /*position: absolute;*/
+    /*border: solid transparent;*/
+/*}*/
+
+/*.pager .previous > a:after{*/
+    /*border-right-color: inherit;*/
+    /*border-width: calc(1em - 1px);*/
+    /*margin-top: calc(1px - 1em);*/
+/*}*/
+
+/*.pager .previous > a:before {*/
+    /*border-right-color: red;*/
+    /*border-width: calc(1em + 1px);*/
+    /*margin-top: calc(-1em - 1px);*/
+/*}*/
+
+/*.pager .previous > a:hover:before{*/
+    /*border-color: transparent #CCC;*/
+/*}*/
+
+.pager .disabled > a,
+.pager .disabled > a:hover,
+.pager .disabled > a:focus,
+.pager .disabled > span {
+    color: #999999;
+    background-color: #fff;
+    cursor: default;
+}
+
+
+/* code block */
+
+/* responsive layout */
+
+
+@media (min-width: 641px) {
+    .body {
+        padding-top: 50px;
+    }
+
+    .container {
+        width: 600px;
+    }
+}
+
+@media (min-width: 1025px) {
+    .container {
+        width: 780px;
+    }
+
+}
