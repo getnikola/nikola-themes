@@ -9,7 +9,11 @@
                 <div class="thumbnail post-list-item">
                 <a href="${post.permalink(lang)}">
                     <img src="${post.meta('previewimage_thumbnail')}">
+                    % if post.meta('multiver'):
+                    <h2><span class="text-muted">v${post.meta('dirver')}/</span>${post.title(lang)|h}</h2>
+                    % else:
                     <h2>${post.title(lang)|h}</h2>
+                    % endif
                 </a>
                 <div class="theme-versions-index metadata">
                 % if post.meta('family_mako_version'):

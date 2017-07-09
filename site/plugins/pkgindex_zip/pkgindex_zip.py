@@ -74,9 +74,15 @@ class PackageIndexZip(Task):
 
         zip_json = {}
         zip_deps = {}
-        for dir, posts in self.site.pkgindex_entries.items():
+        for dir in self.site.pkgindex_entries:
+            utils.makedirs(os.path.join(
+                self.kw['output_folder'],
+                self.kw['pkgindex_dirs'][dir][0]
+            ))
             zip_json[dir] = {}
             zip_deps[dir] = []
+
+        for dir, posts in self.site.pkgindex_entries.items():
             for post in posts:
                 directory = os.path.dirname(post.source_path)
                 pkg_name = os.path.basename(directory)
@@ -91,8 +97,9 @@ class PackageIndexZip(Task):
                     self.kw['pkgindex_dirs'][dir][0],
                     pkg_name + '.zip'
                 ))
-                zip_json[dir][pkg_name] = urljoin(self.kw['base_url'], output_dest)
-                zip_deps[dir].append(destination)
+                for d in post.meta('allver'):
+                    zip_json['v{0}'.format(d)][pkg_name] = urljoin(self.kw['base_url'], output_dest)
+                    zip_deps['v{0}'.format(d)].append(destination)
                 # Prefix to slice out from names
                 d = len(directory) - len(pkg_name)
                 zip_files = []

@@ -3,7 +3,11 @@
 %if posts:
 <div class="list-group">
 % for post in posts:
-<a class="list-group-item sidemenu-item" data-name="${post.meta('slug')}" href="${post.permalink(lang)}">${post.title(lang)|h}</a>
+% if post.meta('multiver'):
+<a class="list-group-item sidemenu-item" data-name="${post.meta('slug_versioned')}" href="${post.permalink(lang)}"><span class="text-muted">v${post.meta('dirver')}/</span>${post.title(lang)|h}</a>
+% else:
+<a class="list-group-item sidemenu-item" data-name="${post.meta('slug_versioned')}" href="${post.permalink(lang)}">${post.title(lang)|h}</a>
+% endif
 % endfor
 </div>
 %endif

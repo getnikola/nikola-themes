@@ -54,6 +54,8 @@ class PackageIndexScanner(PostScanner):
             print("Scanning package index posts...", end='', file=sys.stderr)
         timeline = []
         self.site.pkgindex_entries = {}
+        self.site.pkgindex_by_name = {}
+        self.site.pkgindex_multiver = {}
         for topdir, dirsettings in self.site.config['PKGINDEX_DIRS'].items():
             destination, template_name = dirsettings
             self.site.pkgindex_entries[topdir] = []
@@ -73,6 +75,7 @@ class PackageIndexScanner(PostScanner):
                 post.is_two_file = True
                 timeline.append(post)
                 self.site.pkgindex_entries[topdir].append(post)
+                self._update_name_multiver(post)
 
         if 'special_entries' in config:
             for source_path, destination, template_name, topdir in config['special_entries']:
@@ -88,6 +91,45 @@ class PackageIndexScanner(PostScanner):
                 post.is_two_file = True
                 timeline.append(post)
                 self.site.pkgindex_entries[topdir].append(post)
+                self._update_name_multiver(post)
+
+        # But wait, we need to change tags on multiver stuff!
+        # This is kinda... hacky...
+        maxver = config['versions_supported'][-1]
+        for versions in self.site.pkgindex_multiver.values():
+            versions = sorted(versions, key=lambda post: post.meta('dirver'))
+            v2p = {}
+            for post in versions:
+                dirver = post.meta('dirver')
+                for v in range(dirver, maxver + 1):
+                    v2p[v] = post
+
+            p2v = {}
+            for v, p in v2p.items():
+                if p in p2v:
+                    p2v[p].append(v)
+                else:
+                    p2v[p] = [v]
+
+            for post, versions in p2v.items():
+                # And finally, update tags.
+                tags = post._tags[self.site.default_lang]
+                tags = [i for i in tags if not (i.startswith('v') and i[1:].isdigit())]
+                tags += ['v{0}'.format(i) for i in versions]
+                tags.append('multiver')
+                post._tags[self.site.default_lang] = tags
+                post.meta['en']['tags'] = tags
+                post.meta['en']['multiver'] = True
+                post.meta['en']['allver'] = versions
+                if not post.meta['en']['maxver'] and versions[-1] != maxver:
+                    post.meta['en']['maxver'] = versions[-1]
+
+        # And generate self.site.pkgindex_by_version
+        self.site.pkgindex_by_version = {i: [] for i in config['versions_supported']}
+        for l in self.site.pkgindex_entries.values():
+            for post in l:
+                for version in post.meta['en']['allver']:
+                    self.site.pkgindex_by_version[version] = post
 
         return timeline
 
@@ -96,3 +138,16 @@ class PackageIndexScanner(PostScanner):
         if 'PKGINDEX_CONFIG' not in self.site.config:
             return None
         return [self.site.config['PKGINDEX_CONFIG']['extension']]
+
+    def _update_name_multiver(self, post):
+        name = post.meta('slug')
+
+        if name in self.site.pkgindex_by_name:
+            self.site.pkgindex_by_name[name].append(post)
+            multiver = True
+        else:
+            self.site.pkgindex_by_name[name] = [post]
+            multiver = False
+
+        if multiver:
+            self.site.pkgindex_multiver[name] = self.site.pkgindex_by_name[name]

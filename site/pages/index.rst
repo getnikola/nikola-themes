@@ -1,10 +1,10 @@
 .. title: Themes for Nikola
 .. slug: index
 .. date: 1970-01-01 00:00:00 UTC
-.. tags: 
-.. category: 
-.. link: 
-.. description: 
+.. tags:
+.. category:
+.. link:
+.. description:
 .. type: text
 
 .. class:: lead
@@ -28,7 +28,7 @@ Themes
 ======
 
 .. post-list::
-   :sort: slug
+   :sort: slug_sortable
    :tags: theme
    :post_type: pages
    :template: theme_list.tmpl

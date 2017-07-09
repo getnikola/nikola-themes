@@ -4,7 +4,7 @@
 .. category: version_page
 
 .. post-list::
-   :sort: slug
-   :tags: theme, v7
+   :sort: slug_sortable
+   :tags: v7
    :post_type: pages
    :template: theme_list.tmpl

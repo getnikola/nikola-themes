@@ -31,21 +31,23 @@ BLOG_DESCRIPTION = "The theme repository for Nikola, a static site and blog gene
 
 # Package index configuration
 PKGINDEX_DIRS = {
-    'v7': ('v7', 'theme.tmpl')
+    'v7': ('v7', 'theme.tmpl'),
+    'v8': ('v8', 'theme.tmpl')
 }
 PKGINDEX_HANDLERS = {
-    'v7': ['dirname_as_title', 'parse_theme_info']
+    'v7': ['dirname_as_title', 'parse_theme_info', 'add_dummy_multiver'],
+    'v8': ['dirname_as_title', 'parse_theme_info', 'add_dummy_multiver']
 }
 PKGINDEX_CONFIG = {
     'extension': '.sample',
-    'versions_supported': [7],
+    'versions_supported': [7, 8],
     'json_filename': 'themes.json',
     'demo_screenshots_map': {
-        'v7/base-jinja': 'v7/base',
+        'v8/base-jinja': 'v8/base',
         'v7/bootblog-jinja': 'v7/bootblog',
         'v7/bootstrap3-gradients-jinja': 'v7/bootstrap3-gradients',
-        'v7/bootstrap3-jinja': 'v7/bootstrap3',
-        'v7/bootstrap-jinja': 'v7/bootstrap',
+        'v8/bootstrap3-jinja': 'v8/bootstrap3',
+        'v7/bootstrap-jinja': 'v8/bootstrap',
         'v7/reveal-jinja': 'v7/reveal',
         'v7/zen-ipython': 'v7/zen',
         'v7/zen-jinja': 'v7/zen',
@@ -58,7 +60,7 @@ PKGINDEX_CONFIG['zip_ignore'] = PKGINDEX_CONFIG['builtin_themes']
 for theme in PKGINDEX_CONFIG['builtin_themes']:
     PKGINDEX_CONFIG['special_entries'].append((
         nikola.utils.get_asset_path('README.md', nikola.utils.get_theme_chain(theme, [])),
-        'v7', 'theme.tmpl', 'v7')
+        'v8', 'theme.tmpl', 'v8')
     )
 
 
@@ -67,6 +69,7 @@ themes_submenu = (
     ('/mako/', 'Mako'),
     ('/jinja/', 'Jinja2'),
     ('/v7/', 'Version 7'),
+    ('/v8/', 'Version 8'),
 )
 
 # Output folder -- change if using locally
@@ -269,9 +272,9 @@ POSTS = (
     ("posts/*.html", "posts", "post.tmpl"),
 )
 PAGES = (
-    ("pages/*.rst", "", "story.tmpl"),
-    ("pages/*.txt", "", "story.tmpl"),
-    ("pages/*.html", "", "story.tmpl"),
+    ("pages/*.rst", "", "page.tmpl"),
+    ("pages/*.txt", "", "page.tmpl"),
+    ("pages/*.html", "", "page.tmpl"),
 )
 
 
@@ -1237,7 +1240,7 @@ BODY_END = """<script src="/assets/js/pkgindex.js"></script>"""
 
 # If you hate "Filenames with Capital Letters and Spaces.md", you should
 # set this to true.
-UNSLUGIFY_TITLES = True
+FILE_METADATA_UNSLUGIFY_TITLES = True
 
 # Additional metadata that is added to a post when creating a new_post
 # ADDITIONAL_METADATA = {}

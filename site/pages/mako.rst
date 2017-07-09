@@ -4,7 +4,7 @@
 .. category: engine_page
 
 .. post-list::
-   :sort: slug
+   :sort: slug_sortable
    :tags: mako
    :post_type: pages
    :template: theme_list.tmpl

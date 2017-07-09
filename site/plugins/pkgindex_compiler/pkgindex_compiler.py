@@ -49,6 +49,11 @@ def _version_from_path(path):
     return int(path.split('/')[0].split('v')[-1])
 
 
+def add_dummy_multiver(post, pkg_dir, config):
+    """Add a dummy multiver=False value."""
+    return {'multiver': False}
+
+
 def _cp_try_get(config, section, option):
     try:
         return config.get(section, option)
@@ -77,6 +82,9 @@ def parse_plugin_file(post, pkg_dir, config):
             data['website'] = _cp_try_get(c, 'Documentation', 'Website')
             data['minver'] = _cp_try_get(c, 'Nikola', 'MinVersion')
             data['maxver'] = _cp_try_get(c, 'Nikola', 'MaxVersion')
+            data['dirver'] = _version_from_path(pkg_dir)
+            data['slug_versioned'] = 'v{0}/{1}'.format(data['dirver'], plugin)
+            data['slug_sortable'] = '{1} v{0}'.format(data['dirver'], plugin)
 
             category = c.get('Nikola', 'PluginCategory')
             data['category'] = category
@@ -84,13 +92,15 @@ def parse_plugin_file(post, pkg_dir, config):
             if data['minver']:
                 minver = data['minver'].split('.')[0]
             else:
-                minver = _version_from_path(pkg_dir)
+                minver = data['dirver']
                 data['minver'] = minver
             if data['maxver']:
                 maxver = data['maxver'].split('.')[0]
             else:
                 maxver = config['versions_supported'][-1]
 
+            # Plugins may specify older versions
+            minver = max(int(minver), config['versions_supported'][0])
             data['allver'] = list(range(int(minver), int(maxver) + 1))
 
             tags = ['plugin', category]
@@ -162,6 +172,13 @@ def parse_theme_info(post, pkg_dir, config):
     data['chain'] = utils.get_theme_chain(theme, [os.path.dirname(pkg_dir), 'themes'])
     data['chain'] = [os.path.basename(i) for i in reversed(data['chain'])]
 
+    try:
+        data['dirver'] = _version_from_path(pkg_dir)
+    except Exception:
+        data['dirver'] = config['versions_supported'][-1]
+    data['slug_versioned'] = 'v{0}/{1}'.format(data['dirver'], theme)
+    data['slug_sortable'] = '{1} v{0}'.format(data['dirver'], theme)
+
     if os.path.exists(conf_sample):
         post.add_dependency(conf_sample)
         with io.open(conf_sample, 'r', encoding='utf-8') as f:
@@ -197,7 +214,7 @@ def parse_theme_info(post, pkg_dir, config):
 
         data['show_family_data'] = data['show_family_data'] or bool(data['family_variants'])
         data['bootswatch'] = c.getboolean('Nikola', 'bootswatch', fallback=False)
-        data['tags'] = 'newmeta,theme,' + data['engine']
+        data['tags'] = 'newmeta,theme,' + data['engine'] + ',v{0}'.format(data['dirver'])
         data['license'] = c.get('Theme', 'license', fallback=None)
         data['author'] = c.get('Theme', 'author', fallback=None)
         data['author_url'] = c.get('Theme', 'author_url', fallback=None)
@@ -244,7 +261,7 @@ def parse_theme_info(post, pkg_dir, config):
                                'bootstrap3-jinja' in data['chain'] or
                                'bootstrap3' in data['chain']) and
                               'bootstrap3-gradients' not in data['chain'])
-        data['tags'] = 'theme,' + data['engine']
+        data['tags'] = 'theme,' + data['engine'] + ',v{0}'.format(data['dirver'])
         data['family'] = theme
         data['family_head'] = True
         data['family_{0}_version'.format(data['engine'])] = theme
@@ -260,7 +277,8 @@ BUILTIN_HANDLERS = {
     'dirname_as_title': dirname_as_title,
     'parse_plugin_file': parse_plugin_file,
     'parse_theme_info': parse_theme_info,
-    'add_category': add_category
+    'add_category': add_category,
+    'add_dummy_multiver': add_dummy_multiver,
 }
 
 
@@ -280,6 +298,7 @@ class CompilePackageIndexEntries(PageCompiler):
     friendly_name = "pkgindex_compiler"
     markdown_compiler = None
     pi_enabled = False
+    supports_metadata = True
 
     def set_site(self, site):
         """Set site for the compiler."""

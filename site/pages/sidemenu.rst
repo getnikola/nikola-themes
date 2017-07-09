@@ -6,7 +6,7 @@
 .. url_type: full_path
 
 .. post-list::
-   :sort: slug
+   :sort: slug_sortable
    :tags: theme
    :post_type: pages
    :template: sidemenu_list.tmpl
