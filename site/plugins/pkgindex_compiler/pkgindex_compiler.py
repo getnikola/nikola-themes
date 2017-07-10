@@ -178,6 +178,7 @@ def parse_theme_info(post, pkg_dir, config):
         data['dirver'] = config['versions_supported'][-1]
     data['slug_versioned'] = 'v{0}/{1}'.format(data['dirver'], theme)
     data['slug_sortable'] = '{1} v{0}'.format(data['dirver'], theme)
+    data['allver'] = range(data['dirver'], config['versions_supported'][-1] + 1)
 
     if os.path.exists(conf_sample):
         post.add_dependency(conf_sample)
