@@ -96,6 +96,28 @@ h2 {
     outline: 0;
 }
 
+
+/* NOTE(josh): If the screen is small enough that we wont use columns anymore,
+   then we'll want the navigation menu items to flow across the top of the page
+   rather than being spaced out and vertical. */
+@media (max-width: 767px) {
+
+  .menu ul {
+    margin: 10px 0;
+  }
+
+  .menu ul li a {
+    padding: 0 0 0 30px;
+    display: inline-block;
+    outline: 0;
+  }
+
+  .menu ul li {
+    display: inline;
+  }
+
+}
+
 /* articles */
 article > header span > a {
     color: #333;
@@ -170,19 +192,6 @@ span.vcard img.img-circle {
     min-height: 75%;
 }
 
-.posts-material {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    z-index: 4;
-    padding: 0px;
-    overflow: auto;
-}
-
-.posts-material> div {
-    padding: 64px 5px 0px;
-}
-
 .post-material, .content-material > article, .content-material > .page {
     opacity: 1;
     transform: translateY(0px);
@@ -196,12 +205,46 @@ span.vcard img.img-circle {
     border: 0px none;
 }
 
+
+/* NOTE(josh): If the screen is very small, then we don't want to waste
+   screen real-estate on the extra layers of padding.*/
+@media (max-width: 767px) {
+
+  .posts-material, .content-material{
+    padding: 0px;
+  }
+
+}
+
+/* NOTE(josh): we only want the posts column to overflow the title bar if the
+   screen is big enough to put the posts and navigation next to each other.*/
+@media (min-width: 768px) {
+
+  .posts-material {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 4;
+    padding: 0px;
+    overflow: auto;
+  }
+
+  .posts-material> div {
+    padding: 64px 5px 0px;
+  }
+
+}
+
 .search-form {
     z-index: 10;
 }
 
 .btn-footer {
+    position: absolute;
+    left: 22px;
+    bottom: 22px;
     margin: 20px;
+    z-index: 5;
 }
 
  ul > li {
@@ -237,3 +280,4 @@ div.admonition {
     border: 0px solid transparent;
     box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19)
 }
+

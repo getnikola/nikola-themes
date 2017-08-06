@@ -37,13 +37,13 @@
 
 <div class="container-fluid main" id="content" role="main">
         <div class="row">
-            <nav  class="col-xs-3 menu">
+            <nav  class="col-xs-12 col-sm-3 menu">
                 <ul>
                     {{ base.html_navigation_links() }}
                     {{ template_hooks['menu']() }}
                 </ul>
 
-                <ul class="nav navbar-nav">
+                <ul>
                     {% block belowtitle %}
                     {% if translations|length > 1 %}
                         <li>{{ base.html_translations() }}</li>
@@ -54,15 +54,12 @@
             </nav>
 
             {{ template_hooks['page_header']() }}
-            <div class="posts-material col-xs-9">
+            <div class="posts-material col-xs-12 col-sm-9">
                 <div class="col-xs-12 col-md-11 content-material">
                 {% block content %}{% endblock %}
                 </div>
             </div>
         </div>
-        <button class="btn btn-fab btn-raised btn-material-green btn-footer" data-toggle="modal" data-target="#footer-dialog">
-            <i class="mdi-communication-message"></i>
-        </button>
         <div id="footer-dialog" class="modal fade" tabindex="-1">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -94,9 +91,14 @@
             {% endif %}
         </div>
         {% if social_links %}
-        <div class="kc_fab_wrapper"></div>
+        <div class="kc_fab_wrapper">
+            <button class="btn btn-fab btn-raised btn-material-green btn-footer" data-toggle="modal" data-target="#footer-dialog">
+            <i class="mdi-communication-message"></i>
+            </button>
+        </div>
         {% endif %}
 </div>
+
 
 {{ base.late_load_js() }}
     <script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script>
