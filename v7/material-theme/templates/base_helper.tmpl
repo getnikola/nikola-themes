@@ -146,6 +146,10 @@ lang="{{ lang }}">
                   $(".posts-material").css('height', '');
                 }
             }).trigger("resize");
+
+            function menuToggle() {
+                $("nav.menu, ul").toggleClass('responsive', '');
+            }
         </script>
 {% endmacro %}
 

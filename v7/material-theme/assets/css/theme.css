@@ -96,27 +96,42 @@ h2 {
     outline: 0;
 }
 
-
-/* NOTE(josh): If the screen is small enough that we wont use columns anymore,
-   then we'll want the navigation menu items to flow across the top of the page
-   rather than being spaced out and vertical. */
-@media (max-width: 767px) {
-
-  .menu ul {
-    margin: 10px 0;
-  }
-
-  .menu ul li a {
-    padding: 0 0 0 30px;
-    display: inline-block;
-    outline: 0;
-  }
-
-  .menu ul li {
-    display: inline;
-  }
-
+.menu .icon {
+    display: none;
 }
+
+@media (max-width: 767px) {
+    .menu ul {
+        margin: 10px 0;
+    }
+
+    .menu ul li a {
+        display: block;
+        padding: 10px 0 10px 50px;
+    }
+
+    .menu ul li {
+        display: none;
+    }
+
+    .menu ul.responsive li {
+        display: block;
+    }
+
+    .menu ul .icon {
+        display: block;
+        float: right;
+        margin-right: 20px;
+    }
+
+    .menu ul.responsive .icon {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 10px;
+    }
+}
+
 
 /* articles */
 article > header span > a {
@@ -206,33 +221,25 @@ span.vcard img.img-circle {
 }
 
 
-/* NOTE(josh): If the screen is very small, then we don't want to waste
-   screen real-estate on the extra layers of padding.*/
 @media (max-width: 767px) {
-
-  .posts-material, .content-material{
-    padding: 0px;
-  }
-
+    .posts-material, .content-material{
+        padding: 0px;
+    }
 }
 
-/* NOTE(josh): we only want the posts column to overflow the title bar if the
-   screen is big enough to put the posts and navigation next to each other.*/
 @media (min-width: 768px) {
+    .posts-material {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        z-index: 4;
+        padding: 0px;
+        overflow: auto;
+    }
 
-  .posts-material {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    z-index: 4;
-    padding: 0px;
-    overflow: auto;
-  }
-
-  .posts-material> div {
-    padding: 64px 5px 0px;
-  }
-
+    .posts-material> div {
+        padding: 64px 5px 0px;
+    }
 }
 
 .search-form {
@@ -280,4 +287,3 @@ div.admonition {
     border: 0px solid transparent;
     box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19)
 }
-
