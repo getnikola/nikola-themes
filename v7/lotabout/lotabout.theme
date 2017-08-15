@@ -1,0 +1,7 @@
+[Theme]
+engine = mako
+parent = base
+author = Mark Wallace
+author_url = https://lotabout.github.io/
+based_on = flasky, Wu
+license = MIT

@@ -1,0 +1,7 @@
+[Theme]
+engine = mako
+parent = base
+author = Jason McKellar
+author_url = https://github.com/landreville
+based_on = example from PureCSS <http://purecss.io/layouts/side-menu/>
+license = MIT

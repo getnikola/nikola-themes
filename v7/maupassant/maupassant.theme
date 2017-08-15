@@ -1,0 +1,7 @@
+[Theme]
+engine = mako
+parent = base
+author = Roberto Alsina, tufu9441
+author_url = http://ralsina.me/
+based_on = maupassant <https://github.com/pagecho/maupassant>
+license = MIT

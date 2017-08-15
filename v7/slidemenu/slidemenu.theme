@@ -1,0 +1,6 @@
+[Theme]
+engine = jinja
+parent = base-jinja
+author = Chris Warrick
+author_url = https://chriswarrick.com/
+license = 3-clause BSD

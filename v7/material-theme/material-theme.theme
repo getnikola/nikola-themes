@@ -1,0 +1,11 @@
+[Theme]
+engine = jinja
+parent = bootstrap3-jinja
+author = Matías Varela
+author_url = https://github.com/matuu
+based_on = bootstrap-material-design <https://github.com/FezVrasta/bootstrap-material-design>
+license = MIT
+tags = bootstrap
+
+[Family]
+family = material-theme
