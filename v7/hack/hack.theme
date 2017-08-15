@@ -1,0 +1,7 @@
+[Theme]
+engine = mako
+parent = base
+author = Roberto Alsina, HACK CSS authors
+author_url = http://ralsina.me/
+based_on = http://hackcss.com/
+license = MIT

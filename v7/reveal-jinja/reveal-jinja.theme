@@ -1,0 +1,11 @@
+[Theme]
+engine = jinja
+parent = bootstrap-jinja
+author = The Nikola Contributors
+author_url = https://getnikola.com/
+based_on = reveal.js <http://lab.hakim.se/reveal-js/>
+license = MIT
+
+[Family]
+family = reveal
+mako_version = reveal

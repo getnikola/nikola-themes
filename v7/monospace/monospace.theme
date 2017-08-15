@@ -1,0 +1,7 @@
+[Theme]
+engine = mako
+parent = bootstrap
+author = Roberto Alsina, Vinicius Massuchetto
+author_url = http://ralsina.me/
+based_on = Monospace for WordPress <http://wordpress.org/themes/monospace>
+license = MIT

@@ -1,0 +1,7 @@
+[Theme]
+engine = mako
+parent = bootstrap
+author = Roberto Alsina
+author_url = http://ralsina.me/
+based_on = doc for WordPress <http://wordpress.org/extend/themes/doc>
+license = Public Domain

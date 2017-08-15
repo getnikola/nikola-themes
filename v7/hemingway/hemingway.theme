@@ -1,0 +1,7 @@
+[Theme]
+engine = mako
+parent = base
+author = Roberto Alsina, tanksuzuki
+author_url = http://ralsina.me/
+based_on = Hemingway for Hugo <https://themes.gohugo.io/hemingway/>
+license = MIT

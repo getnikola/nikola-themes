@@ -1,0 +1,7 @@
+[Theme]
+engine = mako
+parent = base
+author = Roberto Alsina, Andrew Jenkins
+author_url = http://ralsina.me/
+based_on = Detox for Hugo <https://themes.gohugo.io/detox/>
+license = MIT

@@ -1,0 +1,10 @@
+[Theme]
+engine = mako
+parent = base
+author = Damián Avila
+author_url = http://www.damian.oquanta.info/
+license = MIT
+
+[Family]
+family = zen
+jinja_version = zen-jinja

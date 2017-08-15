@@ -1,0 +1,12 @@
+[Theme]
+engine = mako
+parent = bootstrap3
+author = Chris Warrick
+author_url = https://chriswarrick.com/
+based_on = Bootstrap 3 <https://getbootstrap.com/>, Bootstrap Blog template <https://getbootstrap.com/examples/blog/>
+license = MIT
+tags = bootstrap
+
+[Family]
+family = bootblog
+jinja_version = bootblog-jinja
