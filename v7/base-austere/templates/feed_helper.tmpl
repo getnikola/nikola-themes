@@ -1,0 +1,61 @@
+## -*- coding: utf-8 -*-
+<%def name="head(name=None)">
+    <%
+        if name is None:
+            atom_ref = 'index_atom'
+            rss_ref = 'rss'
+            label = ''
+        else:
+            atom_ref = kind + '_atom'
+            rss_ref = kind + '_rss'
+            label = ' for ' + kind + ' ' + name
+    %>
+    % if rss_link:
+        ${rss_link}
+    % endif
+    % if len(translations) > 1:
+        % for language in sorted(translations):
+            % if generate_atom:
+                <link rel="alternate" type="application/atom+xml" title="Atom${label|h} (${language})" href="${_link(atom_ref, name, language)}">
+            % endif
+            % if generate_rss and not rss_link:
+                <link rel="alternate" type="application/rss+xml" title="RSS${label|h} (${language})" href="${_link(rss_ref, name, language)}">
+            % endif
+        % endfor
+    % else:
+        % if generate_atom:
+            <link rel="alternate" type="application/atom+xml" title="Atom${label|h}" href="${_link(atom_ref, name)}">
+        % endif
+        % if generate_rss and not rss_link:
+            <link rel="alternate" type="application/rss+xml" title="RSS${label|h}" href="${_link(rss_ref, name)}">
+        % endif
+    % endif
+</%def>
+
+<%def name="link(name)">
+    % if len(translations) > 1:
+        % for language in sorted(translations):
+            % if generate_atom or generate_rss:
+                <p class="feedlink">
+                    % if generate_atom:
+                        <a href="${_link(kind + "_atom", name, language)}" hrefland="${language}" type="application/atom+xml">${messages('Atom feed', language)} (${language})</a>
+                    % endif
+                    % if generate_rss:
+                        <a href="${_link(kind + "_rss", name, language)}" hreflang="${language}" type="application/rss+xml">${messages('RSS feed', language)} (${language})</a>
+                    % endif
+                </p>
+            % endif
+        % endfor
+    % else:
+        % if generate_atom or generate_rss:
+            <p class="feedlink">
+                % if generate_atom:
+                    <a href="${_link(kind + "_atom", name)}" type="application/atom+xml">${messages('Atom feed')}</a>
+                % endif
+                % if generate_rss:
+                    <a href="${_link(kind + "_rss", name)}" type="application/rss+xml">${messages('RSS feed')}</a>
+                % endif
+            </p>
+        % endif
+    % endif
+</%def>
