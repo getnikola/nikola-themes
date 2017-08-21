@@ -1,0 +1,7 @@
+[Theme]
+engine = mako
+parent = bootstrap3
+author = Stuart Mumford
+author_url = http://www.stuartmumford.co.uk
+license = MIT
+tags = bootstrap

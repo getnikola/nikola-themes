@@ -1,0 +1,108 @@
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	padding-top: 50px;
+	font-family: 'sans';
+/*	background-color: #f7fffb; */
+	font-size: large;
+}
+
+.container {
+	hyphens: manual;
+	-webkit-hyphens: manual;
+	-moz-hyphens: manual;
+}
+
+.container h1 {
+	text-align: center;
+	font-size: 450%;
+	font-weight: bold;
+	font-family: 'sans';
+}
+
+.storypage {
+    margin-top:10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.metadata {
+    padding-left: 10px;
+}
+
+h1 a {
+	color: #222222;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 0.2em;
+	hyphens: none;
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+}
+
+.jumbotron {
+	position: relative;
+	height: 60%;
+	color: inherit;
+	background-image: url('../img/home_banner.jpg');
+	background-position: top center;
+	background-size: cover;
+	padding: 9px 11px;
+	-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+	-moz-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+	box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+}
+
+.jumbotron .photo-copy {
+	color: #fff;
+	position:absolute;
+	bottom:5px;
+	right:5px;
+	margin-bottom: -10px;
+}
+
+.jumbotron .photo-copy a {
+    color: #fff;
+}
+
+footer {
+	margin-bottom: 5px;
+}
+
+.papertitle {
+    display: block;
+    font-weight: bold;
+    font-size: 110%;
+}
+
+.paperblock {
+    padding-bottom: 1em;
+}
+
+a .anchor {
+    display: block;
+    padding-top: 50px;
+}
+
+/* YouTube responsive embed from
+See more at: http://avexdesigns.com/responsive-youtube-embed/#sthash.bOTFuSnA.dpuf
+ */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
