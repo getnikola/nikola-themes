@@ -213,7 +213,7 @@ def parse_theme_info(post, pkg_dir, config):
         _variants_count = len(data['family_variants'])
         data['family_variants_text'] = '1 variant' if _variants_count == 1 else '{0} variants'.format(_variants_count)
 
-        data['show_family_data'] = data['show_family_data'] or bool(data['family_variants'])
+        data['show_family_data'] = data['show_family_data'] or bool(data['family_variants']) or not data['family_head']
         data['bootswatch'] = c.getboolean('Nikola', 'bootswatch', fallback=False)
         data['tags'] = 'newmeta,theme,' + data['engine'] + ',v{0}'.format(data['dirver'])
         data['license'] = c.get('Theme', 'license', fallback=None)
