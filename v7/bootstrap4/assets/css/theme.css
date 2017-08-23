@@ -100,21 +100,27 @@ article.post-micro {
 
 .tags > li {
     display: inline-block;
-    min-width: 10px;
-    padding: 3px 7px;
-    font-size: 12px;
-    font-weight: bold;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
     line-height: 1;
     color: #fff;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
-    background-color: #999;
-    border-radius: 10px;
+    border-radius: .25rem;
+    color: #fff;
+    background-color: #868e96;
 }
 
 .tags > li a {
     color: #fff;
+}
+
+.tags > li a:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #6c757d;
 }
 
 .metadata p:before,
@@ -205,4 +211,40 @@ pre {
 
 .postindexpager {
     padding-bottom: 1rem;
+}
+
+ul.navbar-nav {
+    margin-top: 0;
+}
+
+ul.pager {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem;
+    padding-left: 0;
+    margin: 0.5rem 0;
+}
+
+ul.pager li.previous {
+    margin-right: auto;
+    display: inline;
+}
+
+ul.pager li.next {
+    margin-left: auto;
+    display: inline;
+}
+
+
+ul.pager li a {
+    display: inline;
+    position: relative;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: .25rem;
 }

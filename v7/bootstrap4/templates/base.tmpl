@@ -13,11 +13,8 @@ ${template_hooks['extra_head']()}
 
 <!-- Menubar -->
 
-<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse static-top mb-4">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark static-top mb-4">
     <div class="container"><!-- This keeps the margins nice -->
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <a class="navbar-brand" href="${abs_link(_link("root", None, lang))}">
         %if logo_url:
             <img src="${logo_url}" alt="${blog_title|h}" id="logo" class="d-inline-block align-top">
@@ -27,6 +24,9 @@ ${template_hooks['extra_head']()}
             <span id="blog-title">${blog_title|h}</span>
         % endif
         </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
         <div class="collapse navbar-collapse" id="bs-navbar">
             <ul class="navbar-nav mr-auto">
