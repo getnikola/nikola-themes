@@ -1,9 +1,6 @@
 [submodule "v7/mdl"]
 	path = v7/mdl
 	url = git@github.com:ivanteoh/nikola-mdl-mako.git
-[submodule "v7/nikola-theme-foundation6"]
-	path = v7/foundation6
-	url = https://github.com/okin/nikola-theme-foundation6
 [submodule "v7/carpet"]
 	path = v7/carpet
 	url = git@github.com:ivanteoh/nikola-carpet-mako.git
