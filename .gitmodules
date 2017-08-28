@@ -4,3 +4,6 @@
 [submodule "v7/carpet"]
 	path = v7/carpet
 	url = git@github.com:ivanteoh/nikola-carpet-mako.git
+[submodule "v7/jidn"]
+	path = v7/jidn
+	url = git@github.com:jidn/nikola-jidn.git
