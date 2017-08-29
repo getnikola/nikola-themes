@@ -1,0 +1,158 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="pheader" file="post_header.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%namespace name="math" file="math_helper.tmpl"/>
+<%inherit file="base.tmpl"/>
+
+<%block name="extra_head">
+    ${parent.extra_head()}
+    % if post.meta('keywords'):
+    <meta name="keywords" content="${post.meta('keywords')|h}">
+    % endif
+    <meta name="author" content="${post.author()|h}">
+    %if post.prev_post:
+        <link rel="prev" href="${post.prev_post.permalink()}" title="${post.prev_post.title()|h}" type="text/html">
+    %endif
+    %if post.next_post:
+        <link rel="next" href="${post.next_post.permalink()}" title="${post.next_post.title()|h}" type="text/html">
+    %endif
+    % if post.is_draft:
+        <meta name="robots" content="noindex">
+    % endif
+    ${helper.open_graph_metadata(post)}
+    ${helper.twitter_card_information(post)}
+    ${helper.meta_translations(post)}
+    ${math.math_styles_ifpost(post)}
+</%block>
+
+<%block name="content">
+<article class="post-${post.meta('type')} h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
+    ${pheader.html_post_header()}
+    <section class="e-content entry-content" itemprop="articleBody text">
+    ${post.text()}
+    </section>
+    ${sharing()}
+    ${bio()}
+<%doc>
+    <aside class="postpromonav">
+    <nav>
+    ${helper.html_tags(post)}
+    ${helper.html_pager(post)}
+    </nav>
+    </aside>
+</%doc>
+    % if not post.meta('nocomments') and site_has_comments:
+        <section class="comments hidden-print">
+        <h2>${messages("Comments")}</h2>
+        ${comments.comment_form(post.permalink(absolute=True), post.title(), post._base_path)}
+        </section>
+    % endif
+    ${math.math_scripts_ifpost(post)}
+</article>
+${comments.comment_link_script()}
+</%block>
+
+<%block name="sharing">
+<aside class="sharing no-print">
+    <a href="#content" aria-label="Post beginning">
+       <i class="fa fa-2x fa-fw fa-arrow-circle-up" aria-hidden="true" title="Post beginning" />
+    </a>
+    %if post.prev_post:
+    <a href="${post.prev_post.permalink(absolute=True)}" rel="prev" title="${post.prev_post.title()|h}">
+       <i class="fa fa-2x fa-fw fa-arrow-circle-left" aria-hidden="true" title="Previous post: ${post.prev_post.title()|h}" />
+    </a>
+    %endif
+    %if post.next_post:
+    <a href="${post.next_post.permalink(absolute=True)}" rel="next" title="Next post: ${post.next_post.title()|h}" aria-label="Next post: ${post.next_post.title()|h}">
+       <i class="fa fa-2x fa-fw fa-arrow-circle-right" aria-hidden="true" />
+    </a>
+    %endif
+    <span class="post-sharing">
+     <a href="http://twitter.com/share?text=${post.title()|u}&url=${post.permalink(absolute=True)|u}"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;"
+      aria-label="Share on Twitter">
+       <i class="fa fa-2x fa-fw fa-twitter-square" aria-hidden="true" title="Share on Twitter" /i>
+     </a>
+     <a href="https://www.facebook.com/sharer/sharer.php?u=${post.permalink(absolute=True)|u}"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"
+      aria-label="Share on Facebook">
+       <i class="fa fa-2x fa-fw fa-facebook-square" style="margin-left: -8px" aria-hidden="true" title="Share of Facebook" /i>
+     </a>
+     <a href="https://plus.google.com/share?url=${post.permalink(absolute=True)|u}" aria-label="Share on Google+"
+      onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+       <i class="fa fa-2x fa-fw fa-google-plus-square" style="margin-left: -8px" aria-hidden="true" title="Share on Google+" /i>
+     </a>
+     </span>
+</aside>
+</%block>
+
+## This appears at the end of the content
+<%block name="bio">
+<div itemprop="author" itemscope itemtype="http://schema.org/Person">
+%if post.author() in JIDN:
+<footer class="byline author author-bio vcard">
+    <hr/>
+     <meta itemprop="image" content="${JIDN[post.author()]['image']}"/>
+     <div class="author-image" style="background: url(${JIDN[post.author()]['image']})" />
+     <h3 class="byline-name fn" itemprop="name">${post.author()|trim}
+     % if 'email' in JIDN[post.author()]:
+        <span class='post-sharing'>
+            <a href="mailto:${JIDN[post.author()]['email']}?subject=${post.title()|h}"
+            aria-label="Email author">
+            <i class="fa fa-2 fa-fw fa-envelope" aria-hidden="true" title="Email author" /i>
+            </a>
+        </span>
+     % endif
+     % if 'social' in JIDN[post.author()]:
+        <span class='post-sharing'>
+        %for url in JIDN[post.author()]['social']:
+            ${url|social_link}
+        %endfor
+        </span>
+     % endif
+     </h3>
+     % if 'bio' in JIDN[post.author()]:
+     <p class="bio">${JIDN[post.author()]['bio']}</p>
+     % endif
+     % if 'map' in JIDN[post.author()]:
+     <p><i class="fa fa-map-marker"/> ${JIDN[post.author()]['map']}</p>
+     % endif
+</footer>
+</div>
+%endif
+</%block>
+
+<%!
+def social_link(url):
+    try:
+        from urlparse import urlparse
+    except ImportError:
+        from urllib.parse import urlparse
+
+    o = urlparse(url)
+    site = o.netloc.lower()
+    substitute = dict((('Github', 'GitHub'),
+                     ('Stackoverflow', 'StackOverflow'),
+                     ('stackoverflow', 'stack-overflow'),
+                     ('Youtube', 'YouTube'),
+                     ('Linkedin', 'LinkedIn'),
+                     ('Whatsapp', 'WhatsApp'),
+                     ('Bizsugar', 'BizSugar'),
+                     ))
+    if site == "plus.google.com":
+        icon = "google-plus"
+        title = "Google+"
+    else:
+        try:
+            icon = o.netloc.split('.')[-2]
+        except Exception as err:
+            print(err)
+            raise err
+            return ''
+        title = substitute.get(icon.title(), icon.title())
+        icon = substitute.get(icon, icon)
+
+    rv = '''<a href="{url}" target="_blank" arial-label="Go to {title}"> <i class="fa fa-fw fa-{icon}" aria-hidden="true" title="{title}" /></a>'''.format(url=url, icon=icon, title=title)
+    return rv
+%>

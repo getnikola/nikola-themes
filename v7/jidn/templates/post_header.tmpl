@@ -1,0 +1,53 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+
+<%def name="html_title()">
+%if title and not post.meta('hidetitle'):
+    <h1 class="post-title p-name entry-title" itemprop="headline">
+##  This <a> is use for indexes.  It doesn't hurt to have it here.
+      <a href="${post.permalink(absolute=True)}" class="u-url">${post.title()|h}</a></h1>\
+%endif
+</%def>
+
+<%def name="html_translations(post)">
+% if len(post.translated_to) > 1:
+    <div class="metadata posttranslations translations">
+        <h3 class="posttranslations-intro">${messages("Also available in:")}</h3>
+        % for langname in translations.keys():
+            % if langname != lang and post.is_translation_available(langname):
+            <p><a href="${post.permalink(langname)}" rel="alternate" hreflang="${langname}">${messages("LANGUAGE", langname)}</a></p>
+            % endif
+        % endfor
+    </div>
+% endif
+</%def>
+
+<%def name="html_sourcelink()">
+    % if show_sourcelink:
+        <p class="sourceline"><a href="${post.source_link()}" id="sourcelink">${messages("Source")}</a></p>
+    % endif
+</%def>
+
+<%def name="html_post_header()">
+    <header>
+        ${html_title()}
+## Whitespace eater  However, it doesn't seem to work after %if statements
+        <div class="metadata">
+        <meta itemprop="inLanguage" content="en" />
+        %if post.description():
+            <meta name="description" itemprop="description" content="${post.description()}">
+        %endif
+<%doc>        
+            <p class="byline author vcard"><span class="byline-name fn">${post.author()}</span></p>
+</%doc>
+            <p class="dateline">
+            <time class="post-date published dt-published" datetime="${post.date.isoformat()}" itemprop="datePublished" title="${post.formatted_date(date_format)}">${post.formatted_date(date_format)}</time>
+            </p>
+            % if not post.meta('nocomments') and site_has_comments:
+                <p class="commentline">${comments.comment_link(post.permalink(), post._base_path)}
+            % endif
+        </div>
+        ${html_translations(post)}
+    </header>
+</%def>
