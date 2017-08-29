@@ -1,0 +1,130 @@
+## -*- coding: utf-8 -*-
+
+<%def name="html_headstart()">
+<!DOCTYPE html>
+<html \
+prefix='\
+%if use_open_graph or (twitter_card and twitter_card['use_twitter_cards']):
+og: http://ogp.me/ns# article: http://ogp.me/ns/article# \
+%endif
+%if comment_system == 'facebook':
+fb: http://ogp.me/ns/fb#
+%endif
+' \
+%if use_open_graph or (twitter_card and twitter_card['use_twitter_cards']):
+vocab="http://ogp.me/ns" \
+%endif
+% if is_rtl:
+dir="rtl" \
+% endif
+\
+lang="${lang}">
+<head>
+    <meta charset="utf-8">
+    %if description:
+    <meta name="description" content="${description}">
+    %endif
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>${title|striphtml} | ${blog_title|striphtml}</title>
+
+    ${html_stylesheets()}
+    ${html_feedlinks()}
+    %if permalink:
+      <link rel="canonical" href="${abs_link(permalink)}">
+    %endif
+
+    %if favicons:
+        %for name, file, size in favicons:
+            <link rel="${name}" href="${file}" sizes="${size}"/>
+        %endfor
+    %endif
+
+    % if comment_system == 'facebook':
+        <meta property="fb:app_id" content="${comment_system_id}">
+    % endif
+
+    %if prevlink:
+        <link rel="prev" href="${prevlink}" type="text/html">
+    %endif
+    %if nextlink:
+        <link rel="next" href="${nextlink}" type="text/html">
+    %endif
+
+    ${mathjax_config}
+    %if use_cdn:
+        <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    %else:
+        <!--[if lt IE 9]><script src="${url_replacer(permalink, '/assets/js/html5.js', lang)}"></script><![endif]-->
+    %endif
+
+    ${extra_head_data}
+</%def>
+
+<%def name="late_load_js()">
+    %if use_bundles:
+        %if use_cdn:
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <script src="/assets/js/all.js"></script>
+        %else:
+            <script src="/assets/js/all-nocdn.js"></script>
+        %endif
+    %else:
+        %if use_cdn:
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        %else:
+        <%doc>
+            <script src="/assets/js/jquery.min.js"></script>
+        </%doc>
+        %endif
+        <script src="/assets/js/moment-with-locales.min.js"></script>
+        <script src="/assets/js/fancydates.js"></script>
+    %endif
+    ${social_buttons_code}
+</%def>
+
+<%def name="html_stylesheets()">
+    %if use_bundles:
+        <link href="/assets/css/all.css" rel="stylesheet" type="text/css">
+    %else:
+        <link href="/assets/css/rst.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/jidn.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/code.css" rel="stylesheet" type="text/css">
+        %if has_custom_css:
+            <link href="/assets/css/custom.css" rel="stylesheet" type="text/css">
+        %endif
+    %endif
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+</%def>
+
+<%def name="html_feedlinks()">
+    %if rss_link:
+        ${rss_link}
+    %elif generate_rss:
+        %if len(translations) > 1:
+            %for language in translations:
+                <link rel="alternate" type="application/rss+xml" title="RSS (${language})" href="${_link('rss', None, language)}">
+            %endfor
+        %else:
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="${_link('rss', None)}">
+        %endif
+    %endif
+    %if generate_atom:
+        %if len(translations) > 1:
+            %for language in translations:
+                <link rel="alternate" type="application/atom+xml" title="Atom (${language})" href="${_link('index_atom', None, language)}">
+            %endfor
+        %else:
+            <link rel="alternate" type="application/atom+xml" title="Atom" href="${_link('index_atom', None)}">
+        %endif
+    %endif
+</%def>
+
+<%def name="html_translations()">
+    <ul class="translations">
+    %for langname in translations.keys():
+        %if langname != lang:
+            <li><a href="${abs_link(_link("root", None, langname))}" rel="alternate" hreflang="${langname}">${messages("LANGUAGE", langname)}</a></li>
+        %endif
+    %endfor
+    </ul>
+</%def>
