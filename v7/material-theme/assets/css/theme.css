@@ -34,6 +34,26 @@ h2 {
     padding-left: 35px;
 }
 
+#hamburger {
+    background-color: #FFF;
+    color: #009688;
+    font-size: 1.5em;
+    font-weight: 400;
+    position: absolute;
+    background-color: #FFF;
+    display: none;
+    bottom: 10px;
+    right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+
+#hamburger:hover {
+    text-decoration: none;
+}
+
 .header-panel div {
     position: relative;
     height: 100%;
@@ -96,10 +116,6 @@ h2 {
     outline: 0;
 }
 
-.menu .icon {
-    display: none;
-}
-
 @media (max-width: 767px) {
     .menu ul {
         margin: 10px 0;
@@ -118,17 +134,8 @@ h2 {
         display: block;
     }
 
-    .menu ul .icon {
-        display: block;
-        float: right;
-        margin-right: 20px;
-    }
-
-    .menu ul.responsive .icon {
-        display: block;
-        position: absolute;
-        right: 0;
-        top: 10px;
+    #hamburger {
+        display: inline;
     }
 }
 
@@ -251,7 +258,6 @@ span.vcard img.img-circle {
     left: 22px;
     bottom: 22px;
     margin: 20px;
-    z-index: 5;
 }
 
  ul > li {

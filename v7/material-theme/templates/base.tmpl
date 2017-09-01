@@ -31,6 +31,9 @@
                     </a>
             </h1>
           </div>
+          <div class="col-xs-9">
+            <a id="hamburger" class="btn btn-raised" href="javascript:void(0);" onclick="menuToggle();">&#9776;</a>
+          </div>
         </div>
       </div><!-- /.container-fluid -->
 </nav>
@@ -41,9 +44,6 @@
                 <ul>
                     {{ base.html_navigation_links() }}
                     {{ template_hooks['menu']() }}
-                    <li class="icon">
-                        <a href="javascript:void(0);" onclick="menuToggle();">&#9776;</a>
-                    </li>
                 </ul>
 
                 <ul>
@@ -63,6 +63,9 @@
                 </div>
             </div>
         </div>
+        <button class="btn btn-fab btn-raised btn-material-green btn-footer" data-toggle="modal" data-target="#footer-dialog">
+            <i class="mdi-communication-message"></i>
+        </button>
         <div id="footer-dialog" class="modal fade" tabindex="-1">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -94,11 +97,7 @@
             {% endif %}
         </div>
         {% if social_links %}
-        <div class="kc_fab_wrapper">
-            <button class="btn btn-fab btn-raised btn-material-green btn-footer" data-toggle="modal" data-target="#footer-dialog">
-            <i class="mdi-communication-message"></i>
-            </button>
-        </div>
+        <div class="kc_fab_wrapper"></div>
         {% endif %}
 </div>
 
