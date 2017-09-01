@@ -3,9 +3,5 @@ engine = mako
 parent = base
 author = Clinton James
 author_url = https://github.com/jidn
-based_on = lanyon, Hynek <https://hynek.me> 
+based_on = lanyon, Hynek <https://hynek.me>
 license = MIT
-
-[Family]
-family = base
-

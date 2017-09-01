@@ -1,0 +1,5 @@
+# See README.md for extra configuration details
+GLOBAL_CONTEXT.update({
+    "JIDN": {},  # Extra info about authors
+    # "JIDN-theme": "theme-base-blue",
+})
