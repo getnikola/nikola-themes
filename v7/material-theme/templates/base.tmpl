@@ -31,19 +31,22 @@
                     </a>
             </h1>
           </div>
+          <div class="col-xs-9">
+            <a id="hamburger" class="btn btn-raised" href="javascript:void(0);" onclick="menuToggle();">&#9776;</a>
+          </div>
         </div>
       </div><!-- /.container-fluid -->
 </nav>
 
 <div class="container-fluid main" id="content" role="main">
         <div class="row">
-            <nav  class="col-xs-3 menu">
+            <nav  class="col-xs-12 col-sm-3 menu">
                 <ul>
                     {{ base.html_navigation_links() }}
                     {{ template_hooks['menu']() }}
                 </ul>
 
-                <ul class="nav navbar-nav">
+                <ul>
                     {% block belowtitle %}
                     {% if translations|length > 1 %}
                         <li>{{ base.html_translations() }}</li>
@@ -54,7 +57,7 @@
             </nav>
 
             {{ template_hooks['page_header']() }}
-            <div class="posts-material col-xs-9">
+            <div class="posts-material col-xs-12 col-sm-9">
                 <div class="col-xs-12 col-md-11 content-material">
                 {% block content %}{% endblock %}
                 </div>
@@ -97,6 +100,7 @@
         <div class="kc_fab_wrapper"></div>
         {% endif %}
 </div>
+
 
 {{ base.late_load_js() }}
     <script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script>

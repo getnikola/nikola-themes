@@ -34,6 +34,26 @@ h2 {
     padding-left: 35px;
 }
 
+#hamburger {
+    background-color: #FFF;
+    color: #009688;
+    font-size: 1.5em;
+    font-weight: 400;
+    position: absolute;
+    background-color: #FFF;
+    display: none;
+    bottom: 10px;
+    right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+
+#hamburger:hover {
+    text-decoration: none;
+}
+
 .header-panel div {
     position: relative;
     height: 100%;
@@ -95,6 +115,30 @@ h2 {
     display: block;
     outline: 0;
 }
+
+@media (max-width: 767px) {
+    .menu ul {
+        margin: 10px 0;
+    }
+
+    .menu ul li a {
+        display: block;
+        padding: 10px 0 10px 50px;
+    }
+
+    .menu ul li {
+        display: none;
+    }
+
+    .menu ul.responsive li {
+        display: block;
+    }
+
+    #hamburger {
+        display: inline;
+    }
+}
+
 
 /* articles */
 article > header span > a {
@@ -170,19 +214,6 @@ span.vcard img.img-circle {
     min-height: 75%;
 }
 
-.posts-material {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    z-index: 4;
-    padding: 0px;
-    overflow: auto;
-}
-
-.posts-material> div {
-    padding: 64px 5px 0px;
-}
-
 .post-material, .content-material > article, .content-material > .page {
     opacity: 1;
     transform: translateY(0px);
@@ -196,11 +227,36 @@ span.vcard img.img-circle {
     border: 0px none;
 }
 
+
+@media (max-width: 767px) {
+    .posts-material, .content-material{
+        padding: 0px;
+    }
+}
+
+@media (min-width: 768px) {
+    .posts-material {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        z-index: 4;
+        padding: 0px;
+        overflow: auto;
+    }
+
+    .posts-material> div {
+        padding: 64px 5px 0px;
+    }
+}
+
 .search-form {
     z-index: 10;
 }
 
 .btn-footer {
+    position: absolute;
+    left: 22px;
+    bottom: 22px;
     margin: 20px;
 }
 
