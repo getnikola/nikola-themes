@@ -58,6 +58,7 @@ ${template_hooks['extra_head']()}
 </div><!-- #wrapper -->
     ${body_end}
     ${template_hooks['body_end']()}
+    <%block name="extra_js"></%block>
     ${base.late_load_js()}
 </body>
 </html>

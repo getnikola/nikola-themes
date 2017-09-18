@@ -12,4 +12,4 @@ This theme is under a LGPL license just like the original (see license.txt), enj
 
 CAVEATS
 
-This theme doesn't support slides or image galleries in any useful way.
+This theme doesn't support slides (but that's a hack anyway).
