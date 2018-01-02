@@ -53,7 +53,7 @@ html {
  * out above content in mobile and later moves to the side with wider viewports.
  */
 
-div.sidebar, .sidebar {
+div.hsidebar, .hsidebar {
   padding: 2rem 1rem;
   color: rgba(255,255,255,.5);
   background-color: #202020;
@@ -63,7 +63,7 @@ div.sidebar, .sidebar {
 }
 
 @media (min-width: 48em) {
-div.sidebar, .sidebar {
+div.hsidebar, .hsidebar {
     position: fixed;
     text-align: left;
     top: 0;
@@ -74,7 +74,7 @@ div.sidebar, .sidebar {
 }
 
 /* Sidebar images */
-div.sidebar img, .sidebar img {
+div.hsidebar img, .hsidebar img {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -86,7 +86,7 @@ img#logo {
 }
 
 /* Sidebar links */
-div.sidebar a, .sidebar a {
+div.hsidebar a, .hsidebar a {
   color: #fff;
 }
 
@@ -192,7 +192,7 @@ a.sidebar-nav-item:focus {
  */
 
 @media (min-width: 48em) {
-  .layout-reverse .sidebar {
+  .layout-reverse .hsidebar {
     left: auto;
     right: 0;
   }
@@ -221,7 +221,7 @@ a.sidebar-nav-item:focus {
 /* Base16 (http://chriskempson.github.io/base16/#default) */
 
 /* Red */
-.theme-base-08 .sidebar {
+.theme-base-08 .hsidebar {
   background-color: #ac4142;
 }
 .theme-base-08 .content a,
@@ -230,7 +230,7 @@ a.sidebar-nav-item:focus {
 }
 
 /* Orange */
-.theme-base-09 .sidebar {
+.theme-base-09 .hsidebar {
   background-color: #d28445;
 }
 .theme-base-09 .content a,
@@ -239,7 +239,7 @@ a.sidebar-nav-item:focus {
 }
 
 /* Yellow */
-.theme-base-0a .sidebar {
+.theme-base-0a .hsidebar {
   background-color: #f4bf75;
 }
 .theme-base-0a .content a,
@@ -248,7 +248,7 @@ a.sidebar-nav-item:focus {
 }
 
 /* Green */
-.theme-base-0b .sidebar {
+.theme-base-0b .hsidebar {
   background-color: #90a959;
 }
 .theme-base-0b .content a,
@@ -257,7 +257,7 @@ a.sidebar-nav-item:focus {
 }
 
 /* Cyan */
-.theme-base-0c .sidebar {
+.theme-base-0c .hsidebar {
   background-color: #75b5aa;
 }
 .theme-base-0c .content a,
@@ -266,7 +266,7 @@ a.sidebar-nav-item:focus {
 }
 
 /* Blue */
-.theme-base-0d .sidebar {
+.theme-base-0d .hsidebar {
   background-color: #6a9fb5;
 }
 .theme-base-0d .content a,
@@ -275,7 +275,7 @@ a.sidebar-nav-item:focus {
 }
 
 /* Magenta */
-.theme-base-0e .sidebar {
+.theme-base-0e .hsidebar {
   background-color: #aa759f;
 }
 .theme-base-0e .content a,
@@ -284,7 +284,7 @@ a.sidebar-nav-item:focus {
 }
 
 /* Brown */
-.theme-base-0f .sidebar {
+.theme-base-0f .hsidebar {
   background-color: #8f5536;
 }
 .theme-base-0f .content a,
