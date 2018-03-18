@@ -93,7 +93,7 @@ def build_demo(theme, themes_dir, demo_source, demo_destination):
 
 def take_screenshot(index, destination):
     """Take a screenshot of the demo site and save as destination."""
-    subprocess.check_call(['phantomjs', '../scripts/take_screenshot.js', index, '1024', '768', destination])
+    subprocess.check_call(['node', 'take_screenshot.js', index, '1024', '768', destination])
     subprocess.call(['optipng', destination])
 
 
