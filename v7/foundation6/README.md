@@ -8,7 +8,7 @@ It aims to be simple, elegant and not bloat the overall size of your site too mu
 
 You can install it directly with Nikola:
 
-    nikola install_theme foundation6
+    nikola theme -i foundation6
 
 ## Usage
 

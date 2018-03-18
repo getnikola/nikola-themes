@@ -26,7 +26,7 @@ use modern browser if it is not working well.
 The theme had been added to
 [Nikola Theme Gallary](https://themes.getnikola.com/), so you can install
 it by:
-1. `nikola install_theme bnw`
+1. `nikola theme -i bnw`
 2. Modify your conf.py and set `THEME = "bnw"`
 3. Modify your `confiy.py` and set `USE_BUNDLES = True`.
 4. Done!
