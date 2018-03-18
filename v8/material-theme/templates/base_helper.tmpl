@@ -27,11 +27,18 @@ lang="{{ lang }}">
     <head>
     <meta charset="utf-8">
     {% if description %}
-    <meta name="description" content="{{ description }}">
+    <meta name="description" content="{{ description|e }}">
     {% endif %}
-    <meta name="viewport" content="width=device-width">
-    <title>{{ title|e }} | {{ blog_title|e }}</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% if title == blog_title %}
+        <title>{{ blog_title|e }}</title>
+    {% else %}
+        <title>{{ title|e }} | {{ blog_title|e }}</title>
+    {% endif %}
+    {% if use_pace %}
+        <script src="/assets/js/pace.min.js"></script>
+        <link href="/assets/css/pace.css" rel="stylesheet" />
+    {% endif %}
     {{ html_stylesheets() }}
     {{ html_feedlinks() }}
     {% if permalink %}
@@ -57,20 +64,33 @@ lang="{{ lang }}">
 
     {{ mathjax_config }}
     {% if use_cdn %}
-        <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
     {% else %}
-        <!--[if lt IE 9]><script src="{{ url_replacer(permalink, '/assets/js/html5.js', lang) }}"></script><![endif]-->
+        <!--[if lt IE 9]>
+            <script src="{{ url_replacer(permalink, '/assets/js/html5shiv.min.js', lang) }}"></script>
+            <script src="{{ url_replacer(permalink, '/assets/js/respond.min.js', lang) }}"></script>
+        <![endif]-->
     {% endif %}
 
     {{ extra_head_data }}
 {% endmacro %}
 
+{% macro theme_color() %}
+    {% if theme_color %}
+        {{ theme_color }}
+    {% else %}
+        'default'
+    {% endif %}
+{% endmacro %}
 
 {% macro late_load_js() %}
     {% if use_bundles %}
         {% if use_cdn %}
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-            <script src="//maxcdn.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
             <script src="/assets/js/all.js"></script>
         {% else %}
             <script src="/assets/js/all-nocdn.js"></script>
@@ -78,45 +98,87 @@ lang="{{ lang }}">
     {% else %}
         {% if use_cdn %}
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-            <script src="//maxcdn.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         {% else %}
             <script src="/assets/js/jquery.min.js"></script>
             <script src="/assets/js/bootstrap.min.js"></script>
-            <script src="/assets/js/moment-with-locales.min.js"></script>
-            <script src="/assets/js/fancydates.js"></script>
         {% endif %}
+        <script src="/assets/js/kc.fab.min.js"></script>
+        <script src="/assets/js/moment-with-locales.min.js"></script>
+        <script src="/assets/js/fancydates.js"></script>
+        <script src="/assets/js/ripples.min.js"></script>
+        <script src="/assets/js/material.min.js"></script>
         <script src="/assets/js/jquery.colorbox-min.js"></script>
     {% endif %}
     {{ social_buttons_code }}
+        <script>
+            {% if social_links %}
+                var links = [
+                    {% for item in social_links %}
+                        {
+                        {% for k,v in item.items() %}
+                            "{{ k }}": "{{ v }}",
+                        {% endfor %}
+                        },
+                    {% endfor %}
+                ];
+            {% endif %}
+
+            $(document).ready(function() {
+                // This command is used to initialize some elements and make them work properly
+                $.material.init();
+                {% if social_links %}
+                    $('.kc_fab_wrapper').kc_fab(links);
+                {% endif %}
+            });
+
+            $(window).on("resize", function() {
+                if($(window).width() > 767) {
+                  $("html, body").height($(window).height());
+                  $(".main, .menu").height($(window).height() - $(".header-panel").outerHeight() - 76 );
+                  $(".posts-material").height($(window).height());
+                } else {
+                  $("html, body").css('height', '');
+                  $(".main, .menu").css('height', '');
+                  $(".posts-material").css('height', '');
+                }
+            }).trigger("resize");
+
+            function menuToggle() {
+                $("nav.menu, ul").toggleClass('responsive', '');
+            }
+        </script>
 {% endmacro %}
 
 
 {% macro html_stylesheets() %}
     {% if use_bundles %}
         {% if use_cdn %}
-            <link href="//maxcdn.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+            <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
             <link href="/assets/css/all.css" rel="stylesheet" type="text/css">
         {% else %}
             <link href="/assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
         {% endif %}
     {% else %}
         {% if use_cdn %}
-            <link href="//maxcdn.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+            <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         {% else %}
             <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-            <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+            <link href="/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         {% endif %}
         <link href="/assets/css/rst.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/code.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/colorbox.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/roboto.min.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/material.min.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/ripples.min.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/kc.fab.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/theme.css" rel="stylesheet" type="text/css">
         {% if has_custom_css %}
             <link href="/assets/css/custom.css" rel="stylesheet" type="text/css">
         {% endif %}
-    {% endif %}
-    {% if needs_ipython_css %}
-        <link href="/assets/css/ipython.min.css" rel="stylesheet" type="text/css">
-        <link href="/assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
     {% endif %}
     {% if annotations and post and not post.meta('noannotations') %}
         {{ notes.css() }}
@@ -125,25 +187,24 @@ lang="{{ lang }}">
     {% endif %}
 {% endmacro %}
 
-
 {% macro html_navigation_links() %}
     {% for url, text in navigation_links[lang] %}
         {% if isinstance(url, tuple) %}
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ text }}<b class="caret"></b></a>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ text|e }}<b class="caret"></b></a>
             <ul class="dropdown-menu">
             {% for suburl, text in url %}
                 {% if rel_link(permalink, suburl) == "#" %}
-                    <li class="active"><a href="{{ permalink }}">{{ text }} <span class="sr-only">{{ messages("(active)", lang) }}</span></a>
+                    <li class="active"><a href="{{ permalink }}">{{ text|e }}</a></li>
                 {% else %}
-                    <li><a href="{{ suburl }}">{{ text }}</a>
+                    <li><a href="{{ suburl }}">{{ text|e }}</a></li>
                 {% endif %}
             {% endfor %}
             </ul>
         {% else %}
             {% if rel_link(permalink, url) == "#" %}
-                <li class="active"><a href="{{ permalink }}">{{ text }} <span class="sr-only">{{ messages("(active)", lang) }}</span></a>
+                <li class="withripple active"><a href="{{ permalink }}">{{ text|e }}</a></li>
             {% else %}
-                <li><a href="{{ url }}">{{ text }}</a>
+                <li class="withripple"><a href="{{ url }}">{{ text|e }}</a></li>
             {% endif %}
         {% endif %}
     {% endfor %}
@@ -154,7 +215,7 @@ lang="{{ lang }}">
         {{ rss_link }}
     {% elif generate_rss %}
         {% if translations|length > 1 %}
-            {% for language in translations %}
+            {% for language in translations|sort %}
                 <link rel="alternate" type="application/rss+xml" title="RSS ({{ language }})" href="{{ _link('rss', None, language) }}">
             {% endfor %}
         {% else %}
@@ -163,7 +224,7 @@ lang="{{ lang }}">
     {% endif %}
     {% if generate_atom %}
         {% if translations|length > 1 %}
-            {% for language in translations %}
+            {% for language in translations|sort %}
                 <link rel="alternate" type="application/atom+xml" title="Atom ({{ language }})" href="{{ _link('index_atom', None, language) }}">
             {% endfor %}
         {% else %}
@@ -173,7 +234,7 @@ lang="{{ lang }}">
 {% endmacro %}
 
 {% macro html_translations() %}
-    {% for langname in translations.keys() %}
+    {% for langname in translations|sort %}
         {% if langname != lang %}
             <li><a href="{{ abs_link(_link("root", None, langname)) }}" rel="alternate" hreflang="{{ langname }}">{{ messages("LANGUAGE", langname) }}</a></li>
         {% endif %}

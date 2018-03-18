@@ -47,13 +47,15 @@ PKGINDEX_CONFIG = {
         'v7/bootblog-jinja': 'v7/bootblog',
         'v7/bootstrap3-gradients-jinja': 'v7/bootstrap3-gradients',
         'v8/bootstrap3-jinja': 'v8/bootstrap3',
+        'v8/bootstrap4-jinja': 'v8/bootstrap4',
+        'v8/bootblog4-jinja': 'v8/bootblog4',
         'v7/bootstrap-jinja': 'v8/bootstrap',
         'v7/reveal-jinja': 'v7/reveal',
         'v7/zen-ipython': 'v7/zen',
         'v7/zen-jinja': 'v7/zen',
     },
     'special_entries': [],
-    'builtin_themes': ['base', 'base-jinja', 'bootstrap3', 'bootstrap3-jinja'],
+    'builtin_themes': ['base', 'base-jinja', 'bootstrap4', 'bootstrap4-jinja', 'bootblog4', 'bootblog4-jinja'],
 }
 
 PKGINDEX_CONFIG['zip_ignore'] = PKGINDEX_CONFIG['builtin_themes']

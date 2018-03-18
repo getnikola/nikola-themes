@@ -29,7 +29,7 @@ lang="{{ lang }}">
     {% if description %}
     <meta name="description" content="{{ description }}">
     {% endif %}
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title|e }} | {{ blog_title|e }}</title>
 
     {{ html_stylesheets() }}
@@ -65,20 +65,19 @@ lang="{{ lang }}">
     {{ extra_head_data }}
 {% endmacro %}
 
-
 {% macro late_load_js() %}
     {% if use_bundles %}
         {% if use_cdn %}
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-            <script src="//maxcdn.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
             <script src="/assets/js/all.js"></script>
         {% else %}
             <script src="/assets/js/all-nocdn.js"></script>
         {% endif %}
     {% else %}
         {% if use_cdn %}
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-            <script src="//maxcdn.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         {% else %}
             <script src="/assets/js/jquery.min.js"></script>
             <script src="/assets/js/bootstrap.min.js"></script>
@@ -94,22 +93,22 @@ lang="{{ lang }}">
 {% macro html_stylesheets() %}
     {% if use_bundles %}
         {% if use_cdn %}
-            <link href="//maxcdn.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+            <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
             <link href="/assets/css/all.css" rel="stylesheet" type="text/css">
         {% else %}
             <link href="/assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
         {% endif %}
     {% else %}
         {% if use_cdn %}
-            <link href="//maxcdn.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+            <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         {% else %}
             <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-            <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
         {% endif %}
         <link href="/assets/css/rst.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/code.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/colorbox.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/theme.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/blog.css" rel="stylesheet" type="text/css">
         {% if has_custom_css %}
             <link href="/assets/css/custom.css" rel="stylesheet" type="text/css">
         {% endif %}
@@ -125,26 +124,12 @@ lang="{{ lang }}">
     {% endif %}
 {% endmacro %}
 
-
 {% macro html_navigation_links() %}
     {% for url, text in navigation_links[lang] %}
-        {% if isinstance(url, tuple) %}
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ text }}<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-            {% for suburl, text in url %}
-                {% if rel_link(permalink, suburl) == "#" %}
-                    <li class="active"><a href="{{ permalink }}">{{ text }} <span class="sr-only">{{ messages("(active)", lang) }}</span></a>
-                {% else %}
-                    <li><a href="{{ suburl }}">{{ text }}</a>
-                {% endif %}
-            {% endfor %}
-            </ul>
+        {% if rel_link(permalink, url) == "#" %}
+            <a href="{{ permalink }}" class="blog-nav-item active">{{ text }} <span class="sr-only">{{ messages("(active)", lang) }}</span></a>
         {% else %}
-            {% if rel_link(permalink, url) == "#" %}
-                <li class="active"><a href="{{ permalink }}">{{ text }} <span class="sr-only">{{ messages("(active)", lang) }}</span></a>
-            {% else %}
-                <li><a href="{{ url }}">{{ text }}</a>
-            {% endif %}
+            <a href="{{ url }}" class="blog-nav-item">{{ text }}</a>
         {% endif %}
     {% endfor %}
 {% endmacro %}
@@ -175,7 +160,7 @@ lang="{{ lang }}">
 {% macro html_translations() %}
     {% for langname in translations.keys() %}
         {% if langname != lang %}
-            <li><a href="{{ abs_link(_link("root", None, langname)) }}" rel="alternate" hreflang="{{ langname }}">{{ messages("LANGUAGE", langname) }}</a></li>
+            <a class="blog-nav-item blog-nav-item-aside" href="{{ abs_link(_link("root", None, langname)) }}" rel="alternate" hreflang="{{ langname }}">{{ messages("LANGUAGE", langname) }}</a>
         {% endif %}
     {% endfor %}
 {% endmacro %}
