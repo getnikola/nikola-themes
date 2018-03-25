@@ -4,6 +4,7 @@ site/demo_sites
 site/cache
 site/builtin_themes
 site/state_data.json
+site/node_modules
 
 # Created by https://www.gitignore.io/api/pydev,nikola,python,pycharm
 
@@ -173,8 +174,5 @@ ENV/
 
 # Rope project settings
 .ropeproject
-
-# mkdocs documentation
-/site
 
 # End of https://www.gitignore.io/api/pydev,nikola,python,pycharm
