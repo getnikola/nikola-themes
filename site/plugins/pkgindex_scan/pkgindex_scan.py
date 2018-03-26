@@ -73,6 +73,8 @@ class PackageIndexScanner(PostScanner):
                     compiler
                 )
                 post.is_two_file = True
+                for d in post.meta.values():
+                    d['is_special_entry'] = False
                 timeline.append(post)
                 self.site.pkgindex_entries[topdir].append(post)
                 self._update_name_multiver(post)
@@ -89,6 +91,8 @@ class PackageIndexScanner(PostScanner):
                     compiler
                 )
                 post.is_two_file = True
+                for d in post.meta.values():
+                    d['is_special_entry'] = True
                 timeline.append(post)
                 self.site.pkgindex_entries[topdir].append(post)
                 self._update_name_multiver(post)

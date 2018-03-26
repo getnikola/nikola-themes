@@ -35,7 +35,11 @@
         </div>
     </header>
     <div class="e-content entry-content" itemprop="articleBody text">
+    % if post.meta('is_special_entry'):
+    <div class="well well-sm">This theme is built-in (Nikola v${post.meta('dirver')})</div>
+    % else:
     <div class="well well-sm">To install, run <code>nikola theme -i ${post.meta('slug')}</code></div>
+    % endif
     <div class="thumbnail demo-thumbnail">
       <a href="${post.meta('demo_link')}"><img src="${post.meta('previewimage')}" alt="Screenshot of ${post.meta('title')}" title="See demo of theme ${post.meta('title')}"><p class="demo-thumbnail-link">See demo</p></a>
     </div>
