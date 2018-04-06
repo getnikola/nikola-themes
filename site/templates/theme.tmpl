@@ -32,6 +32,9 @@
         % if post.meta('bootswatch'):
         <p class="bootswatchline bootswatch">Supports <a href="https://bootswatch.com/">Bootswatch</a></p>
         % endif
+        % if not post.meta('is_special_entry'):
+        <p class="sourceline"><a href="https://github.com/getnikola/nikola-themes/tree/master/${post.folder}/${post.meta('slug')}">Source code</a></p>
+        % endif
         </div>
     </header>
     <div class="e-content entry-content" itemprop="articleBody text">
