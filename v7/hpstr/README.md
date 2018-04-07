@@ -8,4 +8,3 @@ Known Issues:
 * CDNs are not used regardless of ``USE_CDN``
 * It doesn't yet support configuring the entry image in the frontpage
 * It doesn't yet support posts with "feature images"
-* It doesn't support USE_BUNDLES = True
