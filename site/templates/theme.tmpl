@@ -43,8 +43,8 @@
     % else:
     <div class="card bg-light border-primary mb-2"><div class="card-body">To install, run <kbd>nikola theme -i ${post.meta('slug')}</kbd></div></div>
     % endif
-    <div class="thumbnail demo-thumbnail">
-      <a href="${post.meta('demo_link')}"><img src="${post.meta('previewimage')}" alt="Screenshot of ${post.meta('title')}" title="See demo of theme ${post.meta('title')}"><p class="demo-thumbnail-link">See demo</p></a>
+    <div class="card mb-2 demo-thumbnail">
+      <a href="${post.meta('demo_link')}"><img style="max-width: 100%;" class="card-img-top" src="${post.meta('previewimage')}" alt="Screenshot of ${post.meta('title')}" title="See demo of theme ${post.meta('title')}"></a><div class="card-body demo-thumbnail-link"><a href="${post.meta('demo_link')}">See demo</a></div>
     </div>
     ${post.text()}
     % if post.meta('confpy'):
