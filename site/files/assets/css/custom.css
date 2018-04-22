@@ -1,3 +1,7 @@
+body {
+    color: #212529;
+}
+
 ul.bricks {
     text-align: justify;
 }
@@ -19,8 +23,8 @@ blockquote p, blockquote, p {
 
 .previous a,.next a{border-radius:4px}
 
-.navbar-inverse .navbar-nav > li > a {
-    color: #cccfd5;
+.navbar-brand {
+    padding: 0;
 }
 
 .navbar-brand #logo {
@@ -74,13 +78,16 @@ a.feature-link:hover {
 
 pre.gs-console {
     background: #272822;
-    color: #f8f8f2
+    color: #f8f8f2;
+    font-size: 12px;
 }
 
 code.gs-code {
     background: #272822;
     color: #f8f8f2;
     white-space: nowrap;
+    padding: 2px 4px;
+    border-radius: 4px;
 }
 
 .gs-command, code.gs-command {
@@ -93,6 +100,32 @@ code.gs-code {
 
 .gs-input, code.gs-input {
     color: #a6e22e;
+}
+
+.gs-right-col .gs-console {
+    -webkit-position: sticky;
+    position: sticky;
+    top: 10px;
+}
+
+@media (max-width: 767px) {
+    .gs-left-col {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .gs-right-col {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .gs-left-col {
+        padding-left: 0;
+    }
+    .gs-right-col {
+        padding-right: 0;
+    }
 }
 
 /* from bootstrap docs.css*/
@@ -125,3 +158,33 @@ code.gs-code {
     max-height: 80vh;
     width: auto;
 }
+
+/* Header permalinks */
+h1:hover .headerlink, h2:hover .headerlink,
+h3:hover .headerlink, h4:hover .headerlink,
+h5:hover .headerlink, h6:hover .headerlink {
+    display: inline;
+}
+
+.headerlink {
+    display: none;
+    color: #ddd;
+    margin-left: 0.2em;
+    padding: 0 0.2em;
+}
+
+.headerlink:hover {
+    opacity: 1;
+    background: #ddd;
+    color: #000;
+    text-decoration: none;
+}
+
+.forkme {
+    position: absolute;
+    top: 66px;
+    right: 0;
+    border: 0;
+    z-index: 9999;
+}
+

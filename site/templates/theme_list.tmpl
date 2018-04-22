@@ -6,15 +6,19 @@
         % for post in posts:
         % if post.meta('family_head'):
             <div class="col-sm-6 col-md-4">
-                <div class="thumbnail post-list-item">
+                <div class="card post-list-item" style="margin-bottom: 30px;">
                 <a href="${post.permalink(lang)}">
-                    <img src="${post.meta('previewimage_thumbnail')}">
-                    % if post.meta('multiver'):
-                    <h2><span class="text-muted">v${post.meta('dirver')}/</span>${post.title(lang)|h}</h2>
-                    % else:
-                    <h2>${post.title(lang)|h}</h2>
-                    % endif
+                    <img class="card-img-top" src="${post.meta('previewimage_thumbnail')}" style="max-width: 100%;">
                 </a>
+                <div class="card-body">
+                <h2>
+                <a href="${post.permalink(lang)}">
+                    % if post.meta('multiver'):
+                    <span class="text-muted">v${post.meta('dirver')}/</span>
+                    % endif
+                    ${post.title(lang)|h}
+                </a>
+                </h2>
                 <div class="theme-versions-index metadata">
                 % if post.meta('family_mako_version'):
                 <p class="makoversionline"><a href="${_link('slug', post.meta('family_mako_version'), lang)}">Mako</a></p>
@@ -25,6 +29,7 @@
                 % if post.meta('family_variants'):
                 <p class="variantsline"><a href="${post.permalink(lang)}#variants">${post.meta('family_variants_text')}</a></p>
                 % endif
+                </div>
                 </div>
                 </div>
             </div>

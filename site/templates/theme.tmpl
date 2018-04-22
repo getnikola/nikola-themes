@@ -39,9 +39,9 @@
     </header>
     <div class="e-content entry-content" itemprop="articleBody text">
     % if post.meta('is_special_entry'):
-    <div class="well well-sm">This theme is built-in (Nikola v${post.meta('dirver')})</div>
+    <div class="card bg-light border-primary mb-2"><div class="card-body">This theme is built-in (Nikola v${post.meta('dirver')})</div></div>
     % else:
-    <div class="well well-sm">To install, run <code>nikola theme -i ${post.meta('slug')}</code></div>
+    <div class="card bg-light border-primary mb-2"><div class="card-body">To install, run <kbd>nikola theme -i ${post.meta('slug')}</kbd></div></div>
     % endif
     <div class="thumbnail demo-thumbnail">
       <a href="${post.meta('demo_link')}"><img src="${post.meta('previewimage')}" alt="Screenshot of ${post.meta('title')}" title="See demo of theme ${post.meta('title')}"><p class="demo-thumbnail-link">See demo</p></a>
@@ -75,11 +75,11 @@
         % endif
     % endif
     <h3>Theme inheritance chain</h3>
-    <ul class="breadcrumb">
+    <ol class="breadcrumb">
         % for i in post.meta('chain'):
-        <li><a href="../${i}/">${i}</a></li>
+        <li class="breadcrumb-item"><a href="../${i}/">${i}</a></li>
         % endfor
-    </ul>
+    </ol>
     </div>
     ${helper.mathjax_script(post)}
 </article>
