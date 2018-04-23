@@ -177,6 +177,3 @@ ENV/
 
 # End of https://www.gitignore.io/api/pydev,nikola,python,pycharm
 
-v7/carpet
-
-v7/mdl
