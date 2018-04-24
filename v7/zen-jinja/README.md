@@ -13,3 +13,6 @@ But, if you want to build the css files from the zen LESS files, you have to use
 Additionaly, you have a LESS plugin available in the Nikola plugins repo to automatically build the LESS files inside `nikola build` command.
 You can easily install it just doing: `nikola plugin -i less`.
 
+**INFORMATION ON FONT ICONS:**
+This theme has been modified to use icons from the [ForkAwesome](https://forkawesome.github.io) project instead of the originally used [FontAwesome](http://fontawesome.io) icons.
+
