@@ -1,11 +1,9 @@
 [Theme]
 engine = mako
-parent = base
-author = Damián Avila
+parent = zen
+author = Damián Avila, Anke K
 author_url = http://www.damian.oquanta.info/
 license = MIT
 
 [Family]
 family = zen
-jinja_version = zen-jinja
-variants = zen-ipython, zen-forkawesome
