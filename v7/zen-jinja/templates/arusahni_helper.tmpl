@@ -57,22 +57,14 @@ lang="{{ lang }}">
 {% endmacro %}
 
 {% macro html_stylesheets() %}
+    <link href="//fonts.googleapis.com/css?family=Bitter:400,400i,700" rel="stylesheet" type="text/css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     {% if use_bundles %}
-        {% if use_cdn %}
-            <link href='//fonts.googleapis.com/css?family=Bitter:400,400italic,700' rel='stylesheet' type='text/css'>
-            <link href="/assets/css/all.css" rel="stylesheet" type="text/css">
-        {% else %}
-            <link href="/assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-        {% endif %}
+        <link href="/assets/css/all.css" rel="stylesheet" type="text/css">
     {% else %}
-        {% if use_cdn %}
-            <link href='//fonts.googleapis.com/css?family=Bitter:400,400italic,700' rel='stylesheet' type='text/css'>
-        {% else %}
-            <link href="/assets/css/bitter.css" rel="stylesheet" type="text/css">
-        {% endif %}
-        <link href="/assets/css/main.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/rst.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/code.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/main.css" rel="stylesheet" type="text/css">        
         {% if has_custom_css %}
             <link href="/assets/css/custom.css" rel="stylesheet" type="text/css">
         {% endif %}
