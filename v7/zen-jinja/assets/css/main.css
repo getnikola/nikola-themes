@@ -659,24 +659,24 @@ a:focus {
     filter: alpha(opacity=100);
   }
 }
-.social a [class^="fa-"] {
+.social a [class*=" fa-"] {
   -webkit-transition: opacity 0.5s;
   -moz-transition: opacity 0.5s;
   -o-transition: opacity 0.5s;
   transition: opacity 0.5s;
   font-size: 3em;
 }
-.social a [class^="fa-"].icon-border {
+.social a [class*=" fa-"].icon-border {
   border-width: 3px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
 @media (max-width: 773px) {
-  .social a [class^="fa-"] {
+  .social a [class*=" fa-"] {
     font-size: 2em;
   }
-  .social a [class^="fa-"].icon-border {
+  .social a [class*=" fa-"].icon-border {
     border-width: 2px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
