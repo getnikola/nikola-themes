@@ -295,7 +295,7 @@ section {
 @media (max-width: 773px) {
   .social ul li {
     padding-top: 5%;
-    padding-left: 3%;
+    padding-left: 1em;
     text-align: left;
     display: table-cell;
   }
@@ -806,6 +806,24 @@ address {
   margin-bottom: 24px;
   font-style: normal;
   line-height: 24px;
+}
+.breadcrumb {
+  padding: 8px 15px;
+  margin-bottom: 20px;
+  list-style: none;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+.breadcrumb > li {
+  display: inline-block;
+}
+.breadcrumb > li + li:before {
+  padding: 0 5px;
+  color: #ccc;
+  content: "/\00a0";
+}
+.breadcrumb > .active {
+  color: #777;
 }
 .thumbnails {
   margin-left: 0;
