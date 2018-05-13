@@ -1,0 +1,11 @@
+NAVIGATION_LINKS = {
+    DEFAULT_LANG: (
+        ('/index.html', 'Home', 'fa fa-home'),
+        ('/archive.html', 'Archives', 'fa fa-folder-open'),
+        ('/categories/index.html', 'Tags', 'fa fa-tags'),
+        ('/rss.xml', 'RSS', 'fa fa-rss'),
+        ('https://getnikola.com', 'About me', 'fa fa-user'),
+        ('https://twitter.com/getnikola', 'My Twitter', 'fa fa-twitter'),
+        ('https://github.com/getnikola', 'My Github', 'fa fa-github'),
+    )
+}

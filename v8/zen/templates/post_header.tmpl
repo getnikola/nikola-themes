@@ -1,0 +1,67 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+
+<%def name="html_title()">
+%if title and not post.meta('hidetitle'):
+    <h1 class="p-name entry-title" itemprop="headline name"><a href="${post.permalink()}" class="u-url">${post.title()|h}</a></h1>
+%endif
+</%def>
+
+<%def name="html_translations(post)">
+    % if len(post.translated_to) > 1:
+        <div class="posttranslations translations">
+            <h3 class="posttranslations-intro">${messages("Also available in:")}</h3>
+            % for langname in sorted(translations):
+                % if langname != lang and post.is_translation_available(langname):
+                <p><a href="${post.permalink(langname)}" rel="alternate" hreflang="${langname}">${messages("LANGUAGE", langname)}</a></p>
+                % endif
+            % endfor
+        </div>
+    % endif
+</%def>
+
+<%def name="html_sourcelink()">
+    % if show_sourcelink:
+        <p class="sourceline"><a href="${post.source_link()}" class="sourcelink"><i class="fa fa-file-code"></i> ${messages("Source")}</a></p>
+    % endif
+</%def>
+
+<%def name="html_tags(post)">
+    %if post.tags:
+    <div class="tags"><h3 class="metadata-title"><i class="fa fa-tags"></i> ${messages("Tags")}:</h3>
+        <ul itemprop="keywords" class="tags-ul">
+        %for tag in post.tags:
+          % if tag not in hidden_tags:
+            <li><a class="tag p-category" href="${_link('tag', tag)}" rel="tag">${tag|h}</a></li>
+          % endif
+        %endfor
+        </ul>
+    </div>
+    %endif
+</%def>
+
+<%def name="html_post_header()">
+    <header>
+        ${html_title()}
+        <div class="metadata">
+            <p class="dateline"><a href="${post.permalink()}" rel="bookmark"><i class="fa fa-clock"></i> <time class="published dt-published" datetime="${post.formatted_date('webiso')}" itemprop="datePublished" title="${post.formatted_date(date_format)|h}">${post.formatted_date(date_format)|h}</time></a></p>
+            <p class="byline author vcard"> <i class="fa fa-user"></i> <span class="byline-name fn" itemprop="author">
+                % if author_pages_generated:
+                    <a href="${_link('author', post.author())}">${post.author()|h}</a>
+                % else:
+                    ${post.author()|h}
+                % endif
+            </span></p>
+            % if not post.meta('nocomments') and site_has_comments:
+                <p class="commentline"><i class="far fa-comment"></i>${comments.comment_link(post.permalink(), post._base_path)}
+            % endif
+            ${html_sourcelink()}
+            % if post.meta('link'):
+                    <p class="linkline"><a href="${post.meta('link')}"><i class="fa fa-link"></i> ${messages("Original site")}</a></p>
+            % endif
+            ${html_translations(post)}
+            ${html_tags(post)}
+        </div>
+    </header>
+</%def>

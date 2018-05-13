@@ -1,0 +1,9 @@
+[Theme]
+engine = mako
+parent = zen
+author = Damián Avila, Chris Warrick, Anke K
+author_url = http://www.damian.oquanta.info/
+license = MIT
+
+[Family]
+family = zen

@@ -1,0 +1,51 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+<%namespace name="header" file="base_header.tmpl" import="*"/>
+<%namespace name="footer" file="base_footer.tmpl" import="*"/>
+${set_locale(lang)}
+### <html> tag is included by base.html_headstart
+${base.html_headstart()}
+<%block name="extra_head">
+### Leave this block alone.
+</%block>
+${template_hooks['extra_head']()}
+</head>
+<body>
+    <a href="#page-content" class="sr-only sr-only-focusable">${messages("Skip to main content")}</a>
+    <section class="social">
+        <ul>
+        %if logo_url:
+            <li>
+                <a href="${abs_link(_link("root", None, lang))}">
+                    <img src="${logo_url}" alt="${blog_title|h}" id="logo">
+                </a>
+            </li>
+        %endif
+        ${header.html_navigation_links()}
+        </ul>
+    </section>
+    <section class="page-content">
+        <div class="content" rel="main">
+            <%block name="content"></%block>
+             ${footer.html_footer()}
+        </div>
+    </section>
+    ${base.late_load_js()}
+    <!-- fancy dates -->
+    <script>
+    moment.locale("${momentjs_locales[lang]}");
+    fancydates(${date_fanciness}, ${js_date_format});
+    </script>
+    <!-- end fancy dates -->
+    <%block name="extra_js"></%block>
+    <script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+    ${body_end}
+    ${template_hooks['body_end']()}
+</body>
+</html>
