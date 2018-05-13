@@ -1,9 +1,0 @@
-[Theme]
-engine = mako
-parent = zen
-author = Damián Avila, Anke K
-author_url = http://www.damian.oquanta.info/
-license = MIT
-
-[Family]
-family = zen

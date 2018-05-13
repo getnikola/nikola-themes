@@ -1,8 +1,0 @@
-/* use Fork Awesome font family */
-
-[class^="fa-"],
-[class*=" fa-"],
-.post .meta .authordate:before,
-.post .meta .stats a:after {
-  font-family: ForkAwesome;
-}
