@@ -641,7 +641,7 @@ a:focus {
     filter: alpha(opacity=100);
   }
 }
-.social a .fa {
+.social a i {
   -webkit-transition: opacity 0.5s;
   -moz-transition: opacity 0.5s;
   -o-transition: opacity 0.5s;
@@ -649,7 +649,7 @@ a:focus {
   font-size: 3em;
 }
 @media (max-width: 773px) {
-  .social a .fa {
+  .social a i {
     font-size: 2em;
   }
 }

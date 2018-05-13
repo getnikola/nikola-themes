@@ -5,8 +5,8 @@ NAVIGATION_LINKS = {
         ('/categories/index.html', 'Tags', 'fa fa-tags'),
         ('/rss.xml', 'RSS', 'fa fa-rss'),
         ('https://getnikola.com', 'About me', 'fa fa-user'),
-        ('https://twitter.com/getnikola', 'My Twitter', 'fa fa-twitter'),
-        ('https://github.com/getnikola', 'My Github', 'fa fa-github'),
+        ('https://twitter.com/getnikola', 'My Twitter', 'fab fa-twitter'),
+        ('https://github.com/getnikola', 'My Github', 'fab fa-github'),
     )
 }
 

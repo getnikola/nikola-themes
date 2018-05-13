@@ -9,3 +9,5 @@ NAVIGATION_LINKS = {
         ('https://github.com/getnikola', 'My Github', 'fa fa-github'),
     )
 }
+
+DATE_FANCINESS = 2
