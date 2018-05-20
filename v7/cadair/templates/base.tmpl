@@ -1,7 +1,6 @@
 ## -*- coding: utf-8 -*-
 <%namespace name="base" file="base_helper.tmpl" import="*" />
 <%namespace name="bootstrap" file="base_helper.tmpl" import="*" />
-<%namespace name="notes" file="annotation_helper.tmpl" import="*" />
 ${set_locale(lang)}
 
 ${base.html_headstart()}
@@ -92,7 +91,7 @@ moment.locale("${momentjs_locales[lang]}");
 fancydates(${date_fanciness}, ${js_date_format});
 </script>
 <!-- end fancy dates -->
-<!-- Abstract hide/show 
+<!-- Abstract hide/show
 <script src"/assets/js/div_toggle.js"></script>
 -->
 <script type='text/javascript'>
@@ -110,11 +109,6 @@ function toggle(showHideDiv, switchTextDiv) {
 }
 </script>
 <%block name="extra_js"></%block>
-% if annotations and post and not post.meta('noannotations'):
-${notes.code()}
-% elif not annotations and post and post.meta('annotations'):
-${notes.code()}
-% endif
 ${body_end}
 ${template_hooks['body_end']()}
 </body>

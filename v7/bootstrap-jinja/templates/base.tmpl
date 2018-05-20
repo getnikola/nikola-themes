@@ -1,6 +1,5 @@
 {#  -*- coding: utf-8 -*- #}
 {% import 'base_helper.tmpl' as base with context %}
-{% import 'annotation_helper.tmpl' as notes with context %}
 {{ set_locale(lang) }}
 {{ base.html_headstart() }}
 {% block extra_head %}
@@ -82,11 +81,6 @@
     </script>
     <!-- end fancy dates -->
     {% block extra_js %}{% endblock %}
-    {% if annotations and post and not post.meta('noannotations') %}
-        {{ notes.code() }}
-    {% elif not annotations and post and post.meta('annotations') %}
-        {{ notes.code() }}
-    {% endif %}
 {{ body_end }}
 {{ template_hooks['body_end']() }}
 </body>
