@@ -473,6 +473,6 @@ a.pagination-item:hover {
   }
 }
 
-pre.code.literal-block {
+td.code pre.code.literal-block {
     margin-left: 0;
 }
