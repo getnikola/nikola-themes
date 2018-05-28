@@ -163,7 +163,7 @@ pre {
   display: block;
   margin-top: 0;
   margin-bottom: 1rem;
-  padding: 0;
+  padding: 1rem;
   font-size: .8rem;
   line-height: 1.4;
   white-space: pre;
@@ -174,7 +174,6 @@ pre {
 pre code {
   padding: 0;
   font-size: 100%;
-  margin: 0;
   color: inherit;
   background-color: transparent;
 }
@@ -473,6 +472,12 @@ a.pagination-item:hover {
   }
 }
 
+
+/* Fix whitespace of listings w/ numbers (issue #155) */
+table.codehilitetable pre {
+  padding: 0;
+}
+td.code /* to exclude listings w/o numbers */
 pre.code.literal-block {
-    margin-left: 0;
+  margin-left: 0;
 }
