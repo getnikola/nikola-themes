@@ -471,3 +471,13 @@ a.pagination-item:hover {
     border-bottom-right-radius: 4px;
   }
 }
+
+
+/* Fix whitespace of listings w/ numbers (issue #155) */
+table.codehilitetable pre {
+  padding: 0;
+}
+td.code /* to exclude listings w/o numbers */
+pre.code.literal-block {
+  margin-left: 0;
+}
