@@ -1,0 +1,4 @@
+assets/css/all.css=rst.css,code.css,baguetteBox.min.css,theme.css,slidemenu.css,custom.css
+assets/css/all-nocdn.css=rst.css,code.css,baguetteBox.min.css,theme.css,slidemenu.css,custom.css
+assets/js/all-nocdn.js=jquery.min.js,baguetteBox.min.js,menu.js,moment-with-locales.min.js,fancydates.min.js
+assets/js/all.js=menu.js,moment-with-locales.min.js,fancydates.min.js

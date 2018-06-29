@@ -62,13 +62,32 @@ lang="{{ lang }}">
     {% else %}
         <!--[if lt IE 9]><script src="{{ url_replacer(permalink, '/assets/js/html5.js', lang) }}"></script><![endif]-->
     {% endif %}
-    <script src="/assets/js/jquery.min.js"></script>
 
     {{ extra_head_data }}
 {% endmacro %}
 
 {% macro late_load_js() %}
-    <script src="/assets/js/menu.js"></script>
+    {% if use_bundles %}
+        {% if use_cdn %}
+            <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.9.1/baguetteBox.min.js" integrity="sha256-SoEATAB7PgNWyyK100I7yQXYm5V08k5SFupDP0h72MY=" crossorigin="anonymous"></script>
+
+            <script src="/assets/js/all.js"></script>
+        {% else %}
+            <script src="/assets/js/all-nocdn.js"></script>
+        {% endif %}
+    {% else %}
+        {% if use_cdn %}
+            <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.9.1/baguetteBox.min.js" integrity="sha256-SoEATAB7PgNWyyK100I7yQXYm5V08k5SFupDP0h72MY=" crossorigin="anonymous"></script>
+        {% else %}
+            <script src="/assets/js/jquery.min.js"></script>
+            <script src="/assets/js/baguetteBox.min.js"></script>
+            <script src="/assets/js/menu.js"></script>
+            <script src="/assets/js/moment-with-locales.min.js"></script>
+            <script src="/assets/js/fancydates.min.js"></script>
+        {% endif %}
+    {% endif %}
     {{ social_buttons_code }}
 {% endmacro %}
 
@@ -82,6 +101,7 @@ lang="{{ lang }}">
     {% else %}
         <link href="/assets/css/rst.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/code.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/baguetteBox.min.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/theme.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/slidemenu.css" rel="stylesheet" type="text/css">
         {% if has_custom_css %}
