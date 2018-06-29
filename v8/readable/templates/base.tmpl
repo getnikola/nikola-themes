@@ -64,7 +64,6 @@ ${template_hooks['extra_head']()}
     ${base.late_load_js()}
     <script type="text/javascript" src="/assets/js/jquery.sharrre-1.3.4.min.js"></script>
     <script type="text/javascript">
-        jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"80%",maxHeight:"80%",scalePhotos:true});
         $('#share').sharrre({
         share: {
             googlePlus: true,
@@ -83,6 +82,16 @@ ${template_hooks['extra_head']()}
         enableTracking: true,
         urlCurl: ""
         });
+    </script>
+    <script>
+    baguetteBox.run('a.reference:not(.islink)', {
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    baguetteBox.run('img:not(.islink)', {
+        captions: function(element) {
+            return element.alt;
+    }});
     </script>
     ${body_end}
     ${template_hooks['body_end']()}

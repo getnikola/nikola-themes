@@ -40,7 +40,16 @@ ${template_hooks['extra_head']()}
         </div>
     </div>
     ${base.late_load_js()}
-    <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script>
+    <script>
+    baguetteBox.run('a.reference:not(.islink)', {
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    baguetteBox.run('img:not(.islink)', {
+        captions: function(element) {
+            return element.alt;
+    }});
+    </script>
     <%block name="extra_js"></%block>
     ${body_end}
     ${template_hooks['body_end']()}
