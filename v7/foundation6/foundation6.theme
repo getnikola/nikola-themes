@@ -1,7 +1,0 @@
-[Theme]
-engine = mako
-parent = base
-author = Niko Wenselowski
-author_url = https://github.com/okin
-based_on = ZURB Foundation <http://foundation.zurb.com/>
-license = AGPLv3
