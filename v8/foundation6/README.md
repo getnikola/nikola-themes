@@ -16,10 +16,6 @@ In your conf.py set `THEME` to `foundation6`.
 
 Rebuild your site.
 
-## Note regarding Mathjax
-
-This theme currently does not support Mathjax. If you want to add support feel free to add a [pull request](https://github.com/getnikola/nikola-themes)!
-
 ## Included in custom Foundation 6
 
 This theme uses a custom Foundation 6 with fewer components to slim the size of the site even more.
@@ -47,5 +43,5 @@ If you want to replace this with your own custom Foundation 6 - i.e. with differ
 
 The Foundation framework is licensed under MIT.
 
-This theme is licensed under APGLv3.
+This theme is licensed under AGPLv3.
 
