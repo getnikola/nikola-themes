@@ -43,5 +43,5 @@ If you want to replace this with your own custom Foundation 6 - i.e. with differ
 
 The Foundation framework is licensed under MIT.
 
-This theme is licensed under APGLv3.
+This theme is licensed under AGPLv3.
 

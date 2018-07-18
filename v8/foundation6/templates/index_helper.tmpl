@@ -1,0 +1,20 @@
+## -*- coding: utf-8 -*-
+<%def name="html_pager()">
+    %if prevlink or nextlink:
+
+        <div class="column row">
+            <ul class="pagination" role="navigation" aria-label="Pagination">
+            %if prevlink:
+                <li>
+                    <a href="${prevlink}" rel="prev">« <span class="show-for-sr">${messages("Newer posts")}</span></a>
+                </li>
+            %endif
+            %if nextlink:
+                <li>
+                    <a href="${nextlink}" rel="next">» <span class="show-for-sr">${messages("Older posts")}</span></a>
+                </li>
+            %endif
+            </ul>
+        </div>
+    %endif
+</%def>
