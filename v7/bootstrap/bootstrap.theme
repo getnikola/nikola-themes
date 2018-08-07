@@ -1,0 +1,12 @@
+[Theme]
+engine = mako
+parent = base
+author = The Nikola Contributors
+author_url = https://getnikola.com/
+license = MIT
+based_on = Bootstrap 2 <https://getbootstrap.com/2.3.2/>
+tags = bootstrap
+
+[Family]
+family = bootstrap
+jinja_version = bootstrap-jinja
