@@ -14,7 +14,7 @@
     %if posts:
     <ul class="postlist">
     % for post in posts:
-          <li> <time class="listdate" datetime="${post.date.isoformat()}" title="${post.formatted_date(date_format)}">${post.formatted_date('%Y-%m-%d')}</time> <a href="${post.permalink()}" class="listtitle">${post.title()|h}</a> </li>
+          <li> <time class="listdate" datetime="${post.date.isoformat()}" title="${post.formatted_date(date_format)}">${post.formatted_date('YYYY-MM-dd')}</time> <a href="${post.permalink()}" class="listtitle">${post.title()|h}</a> </li>
     % endfor
     </ul>
     %else:

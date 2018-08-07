@@ -2,12 +2,12 @@
 <%namespace name="helper" file="index_helper.tmpl"/>
 <%namespace name="comments" file="comments_helper.tmpl"/>
 <%namespace name="header" file="zzz_header.tmpl" import="*" />
-<%namespace name="math" file="math_header.tmpl"/>
+<%namespace name="math" file="math_helper.tmpl"/>
 <%inherit file="base.tmpl"/>
 
 <%block name="extra_head">
 ${math.math_styles_ifposts(posts)}
-<%/block>
+</%block>
 
 <%block name="content">
     ${html_site_tagline()}
@@ -15,7 +15,7 @@ ${math.math_styles_ifposts(posts)}
         <div class="container">
         % for post in posts:
         <div class="post-entry">
-            <time class="post-time" datetime="${post.date.isoformat()}">${post.formatted_date('%Y-%m-%d')}</time>
+            <time class="post-time" datetime="${post.date.isoformat()}">${post.formatted_date('YYYY-MM-dd')}</time>
             <div class="post-desc">
                 <div class="post-title">
                     <a href="${post.permalink()}">${post.title()}</a>
