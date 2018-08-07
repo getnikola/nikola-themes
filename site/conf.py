@@ -41,6 +41,7 @@ PKGINDEX_HANDLERS = {
 PKGINDEX_CONFIG = {
     'extension': '.sample',
     'versions_supported': [7, 8],
+    'build_demos_for': [8],
     'json_filename': 'themes.json',
     'demo_screenshots_map': {
         'v8/base-jinja': 'v8/base',

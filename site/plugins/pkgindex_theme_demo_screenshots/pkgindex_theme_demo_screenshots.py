@@ -132,6 +132,9 @@ class PackageIndexThemeDS(Task):
                 directory = os.path.dirname(post.source_path)
                 pkg_name = os.path.basename(directory)
                 output_dir = post.folder_relative + '/' + pkg_name
+                version = post.folder_relative.split('v')[-1]
+                if int(version) not in self.kw['pkgindex_config']['build_demos_for']:
+                    continue
                 if output_dir in self.kw['pkgindex_config']['demo_screenshots_map']:
                     # the map is effectively an ignore list
                     continue
