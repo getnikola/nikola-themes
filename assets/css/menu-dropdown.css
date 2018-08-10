@@ -1,0 +1,28 @@
+.navmenu {
+    display: block;
+}
+
+.navbar-dropdown {
+    width: 100%;
+}
+
+@media (min-width: 550px) {
+    .navbar-dropdown {
+        width: 82.6666666667%;
+        margin-left: 8.66666666667%;
+    }
+}
+
+@media (min-width: 750px) {
+    .navmenu {
+        display: none;
+    }
+}
+
+@media print {
+
+    .navmenu,
+    .navbar-dropdown {
+        display: none;
+    }
+}

@@ -1,0 +1,8 @@
+[Theme]
+engine = mako
+parent = base
+author = George Leslie-Waksman
+author_url = https://github.com/gwax
+license = MIT
+based_on = Skeleton <http://getskeleton.com/>
+tags = skeleton

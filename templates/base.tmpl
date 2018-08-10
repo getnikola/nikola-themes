@@ -1,0 +1,45 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+<%namespace name="header" file="base_header.tmpl" import="*"/>
+<%namespace name="footer" file="base_footer.tmpl" import="*"/>
+${set_locale(lang)}
+### <html> tag is included by base.html_headstart
+${base.html_headstart()}
+<%block name="extra_head">
+### Leave this block alone.
+</%block>
+${template_hooks['extra_head']()}
+</head>
+<body>
+    <div class="container">
+         ${header.html_header()}
+         <main id="content">
+            <%block name="content"></%block>
+         </main>
+         ${footer.html_footer()}
+    </div>
+    ${base.late_load_js()}
+    % if date_fanciness != 0:
+    <!-- fancy dates -->
+    <script>
+    moment.locale("${momentjs_locales[lang]}");
+    fancydates(${date_fanciness}, ${js_date_format});
+    </script>
+    <!-- end fancy dates -->
+    % endif
+    <%block name="extra_js"></%block>
+    <script>
+    baguetteBox.run('a.reference', {
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    WebFont.load({
+        google: {
+            families: ['IBM Plex Mono', 'Raleway', 'Pacifico']
+        }
+    });
+    </script>
+    ${body_end}
+    ${template_hooks['body_end']()}
+</body>
+</html>

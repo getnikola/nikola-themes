@@ -1,0 +1,340 @@
+@charset "UTF-8";
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+    text-decoration: none;
+}
+
+h1.title {
+    margin: 0;
+    text-align: left;
+}
+
+#blog-title {
+    font-family: Pacifico, "Times New Roman", Times, serif;
+}
+
+pre {
+    font-family: "IBM Plex Mono", Menlo, Inconsolata, monospace;
+}
+
+.entry-content:after {
+    /* ensure that all images are cleared before ending content */
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.searchform {
+    margin-top: 1rem;
+}
+
+a img {
+    margin: 1rem;
+    border: 3px outset #05A0D4;
+}
+
+.postpromonav {
+    border-top: 3px double #036F93;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+section.comments {
+    border-top: 3px double #036F93;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+#footer {
+    padding-top: 0.25rem;
+    border-top: 3px double #036F93;
+}
+
+#footer p {
+    margin: 0.5rem 0 0.5rem 0;
+}
+
+div.tags {
+    text-align: center;
+}
+
+.taglist li {
+    display: inline;
+}
+
+.postindex article {
+    margin-top: 1rem;
+    border-bottom: 2px solid #A3A3A3;
+}
+
+.postindex article:last-child {
+    border-bottom: none;
+}
+
+pre.literal-block {
+    background: #f8f8f8;
+    line-height: 1;
+}
+
+/* listings */
+.linenos .linenodiv a {
+    text-decoration: none !important;
+}
+
+/* footnotes */
+.footnote-reference {
+    top: -0.5em;
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+table.footnote {
+    margin-top: 0;
+    margin-bottom: 0;
+    border: 1px solid rgba(255, 255, 255, 0);
+}
+
+.footnote td {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border: 0;
+}
+
+.footnote td.label {
+    border-top: 1px solid #036F93;
+}
+
+/* code listing tweaks */
+table.codetable {
+    border: 1px solid #036F93;
+}
+
+.codetable td {
+    padding: 0.25em;
+    border: 1px solid #036F93;
+}
+
+.codetable pre {
+    margin: 0;
+    line-height: 1.25em;
+}
+
+/* breadcrumbs */
+.breadcrumb li {
+    display: inline;
+}
+
+.breadcrumb li:before {
+    content: " > ";
+}
+
+.breadcrumb li:first-child:before {
+    content: none;
+}
+
+/* time entries */
+span.updated {
+    color: #00AC3A;
+}
+
+.dateline {
+    font-size: 75%;
+    font-style: italic;
+}
+
+/* metadata headers */
+header .metadata {
+    margin-top: -1.5rem;
+    margin-left: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.metadata p {
+    display: inline;
+}
+
+.metadata p:first-child:before {
+    content: none;
+}
+
+.metadata .sourceline:before {
+    content: "(";
+}
+
+.metadata .sourceline:after {
+    content: ")";
+}
+
+/* static comment entries */
+.comment-level {
+    margin-left: 1.5rem;
+}
+
+.comment {
+    margin-top: -1.5rem;
+}
+
+.comment-header {
+    display: inline-block;
+    border-bottom: 1px solid #036F93;
+}
+
+.comment-content {
+    padding-left: 1.5rem;
+    border-left: 1px solid #036F93;
+}
+
+/* reST list tweaks */
+ol.simple,
+ul.simple,
+ol.arabic,
+ol.loweralpha,
+ol.upperalpha,
+ol.lowerroman,
+ol.upperroman {
+    list-style-position: inside;
+    padding-left: 1rem;
+}
+
+/* list separators */
+.metadata p:before,
+.postpromonav .tags li:before,
+.postlist .listdate:after,
+.translationslist p:before {
+    content: " — ";
+}
+
+/* Post and archive pagers */
+.postindexpager .pager .next:before {
+    content: "↓ ";
+}
+
+.postindexpager .pager .previous:before,
+.archivenav .pager .up:before {
+    content: "↑ ";
+}
+
+.postpromonav .pager .next:after,
+.archivenav .pager .next:after {
+    content: " →";
+}
+
+.postpromonav .pager .previous:dir(rtl):after,
+.archivenav .pager .previous:dir(rtl):after {
+    content: " →";
+}
+
+.postpromonav .pager .previous:before,
+.archivenav .pager .previous:before {
+    content: "← ";
+}
+
+.postpromonav .pager .next:dir(rtl):before,
+.archivenav .pager .next:dir(rtl):before {
+    content: "← ";
+}
+
+.line-block {
+    margin-bottom: 2.5rem;
+}
+
+/* Utility helpers */
+.u-text-center {
+    text-align: center !important;
+}
+
+.u-text-right {
+    text-align: right !important;
+}
+
+/* svg-icons */
+.svg-icon {
+    height: 1.25rem;
+    width: 1.25rem;
+    bottom: -0.25rem;
+}
+
+
+/* Printer settings
+From: https://github.com/h5bp/html5-boilerplate/blob/master/dist/css/main.css
+License: https://github.com/h5bp/html5-boilerplate/blob/master/LICENSE.txt
+ */
+@media print {
+
+    *,
+    *:before,
+    *:after {
+        background: transparent !important;
+        color: #000 !important;
+        /* Black prints faster */
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    p a[href]:not(.footnote-reference):not(.image-reference):after {
+        content: " ("attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " ("attr(title) ")";
+    }
+
+    /*
+     * Don't show links that are fragment identifiers,
+     * or use the `javascript:` pseudo protocol
+     */
+
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after {
+        content: "";
+    }
+
+    pre {
+        white-space: pre-wrap !important;
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    /*
+     * Printing Tables:
+     * http://css-discuss.incutio.com/wiki/Printing_Tables
+     */
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
