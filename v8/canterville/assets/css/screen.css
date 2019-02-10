@@ -665,6 +665,13 @@ body.nav-opened .nav {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+.nav li a.child {
+    font-size: 1.1rem;
+    margin-left: 1.5rem;
+    line-height: 2;
+}
+
 .nav li a:after {
     display: inline-block;
     content: " .......................................................";
