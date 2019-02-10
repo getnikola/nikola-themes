@@ -1591,7 +1591,7 @@ body:not(.post-template) .post-title {
     }
 
     .no-cover.post-head.main-header {
-        height: 55px;
+        height: 75px;
         padding: 0;
     }
 
