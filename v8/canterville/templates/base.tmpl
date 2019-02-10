@@ -38,6 +38,12 @@ ${header.html_navigation_links()}
                 </a>
                 &nbsp;
                 % endif
+                % if LINKEDIN_URL:
+                <a  href="${LINKEDIN_URL}" target="_blank">
+                    <span class="icon-linkedin" style="color:white;font-size:2em"></span>
+                </a>
+                &nbsp;
+                % endif
                 <h1 class="page-title">${title}</h1>
                 <h2 class="page-description">${description}</h2>
             </div>
