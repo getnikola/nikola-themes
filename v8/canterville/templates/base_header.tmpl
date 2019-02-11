@@ -35,13 +35,32 @@
     </a>
     <ul>
     %for url, text in navigation_links[lang]:
-        % if rel_link(permalink, url) == "#":
-        <li class="nav-opened nav-current" role="presentation">
+        % if isinstance(url, tuple):
+            <%!
+            from nikola.utils import slugify
+            %>
+
+            <li class="nav-opened" role="presentation">
+                <a href="javascript:void(0)" class="nested-url" data-children="nested-${slugify(text, lang)}">
+                ${text}
+                </a>
+            </li>
+            %for sublink, subtext in url:
+                <li class="nav-opened nested-${slugify(text, lang)} hidden" role="presentation">
+                    <a href="${sublink}" class="child">
+                    ${subtext}
+                    </a>
+                </li>
+            %endfor
         % else:
-        <li class="nav-opened" role="presentation">
+            % if rel_link(permalink, url) == "#":
+            <li class="nav-opened nav-current" role="presentation">
+            % else:
+            <li class="nav-opened" role="presentation">
+            % endif
+                <a href="${url}">${text}</a>
+            </li>
         % endif
-            <a href="${url}">${text}</a>
-        </li>
     %endfor
     ${template_hooks['menu']()}
     ${template_hooks['menu_alt']()}

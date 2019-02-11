@@ -471,6 +471,7 @@ margin on the iframe, cause it breaks stuff. */
     width: 80%;
     max-width: 710px;
     margin: 0 auto;
+    text-shadow: 0px 2px 10px rgba(124, 124, 124, 0.3);
 }
 
 /* Centres vertically yo. (IE8+) */
@@ -665,6 +666,13 @@ body.nav-opened .nav {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+.nav li a.child {
+    font-size: 1.1rem;
+    margin-left: 1.5rem;
+    line-height: 2;
+}
+
 .nav li a:after {
     display: inline-block;
     content: " .......................................................";
@@ -1584,7 +1592,7 @@ body:not(.post-template) .post-title {
     }
 
     .no-cover.post-head.main-header {
-        height: 55px;
+        height: 75px;
         padding: 0;
     }
 
