@@ -121,3 +121,15 @@ lang="${lang}">
     %endfor
     </ul>
 </%def>
+
+<%def name="html_navigation_links()">
+    %for url, text, icon in navigation_links[lang]:
+        % if rel_link(permalink, url) == "#":
+            <li class="active"><a href="${permalink}" title="${text} ${messages("(active)", lang)}"><i class="${icon}"></i></a></li>
+        % else:
+            <li><a href="${url}" title="${text}"><i class="${icon}"></i></a></li>
+        % endif
+    %endfor
+    ${template_hooks['menu']()}
+    ${template_hooks['menu_alt']()}
+</%def>
