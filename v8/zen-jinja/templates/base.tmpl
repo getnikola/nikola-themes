@@ -12,6 +12,7 @@
 </head>
 <body>
     <a href="#page-content" class="sr-only sr-only-focusable">{{ messages("Skip to main content") }}</a>
+    {{ template_hooks['page_header']() }}
     <section class="social">
         <ul>
         {% if logo_url %}
@@ -21,7 +22,12 @@
                 </a>
             </li>
         {% endif %}
-        {{ header.html_navigation_links() }}
+        {{ base.html_navigation_links() }}
+        {% if search_form %}
+            <div class="searchform" role="search">
+                {{ search_form }}
+            </div>
+        {% endif %}
         </ul>
     </section>
     <section class="page-content">
