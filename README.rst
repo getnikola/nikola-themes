@@ -15,3 +15,26 @@ the navmenu will be replaced by a dropbox containing the same options.
 .. _Nikola: https://getnikola.com/
 
 .. _Skeleton: http://getskeleton.com/
+
+**********************
+Issues / Contributions
+**********************
+
+nikola-skeleton-theme lives in two places:
+
+-   `gwax/nikola-skeleton-theme <https://github.com/gwax/nikola-skeleton-theme>`_
+    (authoritative) official maintained home of the theme
+-   `getnikola/nikola-themes <https://github.com/getnikola/nikola-themes>`_
+    (mirror) copy managed via ``git subtree`` to ease use by others.
+
+PRs, Issues, questions, and comments should be directed to
+`gwax/nikola-skeleton-theme`_ and changes should then be subtree merged into
+`getnikola/nikola-themes`_
+
+Pulling changes
+===============
+
+.. code:: bash
+
+    git remote add skeleton git@github.com:gwax/nikola-skeleton-theme.git
+    git subtree pull --prefix=v8/skeleton skeleton master
