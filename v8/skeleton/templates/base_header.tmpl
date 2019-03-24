@@ -1,0 +1,123 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+
+<%def name="html_header()">
+    <header id="header">
+        <div class="row">
+            <div class="six columns">
+                ${html_site_title()}
+            </div>
+            ${html_translation_header()}
+            %if search_form:
+                <div class="three columns u-pull-right">
+                    <div class="searchform" role="search">
+                        ${search_form}
+                    </div>
+                </div>
+            %endif
+        </div>
+    </header>
+    ${html_navigation_links()}
+    ${template_hooks['page_header']()}
+</%def>
+
+<%def name="html_site_title()">
+    <h1 id="brand" class="title"><a href="${abs_link(_link("root", None, lang))}" title="${blog_title|h}" rel="home">
+    %if logo_url:
+        <img src="${logo_url}" alt="${blog_title|h}" id="logo">
+    %endif
+
+    % if show_blog_title:
+        <span id="blog-title">${blog_title|h}</span>
+    % endif
+    </a></h1>
+</%def>
+
+<%def name="html_navigation_links()">
+    <div class="navbar-spacer"></div>
+    <nav class="navbar">
+    <div class="container">
+    <ul class="navbar-list">
+    ${html_navbar_links_entries(navigation_links)}
+    ${html_navbar_links_entries(navigation_alt_links)}
+    ${template_hooks['menu']()}
+    ${template_hooks['menu_alt']()}
+    </ul>
+    </div>
+    </nav>
+
+    <nav class="navmenu">
+    <div class="container">
+    <select class="navbar-dropdown">
+    <option selected="selected" value disabled>Go to...</option>
+    ${html_navmenu_links_entries(navigation_links)}
+    ${html_navmenu_links_entries(navigation_alt_links)}
+    </select>
+    </div>
+    </nav>
+</%def>
+
+<%def name="html_navbar_links_entries(navigation_links_source)">
+    %for i, (url, text) in enumerate(navigation_links_source[lang]):
+        %if isinstance(url, tuple):
+            <li class="navbar-item">
+                <a class="navbar-link" href="#" data-popover="#popover${i}">${text}</a>
+                <div id="popover${i}" class="popover">
+                <ul class="popover-list">
+                %for suburl, text in url:
+                    %if rel_link(permalink, url_replacer('/', suburl)) == "#":
+                        <li class="popover-item active">
+                            <a class="popover-link" href="${permalink}">${text}</a>
+                        </li>
+                    %else:
+                        <li class="popover-item">
+                            <a class="popover-link" href="${suburl}">${text}</a>
+                        </li>
+                    %endif
+                %endfor
+                </ul>
+                </div>
+            </li>
+        %else:
+            %if rel_link(permalink, url_replacer('/', url)) == "#":
+                <li class="navbar-item active">
+                    <a class="navbar-link" href="${permalink}">${text}</a>
+                </li>
+            %else:
+                <li class="navbar-item">
+                    <a class="navbar-link" href="${url}">${text}</a>
+                </li>
+            %endif
+        %endif
+    %endfor
+</%def>
+
+<%def name="html_navmenu_links_entries(navigation_links_source)">
+    %for url, text in navigation_links_source[lang]:
+        %if isinstance(url, tuple):
+            <option value="#" disabled>${text}</option>
+            %for suburl, text in url:
+                %if rel_link(permalink, url_replacer('/', suburl)) == "#":
+                    <option value="${permalink}" disabled>- ${text}</option>
+                %else:
+                    <option value="${url_replacer('/', suburl)}">- ${text}</option>
+                %endif
+            %endfor
+        %else:
+            %if rel_link(permalink, url_replacer('/', url)) == "#":
+                <option value="${permalink}" disabled>${text}</option>
+            %else:
+                <option value="${url_replacer('/', url)}">${text}</option>
+            %endif
+        %endif
+    %endfor
+</%def>
+
+<%def name="html_translation_header()">
+    %if len(translations) > 1:
+        <div class="three columns u-pull-right">
+            <h2>${messages("Languages:")}</h2>
+            ${base.html_translations()}
+        </div>
+    %endif
+</%def>
