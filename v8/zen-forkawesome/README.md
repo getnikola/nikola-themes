@@ -2,7 +2,11 @@ This is the `zen` theme modified to use icons from the [ForkAwesome](https://for
 
 The zen and zen-based themes are very customizable, so to make these themes work, you have to use the sample config file.
 
-More info about the zen themes family [here](http://www.damian.oquanta.info/posts/nikolas-zen-theme-finally-released.html).
+Three variants of Zen are available:
+
+* `zen`, based on Mako templates
+* `zen-jinja`, based on Jinja2 templates
+* `zen-forkawesome`, using ForkAwesome icons instead of FontAwesome, based on Mako Templates
 
 Enjoy!
 
