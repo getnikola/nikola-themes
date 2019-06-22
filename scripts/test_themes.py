@@ -22,7 +22,7 @@ def warning(msg):
 
 
 def theme_list():
-    return sorted(['base', 'base-jinja', 'bootstrap', 'bootstrap-jinja', 'bootstrap3', 'bootstrap3-jinja'] + [theme.split('/')[-1] for theme in glob.glob("v7/*")])
+    return sorted(['base', 'base-jinja', 'bootstrap', 'bootstrap-jinja', 'bootstrap3', 'bootstrap3-jinja'] + [theme.split('/')[-1] for theme in glob.glob("v*/*")])
 
 
 def sanity_check(theme=None):
@@ -30,7 +30,7 @@ def sanity_check(theme=None):
         for theme in theme_list():
             sanity_check(theme)
         return
-    themes = utils.get_theme_chain(theme, themes_dirs=['v7'])
+    themes = utils.get_theme_chain(theme, themes_dirs=['v7', 'v8'])
     themes_bn = [os.path.basename(i) for i in themes]
     engine = utils.get_template_engine(themes)
 
