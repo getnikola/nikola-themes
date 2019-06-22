@@ -1,0 +1,3 @@
+assets/css/all.css=rst.css,poole.css,hyde.css,code.css,forkfont.css,hybrid.css,custom.css
+assets/js/all-nocdn.js=moment-with-locales.min.js,fancydates.min.js
+assets/js/all.js=fancydates.min.js

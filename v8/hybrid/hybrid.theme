@@ -1,0 +1,10 @@
+[Theme]
+engine = jinja
+parent = hyde
+author = Anke K
+author_url = https://github.com/encarsia
+based_on = Hyde theme by mdo <http://hyde.getpoole.com/> interbred with zen by Damián Avila <http://www.damian.oquanta.info/>
+license = MIT
+
+[Family]
+family = hyde

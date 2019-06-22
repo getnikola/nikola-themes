@@ -1,0 +1,124 @@
+/*** modifications already done to the zen themed site ***/ 
+.contents,
+.toc {
+  background-color: lavender;
+  border: 1px solid gainsboro;
+  padding: 5px;
+  float: right;
+}
+
+.content h2 {
+  font-size: 30px;
+}
+
+.note {
+  padding: 10px;
+  border: 1px solid black;
+  margin: 5px;
+  background-color: lightsteelblue;
+}
+
+.admonition-title {
+  font-weight: bold;
+}
+
+.linenodiv {
+  width: 4em;
+}
+
+.docutils.literal {
+  font-family: monospace;
+}
+
+table,
+table.docutils {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+  padding: 4px;
+}
+
+table.docutils.footnote {
+  margin-bottom: .3rem;
+}
+
+col.label {
+  width: 3em;
+}
+
+li {
+  margin: 1px;
+}
+
+}
+pre.code {
+  white-space: pre-wrap;
+}
+
+th,
+.toctitle {
+    font-weight: bold;
+}
+
+div.tip {
+  border: 1px solid #17a2b8;
+  border-radius: .25rem;
+}
+
+div.tip p.admonition-title {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+div.important {
+  border: 1px solid orange;
+  border-radius: .25rem;
+}
+
+div.important p.admonition-title {
+  background-color: orange;
+}
+
+/*** hyde tweaks ***/
+
+.sidebar-about h1 {
+  font-family: inherit;
+}
+
+/* sidebar */
+.sidebar-nav-item {
+  font-size: 1em;
+  opacity: .75;
+}
+
+.sidebar-nav-item.icononly {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.sidebar-nav-item.textonly {
+  font-size: 1.2em;
+  margin-left: 3em;
+  opacity: 1;
+}
+
+a.sidebar-nav-item:hover,
+a.sidebar-nav-item:focus {
+  text-decoration: none;
+  opacity: 1;
+}
+
+a.sidebar-nav-item.textonly:hover,
+a.sidebar-nav-item.textonly:focus {
+  text-decoration: underline;
+}
+
+/* subtheme */
+.theme-custom .hsidebar {
+  background-color: #070512;
+}
+.theme-custom .content a:not([class*="btn-"]),
+.theme-custom .related-posts li a:hover {
+  color: #1582ae;
+}
+
