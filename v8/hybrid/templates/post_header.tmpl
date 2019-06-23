@@ -10,29 +10,39 @@
 
 {% macro html_translations(post) %}
     {% if post.translated_to|length > 1 %}
-        &emsp; | &emsp; <i class="fa fa-language"> {{ messages("Also available in:") }}
+        {% if post.is_post %}
+          &ensp; | &ensp;
+        {% endif %}
+        <i class="fa fa-language"></i> {{ messages("Also available in:") }} 
         {% for langname in translations|sort %}
           {% if langname != lang and post.is_translation_available(langname) %}
-            <a href="{{ post.permalink(langname) }}" rel="alternate" hreflang="{{ langname }}">{{ messages("LANGUAGE", langname) }}</a>&emsp;
+            <a href="{{ post.permalink(langname) }}" rel="alternate" hreflang="{{ langname }}">{{ messages("LANGUAGE", langname) }}</a>&ensp;
           {% endif %}
         {% endfor %}
     {% endif %}
 {% endmacro %}
 
 {% macro html_sourcelink() %}
-    {% if show_sourcelink %}
-        <p class="sourceline"><a href="{{ post.source_link() }}" id="sourcelink">{{ messages("Source") }}</a></p>
+    {% if post.show_sourcelink %}
+        &ensp; | &ensp; <i class="fa fa-file-code-o"></i> <a href="{{ post.source_link() }}" id="sourcelink">{{ messages("Source") }}</a>
     {% endif %}
 {% endmacro %}
 
 {% macro html_post_header() %}
     {{ html_title() }}
     <p class="dateline">
-      <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="{{ post.formatted_date('webiso') }}" itemprop="datePublished" title="{{ post.formatted_date(date_format)|e }}">{{ post.formatted_date(date_format)|e }}</time>
+      <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="{{ post.formatted_date('webiso') }}" itemprop="datePublished" title="{{ post.formatted_date(date_format)|e }}">{{ post.formatted_date(date_format)|e }}</time> &ensp; | &ensp; <i class="fa fa-user"></i> 
+       {% if author_pages_generated %}
+         <a href="{{ _link('author', post.author()) }}">{{ post.author()|e }}</a>
+       {% else %}
+         {{ post.author()|e }}
+       {% endif %}
       {% if post.meta('link') %}
-         &emsp; | &emsp; <i class="fa fa-external-link><a href="{{ post.meta('link') }}">{{ messages("Original site") }}</a>
+          &ensp; | &ensp; <i class="fa fa-external-link></i> <a href="{{ post.meta('link') }}">{{ messages("Original site") }}</a>
       {% endif %}
-      {{ html_translations(post) }}</p>
+      {{ html_translations(post) }}
+      {{ html_sourcelink() }}
+    </p>
     {% if post.description() %}
         <meta name="description" itemprop="description" content="{{ post.description()|e }}">
     {% endif %}

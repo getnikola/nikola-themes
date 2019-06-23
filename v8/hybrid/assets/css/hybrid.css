@@ -5,10 +5,16 @@
   border: 1px solid gainsboro;
   padding: 5px;
   float: right;
+  font-size: medium;
 }
 
 .content h2 {
   font-size: 30px;
+}
+
+div.topic {
+  margin-left: .5em;
+  margin-right: .1em;
 }
 
 .note {
@@ -50,9 +56,9 @@ li {
   margin: 1px;
 }
 
-}
 pre.code {
   white-space: pre-wrap;
+  background-color: whitesmoke;
 }
 
 th,
@@ -79,7 +85,9 @@ div.important p.admonition-title {
   background-color: orange;
 }
 
-/*** hyde tweaks ***/
+.dateline {
+  font-size: medium;
+}
 
 .sidebar-about h1 {
   font-family: inherit;

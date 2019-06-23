@@ -2,6 +2,7 @@
 {% import 'index_helper.tmpl' as helper with context %}
 {% import 'math_helper.tmpl' as math with context %}
 {% import 'comments_helper.tmpl' as comments with context %}
+{% import 'post_header.tmpl' as postheader with context %}
 {% extends 'base.tmpl' %}
 
 {% block extra_head %}
@@ -24,14 +25,10 @@
         <h1 class="post-title p-name"><a href="{{ post.permalink() }}" class="u-url">{{ post.title()|e }}</a></h1>
         <div class="metadata">
             <p class="dateline">
-              <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="{{ post.formatted_date('webiso') }}" title="{{ post.formatted_date(date_format)|e }}">{{ post.formatted_date(date_format)|e }}</time> &emsp; | &emsp; <i class="fa fa-user"></i> 
-              {% if author_pages_generated %}
-                <a href="{{ _link('author', post.author()) }}">{{ post.author()|e }}</a> &emsp; | &emsp; 
-              {% else %}
-                {{ post.author()|e }} &emsp; | &emsp; 
-              {% endif %}
+              <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="{{ post.formatted_date('webiso') }}" title="{{ post.formatted_date(date_format)|e }}">{{ post.formatted_date(date_format)|e }}</time>
+            {{ postheader.html_translations(post) }}
             {% if not post.meta('nocomments') and site_has_comments %}
-              <i class="fa fa-comment"></i> {{ comments.comment_link(post.permalink(), post._base_path) }}
+              &ensp; | &ensp; <i class="fa fa-comment"></i> {{ comments.comment_link(post.permalink(), post._base_path) }}
             {% endif %}
             </p>
         </div>
