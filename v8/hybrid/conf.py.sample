@@ -20,11 +20,11 @@ GLOBAL_CONTEXT = {
 #    "hyde_subtheme": "theme-base-0d", # blue
 #    "hyde_subtheme": "theme-base-0e", # magenta
 #    "hyde_subtheme": "theme-base-0f", # brown
-    # show title and description
-    # "sidebar_title": True,
-    # show navigation links as "icon" or "text"
-    # leave commented for both
-    # "navigation": "icon",
+#    show title and description
+#    "sidebar_title": True,
+#    show navigation links as "icon" or "text"
+#    leave commented for both
+#    "navigation": "icon",
 }
 
 DATE_FANCINESS = 2
