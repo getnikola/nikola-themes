@@ -9,11 +9,11 @@
 {% endblock %}
 {{ template_hooks['extra_head']() }}
 </head>
-<body class="{{ hyde_subtheme }}">
+<body class="{{ theme_config["hyde_subtheme"] }}">
     <a href="#content" class="sr-only sr-only-focusable">{{ messages("Skip to main content") }}</a>
     <div class="hsidebar">
         <div class="container sidebar-sticky">
-            {% if sidebar_title %}
+            {% if theme_config["sidebar_title"] %}
               <div class="sidebar-about">
                 <h1>
                   <a href="{{ abs_link(_link("root", None, lang)) }}">

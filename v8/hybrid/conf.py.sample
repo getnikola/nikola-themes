@@ -10,21 +10,24 @@ NAVIGATION_LINKS = {
     )
 }
 
-GLOBAL_CONTEXT = {
-#    "hyde_subtheme": "theme-custom",
-#    "hyde_subtheme": "theme-base-08", # red
-#    "hyde_subtheme": "theme-base-09", # orange
-#    "hyde_subtheme": "theme-base-0a", # yellow
-#    "hyde_subtheme": "theme-base-0b", # green
-#    "hyde_subtheme": "theme-base-0c", # cyan
-#    "hyde_subtheme": "theme-base-0d", # blue
-#    "hyde_subtheme": "theme-base-0e", # magenta
-#    "hyde_subtheme": "theme-base-0f", # brown
-#    show title and description
-#    "sidebar_title": True,
-#    show navigation links as "icon" or "text"
-#    leave commented for both
-#    "navigation": "icon",
+THEME_CONFIG = {
+    DEFAULT_LANG: {
+        # "hyde_subtheme": "theme-custom",
+        # "hyde_subtheme": "theme-base-08", # red
+        # "hyde_subtheme": "theme-base-09", # orange
+        # "hyde_subtheme": "theme-base-0a", # yellow
+        # "hyde_subtheme": "theme-base-0b", # green
+        # "hyde_subtheme": "theme-base-0c", # cyan
+        # "hyde_subtheme": "theme-base-0d", # blue
+        # "hyde_subtheme": "theme-base-0e", # magenta
+        # "hyde_subtheme": "theme-base-0f", # brown
+        # show title and description
+        # "sidebar_title": True,
+        # show navigation links as icon or text
+        # leave commented to show both 
+        # "navigation": "text",
+        # "navigation": "icon",
+    }
 }
 
 DATE_FANCINESS = 2
