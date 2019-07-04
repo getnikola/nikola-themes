@@ -1,0 +1,53 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'base_helper.tmpl' as base with context %}
+
+{% macro html_header() %}
+    <header id="header">
+        {{ html_site_title() }}
+        {{ html_site_description() }}
+        {{ html_translation_header() }}
+        {{ html_navigation_links() }}
+        {% if search_form %}
+            <div class="searchform" role="search">
+                {{ search_form }}
+            </div>
+        {% endif %}
+    </header>
+    {{ template_hooks['page_header']() }}
+{% endmacro %}
+
+{% macro html_site_description() %}
+    <p class="lead">{{ blog_description|e }}</p>
+{% endmacro %}
+
+
+{% macro html_site_title() %}
+    <h1 id="brand"><a href="{{ abs_link(_link("root", None, lang)) }}" title="{{ blog_title|e }}" rel="home">
+    {% if logo_url %}
+        <img src="{{ logo_url }}" alt="{{ blog_title|e }}" id="logo">
+    {% endif %}
+
+    {% if show_blog_title %}
+        <span id="blog-title">{{ blog_title|e }}</span>
+    {% endif %}
+    </a></h1>
+{% endmacro %}
+
+{% macro html_navigation_links() %}
+    <nav id="menu" role="navigation" class="sidebar-nav">
+    {% for url, text in navigation_links[lang] %}
+        <a class="sidebar-nav-item" href="{{url}}">{{text}}</a>
+    {% endfor %}
+    {{ template_hooks['menu']() }}
+    {{ template_hooks['menu_alt']() }}
+    </nav>
+{% endmacro %}
+
+{% macro html_translation_header() %}
+    {% if translations|length > 1 %}
+        <div id="toptranslations">
+            <h2>{{ messages("Languages:") }}</h2>
+            {{ base.html_translations() }}
+        </div>
+    {% endif %}
+{% endmacro %}

@@ -1,0 +1,4 @@
+assets/css/all.css=rst.css,poole.css,hyde.css,code.css,custom.css
+assets/css/all-nocdn.css=rst.css,poole.css,hyde.css,code.css,custom.css,baguetteBox.min.css
+assets/js/all.js=fancydates.js
+assets/js/all-nocdn.js=moment-with-locales.min.js,baguetteBox.min.js,fancydates.js
