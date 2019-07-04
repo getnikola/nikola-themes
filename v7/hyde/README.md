@@ -18,6 +18,5 @@ License is MIT
 
 Known Issues:
 
-* Not all features of Nikola are tested.
-* Galleries will work better when [Issue #1764](https://github.com/getnikola/nikola/issues/1764) is fixed.
 * Submenus in navigation links are not supported
+

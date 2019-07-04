@@ -1,0 +1,33 @@
+NAVIGATION_LINKS = {
+    DEFAULT_LANG: (
+        ('/index.html', 'Home', 'fa fa-home'),
+        ('/archive.html', 'Archives', 'fa fa-folder-open'),
+        ('/categories/index.html', 'Tags', 'fa fa-tags'),
+        ('/rss.xml', 'RSS', 'fa fa-feed'),
+        ('https://getnikola.com', 'About me', 'fa fa-user'),
+        ('https://twitter.com/getnikola', 'My Twitter', 'fa fa-twitter'),
+        ('https://github.com/getnikola', 'My Github', 'fa fa-github'),
+    )
+}
+
+THEME_CONFIG = {
+    DEFAULT_LANG: {
+        # "hyde_subtheme": "theme-custom",
+        # "hyde_subtheme": "theme-base-08", # red
+        # "hyde_subtheme": "theme-base-09", # orange
+        # "hyde_subtheme": "theme-base-0a", # yellow
+        # "hyde_subtheme": "theme-base-0b", # green
+        # "hyde_subtheme": "theme-base-0c", # cyan
+        # "hyde_subtheme": "theme-base-0d", # blue
+        # "hyde_subtheme": "theme-base-0e", # magenta
+        # "hyde_subtheme": "theme-base-0f", # brown
+        # show title and description
+        # "sidebar_title": True,
+        # show navigation links as icon or text
+        # leave commented to show both 
+        # "navigation": "text",
+        # "navigation": "icon",
+    }
+}
+
+DATE_FANCINESS = 2

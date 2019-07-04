@@ -5,3 +5,7 @@ author = Yoong Shin Chow
 author_url = https://github.com/chow1026
 based_on = Hyde theme by mdo <http://hyde.getpoole.com/>
 license = MIT
+
+[Family]
+family = hyde
+variants = hybrid
