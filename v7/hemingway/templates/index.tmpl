@@ -21,8 +21,6 @@
 % if page_links:
     ${pagination.page_navigation(current_page, page_links, prevlink, nextlink, prev_next_links_reversed)}
 % endif
-<section>
-    <div class="container">
 % for post in posts:
 
     <article>
@@ -38,8 +36,6 @@
     </article>
 % endfor
 
-    </div>
-</section>
 ${helper.html_pager()}
 ${math.math_scripts_ifposts(posts)}
 </%block>
