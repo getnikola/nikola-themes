@@ -22,7 +22,7 @@
                 </h1>
               {{ header.html_site_description() }}
               </div>
-            {% endif %}            
+            {% endif %}
             {{ header.html_navigation_links() }}
             {{ footer.html_footer() }}
         </div>
@@ -30,15 +30,24 @@
     <div class="content container" id="content">
        {% block content %}{% endblock %}
     </div>
+    {{ base.late_load_js() }}
+    {% if date_fanciness != 0 %}
+        <!-- fancy dates -->
+        <script>
+        moment.locale("{{ momentjs_locales[lang] }}");
+        fancydates({{ date_fanciness }}, {{ js_date_format }});
+        </script>
+        <!-- end fancy dates -->
+    {% endif %}
+    {% block extra_js %}{% endblock %}
+    <script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
     {{ body_end }}
     {{ template_hooks['body_end']() }}
-    {{ base.late_load_js() }}
-    <!-- fancy dates -->
-    <script>
-      moment.locale("{{ momentjs_locales[lang] }}");
-      fancydates({{ date_fanciness }}, {{ js_date_format }});
-    </script>
-    <!-- end fancy dates -->
-    {% block extra_js %}{% endblock %}
 </body>
 </html>

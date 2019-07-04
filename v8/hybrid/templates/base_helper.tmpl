@@ -70,6 +70,7 @@ lang="{{ lang }}">
     {% if use_bundles %}
         {% if use_cdn %}
             <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js" integrity="sha256-AdQN98MVZs44Eq2yTwtoKufhnU+uZ7v2kXnD5vqzZVo=" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.0/baguetteBox.min.js" integrity="sha256-yQGjQhFs3LtyiN5hhr3k9s9TWZOh/RzCkD3gwwCKlkg=" crossorigin="anonymous"></script>
         {% else %}
             <script src="/assets/js/all-nocdn.js" type="text/javascript"></script>
         {% endif %}
@@ -78,6 +79,7 @@ lang="{{ lang }}">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js" integrity="sha256-AdQN98MVZs44Eq2yTwtoKufhnU+uZ7v2kXnD5vqzZVo=" crossorigin="anonymous"></script>
         {% else %}
             <script src="/assets/js/moment-with-locales.min.js" type="text/javascript"></script>
+            <script src="/assets/js/baguetteBox.min.js"></script>
             <script src="/assets/js/fancydates.js" type="text/javascript"></script>
         {% endif %}
     {% endif %}
@@ -85,9 +87,17 @@ lang="{{ lang }}">
 {% endmacro %}
 
 {% macro html_stylesheets() %}
-    {% if use_bundles %}
+    {% if use_cdn %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.0/baguetteBox.min.css" integrity="sha256-cKiyvRKpm8RaTdU71Oq2RUVgvfWrdIXjvVdQF2oZ1Y4=" crossorigin="anonymous" />
+    {% endif %}
+    {% if use_bundles and use_cdn %}
         <link href="/assets/css/all.css" rel="stylesheet" type="text/css">
+    {% elif use_bundles %}
+        <link href="/assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
     {% else %}
+        {% if not use_cdn %}
+            <link href="/assets/css/baguetteBox.min.css" rel="stylesheet" type="text/css">
+        {% endif %}
         <link href="/assets/css/rst.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/poole.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/hyde.css" rel="stylesheet" type="text/css">
