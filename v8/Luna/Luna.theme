@@ -1,0 +1,7 @@
+[Theme]
+engine = jinja
+parent = base-jinja
+author = Henry Jia
+author_url = https://henry-jia.github.io/
+license = MIT
+
