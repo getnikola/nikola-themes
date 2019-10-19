@@ -934,6 +934,10 @@ pre.code {
   max-height: 340px;
   overflow-y: scroll;
 }
+.docutils.literal {
+  font-family: monospace;
+  background-color: #EEEEEE;
+}
 .backlink {
   margin-top: 6px;
 }
