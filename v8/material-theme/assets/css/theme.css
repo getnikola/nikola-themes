@@ -282,6 +282,10 @@ img.thumbnail {
     padding: 0px;
 }
 
+img {
+    width: 100%;
+}
+
 @media only screen and (max-width: 990px) {
     .source-button > a {
         top:35px;
