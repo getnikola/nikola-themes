@@ -1,0 +1,6 @@
+[Theme]
+engine = mako
+parent = base
+author = Ivan Teoh
+author_url = https://ivanteoh.com/
+license = Apache 2.0
