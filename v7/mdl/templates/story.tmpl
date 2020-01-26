@@ -1,0 +1,36 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="pheader" file="post_header.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%inherit file="post.tmpl"/>
+
+<%block name="content">
+<div class="site-page site-card mdl-grid site-page-story">
+    <div class="mdl-card mdl-cell mdl-cell--12-col
+%if post.meta('type'):
+    site-page-story-${post.meta('type')}
+%endif
+%if not post.meta('no-card-shadow'):
+    mdl-shadow--4dp
+%endif
+    ">
+        <article class="storypage" itemscope="itemscope" itemtype="http://schema.org/Article">
+            %if not post.meta('no-card-media'):
+                <div class="mdl-card__media"></div>
+            %endif
+            ${pheader.html_title()}
+            ${pheader.html_translations(post)}
+            <div class="mdl-card__supporting-text e-content entry-content" itemprop="articleBody text">
+                ${post.text()}
+            </div>
+            %if site_has_comments and enable_comments and not post.meta('nocomments'):
+            <div class="mdl-color-text--primary-contrast mdl-card__supporting-text comments hidden-print">
+                <h2>${messages("Comments")}</h2>
+                ${comments.comment_form(post.permalink(absolute=True), post.title(), post.base_path)}
+            </div>
+            %endif
+            ${helper.mathjax_script(post)}
+        </article>
+    </div>
+</div>
+</%block>

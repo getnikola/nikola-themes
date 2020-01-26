@@ -1,0 +1,28 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+<%namespace name="archive_nav" file="archive_navigation_helper.tmpl" import="*"/>
+
+<%block name="content">
+<article class="listpage">
+  <header class="heading">
+    <h1 class="title is-1">${title|h}</h1>
+  </header>
+  ${archive_nav.archive_navigation()}
+  %if posts:
+    <div class="postlist">
+      % for post in posts:
+        <div class="columns">
+          <div class="column is-2">
+            <time class="listdate" datetime="${post.formatted_date('webiso')}" title="${post.formatted_date(date_format)|h}">${post.formatted_date(date_format)|h}</time>
+          </div>
+          <div class="column">
+            <a href="${post.permalink()}" class="listtitle">${post.title()|h}</a>
+          </div>
+        </div>
+      % endfor
+    </div>
+  %else:
+  <p>${messages("No posts found.")}</p>
+  %endif
+</article>
+</%block>

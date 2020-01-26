@@ -1,0 +1,39 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+
+<%block name="content">
+<div class="site-page site-card mdl-grid site-page-list">
+    <div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--4dp">
+        <article class="list-page">
+            <div class="mdl-card__media"></div>
+            <div class="mdl-card__title">
+                <h1 class="mdl-card__title-text">${title|h}</h1>
+            </div>
+            <div class="mdl-grid mdl-card__supporting-text">
+                %if items:
+                <ul class="mdl-card mdl-cell mdl-cell--12-col mdl-list list-page-items">
+                % for text, link, count in items:
+                    <li class="mdl-list__item mdl-list__item--two-line">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-icon">archive</i>
+                            <a href="${link}">${text|h}</a>
+                            <span class="mdl-list__item-sub-title">Total:
+                                %if count:
+                                    <span>${count}</span>
+                                %else:
+                                    <span>0</span>
+                                % endif
+                                    post(s)
+                            </span>
+                        </span>
+                    </li>
+                % endfor
+                </ul>
+                %else:
+                <p>${messages("Nothing found.")}</p>
+                %endif
+            </div>
+        </article>
+    </div>
+</div>
+</%block>

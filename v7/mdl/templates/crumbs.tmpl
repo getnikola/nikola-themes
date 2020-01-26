@@ -1,0 +1,31 @@
+## -*- coding: utf-8 -*-
+
+<%def name="bar(crumbs)">
+%if crumbs:
+<div class="site-breadcrumbs">
+    % for idx, [link, text] in enumerate(crumbs):
+        % if not idx:
+            % if link == '#':
+                ${text.rsplit('.html', 1)[0]}
+            % else:
+                <a href="${link}">${text}</a>
+            % endif
+        % else:
+            % if breadcrumb_separator:
+                % if link == '#':
+                     &nbsp;${breadcrumb_separator}&nbsp;${text.rsplit('.html', 1)[0]}
+                % else:
+                     &nbsp;${breadcrumb_separator}&nbsp;<a href="${link}">${text}</a>
+                % endif
+            % else:
+                % if link == '#':
+                     &nbsp;&gt;&nbsp;${text.rsplit('.html', 1)[0]}
+                % else:
+                     &nbsp;&gt;&nbsp;<a href="${link}">${text}</a>
+                % endif
+            % endif
+        % endif
+    % endfor
+</div>
+%endif
+</%def>

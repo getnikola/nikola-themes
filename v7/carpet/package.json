@@ -1,0 +1,36 @@
+{
+  "name": "nikola-carpet-mako",
+  "version": "0.1.0",
+  "description": "Nikola theme based from Bulma.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build-clean && npm run build-sass && npm run build-autoprefix && npm run build-min-sass && npm run build-min-autoprefix",
+    "build-clean": "rm -rf assets/css/*",
+    "build-autoprefix": "postcss --use autoprefixer --output assets/css/styles.css assets/css/styles.css",
+    "build-sass": "node-sass --output-style expanded --source-map true --include-path lib/bulma src/scss/styles.scss assets/css/styles.css",
+    "build-min-autoprefix": "postcss --use autoprefixer --output assets/css/styles.min.css assets/css/styles.min.css",
+    "build-min-sass": "node-sass --output-style compressed --include-path lib/bulma src/scss/styles.scss assets/css/styles.min.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivanteoh/nikola-carpet-mako.git"
+  },
+  "author": {
+    "name": "Ivan Teoh",
+    "url": "https://github.com/ivanteoh/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ivanteoh/nikola-carpet-mako/issues"
+  },
+  "homepage": "https://github.com/ivanteoh/nikola-carpet-mako#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.7.3",
+    "browserify": "^14.1.0",
+    "critical": "^0.8.3",
+    "gulp": "^3.9.1",
+    "node-sass": "^4.5.0",
+    "postcss-cli": "^3.0.0-beta"
+  }
+}

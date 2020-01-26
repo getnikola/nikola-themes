@@ -1,0 +1,86 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+
+<%def name="html_title()">
+%if title and not post.meta('hidetitle'):
+  <h1 class="title is-1 p-name entry-title" itemprop="headline name">
+    <a href="${post.permalink()}" class="u-url">${post.title()|h}</a>
+  </h1>
+%endif
+</%def>
+
+<%def name="html_translations(post)">
+% if len(post.translated_to) > 1:
+  <div class="metadata posttranslations translations">
+    <h2 class="subtitle is-2 posttranslations-intro">${messages("Also available in:")}</h2>
+    % for langname in sorted(translations):
+      % if langname != lang and post.is_translation_available(langname):
+        <p><a href="${post.permalink(langname)}" rel="alternate" hreflang="${langname}">${messages("LANGUAGE", langname)}</a></p>
+      % endif
+    % endfor
+  </div>
+% endif
+</%def>
+
+<%def name="html_sourcelink()">
+% if show_sourcelink:
+  <div class="level-item">
+    <p class="sourceline">
+      <a href="${post.source_link()}" id="sourcelink">${messages("Source")}</a>
+    </p>
+  </div>
+% endif
+</%def>
+
+<%def name="html_post_header()">
+<header class="heading">
+  ${html_title()}
+  <div class="level metadata">
+    
+    <div class="level-left">
+      <div class="level-item">
+        <p class="byline author vcard">
+          <span class="byline-name fn">
+            % if author_pages_generated:
+              <a href="${_link('author', post.author())}">${post.author()|h}</a>
+            % else:
+              ${post.author()|h}
+            % endif
+          </span>
+        </p>
+      </div>
+    </div>
+    
+    <div class="level-right">
+      <div class="level-item">
+        <p class="dateline">
+          <a href="${post.permalink()}" rel="bookmark">
+            <time class="published dt-published" datetime="${post.formatted_date('webiso')}" itemprop="datePublished" title="${post.formatted_date(date_format)|h}">${post.formatted_date(date_format)|h}</time>
+          </a>
+        </p>
+      </div>
+      
+      %if not post.meta('nocomments') and site_has_comments:
+        <div class="level-item">
+          <p class="commentline">${comments.comment_link(post.permalink(), post._base_path)}</p>
+        </div>
+      %endif
+      
+      ${html_sourcelink()}
+      
+      % if post.meta('link'):
+        <div class="level-item">
+          <p class="linkline">
+            <a href="${post.meta('link')}">${messages("Original site")}</a>
+          </p>
+        </div>
+      % endif
+      %if post.description():
+        <meta name="description" itemprop="description" content="${post.description()|h}">
+      %endif
+    </div>
+  </div>
+  ${html_translations(post)}
+</header>
+</%def>

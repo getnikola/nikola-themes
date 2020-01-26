@@ -1,0 +1,275 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="helper.tmpl" import="*"/>
+
+<%def name="html_headstart()">
+<!DOCTYPE html>
+<html \
+prefix='\
+%if use_open_graph or (twitter_card and twitter_card['use_twitter_cards']):
+og: http://ogp.me/ns# article: http://ogp.me/ns/article# \
+%endif
+%if comment_system == 'facebook':
+fb: http://ogp.me/ns/fb#
+%endif
+' \
+%if use_open_graph or (twitter_card and twitter_card['use_twitter_cards']):
+vocab="http://ogp.me/ns" \
+%endif
+% if is_rtl:
+dir="rtl" \
+% endif
+\
+lang="${lang}">
+<head>
+    <meta charset="utf-8">
+    %if use_base_tag:
+    <base href="${abs_link(permalink)}">
+    %endif
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    %if description:
+    <meta name="description" content="${description|h}">
+    %endif
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    %if title == blog_title:
+        <title>${blog_title|h}</title>
+    %else:
+        <title>${title|h} | ${blog_title|h}</title>
+    %endif
+
+    ${html_feedlinks()}
+    <link rel="canonical" href="${abs_link(permalink)}">
+
+    %if favicons:
+        %for name, file, size in favicons:
+            <link rel="${name}" href="${file}" sizes="${size}"/>
+        %endfor
+    %endif
+
+    %if comment_system == 'facebook':
+        <meta property="fb:app_id" content="${comment_system_id}">
+    %endif
+
+    %if prevlink:
+        <link rel="prev" href="${prevlink}" type="text/html">
+    %endif
+    %if nextlink:
+        <link rel="next" href="${nextlink}" type="text/html">
+    %endif
+
+    %if not mdl__late_load_css:
+        ${html_stylesheets()}
+    %endif
+    ${mathjax_config}
+    ${extra_head_data}
+</%def>
+
+<%def name="late_load_css()">
+    <noscript id="deferred-styles">
+        ${html_stylesheets()}
+    </noscript>
+</%def>
+
+<%def name="preload_stylesheets()">
+    %if mdl__roboto_font:
+        <link rel="preload" as="style" onload="this.rel='stylesheet'"
+              href="/assets/vendor/mdl/css/roboto.css">
+    %endif
+    <link rel="preload" as="style" onload="this.rel='stylesheet'"
+          href="/assets/vendor/mdl/css/material-icons.css">
+    %if mdl__version:
+        %if mdl__color_scheme:
+            <link rel="preload" as="style" onload="this.rel='stylesheet'"
+                  href="https://code.getmdl.io/${mdl__version}/material.${mdl__color_scheme}.min.css">
+        %else:
+            <link rel="preload" as="style" onload="this.rel='stylesheet'"
+                  href="https://code.getmdl.io/${mdl__version}/material.min.css">
+        %endif
+    %else:
+        %if mdl__color_scheme:
+            <link rel="preload" as="style" onload="this.rel='stylesheet'"
+                  href="https://code.getmdl.io/1.3.0/material.${mdl__color_scheme}.min.css">
+        %else:
+            <link rel="preload" as="style" onload="this.rel='stylesheet'"
+                  href="/assets/vendor/mdl/css/material.min.css">
+        %endif
+    %endif
+    %if image_plugin and image_plugin == 'lightbox':
+        <link rel="preload" as="style" onload="this.rel='stylesheet'"
+            href="/assets/vendor/lightbox/css/lightbox.min.css">
+    %endif
+    %if image_plugin and image_plugin == 'colorbox':
+        <link rel="preload" as="style" onload="this.rel='stylesheet'"
+            href="/assets/vendor/colorbox/css/colorbox.min.css">
+    %endif
+    %if use_bundles:
+        %if use_cdn:
+            <link rel="preload" as="style" onload="this.rel='stylesheet'"
+                href="/assets/css/all.css?v=${mdl__cachebusting}">
+        %else:
+            <link rel="preload" as="style" onload="this.rel='stylesheet'"
+                href="/assets/css/all-nocdn.css?v=${mdl__cachebusting}">
+        %endif
+    %else:
+        <link rel="preload" as="style" onload="this.rel='stylesheet'"
+            href="/assets/css/rst.css">
+        <link rel="preload" as="style" onload="this.rel='stylesheet'"
+            href="/assets/css/code.css">
+        <link rel="preload" as="style" onload="this.rel='stylesheet'"
+            href="/assets/css/styles.css?v=${mdl__cachebusting}">
+        %if mdl__custom_css:
+            <link rel="preload" as="style" onload="this.rel='stylesheet'"
+                href="/assets/css/custom.css?v=${mdl__cachebusting}">
+        %endif
+    %endif
+
+    %if needs_ipython_css:
+        <link rel="preload" as="style" onload="this.rel='stylesheet'"
+            href="/assets/css/ipython.min.css">
+        <link rel="preload" as="style" onload="this.rel='stylesheet'"
+            href="/assets/css/nikola_ipython.css">
+    %endif
+</%def>
+
+<%def name="html_stylesheets()">
+    %if mdl__roboto_font:
+        <link rel="stylesheet" type="text/css"
+              href="/assets/vendor/mdl/css/roboto.css">
+    %endif
+    <link rel="stylesheet" type="text/css"
+          href="/assets/vendor/mdl/css/material-icons.css">
+    %if mdl__version:
+        %if mdl__color_scheme:
+            <link rel="stylesheet" type="text/css"
+                  href="https://code.getmdl.io/${mdl__version}/material.${mdl__color_scheme}.min.css">
+        %else:
+            <link rel="stylesheet" type="text/css"
+                  href="https://code.getmdl.io/${mdl__version}/material.min.css">
+        %endif
+    %else:
+        %if mdl__color_scheme:
+            <link rel="stylesheet" type="text/css"
+                  href="https://code.getmdl.io/1.3.0/material.${mdl__color_scheme}.min.css">
+        %else:
+            <link rel="stylesheet" type="text/css"
+                  href="/assets/vendor/mdl/css/material.min.css">
+        %endif
+    %endif
+    %if image_plugin and image_plugin == 'lightbox':
+        <link rel="stylesheet" type="text/css"
+            href="/assets/vendor/lightbox/css/lightbox.min.css">
+    %endif
+    %if image_plugin and image_plugin == 'colorbox':
+        <link rel="stylesheet" type="text/css"
+            href="/assets/vendor/colorbox/css/colorbox.min.css">
+    %endif
+    %if use_bundles:
+        %if use_cdn:
+            <link rel="stylesheet" type="text/css"
+                href="/assets/css/all.css?v=${mdl__cachebusting}">
+        %else:
+            <link rel="stylesheet" type="text/css"
+                href="/assets/css/all-nocdn.css?v=${mdl__cachebusting}">
+        %endif
+    %else:
+        <link rel="stylesheet" type="text/css"
+            href="/assets/css/rst.css">
+        <link rel="stylesheet" type="text/css"
+            href="/assets/css/code.css">
+        <link rel="stylesheet" type="text/css"
+            href="/assets/css/styles.css?v=${mdl__cachebusting}">
+        %if mdl__custom_css:
+            ${helper.extra_css()}
+        %endif
+    %endif
+
+    %if needs_ipython_css:
+        <link rel="stylesheet" type="text/css"
+            href="/assets/css/ipython.min.css">
+        <link rel="stylesheet" type="text/css"
+            href="/assets/css/nikola_ipython.css">
+    %endif
+</%def>
+
+<%def name="html_feedlinks()">
+    %if rss_link:
+        ${rss_link}
+    %elif generate_rss:
+        %if len(translations) > 1:
+            %for language in sorted(translations):
+                <link rel="alternate" type="application/rss+xml" title="RSS (${language})" href="${_link('rss', None, language)}">
+            %endfor
+        %else:
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="${_link('rss', None)}">
+        %endif
+    %endif
+    %if generate_atom:
+        %if len(translations) > 1:
+            %for language in sorted(translations):
+                <link rel="alternate" type="application/atom+xml" title="Atom (${language})" href="${_link('index_atom', None, language)}">
+            %endfor
+        %else:
+            <link rel="alternate" type="application/atom+xml" title="Atom" href="${_link('index_atom', None)}">
+        %endif
+    %endif
+</%def>
+
+<%def name="html_translations()">
+    <ul class="translations">
+    %for langname in sorted(translations):
+        %if langname != lang:
+            <li><a href="${abs_link(_link("root", None, langname))}" rel="alternate" hreflang="${langname}">${messages("LANGUAGE", langname)}</a></li>
+        %endif
+    %endfor
+    </ul>
+</%def>
+
+<%def name="late_load_js()">
+    %if mdl__version:
+        <script defer type="text/javascript"
+            src="https://code.getmdl.io/${mdl__version}/material.min.js">
+        </script>
+    %else:
+        <script defer type="text/javascript"
+            src="/assets/vendor/mdl/js/material.min.js">
+        </script>
+    %endif
+    <script defer type="text/javascript"
+        src="/assets/vendor/jquery/jquery-3.1.1.min.js">
+    </script>
+    %if image_plugin and image_plugin == 'lightbox':
+        <script defer type="text/javascript"
+            src="/assets/vendor/lightbox/js/lightbox.min.js">
+        </script>
+    %endif
+    %if image_plugin and image_plugin == 'colorbox':
+        <script defer type="text/javascript"
+            src="/assets/vendor/colorbox/js/jquery.colorbox-min.js">
+        </script>
+        %if colorbox_locales[lang]:
+            <script defer type="text/javascript"
+                src="/assets/vendor/colorbox/js/colorbox-i18n/jquery.colorbox-${colorbox_locales[lang]}.js">
+            </script>
+        %endif
+        <script defer type="text/javascript"
+            src="/assets/js/colorbox-custom.js">
+        </script>
+    %endif
+    %if mdl__late_load_css:
+        <script async type="text/javascript"
+            src="/assets/vendor/loadcss/loadcss.js">
+        </script>
+        <script async type="text/javascript"
+            src="/assets/vendor/loadcss/cssrelpreload.js">
+        </script>
+        <script async type="text/javascript"
+            src="/assets/vendor/loadcss/onloadcss.js">
+        </script>
+        <script async type="text/javascript"
+            src="/assets/js/deferred-css.js">
+        </script>
+    %endif
+    %if mdl__custom_js:
+        ${helper.extra_js()}
+    %endif
+    ${social_buttons_code}
+</%def>

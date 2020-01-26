@@ -1,0 +1,34 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+
+<%block name="content">
+<div class="site-page site-card mdl-grid site-page-list-post">
+    <div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--4dp">
+        <article class="list-post">
+            <div class="mdl-card__media"></div>
+            <div class="mdl-card__title">
+                <h1 class="mdl-card__title-text">${title|h}</h1>
+            </div>
+            <div class="mdl-card__supporting-text">
+                %if posts:
+                <ul class="mdl-list list-post-items">
+                % for post in posts:
+                    <li class="mdl-list__item mdl-list__item--two-line">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-icon">subject</i>
+                            <a href="${post.permalink()}" class="post-title">${post.title()|h}</a>
+                            <span class="mdl-list__item-sub-title">
+                                <time class="listdate" datetime="${post.formatted_date('webiso')}" title="${post.formatted_date(date_format)|h}">${post.formatted_date(date_format)|h}</time>
+                            </span>
+                        </span>
+                    </li>
+                % endfor
+                </ul>
+                %else:
+                <p>${messages("No posts found.")}</p>
+                %endif
+            </div>
+        </article>
+    </div>
+</div>
+</%block>

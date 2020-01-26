@@ -1,0 +1,37 @@
+## -*- coding: utf-8 -*-
+
+<%def name="bar(crumbs)">
+%if crumbs:
+  <nav class="level breadcrumbs">
+    <div class="breadcrumb level-left">
+      %for link, text in crumbs:
+        %if text != index_file:
+          %if loop.first:
+            <div class="level-item icon-group home">
+              %if carpet__breadcrumb_home:
+                <span class="icon is-small">
+                  <i class="fa ${carpet__breadcrumb_home|h}"
+                    aria-hidden="true"></i>
+                </span>
+              %endif
+          %else:
+            <div class="level-item icon-group separator">
+              %if carpet__breadcrumb_separator:
+                <span class="icon is-small">
+                  <i class="fa ${carpet__breadcrumb_separator|h}"
+                    aria-hidden="true"></i>
+                </span>
+              %endif
+          %endif
+          %if link == '#':
+            <span>${text.rsplit('.html', 1)[0]}</span>
+          %else:
+            <a href="${link}">${text}</a>
+          %endif
+          </div>
+        %endif
+      %endfor
+    </div>
+  </nav>
+%endif
+</%def>

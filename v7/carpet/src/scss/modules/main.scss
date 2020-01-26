@@ -1,0 +1,172 @@
+/* Override any of variables, just set them before importing Bulma. 
+
+For example the example below is changing primary color to other color. 
+$primary: #445826;
+*/
+$primary: #445826;
+
+@import "bulma";
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.section-cookie,
+.entry-summary,
+.entry-content,
+.postlist {
+  a {
+    text-decoration: underline;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+/* brand logo title START */
+.site-image {
+  margin-right: 0.5em;
+}
+/* brand logo title END */
+
+/* breadcrumbs START */
+.icon-group .icon {
+  margin-right: 0.5em;
+}
+/* breadcrumbs END */
+
+/* screen reader START */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+}
+/* screen reader END */
+
+/* link-figure START */
+.link-figure {
+  @extend .columns;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.link-figure-media {
+  @extend .column;
+  @extend .is-one-quarter;
+}
+.link-figure-image {
+  @extend .image;
+}
+.link-figure-content {
+  @extend .column;
+}
+.link-figure-title {
+  @extend .title;
+  @extend .is-3;
+}
+a.link-figure-title {
+  @extend a;
+}
+.link-figure-author {
+  float: right;
+  margin-bottom: 0.5em;
+}
+/* link-figure END */
+
+/* book-figure START */
+.book-figure {
+  @extend .link-figure;
+}
+.book-figure-media {
+  @extend .link-figure-media;
+  .book-figure-image {
+    img {
+      width: 180px;
+      height: auto;
+    }
+  }
+}
+.book-figure-title {
+  @extend .link-figure-title;
+}
+a.book-figure-title {
+  @extend a.link-figure-title;
+}
+.book-figure-book-number,
+.book-figure-review {
+  margin-bottom: 0.5em;
+}
+/* book-figure END */
+
+/* youtube-video START */
+.youtube-video {
+  text-align: center;
+}
+/* youtube-video END */
+
+/* gallery folder image START */
+.gallery-folder .gallery-folder-image {
+  background-color: $primary;
+}
+/* gallery folder image END */
+
+/* footer START */
+.footer .cc-license {
+  border-width:0;
+  vertical-align: middle;
+}
+/* footer END */
+
+/* ad START */
+.section.is-light {
+  background-color: whitesmoke;
+}
+.signboard {
+  background-color: $primary;
+  border-radius: 2px;
+  color: $primary-invert;
+  display: inline-block;
+  font-size: 12px;
+  padding: 0 4px;
+  text-transform: uppercase;
+  vertical-align: top;
+}
+.leaderboard {
+    display: block;
+}
+/* ad END */
+
+/* cookie message START */
+.js_enabled .section-cookie {
+    display: none;
+}
+.section-cookie a {
+    color: $primary;
+}
+/* cookie message START */

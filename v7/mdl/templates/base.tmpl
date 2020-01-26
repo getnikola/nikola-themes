@@ -1,0 +1,42 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+<%namespace name="header" file="base_header.tmpl" import="*"/>
+<%namespace name="footer" file="base_footer.tmpl" import="*"/>
+<%namespace name="annotations" file="annotation_helper.tmpl"/>
+${set_locale(lang)}
+${base.html_headstart()}
+<%block name="extra_head">
+### Leave this block alone.
+</%block>
+${template_hooks['extra_head']()}
+</head>
+<body>
+    <a href="#content" class="sr-only sr-only-focusable">${messages("Skip to main content")}</a>
+    <div id="container" class="site mdl-layout mdl-js-layout
+    %if mdl__fixed_header:
+mdl-layout--fixed-header
+    %endif
+    %if mdl__fixed_drawer:
+mdl-layout--fixed-drawer
+    %endif
+    %if mdl__no_drawer_button:
+mdl-layout--no-drawer-button
+    %endif
+    %if mdl__no_desktop_drawer_button:
+mdl-layout--no-desktop-drawer-button
+    %endif
+    ">
+         ${header.html_header()}
+         <main id="content" class="mdl-layout__content">
+            <%block name="content"></%block>
+            ${footer.html_footer()}
+         </main>
+    </div>
+    %if mdl__late_load_css:
+        ${base.late_load_css()}
+    %endif
+    ${base.late_load_js()}
+    ${body_end}
+    ${template_hooks['body_end']()}
+</body>
+</html>
