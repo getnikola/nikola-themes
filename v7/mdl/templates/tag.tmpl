@@ -1,0 +1,71 @@
+## -*- coding: utf-8 -*-
+<%inherit file="list_post.tmpl"/>
+
+<%block name="extra_head">
+    ${parent.extra_head()}
+    %if len(translations) > 1 and generate_rss:
+        %for language in sorted(translations):
+            <link rel="alternate" type="application/rss+xml" title="RSS for ${kind} ${tag|h} (${language})" href="${_link(kind + "_rss", tag, language)}">
+        %endfor
+    %elif generate_rss:
+        <link rel="alternate" type="application/rss+xml" title="RSS for ${kind} ${tag|h}" href="${_link(kind + "_rss", tag)}">
+    %endif
+</%block>
+
+
+<%block name="content">
+<div class="site-page site-card mdl-grid site-page-tag">
+    <div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--4dp">
+        <article class="tag-page">
+            <div class="mdl-card__media"></div>
+            <div class="mdl-card__title">
+                <h1 class="mdl-card__title-text">${title|h}</h1>
+            </div>
+            %if description:
+            <div class="mdl-card__supporting-text description">
+                <p>${description}</p>
+            </div>
+            %endif
+            %if subcategories:
+            <div class="mdl-card__supporting-text subcategories">
+                ${messages('Subcategories:')}
+                <ul class="mdl-list tag-page-subcategories">
+                    %for name, link in subcategories:
+                    <li class="mdl-list__item"><a href="${link}">${name|h}</a></li>
+                    %endfor
+                </ul>
+            </div>
+            %endif
+
+            <div class="mdl-card__supporting-text">
+                <div class="mdl-cell mdl-cell--12-col">
+                    %if posts:
+                    <ul class="mdl-list tag-page-items">
+                    % for post in posts:
+                        <li class="mdl-list__item mdl-list__item--two-line">
+                            <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">subject</i>
+                                <a href="${post.permalink()}" class="post-title">${post.title()|h}</a>
+                                <span class="mdl-list__item-sub-title">
+                                    <time class="listdate" datetime="${post.formatted_date('webiso')}" title="${post.formatted_date(date_format)|h}">${post.formatted_date(date_format)|h}</time>
+                                </span>
+                            </span>
+                        </li>
+                    % endfor
+                    </ul>
+                    %endif
+                </div>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                %if len(translations) > 1 and generate_rss:
+                    %for language in sorted(translations):
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored mdl-button--accent" title="${messages('RSS feed', language)} (${language})" href="${_link(kind + "_rss", tag, language)}" hreflang="${language}" type="application/rss+xml">${messages('RSS feed', language)} (${language})</a>
+                    %endfor
+                %elif generate_rss:
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored mdl-button--accent" title="${messages('RSS feed')}" href="${_link(kind + "_rss", tag)}" type="application/rss+xml">${messages('RSS feed')}</a>
+                %endif
+            </div>
+        </article>
+    </div>
+</div>
+</%block>

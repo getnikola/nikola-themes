@@ -1,0 +1,13 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+
+<%def name="html_footer()">
+%if content_footer:
+  <footer id="footer" class="footer">
+    <div class="container">
+      ${content_footer}
+      ${template_hooks['page_footer']()}
+    </div>
+  </footer>
+%endif
+</%def>

@@ -1,0 +1,142 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+
+<%def name="html_header()">
+    <header id="header" class="mdl-layout__header site-header
+    %if mdl__header_scroll:
+mdl-layout__header--scroll
+    %endif
+    %if mdl__header_waterfall:
+mdl-layout__header--waterfall
+    %endif
+    %if mdl__header_waterfall_hide_top:
+mdl-layout__header--waterfall-hide-top
+    %endif
+    %if mdl__header_transparent:
+mdl-layout__header--transparent
+    %endif
+    %if mdl__header_seamed:
+mdl-layout__header--seamed
+    %endif
+    ">
+        <div class="mdl-layout__header-row site-header__title-row
+        %if title_row_middle:
+site-header__row-middle
+        %endif
+        ">
+            ${html_site_title()}
+        %if mdl__multiple_header:
+        </div>
+        <div class="mdl-layout__header-row site-header__navigation-row
+        %if mdl__navigation_large_screen_only:
+mdl-layout--large-screen-only
+        %endif
+        %if navigation_row_middle:
+site-header__row-middle
+        %endif
+        ">
+        %else:
+            <div class="mdl-layout-spacer"></div>
+        %endif
+            %if top_nav_header:
+            <span class="sr-only">main navigation</span>
+            <nav class="mdl-navigation site-header__navigation">
+              %for url, text in navigation_links[lang]:
+                  %if rel_link(permalink, url) == "#":
+                      <a class="mdl-navigation__link is-active" href="${permalink}">${text} <span class="sr-only">${messages("(active)", lang)}</span></a>
+                  %else:
+                      <a class="mdl-navigation__link" href="${url}">${text}</a>
+                  %endif
+              %endfor
+              ${template_hooks['menu']()}
+              ${template_hooks['menu_alt']()}
+            </nav>
+            %endif
+            %if search_form:
+                <div class="site-header__search" role="search">
+                    ${search_form}
+                </div>
+            %endif
+            ${html_more_button()}
+        </div>
+    </header>
+    ${html_navigation_links()}
+    ${template_hooks['page_header']()}
+</%def>
+
+<%def name="html_site_title()">
+    <h1 id="brand" class="mdl-layout__title site-title">
+        <a href="${abs_link(_link("root", None, lang))}" title="${blog_title|h}" rel="home">
+            %if logo_url:
+                <img src="${logo_url}" alt="${blog_title|h}" id="logo">
+            %endif
+            % if show_blog_title:
+                <span id="blog-title" class="mdl-color-text--primary-contrast">${blog_title|h}</span>
+            % endif
+        </a>
+    </h1>
+</%def>
+
+<%def name="html_navigation_links()">
+    <div id="drawer" class="mdl-layout__drawer site-drawer
+    %if mdl__drawer_small_screen_only:
+mdl-layout--small-screen-only
+    %endif
+    ">
+        %if drawer_title:
+        <div class="mdl-layout__title site-drawer__title">
+            %if drawer_logo_url:
+                <img src="${drawer_logo_url}" alt="${drawer_title|h}">
+            %endif
+            % if drawer_show_title:
+                <span>${drawer_title|h}</span>
+            % endif
+        </div>
+        %endif
+        %if drawer_description:
+        <div class="site-drawer__description">
+            ${drawer_description}
+        </div>
+        %endif
+        <span class="sr-only">side navigation</span>
+        <nav class="mdl-navigation site-drawer__navigation">
+            %for url, text in navigation_links[lang]:
+                %if rel_link(permalink, url) == "#":
+                    <a class="mdl-navigation__link is-active" href="${permalink}">${text} <span class="sr-only">${messages("(active)", lang)}</span></a>
+                %else:
+                    <a class="mdl-navigation__link" href="${url}">${text}</a>
+                %endif
+            %endfor
+            ${template_hooks['menu']()}
+            ${template_hooks['menu_alt']()}
+        </nav>
+        %if drawer_note:
+        <div class="site-drawer__note">
+            ${drawer_note}
+        </div>
+        %endif
+    </div>
+</%def>
+
+<%def name="html_more_button()">
+    %if len(translations) > 1 or more_button_header:
+        <button id="more-button"
+                class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect site-header__more-button">
+            <i class="material-icons">more_vert</i>
+        </button>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+            for="more-button">
+            %if more_button_header:
+                %for url, title, text in more_button_header:
+                <li class="mdl-menu__item">
+                    <a href="${url}" title="${title}" >${text}</a>
+                </li>
+                %endfor
+            %endif
+            %if len(translations) > 1:
+                <li class="mdl-menu__item">${messages("Languages:")}</li>
+                <li class="mdl-menu__item">${base.html_translations()}</li>
+            %endif
+        </ul>
+    %endif
+</%def>

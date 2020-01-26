@@ -1,0 +1,17 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+
+<%def name="html_footer()">
+    %if content_footer:
+        <footer id="footer" class="site-footer
+            %if mdl__footer:
+${mdl__footer}
+            %else:
+mdl-color-text--grey mdl-color--grey-800
+            %endif
+        ">
+            ${content_footer}
+            ${template_hooks['page_footer']()}
+        </footer>
+    %endif
+</%def>

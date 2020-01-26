@@ -1,0 +1,101 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+<%namespace name="header" file="base_header.tmpl" import="*"/>
+<%namespace name="footer" file="base_footer.tmpl" import="*"/>
+<%namespace name="annotations" file="annotation_helper.tmpl"/>
+<%!
+  import re
+  def lower(text):
+    # remove all non-alphabet chars from string
+    regex = re.compile('[^a-zA-Z0-9]')
+    result = regex.sub('', text)
+    return result.lower()
+%>
+${set_locale(lang)}
+${base.html_headstart()}
+<%block name="extra_head">
+### Leave this block alone.
+</%block>
+${template_hooks['extra_head']()}
+</head>
+<body>
+%if carpet__body_prefix:
+  ${carpet__body_prefix}
+%endif
+<script type="text/javascript">
+  // Detect JS support
+  document.body.className = document.body.className + " js_enabled";
+</script>
+<a href="#content" class="sr-only sr-only-focusable">${messages("Skip to main content")}</a>
+<div id="container">
+  %if carpet__hero_size:
+    <section class="hero is-primary ${carpet__hero_size}">
+  %else:
+    <section class="hero is-primary">
+  %endif
+    <!-- Hero header: will stick at the top -->
+    ${header.html_header()}
+    <!-- Hero content: will be in the middle -->
+    <%block name="html_hero_body">
+      %if carpet__show_hero:
+        %if title:
+          <div class="hero-body hero-${title|lower,h,trim}">
+        %else:
+          <div class="hero-body">
+        %endif
+        %if carpet__show_hero_title:
+          <div class="container has-text-centered">
+            %if blog_title:
+              <p class="title">${blog_title|h}</p>
+            %endif
+            %if blog_description:
+              <p class="subtitle">${blog_description|h}</p>
+            %endif
+          </div>
+        %endif
+        </div>
+      %endif
+    </%block>
+    <!-- Hero footer: will stick at the bottom -->
+    %if carpet__hero_footer:
+      ${carpet__hero_footer}
+    %endif
+  </section>
+  %if carpet__cookie_message:
+  <div id="cookie-message" class="section section-cookie"
+    %if carpet__cookie_path:
+      data-cookie-path="${carpet__cookie_path|h}"
+    %endif
+    %if carpet__cookie_expiry:
+      data-cookie-expiry="${carpet__cookie_expiry|h}"
+    %endif
+  >
+    <div class="notification">
+      <button id="cookie-close" class="delete"></button>
+      ${carpet__cookie_message}
+    </div>
+  </div>
+  %endif
+  %if carpet__content_prefix:
+    ${carpet__content_prefix}
+  %endif
+  <main id="content" class="section section-main">
+    <div class="container">
+      <%block name="content"></%block>
+    </div>
+  </main>
+  %if carpet__content_suffix:
+    ${carpet__content_suffix}
+  %endif
+  ${header.html_search()}
+  ${footer.html_footer()}
+</div>
+%if carpet__cookie_message:
+<script async src="/assets/js/cookie-message.js"></script>
+%endif
+${base.late_load_js()}
+<%block name="extra_js"></%block>
+${body_end}
+${template_hooks['body_end']()}
+</body>
+</html>

@@ -1,0 +1,61 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="index_helper.tmpl"/>
+<%namespace name="pheader" file="post_header.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%inherit file="base.tmpl"/>
+
+<%block name="extra_head">
+    ${parent.extra_head()}
+    % if posts and (permalink == '/' or permalink == '/' + index_file):
+        <link rel="prefetch" href="${posts[0].permalink()}" type="text/html">
+    % endif
+</%block>
+
+<%block name="content">
+<div class="site-posts site-card mdl-grid">
+<%block name="content_header"></%block>
+<div class="postindex">
+% for post in posts:
+<div class="mdl-card mdl-cell mdl-cell--12-col
+%if post.meta('type'):
+    site-post-${post.meta('type')}
+%endif
+%if not post.meta('no-card-shadow'):
+    mdl-shadow--4dp
+%endif
+">
+    % if post_type:
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-color--accent mdl-js-ripple-effect">
+            <i class="material-icons mdl-color-text--white" role="presentation">
+                ${post_type[post.meta('type')]}
+            </i>
+            <span class="visuallyhidden">${post.meta('type')}</span>
+        </button>
+    % endif
+    <article class="h-entry">
+    %if not post.meta('no-card-media'):
+        <div class="mdl-card__media"></div>
+    %endif
+    %if title and not post.meta('hidetitle'):
+    <div class="mdl-card__title">
+        <h1 class="mdl-card__title-text p-name entry-title"><a href="${post.permalink()}" class="u-url">${post.title()|h}</a></h1>
+    </div>
+    %endif
+    %if index_teasers:
+    <div class="mdl-card__supporting-text p-summary entry-summary">
+    ${post.text(teaser_only=True)}
+    %else:
+    <div class="mdl-card__supporting-text e-content entry-content">
+    ${post.text(teaser_only=False)}
+    %endif
+    </div>
+    ${pheader.html_post_metadata(post)}
+    </article>
+</div>
+% endfor
+</div>
+${helper.html_pager()}
+${comments.comment_link_script()}
+${helper.mathjax_script(posts)}
+</div>
+</%block>

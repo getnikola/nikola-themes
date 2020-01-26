@@ -1,0 +1,84 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="index_helper.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%namespace name="pagination" file="pagination_helper.tmpl"/>
+<%inherit file="base.tmpl"/>
+
+<%block name="extra_head">
+${parent.extra_head()}
+% if posts and (permalink == '/' or permalink == '/' + index_file):
+  <link rel="prefetch" href="${posts[0].permalink()}" type="text/html">
+% endif
+</%block>
+
+<%block name="content">
+<%block name="content_header"></%block>
+% if 'main_index' in pagekind:
+  ${front_index_header}
+% endif
+% if page_links:
+  ${pagination.page_navigation(current_page, page_links, prevlink, nextlink, prev_next_links_reversed)}
+% endif
+<div class="postindex">
+  % for post in posts:
+    <div class="columns">
+      <div class="column">
+        <div class="card post-card">
+          <article class="h-entry post-${post.meta('type')}">
+            <div class="card-content">
+              <div class="media metadata">
+                <div class="media-content">
+                  <p class="title is-2 p-name entry-title">
+                    <a href="${post.permalink()}" class="u-url">${post.title()|h}</a>
+                  </p>
+                </div>
+                %if carpet__post_type:
+                  <div class="media-right">
+                    <span class="icon">
+                      <i class="fa ${carpet__post_type[post.meta('type')]}"
+                        aria-hidden="true"></i>
+                    </span>
+                    <span class="visuallyhidden">${post.meta('type')}</span>
+                  </div>
+                %endif
+              </div>
+              %if index_teasers:
+                <div class="content p-summary entry-summary">
+                  ${post.text(teaser_only=True)}
+                </div>
+              %else:
+                <div class="content e-content entry-content">
+                  ${post.text(teaser_only=False)}
+                </div>
+              %endif
+            </div>
+
+            <footer class="card-footer">
+              <p class="card-footer-item byline author vcard">
+                <span class="byline-name fn">
+                  % if author_pages_generated:
+                    <a href="${_link('author', post.author())}">${post.author()|h}</a>
+                  % else:
+                    ${post.author()|h}
+                  % endif
+                </span>
+              </p>
+              <p class="card-footer-item dateline">
+                <a href="${post.permalink()}" rel="bookmark">
+                  <time class="published dt-published" datetime="${post.formatted_date('webiso')}" title="${post.formatted_date(date_format)|h}">${post.formatted_date(date_format)|h}</time>
+                </a>
+              </p>
+              %if not post.meta('nocomments') and site_has_comments:
+                <p class="card-footer-item commentline">${comments.comment_link(post.permalink(), post._base_path)}</p>
+              %endif
+            </footer>
+          </article>
+        </div>
+      </div>
+    </div>
+  % endfor
+</div>
+${helper.html_pager()}
+${comments.comment_link_script()}
+${helper.mathjax_script(posts)}
+</%block>

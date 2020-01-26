@@ -1,0 +1,85 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%namespace name="ui" file="crumbs.tmpl" import="bar"/>
+<%block name="sourcelink"></%block>
+
+<%block name="content">
+<div class="site-gallery site-card mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col">
+        ${ui.bar(crumbs)}
+    </div>
+    <div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--4dp">
+        <div class="mdl-card__media"></div>
+        %if title:
+        <div class="mdl-card__title">
+            <h1 class="mdl-card__title-text">${title|h}</h1>
+        </div>
+        %endif
+        <div class="mdl-grid mdl-card__supporting-text">
+            <div class="mdl-cell mdl-cell--12-col">
+            %if post:
+                ${post.text()}
+            %endif
+            </div>
+            <div class="mdl-cell mdl-cell--12-col">
+            %if folders:
+                <ul class="mdl-list">
+                % for folder, ftitle in folders:
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-icon">folder_open</i>
+                            <a href="${folder}">${ftitle|h}</a>
+                        </span>
+                    </li>
+                % endfor
+                </ul>
+            %endif
+            </div>
+        </div>
+        %if photo_array:
+        <div class="mdl-grid mdl-card__supporting-text image-gallery">
+            %for image in photo_array:
+                <div class="mdl-card mdl-cell mdl-cell--3-col mdl-shadow--2dp">
+                    <div class="mdl-card__media mdl-color--white">
+                        %if image_plugin and image_plugin == 'lightbox':
+                        <a href="${image['url']}" data-lightbox="image-gallery"
+                           data-title="${image['title']}"
+                           class="thumbnail image-reference"
+                           title="${image['title']}">
+                            <img src="${image['url_thumb']}" alt="${image['title']|h}" />
+                        </a>
+                        %else:
+                        <a href="${image['url']}" class="thumbnail image-reference" title="${image['title']}">
+                            <img src="${image['url_thumb']}" alt="${image['title']|h}" />
+                        </a>
+                        %endif
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                      <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored mdl-button--accent" title="${image['title']}" href="${image['url']}">${image['title']}</a>
+                    </div>
+                </div>
+            %endfor
+        </div>
+        %endif
+        %if site_has_comments and enable_comments:
+        <div class="mdl-color-text--primary-contrast mdl-card__supporting-text comments hidden-print">
+            ${comments.comment_form(None, permalink, title)}
+        </div>
+        %endif
+    </div>
+</div>
+</%block>
+
+<%block name="extra_head">
+${parent.extra_head()}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+</%block>
+
+<%block name="extra_js">
+%if image_plugin and image_plugin == 'colorbox':
+<script>
+$("a.thumbnail").colorbox({rel:"gal", maxWidth:"100%",maxHeight:"100%",scalePhotos:true});
+</script>
+%endif
+</%block>

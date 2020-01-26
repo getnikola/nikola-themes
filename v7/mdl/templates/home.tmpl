@@ -1,0 +1,22 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="pheader" file="post_header.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%inherit file="post.tmpl"/>
+
+<%block name="content">
+<div class="site-page site-card mdl-grid site-page-story">
+    <div class="mdl-cell mdl-cell--12-col
+%if post.meta('type'):
+    site-page-story-${post.meta('type')}
+%endif
+">
+        ${pheader.html_title()}
+        ${pheader.html_translations(post)}
+        <div class="e-content entry-content">
+            ${post.text()}
+        </div>
+        ${helper.mathjax_script(post)}
+    </div>
+</div>
+</%block>

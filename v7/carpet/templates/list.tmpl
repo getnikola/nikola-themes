@@ -1,0 +1,25 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+<%namespace name="archive_nav" file="archive_navigation_helper.tmpl" import="*"/>
+
+<%block name="content">
+<article class="listpage">
+  <header class="heading">
+    <h1 class="title is-1">${title|h}</h1>
+  </header>
+  ${archive_nav.archive_navigation()}
+  %if items:
+  <ul class="postlist">
+  % for text, link, count in items:
+    <li><a href="${link}">${text|h}</a>
+    % if count:
+      (${count})
+    % endif
+    </li>
+  % endfor
+  </ul>
+  %else:
+  <p>${messages("Nothing found.")}</p>
+  %endif
+</article>
+</%block>

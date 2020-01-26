@@ -1,0 +1,122 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+
+<%def name="html_header()">
+<div class="hero-head">
+  <header  id="header" class="nav">
+    <div class="container">
+      %if logo_url or show_blog_title or len(translations) > 1:
+      <div class="nav-left">
+        ${html_site_title()}
+        ${html_translation_header()}
+      </div>
+      %endif
+      ${html_navigation_links()}
+      ${template_hooks['page_header']()}
+    </div>
+  </header>
+</div>
+</%def>
+
+<%def name="html_search()">
+%if search_form:
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <div class="container">
+        <div class="content searchform" role="search">  
+          ${search_form}
+        </div>
+      </div>
+    </div>
+  </section>
+%endif
+</%def>
+
+<%def name="html_site_header()">
+%if logo_url or show_blog_title:
+  <span class="level is-mobile">
+%endif
+
+%if logo_url:
+  <span class="level-item image is-24x24 site-image">
+    <img id="logo" class="site-logo" src="${logo_url}" alt="${blog_title|h}">
+  </span>
+%endif
+
+%if show_blog_title:
+  <span id="blog-title" class="level-item site-title">${blog_title|h}</span>
+%elif logo_url:
+  <span id="blog-title" class="level-item site-title visuallyhidden">${blog_title|h}</span>
+%endif
+
+%if logo_url or show_blog_title:
+  </span>
+%endif
+</%def>
+
+<%def name="html_site_title()">
+<div class="nav-item is-brand">
+  <h1 id="brand" class="site-header">
+    %if carpet__unlink_blog_brand:
+      ${html_site_header()}
+    %else:
+      <a href="${abs_link(_link("root", None, lang))}" title="${blog_title|h}" rel="home">
+        ${html_site_header()}
+      </a>
+    %endif
+  </h1>
+</div>
+</%def>
+
+<%def name="html_navigation_links()">
+<!-- This "nav-toggle" hamburger menu is only visible on mobile -->
+<!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
+<span id="nav-toggle-burger" class="nav-toggle">
+  <span></span>
+  <span></span>
+  <span></span>
+</span>
+<div id="menu" class="nav-right nav-menu">
+%for url, text in navigation_links[lang]:
+  %if isinstance(url, tuple):
+    <span class="nav-item is-active">${text}</span>
+    %for suburl, text in url:
+      %if rel_link(permalink, suburl) == "#":
+        <a class="nav-item has-text-right is-active" title="${text}" href="${permalink}">${text} <span class="sr-only">${messages("(active)", lang)}</span></a>
+      %else:
+        <a class="nav-item has-text-right" title="${text}" href="${suburl}">${text}</a>
+      %endif
+    %endfor
+  %else:
+    %if rel_link(permalink, url) == "#":
+      <a class="nav-item is-active" title="${text}" href="${permalink}">${text} <span class="sr-only">${messages("(active)", lang)}</span></a>
+    %else:
+      <a class="nav-item" title="${text}" href="${url}">${text}</a>
+    %endif
+  %endif
+%endfor
+${template_hooks['menu']()}
+${template_hooks['menu_alt']()}
+</div>
+<script type="text/javascript">
+document.getElementById('nav-toggle-burger').onclick = function() {
+  var myMenu = document.getElementById('menu');
+  var className = ' ' + myMenu.className + ' ';
+  var IS_ACTIVE_CLASS = 'is-active';
+  if ( ~className.indexOf(' ' + IS_ACTIVE_CLASS + ' ') ) {
+    myMenu.className = className.replace(' ' + IS_ACTIVE_CLASS + ' ', ' ');
+  } else {
+    myMenu.className += ' ' + IS_ACTIVE_CLASS;
+  }
+}
+</script>
+</%def>
+
+<%def name="html_translation_header()">
+%if len(translations) > 1:
+  <div id="toptranslations" class="nav-item">
+    <h2>${messages("Languages:")}</h2>
+    ${base.html_translations()}
+  </div>
+%endif
+</%def>

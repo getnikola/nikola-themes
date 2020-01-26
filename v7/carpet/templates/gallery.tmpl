@@ -1,0 +1,98 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%namespace name="ui" file="crumbs.tmpl" import="bar"/>
+<%block name="sourcelink"></%block>
+
+<%block name="content">
+${ui.bar(crumbs)}
+
+%if title:
+  <h1 class="title is-1">${title|h}</h1>
+%endif
+%if post:
+  <div class="columns">
+    <div class="column content gallery-post">
+      ${post.text()}
+    </div>
+  </div>
+%endif
+%if folders:
+<div class="columns is-multiline gallery-folders">
+  % for folder, ftitle in folders:
+    <div class="column is-2 gallery-folder">
+      <div class="card">
+        <div class="card-image">
+          <figure class="image is-square gallery-folder-image"></figure>
+        </div>
+        <div class="card-content">
+          <a title="${ftitle|h}" href="${folder}">${ftitle|h}</a>
+        </div>
+      </div>
+    </div>
+  % endfor
+</div>
+%endif
+%if photo_array:
+<div class="columns is-multiline gallery-photos">
+  %for image in photo_array:
+    <div class="column is-2 gallery-photo">
+      <div class="card gallery-card">
+        <div class="card-image">
+          <figure class="image">
+            <img src="${image['url_thumb']}" alt="${image['title']|h}" />
+          </figure>
+        </div>
+        <div class="card-content">
+          <p class="title is-4">${image['title']|h}</p>
+        </div>
+        <footer class="card-footer">
+          <a class="card-footer-item image-button" data-target="photo-array-${loop.index}">View</a>
+        </footer>
+      </div>
+      <div id="photo-array-${loop.index}" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <p class="image">
+            <img src="${image['url']}">
+          </p>
+        </div>
+        <button class="modal-close image-close" data-target="photo-array-${loop.index}"></button>
+      </div>
+    </div>
+  %endfor
+</div>
+<script type="text/javascript">
+var handleClick = function(event) {
+  var attribute = this.getAttribute('data-target');
+  var myModal = document.getElementById(attribute);
+  var className = ' ' + myModal.className + ' ';
+  var IS_ACTIVE_CLASS = 'is-active';
+  if ( ~className.indexOf(' ' + IS_ACTIVE_CLASS + ' ') ) {
+    myModal.className = className.replace(' ' + IS_ACTIVE_CLASS + ' ', ' ');
+  } else {
+    myModal.className += ' ' + IS_ACTIVE_CLASS;
+  }
+};
+function addEventListenerByClass(className, event, fn) {
+  var list = document.getElementsByClassName(className);
+  for (var i = 0, len = list.length; i < len; i++) {
+      list[i].addEventListener(event, fn, false);
+  }
+}
+addEventListenerByClass('image-button', 'click', handleClick);
+addEventListenerByClass('image-close', 'click', handleClick); 
+</script>
+%endif
+
+%if site_has_comments and enable_comments:
+<section class="comments">
+  <h2 class="title is-2">${messages("Comments")}</h2>
+  ${comments.comment_form(None, permalink, title)}
+%endif
+</%block>
+
+<%block name="extra_head">
+${parent.extra_head()}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+</%block>

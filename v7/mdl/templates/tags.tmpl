@@ -1,0 +1,62 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+
+<%block name="content">
+<div class="site-page site-card mdl-grid site-page-tags">
+    <div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--4dp">
+        <article class="tag-index">
+            <div class="mdl-card__media"></div>
+            <div class="mdl-card__title">
+                <h1 class="mdl-card__title-text">${title|h}</h1>
+            </div>
+            <div class="mdl-grid mdl-card__supporting-text">
+            % if cat_items:
+                % if items:
+                    <h2 class="mdl-cell mdl-cell--12-col mdl-typography--headline">${messages("Categories")}</h2>
+                % endif
+                <div class="mdl-cell mdl-cell--12-col">
+                % for text, full_name, path, link, indent_levels, indent_change_before, indent_change_after in cat_hierarchy:
+                    % for i in range(indent_change_before):
+                        <ul class="mdl-list tag-index-categories">
+                    % endfor
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-icon">label</i>
+                            <a class="reference" href="${link}">${text}</a>
+                        </span>
+                    % if indent_change_after <= 0:
+                        </li>
+                    % endif
+                    % for i in range(-indent_change_after):
+                        </ul>
+                        % if i + 1 < len(indent_levels):
+                            </li>
+                        % endif
+                    % endfor
+                % endfor
+                </div>
+                % if items:
+                    <h2 class="mdl-cell mdl-cell--12-col mdl-typography--headline">${messages("Tags")}</h2>
+                % endif
+            %endif
+            <div class="mdl-cell mdl-cell--12-col">
+            % if items:
+                <ul class="mdl-list tag-index-tags">
+                % for text, link in items:
+                    % if text not in hidden_tags:
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">label</i>
+                                <a class="reference post-title" href="${link}">${text|h}</a>
+                            </span>
+                        </li>
+                    % endif
+                % endfor
+                </ul>
+            % endif
+            </div>
+            </div>
+        </article>
+    </div>
+</div>
+</%block>

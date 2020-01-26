@@ -1,0 +1,62 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="pheader" file="post_header.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%inherit file="base.tmpl"/>
+
+<%block name="extra_head">
+    ${parent.extra_head()}
+    % if post.meta('keywords'):
+    <meta name="keywords" content="${post.meta('keywords')|h}">
+    % endif
+    %if post.description():
+    <meta name="description" content="${post.description()|h}">
+    %endif
+    <meta name="author" content="${post.author()|h}">
+    %if post.prev_post:
+        <link rel="prev" href="${post.prev_post.permalink()}" title="${post.prev_post.title()|h}" type="text/html">
+    %endif
+    %if post.next_post:
+        <link rel="next" href="${post.next_post.permalink()}" title="${post.next_post.title()|h}" type="text/html">
+    %endif
+    % if post.is_draft:
+        <meta name="robots" content="noindex">
+    % endif
+    ${helper.open_graph_metadata(post)}
+    ${helper.twitter_card_information(post)}
+    ${helper.meta_translations(post)}
+</%block>
+
+<%block name="content">
+<div class="site-post site-card mdl-grid">
+    <div class="mdl-card mdl-cell mdl-cell--12-col
+%if post.meta('type'):
+    site-post-${post.meta('type')}
+%endif
+%if not post.meta('no-card-shadow'):
+    mdl-shadow--4dp
+%endif
+">
+        <article class="h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article">
+            %if not post.meta('no-card-media'):
+                <div class="mdl-card__media"></div>
+            %endif
+            ${pheader.html_post_header(post)}
+            <div class="mdl-card__supporting-text e-content entry-content" itemprop="articleBody text">
+                ${post.text()}
+            </div>
+            ${pheader.html_post_metadata(post)}
+            ${pheader.html_post_actions(post)}
+            % if not post.meta('nocomments') and site_has_comments:
+            <div class="mdl-color-text--primary-contrast mdl-card__supporting-text comments hidden-print">
+                <h2>${messages("Comments")}</h2>
+                ${comments.comment_form(post.permalink(absolute=True), post.title(), post._base_path)}
+            </div>
+            % endif
+            ${helper.mathjax_script(post)}
+        </article>
+    </div>
+    ${helper.html_pager(post)}
+    ${comments.comment_link_script()}
+</div>
+</%block>

@@ -1,0 +1,44 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+<%namespace name="ui" file="crumbs.tmpl" import="bar"/>
+<%block name="content">
+<div class="site-listing site-card mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col">
+        ${ui.bar(crumbs)}
+    </div>
+    <div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--4dp">
+        <div class="mdl-card__media"></div>
+        <div class="mdl-card__title">
+            <h1 class="mdl-card__title-text">${title|h}</h1>
+        </div>
+        <div class="mdl-card__supporting-text">
+            %if folders or files:
+            <ul class="mdl-list">
+            % for name in folders:
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        <i class="material-icons mdl-list__item-icon">folder_open</i>
+                        <a href="${name|u}">${name|h}</a>
+                    </span>
+            % endfor
+            % for name in files:
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        <i class="material-icons mdl-list__item-icon">insert_drive_file</i>
+                        <a href="${name|u}.html">${name|h}</a>
+                    </span>
+            % endfor
+            </ul>
+            %endif
+            % if code:
+                ${code}
+            % endif
+        </div>
+        % if source_link:
+        <div class="mdl-card__actions mdl-card--border">
+            <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored mdl-button--accent" title="${messages('Source')}" href="${source_link}">${messages('Source')}</a>
+        </div>
+        % endif
+    </div>
+</div>
+</%block>

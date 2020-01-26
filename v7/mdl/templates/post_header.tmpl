@@ -1,0 +1,80 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+
+<%def name="html_title()">
+%if title and not post.meta('hidetitle'):
+    <div class="mdl-card__title">
+        <h1 class="mdl-card__title-text p-name entry-title"
+            itemprop="headline name">${post.title()|h}</h1>
+    </div>
+%endif
+</%def>
+
+<%def name="html_translations(post)">
+    % if len(post.translated_to) > 1:
+        <div class="metadata posttranslations translations">
+            <h2 class="posttranslations-intro">${messages("Also available in:")}</h2>
+            % for langname in sorted(translations):
+                % if langname != lang and post.is_translation_available(langname):
+                <p><a href="${post.permalink(langname)}" rel="alternate" hreflang="${langname}">${messages("LANGUAGE", langname)}</a></p>
+                % endif
+            % endfor
+        </div>
+    % endif
+</%def>
+
+<%def name="html_sourcelink(post)">
+    % if show_sourcelink:
+    <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored mdl-button--accent site-post__source-link" rel="tag" title="${messages('Source')}" href="${post.source_link()}">${messages('Source')}</a>
+    % endif
+</%def>
+
+<%def name="html_metalink(post)">
+    % if post.meta('link'):
+    <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored mdl-button--accent metadata-original-site-link" rel="tag" title="${messages('Original site')}" href="${post.meta('link')}">${messages('Original site')}</a>
+    % endif
+</%def>
+
+<%def name="html_post_header(post)">
+    ${html_title()}
+    %if post.description():
+    <meta name="description" itemprop="description" content="${post.description()|h}">
+    %endif
+    ${html_translations(post)}
+</%def>
+
+<%def name="html_post_metadata(post)">
+    <div class="mdl-grid mdl-card__supporting-text mdl-card--border metadata">
+        <div class="mdl-cell mdl-cell--1-col">
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect">${"".join([x[0].upper() for x in post.author().split()])}</button>
+        </div>
+        <div class="mdl-grid mdl-cell mdl-cell--9-col">
+            <span class="mdl-cell mdl-cell--12-col site-post__author no-margin-bottom">
+            %if author_pages_generated:
+                <a href="${_link('author', post.author())}">${post.author()|h}</a>
+            %else:
+                ${post.author()|h}
+            %endif
+            </span>
+            <span class="mdl-cell mdl-cell--12-col site-post__date">
+                <time class="published dt-published" datetime="${post.formatted_date('webiso')}" itemprop="datePublished" title="${post.formatted_date(date_format)|h}">${post.formatted_date(date_format)|h}
+                </time>
+            </span>
+        </div>
+        % if not post.meta('nocomments') and site_has_comments:
+        <span class="mdl-cell mdl-cell--2-col site-post__total-comment">
+                ${comments.comment_link(post.permalink(), post._base_path)}
+        </span>
+        % endif
+    </div>
+</%def>
+
+<%def name="html_post_actions(post)">
+    <div class="mdl-grid mdl-card__actions mdl-card--border">
+        ${helper.html_tags(post)}
+        <div class="section-spacer"></div>
+        ${html_sourcelink(post)}
+        ${html_metalink(post)}
+    </div>
+</%def>

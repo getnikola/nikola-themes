@@ -1,0 +1,18 @@
+## -*- coding: utf-8 -*-
+<%def name="page_navigation(current_page, page_links, prevlink, nextlink, prev_next_links_reversed, surrounding=5)">
+<nav class="pagination is-centered">
+  <ul class="pagination-list page-navigation">
+    % for i, link in enumerate(page_links):
+      % if abs(i - current_page) <= surrounding or i == 0 or i == len(page_links) - 1:
+        % if i == current_page:
+          <li><a class="pagination-link is-current current-page">${i+1}</a></li>
+        % else:
+          <li><a class="pagination-link" href="${page_links[i]}">${i+1}</a></li>
+        % endif
+      % elif i == current_page - surrounding - 1 or i == current_page + surrounding + 1:
+        <li><span class="pagination-ellipsis ellipsis">&hellip;</span></li>
+      % endif
+    % endfor
+  </ul>
+</nav>
+</%def>

@@ -1,0 +1,103 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="pheader" file="post_header.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%inherit file="base.tmpl"/>
+<%!
+  import re
+  def lower(text):
+    # remove all non-alphabet chars from string
+    regex = re.compile('[^a-zA-Z0-9]')
+    result = regex.sub('', text)
+    return result.lower()
+%>
+<%block name="extra_head">
+  ${parent.extra_head()}
+  
+  % if post.meta('keywords'):
+    <meta name="keywords" content="${post.meta('keywords')|h}">
+  % endif
+  
+  %if post.description():
+    <meta name="description" content="${post.description()|h}">
+  %endif
+  
+  <meta name="author" content="${post.author()|h}">
+  
+  %if post.prev_post:
+    <link rel="prev" href="${post.prev_post.permalink()}" title="${post.prev_post.title()|h}" type="text/html">
+  %endif
+  
+  %if post.next_post:
+    <link rel="next" href="${post.next_post.permalink()}" title="${post.next_post.title()|h}" type="text/html">
+  %endif
+  
+  % if post.is_draft:
+    <meta name="robots" content="noindex">
+  % endif
+  
+  ${helper.open_graph_metadata(post)}
+  ${helper.twitter_card_information(post)}
+  ${helper.meta_translations(post)}
+</%block>
+
+<%block name="html_hero_body">
+%if not carpet__hero_post_title:
+  ${parent.html_hero_body()}
+%elif post.meta('show-hero') == 'custom':
+  %if title:
+    <div class="hero-body hero-${title|lower,h,trim}">
+  %else:
+    <div class="hero-body hero-${title|lower,h,trim} ${post.meta('hero-class')}">
+  %endif
+  %if post.meta('hero-title') or post.meta('hero-description'):
+  <div class="container has-text-centered">
+    %if post.meta('hero-title'):
+      <p class="title">${post.meta('hero-title')|h}</p>
+    %endif
+    %if post.meta('hero-description'):
+      <p class="subtitle">${post.meta('hero-description')|h}</p>
+    %endif
+  </div>
+  %endif
+  </div>
+%elif post.meta('show-hero'):
+  %if title:
+    <div class="hero-body hero-${title|lower,h,trim}">
+  %else:
+    <div class="hero-body hero-${title|lower,h,trim} ${post.meta('hero-class')}">
+  %endif
+  %if post.meta('title') or post.meta('description'):
+  <div class="container has-text-centered">
+    %if post.meta('title'):
+      <p class="title">${post.meta('title')|h}</p>
+    %endif
+    %if post.meta('description'):
+      <p class="subtitle">${post.meta('description')|h}</p>
+    %endif
+  </div>
+  %endif
+  </div>
+%endif
+</%block>
+
+<%block name="content">
+<article class="post-${post.meta('type')} h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article">
+  ${pheader.html_post_header()}
+  <div class="section content e-content entry-content" itemprop="articleBody text">
+    ${post.text()}
+  </div>
+  <aside class="postpromonav">
+    ${helper.html_tags(post)}
+    ${helper.html_pager(post)}
+  </aside>
+  %if site_has_comments and enable_comments and not post.meta('nocomments'):
+    <section class="section comments hidden-print">
+      <h2 class="title is-2">${messages("Comments")}</h2>
+      ${comments.comment_form(post.permalink(absolute=True), post.title(), post._base_path)}
+    </section>
+  %endif
+  ${helper.mathjax_script(post)}
+</article>
+${comments.comment_link_script()}
+</%block>
