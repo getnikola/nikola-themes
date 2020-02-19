@@ -52,7 +52,11 @@
         ${post.meta('confpy')}
     % endif
     <h3>Issues? Questions?</h3>
-    <p>You can report issues with this theme and request help via <a href="https://github.com/getnikola/nikola-themes/issues/new?title=[${post.meta('slug')}]">GitHub Issues</a>.</p>
+    % if post.meta('is_special_entry'):
+        <p>You can report issues with this built-in theme via <a href="https://github.com/getnikola/nikola/issues/new/choose">GitHub Issues</a> (main repository).</p>
+    % else:
+        <p>You can report issues with this theme and request help via <a href="https://github.com/getnikola/nikola-themes/issues/new?title=[${post.meta('slug')}]">GitHub Issues</a> (themes repository).</p>
+    % endif
     % if post.meta('show_family_data'):
         <h3>Related themes</h3>
         <div class="metadata">
