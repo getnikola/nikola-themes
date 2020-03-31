@@ -1,0 +1,46 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+<%namespace name="header" file="base_header.tmpl" import="*"/>
+<%namespace name="footer" file="base_footer.tmpl" import="*"/>
+${set_locale(lang)}
+### <html> tag is included by base.html_headstart
+${base.html_headstart()}
+<%block name="extra_head">
+### Leave this block alone.
+</%block>
+${template_hooks['extra_head']()}
+</head>
+<body>
+    <!-- FIXME: reenable <a href="#content" class="sr-only sr-only-focusable">${messages("Skip to main content")}</a> -->
+    <section class="section">
+        <div class="container">
+            ${header.html_header()}
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <%block name="content"></%block>
+            ${footer.html_footer()}
+        </div>
+    </section>
+    ${base.late_load_js()}
+    % if date_fanciness != 0:
+    <!-- fancy dates -->
+    <script>
+    moment.locale("${momentjs_locales[lang]}");
+    fancydates(${date_fanciness}, ${js_date_format});
+    </script>
+    <!-- end fancy dates -->
+    % endif
+    <%block name="extra_js"></%block>
+    <script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+    ${body_end}
+    ${template_hooks['body_end']()}
+</body>
+</html>

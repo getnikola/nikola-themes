@@ -1,0 +1,56 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="index_helper.tmpl"/>
+<%namespace name="math" file="math_helper.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%namespace name="pagination" file="pagination_helper.tmpl"/>
+<%namespace name="feeds_translations" file="feeds_translations_helper.tmpl" import="*"/>
+<%inherit file="base.tmpl"/>
+
+<%block name="extra_head">
+    ${parent.extra_head()}
+    % if posts and (permalink == '/' or permalink == '/' + index_file):
+        <link rel="prefetch" href="${posts[0].permalink()}" type="text/html">
+    % endif
+    ${math.math_styles_ifposts(posts)}
+</%block>
+
+<%block name="content">
+<%block name="content_header">
+    ${feeds_translations.translation_link(kind)}
+</%block>
+% if 'main_index' in pagekind:
+    ${front_index_header}
+% endif
+% if page_links:
+    ${pagination.page_navigation(current_page, page_links, prevlink, nextlink, prev_next_links_reversed)}
+% endif
+% for post in posts:
+
+    <article>
+        %if post.tags:
+        <div class="subtitle tags is-6 is-pulled-right">
+            % for i, tag in enumerate(post.tags):
+              % if tag not in hidden_tags:
+                % if i > 0:
+                |
+                %endif
+                <a class="subtitle is-6" href="${_link('tag', tag)}">#${tag|h}</a>
+              % endif
+            % endfor
+        </div>
+        %endif
+        <h2 class="subtitle is-6 date">${post.formatted_date(date_format)|h}</h2>
+        <h1 class="title"><a href="${post.permalink()}">${post.title()|h}</a></h1>
+        <div class="content">
+            %if index_teasers:
+                ${post.text(teaser_only=True)}
+            %else:
+                ${post.text(teaser_only=False)}
+            %endif
+        </div>
+    </article>
+% endfor
+${helper.html_pager()}
+${comments.comment_link_script()}
+${math.math_scripts_ifposts(posts)}
+</%block>

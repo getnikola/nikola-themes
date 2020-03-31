@@ -1,0 +1,12 @@
+[Theme]
+engine = mako
+parent = base
+author = Roberto Alsina
+author_url = https://ralsina.me
+license = MIT
+based_on = KISS https://www.ribice.ba/hugo-kiss/
+tags = bootstrap
+
+[Family]
+family = base
+jinja_version = kiss-jinja

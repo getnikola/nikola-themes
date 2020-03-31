@@ -1,0 +1,49 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="pheader" file="post_header.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%namespace name="math" file="math_helper.tmpl"/>
+<%inherit file="base.tmpl"/>
+
+<%block name="extra_head">
+    ${parent.extra_head()}
+    % if post.meta('keywords'):
+    <meta name="keywords" content="${smartjoin(', ', post.meta('keywords'))|h}">
+    % endif
+    <meta name="author" content="${post.author()|h}">
+    %if post.prev_post:
+        <link rel="prev" href="${post.prev_post.permalink()}" title="${post.prev_post.title()|h}" type="text/html">
+    %endif
+    %if post.next_post:
+        <link rel="next" href="${post.next_post.permalink()}" title="${post.next_post.title()|h}" type="text/html">
+    %endif
+    % if post.is_draft:
+        <meta name="robots" content="noindex">
+    % endif
+    ${helper.open_graph_metadata(post)}
+    ${helper.twitter_card_information(post)}
+    ${helper.meta_translations(post)}
+    ${math.math_styles_ifpost(post)}
+</%block>
+
+<%block name="content">
+    %if post.tags:
+    <div class="subtitle tags is-6 is-pulled-right">
+        % for i, tag in enumerate(post.tags):
+            % if tag not in hidden_tags:
+            % if i > 0:
+            |
+            %endif
+            <a class="subtitle is-6" href="${_link('tag', tag)}">#${tag|h}</a>
+            % endif
+        % endfor
+    </div>
+    %endif
+    <h2 class="subtitle is-6 date">${post.formatted_date(date_format)|h}</h2>
+    <h1 class="title"><a href="${post.permalink()}">${post.title()|h}</a></h1>
+    <div class="content">
+        ${post.text()}
+    </div>
+    ${math.math_scripts_ifpost(post)}
+    ${comments.comment_link_script()}
+</%block>

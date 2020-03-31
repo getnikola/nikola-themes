@@ -1,0 +1,31 @@
+## -*- coding: utf-8 -*-
+<%namespace name="math" file="math_helper.tmpl"/>
+<%def name="html_pager()">
+    %if prevlink or nextlink:
+        <section class="section">
+        <div class="container">
+            <nav class="level is-mobile">
+            <div class="level-left">
+                <div class="level-item">
+                    %if prevlink:
+                        <a class="button" href="${prevlink}" rel="prev">${messages("Newer posts")}</a>
+                    %endif
+                </div>
+            </div>
+            <div class="level-right is-marginless">
+                <div class="level-item">
+                    %if nextlink:
+                        <a class="button" href="${nextlink}" rel="next">${messages("Older posts")}</a>
+                    %endif
+                </div>
+            </div>
+            </nav>
+        </div>
+        </section>
+    %endif
+</%def>
+
+### This function is deprecated; use math_helper directly.
+<%def name="mathjax_script(posts)">
+    ${math.math_scripts_ifposts(posts)}
+</%def>

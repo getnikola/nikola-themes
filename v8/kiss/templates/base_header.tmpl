@@ -1,0 +1,54 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+
+<%def name="html_header()">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        ${html_site_title()}
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile">
+            ${html_translation_header()}
+            ${html_navigation_links()}
+            %if search_form:
+                <div class="searchform" role="search">
+                    ${search_form}
+              </div>
+            %endif
+            ${template_hooks['page_header']()}
+        </nav>
+      </div>
+    </nav>
+</%def>
+
+<%def name="html_site_title()">
+<a id="nav-anchor" class="nav-item" href="${_link("root", None, lang)}" title="${blog_title|h}" rel="home">
+    <h1 id="nav-heading" class="title is-4">
+        <span id="blog-title">${blog_title|h}</span>
+    </h1>
+</a>
+</%def>
+
+<%def name="html_navigation_links()">
+    ${html_navigation_links_entries(navigation_links)}
+    ${html_navigation_links_entries(navigation_alt_links)}
+    ${template_hooks['menu']()}
+    ${template_hooks['menu_alt']()}
+    </nav>
+</%def>
+
+<%def name="html_navigation_links_entries(navigation_links_source)">
+    %for url, text in navigation_links_source[lang]:
+        % if rel_link(permalink, url) == "#":
+            <a class="level-item" href="${permalink}">${text}<span class="sr-only"> ${messages("(active)", lang)}</span></a>
+        %else:
+            <a class="level-item" href="${url}">${text}</a>
+        %endif
+    %endfor
+</%def>
+
+<%def name="html_translation_header()">
+    %if len(translations) > 1:
+            ${base.html_translations()}
+    %endif
+</%def>
