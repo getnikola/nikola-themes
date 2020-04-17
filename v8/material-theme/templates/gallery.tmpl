@@ -56,8 +56,8 @@
 <script src="/assets/js/justified-layout.min.js"></script>
 <script src="/assets/js/gallery.min.js"></script>
 <script>
-var jsonContent = ${photo_array_json};
-var thumbnailSize = ${thumbnail_size};
+var jsonContent = {{photo_array_json}};
+var thumbnailSize = {{thumbnail_size}};
 renderGallery(jsonContent, thumbnailSize);
 window.addEventListener('resize', function(){renderGallery(jsonContent, thumbnailSize)});
 </script>
