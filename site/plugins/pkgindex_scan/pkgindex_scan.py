@@ -72,7 +72,10 @@ class PackageIndexScanner(PostScanner):
                     template_name,
                     compiler
                 )
-                post.is_two_file = True
+                try:
+                    post._is_two_file = True
+                except AttributeError:
+                    post.is_two_file = True
                 for d in post.meta.values():
                     d['is_special_entry'] = False
                 timeline.append(post)
@@ -90,7 +93,10 @@ class PackageIndexScanner(PostScanner):
                     template_name,
                     compiler
                 )
-                post.is_two_file = True
+                try:
+                    post._is_two_file = True
+                except AttributeError:
+                    post.is_two_file = True
                 for d in post.meta.values():
                     d['is_special_entry'] = True
                 timeline.append(post)

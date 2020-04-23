@@ -8,6 +8,6 @@ MinVersion = 7.8.1+
 
 [Documentation]
 Author = Chris Warrick, Roberto Alsina
-Version = 0.3.0
+Version = 0.4.0
 Website = https://plugins.getnikola.com/
 Description = Compile pages in package indexes

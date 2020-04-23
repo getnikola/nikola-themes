@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright © 2016-2019, Chris Warrick and Roberto Alsina.
+# Copyright © 2016-2020, Chris Warrick and Roberto Alsina.
 
 # Permission is hereby granted, free of charge, to any
 # person obtaining a copy of this software and associated
@@ -333,3 +333,7 @@ class CompilePackageIndexEntries(PageCompiler):
         if self.markdown_compiler is None:
             self.markdown_compiler = self.site.get_compiler('README.md')
         return self.markdown_compiler.compile(source, dest, is_two_file, post, lang)
+
+    def split_metadata(self, data: str, post=None, lang=None) -> (str, str):
+        """Split data from metadata in the raw post content."""
+        return '', data
