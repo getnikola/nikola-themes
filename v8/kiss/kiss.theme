@@ -9,4 +9,3 @@ tags = bootstrap
 
 [Family]
 family = base
-jinja_version = kiss-jinja
