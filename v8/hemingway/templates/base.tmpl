@@ -3,7 +3,7 @@
 <%namespace name="header" file="base_header.tmpl" import="*"/>
 <%namespace name="footer" file="base_footer.tmpl" import="*"/>
 ${set_locale(lang)}
-
+${base.html_headstart()}
 <link href="/assets/css/rst.css" rel="stylesheet" type="text/css">
 <link href="/assets/css/code.css" rel="stylesheet" type="text/css">
 <link href="/assets/css/theme.css" rel="stylesheet" type="text/css">
@@ -59,9 +59,24 @@ ${template_hooks['extra_head']()}
 %endif
 </section>
 
-    ${base.late_load_js()}
+${base.late_load_js()}
+    %if date_fanciness != 0:
+        <!-- fancy dates -->
+        <script>
+        luxon.Settings.defaultLocale = "${luxon_locales[lang]}";
+        fancydates(${date_fanciness}, ${luxon_date_format});
+        </script>
+        <!-- end fancy dates -->
+    %endif
     <%block name="extra_js"></%block>
-    ${body_end}
-    ${template_hooks['body_end']()}
+    <script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+${body_end}
+${template_hooks['body_end']()}
 </body>
 </html>
