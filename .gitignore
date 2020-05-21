@@ -23,6 +23,9 @@ output/
 .idea/**/tasks.xml
 .idea/dictionaries
 
+# BBEdit projects
+**/*.bbprojectd
+
 # Sensitive or high-churn files:
 .idea/**/dataSources/
 .idea/**/dataSources.ids

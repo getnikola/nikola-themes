@@ -1,0 +1,28 @@
+{#  -*- coding: utf-8 -*- #}
+
+{% import 'post_header.tmpl' as head with context %}
+
+{% block content %}
+<!-- Begin post-list {{ post_list_id }} -->
+<div id="{{ post_list_id }}" class="post-list">
+    {% if posts %}
+    <ul class="post-list">
+        {% for post in posts %}
+            <li class="post-list-item">
+            <a href="{{ post.permalink(lang) }}">
+            {{ post.formatted_date(date_format)|e }}
+            
+            {{ head.simple_title(post) }}
+            </a>
+            
+            {% if post and post.should_hide_title() %}
+	            {{ post.text(lang) }}
+	        {% endif %}
+	        
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+<!-- End post-list {{ post_list_id }} -->
+{% endblock %}
