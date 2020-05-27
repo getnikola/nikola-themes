@@ -142,7 +142,7 @@ section {
   text-decoration: none;
   font-size: 17px;
   display: block;
-  height: 100%
+  height: 100%;
 }
 
 /* Style the hamburger menu */
@@ -154,19 +154,24 @@ section {
   top: 0;
   height: 100%;
   margin-top: 10px;
+
+  /* Dim slightly so we can brighten on mouseover. */
+  opacity: 0.9;
+  filter: alpha(opacity=90);
 }
 
+/* No change for the top text on mouseover */
 .topnav a:hover {
     color: white;
     background-color: black;
 }
 
-.topnav a.icon:hover {
-    color: yellow;
-    background-color: black;
+/* Brighten the hamburger icon on mouseover. */
+.topnav a.icon:hover,
+.topnav a.icon:focus {
+    opacity: 1;
+    filter: alpha(opacity=100);
 }
-
-
 
 
 
