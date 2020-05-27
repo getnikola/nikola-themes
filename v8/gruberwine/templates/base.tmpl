@@ -1,68 +1,46 @@
-{#  -*- coding: utf-8 -*- #}
-{% import 'base_helper.tmpl' as base with context %}
-{% import 'base_header.tmpl' as header with context %}
-{% import 'base_footer.tmpl' as footer with context %}
-
-{{ set_locale(lang) }}
-
-{#  <html> tag is included by base.html_headstart #}
-{{ base.html_headstart() }}
-
-{% block extra_head %}
-{#  Leave this block alone. #}
-{% endblock %}
-
-{{ template_hooks['extra_head']() }}
-
-<link rel="authorization_endpoint" href="https://indieauth.com/auth" />
-<link rel="token_endpoint" href="https://tokens.indieauth.com/token" />
-<link rel="webmention" href="https://webmention.io/devilgate.org/webmention" />
-<link rel="pingback" href="https://webmention.io/devilgate.org/xmlrpc" />
-<script src="https://kit.fontawesome.com/234892c710.js" crossorigin="anonymous"></script>
-
+{# -*- coding: utf-8 -*- #} {% import 'base_helper.tmpl' as base with context %} {% import 'base_header.tmpl' as header with context %} {% import 'base_footer.tmpl' as footer with context %} {{ set_locale(lang) }} {#
+<html>
+	tag is included by base.html_headstart #} {{ base.html_headstart() }} {% block extra_head %} {# Leave this block alone. #} {% endblock %} {{ template_hooks['extra_head']() }} <link rel="authorization_endpoint" href="https://indieauth.com/auth" /> <link rel="token_endpoint" href="https://tokens.indieauth.com/token" /> <link rel="webmention" href="https://webmention.io/devilgate.org/webmention" /> <link rel="pingback" href="https://webmention.io/devilgate.org/xmlrpc" />
+	<script src="https://kit.fontawesome.com/234892c710.js" crossorigin="anonymous">
+	</script>
 </head>
 
 <body>
 
-    <a href="#page-content" class="sr-only sr-only-focusable">{{ messages("Skip to main content") }}</a>
+	<a href="#page-content" class="sr-only sr-only-focusable">
+		{{ messages("Skip to main content") }}
+	</a>
 
-    {{ template_hooks['page_header']() }}
+	{{ template_hooks['page_header']() }}
 
-    <section id="socialNav" class="social">
+	<section id="socialNav" class="social">
 
-
-
-
-
-
-
-<!-- Top Navigation Menu -->
-<div class="topnav">
-  <a href="#home" class="active">
-  {% if logo_url %}
+        <!-- Top Navigation Menu -->
+		<div class="topnav">
+			<a href="/">
+				{% if logo_url %}
 				<div class="logo">
-					<a href="{{ abs_link(_link("root", None, lang)) }}">
+					<a href="{{ abs_link(_link(" root", none, lang)) }}">
 						<img src="{{ logo_url }}" alt="{{ blog_title|e }}" id="logo">
 					</a>
 				</div>
-			{% endif %}
-	<div id="titleauth">
-				{{ blog_title }}<br />
-				by {{ blog_author }}
-			</div>
-  </a>
-  <!-- Navigation links (hidden by default) -->
-  <div id="myLinks">
-    <ul id="navlinks">
-				{{ base.html_navigation_links() }}
-			</ul>
-  </div>
-  <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-    <i class="fa fa-bars"></i>
-  </a>
-</div>
+				{% endif %}
+				<div id="titleauth">
+					{{ blog_title }}<br /> by {{ blog_author }}
+				</div>
+			</a>
 
+            <!-- Navigation links (hidden by default) -->
+			<div id="navlinks">
+				{{ base.html_navigation_links() }}
+			</div>
+
+            <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+			<a href="javascript:void(0);" class="icon" onclick="toggleNav()">
+				<i class="fa fa-bars">
+				</i>
+			</a>
+		</div>
 
 <!--
 
@@ -96,39 +74,33 @@
 				{{ base.html_navigation_links() }}
 			</ul>
  -->
+	</section>
+	<section class="page-content">
+		<div class="content" rel="main">
+			{% block content %}{% endblock %} {{ footer.html_footer() }}
+		</div>
+	</section>
+	{{ base.late_load_js() }}
+<!-- fancy dates -->
+	<script>
 
-    </section>
-
-    <section class="page-content">
-        <div class="content" rel="main">
-            {% block content %}{% endblock %}
-            {{ footer.html_footer() }}
-        </div>
-    </section>
-
-    {{ base.late_load_js() }}
-
-    <!-- fancy dates -->
-    <script>
     moment.locale("{{ momentjs_locales[lang] }}");
     fancydates({{ date_fanciness }}, {{ js_date_format }});
-    </script>
-    <!-- end fancy dates -->
 
-    {% block extra_js %}{% endblock %}
+	</script>
+<!-- end fancy dates -->
+	{% block extra_js %}{% endblock %}
+	<script>
 
-    <script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
         captions: function(element) {
             return element.getElementsByTagName('img')[0].alt;
     }});
-    </script>
-    <script src="/assets/js/ToggleNav.js"></script>
 
-    {{ body_end }}
-
-    {{ template_hooks['body_end']() }}
-
+	</script>
+	<script src="/assets/js/ToggleNav.js">
+	</script>
+	{{ body_end }} {{ template_hooks['body_end']() }}
 </body>
 </html>

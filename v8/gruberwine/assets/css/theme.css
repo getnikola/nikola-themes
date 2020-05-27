@@ -121,9 +121,7 @@ section {
   padding: 0;
 }
 
-/* === Social/sidebar starts here === */
-
-
+/* === Navigation starts here === */
 
 /* Style the navigation menu */
 .topnav {
@@ -133,7 +131,7 @@ section {
 }
 
 /* Hide the links inside the navigation menu (except for logo/home) */
-.topnav #myLinks {
+.topnav #navlinks {
   display: none;
 }
 
@@ -144,6 +142,7 @@ section {
   text-decoration: none;
   font-size: 17px;
   display: block;
+  height: 100%
 }
 
 /* Style the hamburger menu */
@@ -153,21 +152,19 @@ section {
   position: absolute;
   right: 0;
   top: 0;
+  height: 100%;
+  margin-top: 10px;
 }
 
-/* Add a grey background color on mouse-over */
 .topnav a:hover {
-  background-color: #ddd;
-  color: black;
+    color: white;
+    background-color: black;
 }
 
-/* Style the active link (or home/logo) */
-.active {
-  background-color: black;
-  color: white;
+.topnav a.icon:hover {
+    color: yellow;
+    background-color: black;
 }
-
-
 
 
 
@@ -266,7 +263,7 @@ section {
 }
  */
 
-/* === Social/sidebar ends here === */
+/* === Navigation ends here === */
 
 /* === Page content starts here. === */
 .page-content {
