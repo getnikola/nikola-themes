@@ -123,19 +123,62 @@ section {
 
 /* === Social/sidebar starts here === */
 
+
+
+/* Style the navigation menu */
+.topnav {
+  overflow: hidden;
+  background-color: black;
+  position: relative;
+}
+
+/* Hide the links inside the navigation menu (except for logo/home) */
+.topnav #myLinks {
+  display: none;
+}
+
+/* Style navigation menu links */
+.topnav a {
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display: block;
+}
+
+/* Style the hamburger menu */
+.topnav a.icon {
+  background-color: black;
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+/* Add a grey background color on mouse-over */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Style the active link (or home/logo) */
+.active {
+  background-color: black;
+  color: white;
+}
+
+
+
+
+
+
+
+
+/*
 .social {
-    display: flex;
-    flex-direction: column;
-    min-height: 5vh;
-
-    position: relative;
-    width: 100%;
-    background-color: #192029;
     overflow: hidden;
-    padding-top: 1em;
-    padding-bottom: 3em;
-    padding-left: 2em;
-
+    background-color: #333;
+    position: relative;
 }
 
 #titleauth {
@@ -143,21 +186,32 @@ section {
 	float: left;
 	color: white;
 }
+ */
 
 /* Hide links initially (toggleNav function will show them) */
+/*
 #navlinks {
 	display: none;
-	position: absolute;
+}
+
+#navlinks a {
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
 }
 
 #hamburger {
-	position: absolute;
-/*     top: 50%; */
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%/* , -50% */)
+	background: black;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
+ */
 
+/*
 #searchform {
 	float: right;
 	margin-right: auto;
@@ -192,12 +246,12 @@ section {
   -moz-transition: opacity 0.5s;
   -o-transition: opacity 0.5s;
   transition: opacity 0.5s;
-  /* font-size: 3em; */
+
 }
 
 .social a .label {
   font-weight: bold;
-  /* font-size: 26.25px; */
+
 }
 
 .social a {
@@ -210,6 +264,7 @@ section {
   opacity: 0.6;
   filter: alpha(opacity=60);
 }
+ */
 
 /* === Social/sidebar ends here === */
 

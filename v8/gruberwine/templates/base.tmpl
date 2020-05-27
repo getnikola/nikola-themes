@@ -30,6 +30,42 @@
 
     <section id="socialNav" class="social">
 
+
+
+
+
+
+
+<!-- Top Navigation Menu -->
+<div class="topnav">
+  <a href="#home" class="active">
+  {% if logo_url %}
+				<div class="logo">
+					<a href="{{ abs_link(_link("root", None, lang)) }}">
+						<img src="{{ logo_url }}" alt="{{ blog_title|e }}" id="logo">
+					</a>
+				</div>
+			{% endif %}
+	<div id="titleauth">
+				{{ blog_title }}<br />
+				by {{ blog_author }}
+			</div>
+  </a>
+  <!-- Navigation links (hidden by default) -->
+  <div id="myLinks">
+    <ul id="navlinks">
+				{{ base.html_navigation_links() }}
+			</ul>
+  </div>
+  <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+
+
+<!--
+
 			{% if logo_url %}
 				<div class="logo">
 					<a href="{{ abs_link(_link("root", None, lang)) }}">
@@ -43,7 +79,7 @@
 				by {{ blog_author }}
 			</div>
 
-			<!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+			<!~~ "Hamburger menu" / "Bar icon" to toggle the navigation links ~~>
 			<div id="hamburger">
 				<a href="javascript:void(0);" class="icon" onclick="toggleNav()">
 					<i class="fa fa-bars"></i>
@@ -59,6 +95,7 @@
 			<ul id="navlinks">
 				{{ base.html_navigation_links() }}
 			</ul>
+ -->
 
     </section>
 
