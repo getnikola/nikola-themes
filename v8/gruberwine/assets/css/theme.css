@@ -1,3 +1,6 @@
+/**
+    The CSS for the GruberWine theme, by Martin McCallion (https://devilgate.org/). Based on zen-jinja.
+**/
 .pull-right {
   float: right !important;
 }
@@ -11,9 +14,9 @@ html {
 	  -ms-text-size-adjust: 100%;
 }
 
-/* 
+/*
 	From https://www.w3schools.com/css/css_rwd_grid.asp: ensure padding and
-	border are included in total width. 
+	border are included in total width.
 */
 * {
   box-sizing: border-box;
@@ -121,6 +124,10 @@ section {
 /* === Social/sidebar starts here === */
 
 .social {
+    display: flex;
+    flex-direction: column;
+    min-height: 5vh;
+
     position: relative;
     width: 100%;
     background-color: #192029;
@@ -128,6 +135,7 @@ section {
     padding-top: 1em;
     padding-bottom: 3em;
     padding-left: 2em;
+
 }
 
 #titleauth {
@@ -147,7 +155,7 @@ section {
 /*     top: 50%; */
     left: 50%;
     margin-right: -50%;
-    transform: translate(-50%/* , -50% */) 
+    transform: translate(-50%/* , -50% */)
 }
 
 #searchform {
@@ -226,7 +234,7 @@ section {
     width: 100%;
     padding: 36px 0;
 }
-  
+
 .page-content > .content {
     min-width: auto;
     padding-left: 4px;
@@ -240,11 +248,11 @@ article.post-text .entry-content .figure {
     width: 97%;
 }
 
-  
+
 /* === End pulled out of 773 === */
 
 
-/* 
+/*
 @media (min-width: 774px) and (max-width: 1047px) {
   .page-content {
     padding-left: 24px;
@@ -400,7 +408,7 @@ article.post-text .entry-content .figure {
 	margin-top: 2em;
 }
 
-/* 
+/*
 @media (min-width: 1048px) {
   .page-content > .content {
 	margin-left: auto;
@@ -772,7 +780,7 @@ article.post-text .entry-content .figure {
   display: table;
   margin: 0 auto 24px;
 }
-/* 
+/*
 @media (max-width: 773px) {
   article.post-text .entry-content .figure {
     display: block;
@@ -799,18 +807,18 @@ article.post-text + article.post-text {
 }
 
 
-/* 
+/*
 	Everything below here is added for the ZenWithoutTitles theme.
 */
 
 /* Some extra padding after images. */
-figure { 
+figure {
 	padding-bottom: 1em;
 }
 
 
 
-/* Some changes for the h-card */ 
+/* Some changes for the h-card */
 .h-card.bio {
 	margin-top: 3em;
 	margin-bottom: 5em;
@@ -842,7 +850,7 @@ article > header {
 /* Webmentions using webmention.js */
 #webmentions img {
 	border-radius: 50%;
-	max-height: 1.5em; 
+	max-height: 1.5em;
 	/* margin-right: -1ex;  */
 }
 

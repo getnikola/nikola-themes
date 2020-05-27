@@ -25,11 +25,11 @@
 <body>
 
     <a href="#page-content" class="sr-only sr-only-focusable">{{ messages("Skip to main content") }}</a>
-    
+
     {{ template_hooks['page_header']() }}
-    
-    <section class="social">
-    
+
+    <section id="socialNav" class="social">
+
 			{% if logo_url %}
 				<div class="logo">
 					<a href="{{ abs_link(_link("root", None, lang)) }}">
@@ -40,17 +40,16 @@
 
 			<div id="titleauth">
 				{{ blog_title }}<br />
-				by<br />
-				{{ blog_author }}
+				by {{ blog_author }}
 			</div>
-		
+
 			<!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 			<div id="hamburger">
 				<a href="javascript:void(0);" class="icon" onclick="toggleNav()">
 					<i class="fa fa-bars"></i>
 				</a>
 			</div>
- 
+
 			{% if search_form %}
 				<div id="searchform" role="search">
 					{{ search_form }}
@@ -62,14 +61,14 @@
 			</ul>
 
     </section>
-    
+
     <section class="page-content">
         <div class="content" rel="main">
             {% block content %}{% endblock %}
             {{ footer.html_footer() }}
         </div>
     </section>
-    
+
     {{ base.late_load_js() }}
 
     <!-- fancy dates -->
@@ -89,10 +88,10 @@
     }});
     </script>
     <script src="/assets/js/ToggleNav.js"></script>
-    
+
     {{ body_end }}
-    
+
     {{ template_hooks['body_end']() }}
-    
+
 </body>
 </html>
