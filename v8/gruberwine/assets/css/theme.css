@@ -1,6 +1,24 @@
 /**
-    The CSS for the GruberWine theme, by Martin McCallion (https://devilgate.org/). Based on zen-jinja.
+    The CSS for the GruberWine theme, by Martin McCallion (https://devilgate.org/). It is loosely
+    based on zen-jinja, but adapted to be more responsive, and mobile-first.
 **/
+
+/* ----------------------------------------------------------------------------
+    Resets
+    ------
+    CSS resets are done by `main.css` from the HTML5 Boilerplate library
+    (https://html5boilerplate.com) and `normalize.css` from the library of the same name
+    (http://necolas.github.io/normalize.css/).
+
+   ---------------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------------
+    Basics
+    ------
+    Set up a few basic things. Most of these came from zen-jinja and may or may not be necessary.
+
+   ---------------------------------------------------------------------------- */
+
 .pull-right {
   float: right !important;
 }
@@ -49,71 +67,25 @@ img {
   -ms-interpolation-mode: bicubic;
 }
 
-@media print {
-  * {
-    text-shadow: none !important;
-    color: #000 !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
-  }
-  a,
-  a:visited {
-    text-decoration: underline;
-  }
-  a[href]:after {
-    content: " (" attr(href) ")";
-  }
-  abbr[title]:after {
-    content: " (" attr(title) ")";
-  }
-  .ir a:after,
-  a[href^="javascript:"]:after,
-  a[href^="#"]:after {
-    content: "";
-  }
-  pre,
-  blockquote {
-    border: 1px solid #999;
-    page-break-inside: avoid;
-  }
-  thead {
-    display: table-header-group;
-  }
-  tr,
-  img {
-    page-break-inside: avoid;
-  }
-  img {
-    max-width: 100% !important;
-  }
-  @page {
-    margin: 0.5cm;
-  }
-  p,
-  h2,
-  h3 {
-    orphans: 3;
-    widows: 3;
-  }
-  h2,
-  h3 {
-    page-break-after: avoid;
-  }
-}
-
 html, body {
     max-width: 100%;
     overflow-x: hidden;
 }
 
-/* Prevent sideways scrolling being possible on small screens. */
 html {
-  min-height: 100%;
-  position: relative;
+
+    /* Prevent sideways scrolling being possible on small screens. */
+    min-height: 100%;
+    position: relative;
+
+    /* Scalable font size. */
+    font-size: min(max(1rem, 5vw), 22px);
 }
+
 body {
   height: 100%;
   background-color: #fff;
+  color: #333;
 }
 
 section {
@@ -121,32 +93,104 @@ section {
   padding: 0;
 }
 
-/* === Navigation starts here === */
+a {
+  color: #08c;
+  text-decoration: none;
+}
+a:hover,
+a:focus {
+  color: #005580;
+  text-decoration: underline;
+}
+
+
+blockquote {
+  padding: 0 0 0 15px;
+  margin: 0 0 24px;
+  border-left: 5px solid #eee;
+}
+blockquote p {
+  margin-bottom: 0;
+}
+blockquote small {
+  display: block;
+  color: #999;
+}
+blockquote small:before {
+  content: '\2014 \00A0';
+}
+blockquote.pull-right {
+  float: right;
+  padding-right: 15px;
+  padding-left: 0;
+  border-right: 5px solid #eee;
+  border-left: 0;
+}
+blockquote.pull-right p,
+blockquote.pull-right small {
+  text-align: right;
+}
+blockquote.pull-right small:before {
+  content: '';
+}
+blockquote.pull-right small:after {
+  content: '\00A0 \2014';
+}
+q:before,
+q:after,
+blockquote:before,
+blockquote:after {
+  content: "";
+}
+address {
+  display: block;
+  margin-bottom: 24px;
+  font-style: normal;
+}
+
+/* ----------------------------------------------------------------------------
+    Navigation
+    ----------
+    Navigation starts below. This was started as the `.social` class in zen-jinja,
+    but then adapted to use the W3Schools "How TO - Responsive Top Navigation"
+    lesson: https://www.w3schools.com/howto/howto_js_navlinks_responsive.asp.
+
+    Various other W3Schools pages were also consulted.
+
+    The intent here is that the "default" layout should be what appears on smaller
+    devices. Then media queries are used to adapt things for larger screens
+
+    The navigation appears as a collapsed hamburger menu on small screens, and as a
+    sidebar as things get bigger.
+
+    Text sizes and so on are set using viewport width (vw) and viewport height (vh),
+    and percentages or em values, so everything should be relative to a base value.
+
+   ---------------------------------------------------------------------------- */
 
 /* Style the navigation menu */
-.topnav {
+.navlinks {
   overflow: hidden;
   background-color: black;
   position: relative;
 }
 
 /* Hide the links inside the navigation menu (except for logo/home) */
-.topnav #navlinks {
+.navlinks #navlinks {
   display: none;
 }
 
 /* Style navigation menu links */
-.topnav a {
+.navlinks a {
   color: white;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 17px;
   display: block;
   height: 100%;
 }
 
 /* Style the hamburger menu */
-.topnav a.icon {
+.navlinks a.icon {
   background-color: black;
   display: block;
   position: absolute;
@@ -161,20 +205,28 @@ section {
 }
 
 /* No change for the top text on mouseover */
-.topnav a:hover {
+.navlinks a:hover {
     color: white;
     background-color: black;
 }
 
 /* Brighten the hamburger icon on mouseover. */
-.topnav a.icon:hover,
-.topnav a.icon:focus {
+.navlinks a.icon:hover,
+.navlinks a.icon:focus {
     opacity: 1;
     filter: alpha(opacity=100);
 }
 
 
+/* Tablets (iPads, etc) */
+/*
+@media only screen
+  and (min-device-width: 768px)
+  and (max-device-width: 1024px)
+  and (-webkit-min-device-pixel-ratio: 1) {
 
+}
+ */
 
 /*
 .social {
@@ -270,7 +322,23 @@ section {
 
 /* === Navigation ends here === */
 
+
+
+
 /* === Page content starts here. === */
+
+.page-content {
+    /* Get the text appropriately inset. */
+    padding-left: 1em;
+    padding-right: 1em;
+
+    /* Control the line length */
+    max-width: 40em;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+/*
 .page-content {
   min-height: 100%;
   padding: 48px 0 60px 42px;
@@ -284,14 +352,18 @@ section {
 .page-content > .content {
   max-width: 890px;
 }
+ */
 
 /* === Pulled out of 773 === */
+/*
 .page-content {
     margin-left: 0;
     width: 100%;
     padding: 36px 0;
 }
+ */
 
+/*
 .page-content > .content {
     min-width: auto;
     padding-left: 4px;
@@ -299,6 +371,7 @@ section {
     margin-right: auto;
     margin-left: auto;
 }
+ */
 
 article.post-text .entry-content .figure {
     display: block;
@@ -345,6 +418,7 @@ article.post-text .entry-content .figure {
 
 
 
+/*
 .page-content > .content {
   text-rendering: optimizeLegibility;
 }
@@ -437,11 +511,14 @@ article.post-text .entry-content .figure {
   margin: 0 0 12px;
   font-size: 20px;
   line-height: 1.5em;
+
 }
 .page-content > .content ul > li {
 	font-size: 20px;
 	line-height: 1.5em;
+
 }
+ */
 .page-content > .content em {
   font-style: italic;
 }
@@ -456,7 +533,6 @@ article.post-text .entry-content .figure {
 /* Footnotes */
 .page-content > .content .footnote p {
 	font-size: 80%;
-	line-height: 1em;
 	margin-bottom: 0.25em;
 }
 
@@ -526,67 +602,6 @@ article.post-text .entry-content .figure {
   background-color: #fff;
   cursor: default;
 }
-body {
-  font-size: 16px;
-  line-height: 24px;
-  color: #333;
-}
-a {
-  color: #08c;
-  text-decoration: none;
-}
-a:hover,
-a:focus {
-  color: #005580;
-  text-decoration: underline;
-}
-
-
-blockquote {
-  padding: 0 0 0 15px;
-  margin: 0 0 24px;
-  border-left: 5px solid #eee;
-}
-blockquote p {
-  margin-bottom: 0;
-}
-blockquote small {
-  display: block;
-  line-height: 24px;
-  color: #999;
-}
-blockquote small:before {
-  content: '\2014 \00A0';
-}
-blockquote.pull-right {
-  float: right;
-  padding-right: 15px;
-  padding-left: 0;
-  border-right: 5px solid #eee;
-  border-left: 0;
-}
-blockquote.pull-right p,
-blockquote.pull-right small {
-  text-align: right;
-}
-blockquote.pull-right small:before {
-  content: '';
-}
-blockquote.pull-right small:after {
-  content: '\00A0 \2014';
-}
-q:before,
-q:after,
-blockquote:before,
-blockquote:after {
-  content: "";
-}
-address {
-  display: block;
-  margin-bottom: 24px;
-  font-style: normal;
-  line-height: 24px;
-}
 .breadcrumb {
   padding: 8px 15px;
   margin-bottom: 20px;
@@ -630,7 +645,6 @@ address {
 .thumbnail {
   display: block;
   padding: 4px;
-  line-height: 24px;
   border: 1px solid #ddd;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -788,7 +802,6 @@ article.post-text .metadata h3 {
   display: inline;
   margin: 0;
   padding: 0;
-  line-height: initial;
 }
 article.post-text .metadata .tags {
   clear: both;
@@ -822,7 +835,6 @@ article.post-text .entry-content {
 article.post-text .entry-content .figure {
   display: block;
   padding: 4px;
-  line-height: 24px;
   border: 1px solid #ddd;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -837,14 +849,7 @@ article.post-text .entry-content .figure {
   display: table;
   margin: 0 auto 24px;
 }
-/*
-@media (max-width: 773px) {
-  article.post-text .entry-content .figure {
-    display: block;
-    width: 97%;
-  }
-}
- */
+
 article.post-text .entry-content .figure > a,
 article.post-text .entry-content .figure > a > img {
   max-width: 100%;
@@ -882,14 +887,13 @@ figure {
 }
 
 .h-card.bio h2 {
-	font-size: 16px;
+	font-size: 90%;
 	margin-bottom: 0;
 	padding-bottom: 0;
 }
 
 .h-card.bio p {
-	font-size: 14px;
-	line-height: 21px;
+	font-size: 80%;
 	margin-top -1em;
 }
 
@@ -915,3 +919,64 @@ article > header {
 blockquote, blockquote > p {
 	font-style: italic;
 }
+
+/* ----------------------------------------------------------------------------
+    Print
+    -----
+    This whole block in the print media query is lifted directly from zen-jinja.
+
+   ---------------------------------------------------------------------------- */
+
+@media print {
+  * {
+    text-shadow: none !important;
+    color: #000 !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+  .ir a:after,
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: "";
+  }
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+  img {
+    max-width: 100% !important;
+  }
+  @page {
+    margin: 0.5cm;
+  }
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+
+
