@@ -151,7 +151,7 @@ address {
 /* ----------------------------------------------------------------------------
     Navigation
     ----------
-    Navigation starts below. This was started as the `.social` class in zen-jinja,
+    Navigation starts below. This was originally the `.social` class in zen-jinja,
     but then adapted to use the W3Schools "How TO - Responsive Top Navigation"
     lesson: https://www.w3schools.com/howto/howto_js_navlinks_responsive.asp.
 
@@ -164,7 +164,8 @@ address {
     sidebar as things get bigger.
 
     Text sizes and so on are set using viewport width (vw) and viewport height (vh),
-    and percentages or em values, so everything should be relative to a base value.
+    and percentages or em values, so everything should be relative to a base value
+    (in the `html` section, above).
 
    ---------------------------------------------------------------------------- */
 
@@ -176,7 +177,7 @@ address {
 }
 
 /* Hide the links inside the navigation menu (except for logo/home) */
-.navlinks #navlinks {
+#navmenuitems {
   display: none;
 }
 
@@ -218,15 +219,29 @@ address {
 }
 
 
-/* Tablets (iPads, etc) */
-/*
+/* Tablets (iPads, etc) and up: we switch to a side menu */
 @media only screen
-  and (min-device-width: 768px)
-  and (max-device-width: 1024px)
-  and (-webkit-min-device-pixel-ratio: 1) {
+  and (min-width: 768px) {
+
+    /* Hide the hamburger. */
+    #hamburger {
+        display: none;
+    }
+
+    .navlinks {
+        position: absolute;
+        width: 20vw;
+        height: 100%;
+        font-size: min(max(1rem, 3vw), 18px);
+    }
+
+    /* Display down the side. */
+    #navmenuitems {
+        display: block;
+    }
+
 
 }
- */
 
 /*
 .social {
@@ -874,7 +889,7 @@ article.post-text + article.post-text {
 */
 
 /* Some extra padding after images. */
-figure {
+figure, img {
 	padding-bottom: 1em;
 }
 
@@ -915,7 +930,7 @@ article > header {
 	/* margin-right: -1ex;  */
 }
 
-/* Blockquotes in italics, please. */
+/* Blockquotes in italics. */
 blockquote, blockquote > p {
 	font-style: italic;
 }
