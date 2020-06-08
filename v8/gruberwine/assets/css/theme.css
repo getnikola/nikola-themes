@@ -152,12 +152,12 @@ address {
     Navigation
     ----------
     Navigation starts below. This was originally the `.social` class in zen-jinja,
-    but then adapted to use the W3Schools "How TO - Responsive Top Navigation"
+    but then adapted using the W3Schools "How TO - Responsive Top Navigation"
     lesson: https://www.w3schools.com/howto/howto_js_navlinks_responsive.asp.
 
     Various other W3Schools pages were also consulted.
 
-    The intent here is that the "default" layout should be what appears on smaller
+    The intent here is that the default layout should be what appears on smaller
     devices. Then media queries are used to adapt things for larger screens
 
     The navigation appears as a collapsed hamburger menu on small screens, and as a
@@ -219,7 +219,7 @@ address {
 }
 
 
-/* Tablets (iPads, etc) and up: we switch to a side menu */
+/* Once the viewport is wider than a certain size we switch to a side menu */
 @media only screen
   and (min-width: 768px) {
 
@@ -228,19 +228,34 @@ address {
         display: none;
     }
 
+    /* Display the links down the side. */
+/*
+    #socialNav {
+        height: 100%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        overflow-x: hidden;
+        background-color: black;
+    }
+ */
+
     .navlinks {
         position: absolute;
+        float: left;
         width: 20vw;
-        height: 100%;
         font-size: min(max(1rem, 3vw), 18px);
     }
 
-    /* Display down the side. */
     #navmenuitems {
-        display: block;
+        display: table;
     }
 
-
+    #navmenuitems a {
+        display: block;
+        text-align: right;
+    }
 }
 
 /*
