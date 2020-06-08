@@ -127,9 +127,9 @@ lang="{{ lang }}">
 {% macro html_navigation_links() %}
     {% for url, text, icon in navigation_links[lang] %}
         {% if rel_link(permalink, url) == "#" %}
-            <a class="active" href="{{ rel_link(permalink, url) }}" title="{{ text }} {{ messages("(active)", lang) }}"><i class="{{ icon }}"></i> {{ text }}</a>
+            <a class="active" href="{{ rel_link(permalink, url) }}" title="{{ text }} {{ messages("(active)", lang) }}">{{ text }} <i class="{{ icon }}"></i></a>
         {% else %}
-            <a href="{{ rel_link(permalink, url) }}" title="{{ text }}"><i class="{{ icon }}"></i> {{ text }}</a>
+            <a href="{{ rel_link(permalink, url) }}" title="{{ text }}">{{ text }} <i class="{{ icon }}"></i></a>
         {% endif %}
     {% endfor %}
     {{ template_hooks['menu']() }}
