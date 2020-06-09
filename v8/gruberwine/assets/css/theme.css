@@ -169,7 +169,7 @@ address
 /* The page header */
 #header
 {
-	background-color: black;
+	background-color: #192029;
 	width: 100%;
 	padding-top: 1em;
 }
@@ -180,7 +180,7 @@ address
 .navlinks
 {
 	overflow: hidden;
-	background-color: black;
+	background-color: #192029;
 	position: relative;
 }
 
@@ -200,7 +200,7 @@ address
 /* Style the hamburger menu */
 .navlinks a.icon
 {
-	background-color: black;
+	background-color: #192029;
 	display: block;
 	position: absolute;
 	right: 0;
@@ -216,7 +216,7 @@ address
 .navlinks a:hover
 {
 	color: white;
-	background-color: black;
+	background-color: #192029;
 }
 
 /* Brighten the hamburger icon on mouseover. */
