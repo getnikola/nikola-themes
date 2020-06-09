@@ -13,12 +13,8 @@
 
 	{{ template_hooks['page_header']() }}
 
-	<section id="socialNav">
-
-        <!-- Navigation Menu - on top on small screens, down the left on larger -->
-
-		<div class="navlinks">
-			<a href="/">
+    <section id="header">
+        <a href="/">
 				{% if logo_url %}
 				<div class="logo">
 					<a href="{{ abs_link(_link(" root", none, lang)) }}">
@@ -26,8 +22,21 @@
 					</a>
 				</div>
 				{% endif %}
+			</a>
+    </section>
+
+	<section id="socialNav">
+
+        <!-- Navigation Menu - on top on small screens, down the left on larger -->
+
+		<div class="navlinks">
+			<a href="/">
 				<div id="titleauth">
-					{{ blog_title }}<br /> by {{ blog_author }}
+				    {% if show_blog_title %}
+    					{{ blog_title }}<br /> by {{ blog_author }}
+                    {% else %}
+                        by {{ blog_author }}
+                    {% endif %}
 				</div>
 			</a>
 

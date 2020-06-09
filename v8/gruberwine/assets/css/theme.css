@@ -74,7 +74,7 @@ html, body {
 
 html {
 
-    /* Prevent sideways scrolling being possible on small screens. */
+    /* Prevent sideways scrolling on small screens. */
     min-height: 100%;
     position: relative;
 
@@ -168,6 +168,16 @@ address {
     (in the `html` section, above).
 
    ---------------------------------------------------------------------------- */
+/* The page header */
+#header {
+    background-color: black;
+    width: 100%;
+    padding-top: 1em;
+}
+
+#header .logo {
+    text-align: center;
+}
 
 /* Style the navigation menu */
 .navlinks {
@@ -184,7 +194,7 @@ address {
 /* Style navigation menu links */
 .navlinks a {
   color: white;
-  padding: 14px 16px;
+  padding: 16px;
   text-decoration: none;
   display: block;
   height: 100%;
@@ -257,7 +267,8 @@ address {
         display: block;
     }
 
-    #navmenuitems a {
+    #navmenuitems a,
+    #titleauth {
         display: block;
         text-align: right;
 
