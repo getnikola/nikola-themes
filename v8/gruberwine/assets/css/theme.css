@@ -232,10 +232,6 @@ address
 	/* Get the text appropriately inset. */
 	padding-left: 1em;
 	padding-right: 1em;
-	/* Control the line length */
-	max-width: 40em;
-	margin-left: auto;
-	margin-right: auto;
 }
 
 /* Once the viewport is wider than a certain size we switch to a side menu */
@@ -251,7 +247,7 @@ address
 		position: absolute;
 		min-height: 100%;
 		float: left;
-		width: min(max(20vw, 300em), 270px);
+		width: min(max(20vw, 300em), 200px);
 		font-size: min(max(1rem, 3vw), 18px);
 	}
 
@@ -279,7 +275,7 @@ address
 
 	/* Brighten on mouseover. */
 	#navmenuitems a:hover,
-		    #navmenuitems a:focus
+	#navmenuitems a:focus
 	{
 		opacity: 1;
 		filter: alpha(opacity=100);
@@ -288,21 +284,15 @@ address
 	}
 
 	/* Match the content's padding to the sidebar's width. */
-	.page-content { margin-left: min(max(20vw, 300em), 270px); }
+	.page-content { margin-left: min(max(20vw, 300em), 200px); }
 
-	/* Centre the page content. */
-
-/*
-	.page-content > .content {
-  max-width: 890px;
-}
- */
-
-	.content
+	.page-content > .content
 	{
-	    width: 100%;
-		margin-left: auto;
-		margin-right: auto;
+	   	/* Control the line length */
+    	max-width: 40em;
+
+    	/* Centre the page content. */
+		margin: 0 auto;
 	}
 } /* end of media only screen and min-width: 768px; */
 
