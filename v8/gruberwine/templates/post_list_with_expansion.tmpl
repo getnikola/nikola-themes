@@ -11,14 +11,21 @@
             <li class="post-list-item">
             <a href="{{ post.permalink(lang) }}">
             {{ post.formatted_date(date_format)|e }}
-            
-            {{ head.simple_title(post) }}
+
+            {# If the post has a `link` metadata entry, the title should link to that link. The permalink
+               to this post will be the datestamp #}
+            {% if post.meta('link') %}
+                </a><a href="{{ post.meta('link') }}" class="u-url">
+            {% endif %}
+            {% if post.should_show_title() %}
+	            {{ post.title() }}
+	        {% endif %}
             </a>
-            
+
             {% if post and post.should_hide_title() %}
 	            {{ post.text(lang) }}
 	        {% endif %}
-	        
+
             </li>
         {% endfor %}
     </ul>

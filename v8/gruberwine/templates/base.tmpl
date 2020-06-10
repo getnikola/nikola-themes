@@ -17,7 +17,7 @@
         <a href="/">
 				{% if logo_url %}
 				<div class="logo">
-					<a href="{{ abs_link(_link(" root", none, lang)) }}">
+					<a href="{{ abs_link(_link("root", none, lang)) }}">
 						<img src="{{ logo_url }}" alt="{{ blog_title|e }}" id="logo">
 					</a>
 				</div>
@@ -52,38 +52,6 @@
 			</a>
 		</div>
 
-<!--
-
-			{% if logo_url %}
-				<div class="logo">
-					<a href="{{ abs_link(_link("root", None, lang)) }}">
-						<img src="{{ logo_url }}" alt="{{ blog_title|e }}" id="logo">
-					</a>
-				</div>
-			{% endif %}
-
-			<div id="titleauth">
-				{{ blog_title }}<br />
-				by {{ blog_author }}
-			</div>
-
-			<!~~ "Hamburger menu" / "Bar icon" to toggle the navigation links ~~>
-			<div id="hamburger">
-				<a href="javascript:void(0);" class="icon" onclick="toggleNav()">
-					<i class="fa fa-bars"></i>
-				</a>
-			</div>
-
-			{% if search_form %}
-				<div id="searchform" role="search">
-					{{ search_form }}
-				</div>
-			{% endif %}
-
-			<ul id="navlinks">
-				{{ base.html_navigation_links() }}
-			</ul>
- -->
 	</section>
 	<section class="page-content">
 		<div class="content" rel="main">

@@ -10,7 +10,13 @@
 
 {% macro html_title(post) %}
 {% if post and post.should_show_title() %}
-    <h1 class="p-name entry-title" itemprop="headline name"><a href="{{ post.permalink() }}" class="u-url">{{ post.title()|e }}</a></h1>
+    {# If the post has a `link` metadata entry, the title should link to that link. The permalink
+    to this post will be the datestamp #}
+    {% if post.meta('link') %}
+        <h1 class="p-name entry-title" itemprop="headline name"><a href="{{ post.meta('link') }}" class="u-url">{{ post.title()|e }}</a></h1>
+    {% else %}
+        <h1 class="p-name entry-title" itemprop="headline name"><a href="{{ post.permalink() }}" class="u-url">{{ post.title()|e }}</a></h1>
+    {% endif %}
 {% endif %}
 {% endmacro %}
 
