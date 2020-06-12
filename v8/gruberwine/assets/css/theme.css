@@ -530,7 +530,8 @@ pre.code
 .backlink + .post > h1.title,
 .backlink + h1.title { margin-top: 0; }
 
-article.post-text h1.entry-title a { color: black; }
+article.post-text h1.entry-title a,
+article.post-link h1.entry-title a { color: black; }
 article.post-text h1.entry-title a:hover,
 article.post-text h1.entry-title a:focus { color: inherit; }
 article.post-text .backlink { margin-top: 6px; }
