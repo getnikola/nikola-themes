@@ -32,13 +32,15 @@
 
     <section id="header">
         <a href="/">
+			<div class="logo">
 				{% if logo_url %}
-				<div class="logo">
-					<a href="{{ abs_link(_link("root", none, lang)) }}">
-						<img src="{{ logo_url }}" alt="{{ blog_title|e }}" id="logo">
-					</a>
-				</div>
-				{% endif %}
+					<img src="{{ logo_url }}" alt="{{ blog_title|e }}" id="logo">
+				{% else %}
+					<div id="nologoimage">
+						{{ blog_title }}
+					</div>
+    			{% endif %}
+    		</div>
 			</a>
     </section>
 

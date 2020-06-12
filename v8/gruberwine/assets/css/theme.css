@@ -173,7 +173,27 @@ address
 	padding-top: 1em;
 }
 
-#header .logo { text-align: center; }
+#header .logo
+{
+	text-align: center;
+	font-family: "Gill Sans", "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-variant: small-caps;
+	font-size: min(max(10rem, 10vw), 48pt);
+	font-weight: bold;
+	text-decoration: none;
+	color: white;
+}
+
+#header a:hover,
+#header a:focus
+{
+	text-decoration: none;
+}
+
+#nologoimage
+{
+	padding-bottom: 0.7em;
+}
 
 /* Style the navigation menu */
 .navlinks
@@ -181,6 +201,8 @@ address
 	overflow: hidden;
 	background-color: #192029;
 	position: relative;
+	font-family: "Gill Sans", "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-variant: small-caps;
 }
 
 /* Hide the links inside the navigation menu (except for logo/home) */
