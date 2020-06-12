@@ -22,13 +22,6 @@
 .pull-right { float: right !important; }
 .pull-left { float: left !important; }
 
-html
-{
-	font-family: "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	-webkit-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;
-}
-
 /*
 	From https://www.w3schools.com/css/css_rwd_grid.asp: ensure padding and
 	border are included in total width.
@@ -75,12 +68,18 @@ html
 	position: relative;
 	/* Scalable font size. */
 	font-size: min(max(1rem, 5vw), 22px);
+	font-family: "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+
+	background-color: white;
 }
+
 
 body
 {
 	height: 100%;
-	background-color: #fff;
+	background-color: #192029;;
 	color: #333;
 }
 
@@ -232,6 +231,10 @@ address
 	/* Get the text appropriately inset. */
 	padding-left: 1em;
 	padding-right: 1em;
+	padding-top: 3em;
+	padding-bottom: 1em;
+
+	background-color: white;
 }
 
 /* Once the viewport is wider than a certain size we switch to a side menu */
@@ -527,13 +530,7 @@ pre.code
 .backlink + .post > h1.title,
 .backlink + h1.title { margin-top: 0; }
 
-article.post-text h1.entry-title
-{
-	text-align: center;
-	margin: 6px 0;
-}
-
-article.post-text h1.entry-title a { color: inherit; }
+article.post-text h1.entry-title a { color: black; }
 article.post-text h1.entry-title a:hover,
 article.post-text h1.entry-title a:focus { color: inherit; }
 article.post-text .backlink { margin-top: 6px; }
@@ -704,7 +701,6 @@ article > header { margin-top: 5em; }
 {
 	border-radius: 50%;
 	max-height: 1.5em;
-	/* margin-right: -1ex;  */
 }
 
 /* Blockquotes in italics. */
@@ -728,7 +724,7 @@ blockquote, blockquote > p { font-style: italic; }
 	}
 
 	a,
-		  a:visited { text-decoration: underline; }
+	a:visited { text-decoration: underline; }
 	a[href]:after { content: " (" attr(href) ")"; }
 	abbr[title]:after { content: " (" attr(title) ")"; }
 	.ir a:after,
@@ -736,7 +732,7 @@ blockquote, blockquote > p { font-style: italic; }
 		  a[href^="#"]:after { content: ""; }
 
 	pre,
-		  blockquote
+	blockquote
 	{
 		border: 1px solid #999;
 		page-break-inside: avoid;
@@ -752,13 +748,13 @@ blockquote, blockquote > p { font-style: italic; }
 		  }
 
 	p,
-		  h2,
-		  h3
+	h2,
+	h3
 	{
 		orphans: 3;
 		widows: 3;
 	}
 
 	h2,
-		  h3 { page-break-after: avoid; }
+	h3 { page-break-after: avoid; }
 }
