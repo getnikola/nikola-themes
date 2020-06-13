@@ -1,4 +1,4 @@
-# minja2
+# PrettyBasic 
 Minimalistic and simple [Nikola](https://getnikola.com/) Jinja2 theme. 
 _Last tested with v8.0.4_
 
