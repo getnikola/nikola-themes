@@ -1,0 +1,12 @@
+{#  -*- coding: utf-8 -*- #}
+
+{% block content %}
+    <!-- Begin post-list {{ post_list_id }} -->
+    {% if posts %}
+        <strong>No posts yet today. Here are the five latest ones</strong>:
+{#        {{% post-list stop=5 template=post_list_with_expansion.tmpl %}}{{% /post-list %}} #}
+
+    {% endif %}
+    </div>
+<!-- End post-list {{ post_list_id }} -->
+{% endblock %}

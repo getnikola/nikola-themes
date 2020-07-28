@@ -287,10 +287,24 @@ address
 	{
 		display: block;
 		text-align: right;
+		
 		/* Dim slightly and brighten on mouseover. */
 		opacity: 0.9;
 		filter: alpha(opacity=90);
 	}
+	
+	/* A bit of space between the text and the icons, for better alignment when we're in the sidebar. */
+	/* 
+.menuitemicon
+	{	
+		float: right;
+	}
+	.menuitmetext
+	{
+		text-align: right;
+		padding-right: 1em;
+	}
+ */
 
     /* Align the "by author" block with the top of the content area. */
 	#titleauth
@@ -320,6 +334,12 @@ address
 		margin: 0 auto;
 	}
 } /* end of media only screen and min-width: 768px; */
+
+ul.daily-post-list {
+	/* No bullets for daily posts */
+	list-style: none;
+	padding-left: 0;
+}
 
 article.post-text .entry-content .figure
 {
