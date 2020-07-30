@@ -24,3 +24,8 @@ There are also two new templates:
 - `posts_today.tmpl` displays the posts published today, in chronological order (_not_ reverse-chronological).
 
 If you want to see it in action, visit my own site, <https://devilgate.org/>
+
+## Using it
+
+As for the Zen themes, you must use the type of `NAVIGATION_LINKS` in `conf.py.sample`.
+
