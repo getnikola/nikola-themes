@@ -1,0 +1,28 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'math_helper.tmpl' as math with context %}
+{% macro html_pager() %}
+    {% if prevlink or nextlink %}
+        <nav class="postindexpager">
+        <ul class="pager">
+        
+        {# The next and previous meanings are backwards here, but I don't think it's worth trying 
+           to fix the core code. #}
+        {% if prevlink %}
+            <li class="next">
+                <a href="{{ prevlink }}" rel="next">{{ messages("Newer posts") }}</a>
+            </li>
+        {% endif %}
+        {% if nextlink %}
+            <li class="previous">
+                <a href="{{ nextlink }}" rel="prev">{{ messages("Older posts") }}</a>
+            </li>
+        {% endif %}
+        </ul>
+        </nav>
+    {% endif %}
+{% endmacro %}
+
+{#  This function is deprecated; use math_helper directly. #}
+{% macro mathjax_script(posts) %}
+    {{ math.math_scripts_ifposts(posts) }}
+{% endmacro %}
