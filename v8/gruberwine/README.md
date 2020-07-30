@@ -18,6 +18,9 @@ What happens if both of those interact? To be quite honest, I haven't tried that
 
 ## Extra Functionality
 
-There is also a new template,
+There are also two new templates:
+
+- `post_list_with_expansion.tmpl` is used where `list_post` would otherwise be used. If the post's title is not to be displayed, as for microblog posts explained above, then it displays the posts content.
+- `posts_today.tmpl` displays the posts published today, in chronological order (_not_ reverse-chronological).
 
 If you want to see it in action, visit my own site, <https://devilgate.org/>
