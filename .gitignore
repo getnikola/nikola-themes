@@ -22,6 +22,7 @@ output/
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries
+.DS_Store
 
 # BBEdit projects
 **/*.bbprojectd
