@@ -1,0 +1,36 @@
+{#  -*- coding: utf-8 -*- #}
+
+{% block content %}
+<!-- Begin post-list {{ post_list_id }} -->
+    {% if posts %}
+
+        <h1> What I'm Talking About Today </h1>
+
+        <div id="{{ post_list_id }}" class="post-list">
+			<ul class="daily-post-list">
+			{% for post in posts %}
+				<li class="post-list-item">
+
+					{% if post.should_hide_title() %}
+						{{ post.text(lang) }}
+					{% else %}
+						<a href="{{ post.permalink(lang) }}">
+							{{ post.title() }}
+						</a>
+					{% endif %}
+
+				</li>
+			{% endfor %}
+			</ul>
+
+    	</div>
+    {% else %}
+        <strong>No posts yet today.</strong>
+
+{#
+        {% post-list date=day==now template=post_list_with_expansion.tmpl %}}{{% /post-list %}
+#}
+    {% endif %}
+
+<!-- End post-list {{ post_list_id }} -->
+{% endblock %}

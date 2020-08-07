@@ -1,0 +1,8 @@
+[Theme]
+engine = jinja
+parent = base-jinja
+author = Martin McCallion
+author_url = https://devilgate.org/
+based_on = zen-jinja <https://themes.getnikola.com/v8/zen-jinja/>, John Gruber's Daring Fireball <https://daringfireball.net>, Dave Winer's Scripting News <http://scripting.com>
+license: MIT
+

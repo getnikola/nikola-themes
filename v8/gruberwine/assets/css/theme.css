@@ -1,0 +1,803 @@
+/**
+    The CSS for the GruberWine theme, by Martin McCallion (https://devilgate.org/). It is loosely
+    based on zen-jinja, but adapted to be more responsive, and mobile-first.
+**/
+
+/* ----------------------------------------------------------------------------
+    Resets
+    ------
+    CSS resets are done by `main.css` from the HTML5 Boilerplate library
+    (https://html5boilerplate.com) and `normalize.css` from the library of the same name
+    (http://necolas.github.io/normalize.css/).
+
+   ---------------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------------
+    Basics
+    ------
+    Set up a few basic things. Most of these came from zen-jinja and may or may not be necessary.
+
+   ---------------------------------------------------------------------------- */
+
+.pull-right { float: right !important; }
+.pull-left { float: left !important; }
+
+/*
+	From https://www.w3schools.com/css/css_rwd_grid.asp: ensure padding and
+	border are included in total width.
+*/
+
+* { box-sizing: border-box; }
+
+sub,
+sup
+{
+	position: relative;
+	font-size: 60%;
+	line-height: 0;
+	vertical-align: baseline;
+}
+
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+img
+{
+	/* Responsive images (ensure images don't scale beyond their parents) */
+	max-width: 100%;
+	/* Part 1: Set a maxium relative to the parent */
+	width: auto\9;
+	/* IE7-8 need help adjusting responsive images */
+	height: auto;
+	/* Part 2: Scale the height according to the width, otherwise you get stretching */
+	vertical-align: middle;
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+}
+
+html, body
+{
+	max-width: 100%;
+	overflow-x: hidden;
+}
+
+html
+{
+	/* Prevent sideways scrolling on small screens. */
+	min-height: 100%;
+	position: relative;
+	/* Scalable font size. */
+	font-size: min(max(1rem, 5vw), 22px);
+	font-family: "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+
+	background-color: white;
+}
+
+
+body
+{
+	height: 100%;
+	background-color: #192029;;
+	color: #333;
+}
+
+section
+{
+	margin: 0;
+	padding: 0;
+}
+
+a
+{
+	color: #08c;
+	text-decoration: none;
+}
+
+a:hover,
+a:focus
+{
+	color: #005580;
+	text-decoration: underline;
+}
+
+blockquote
+{
+	padding: 0 0 0 15px;
+	margin: 0 0 24px;
+	border-left: 5px solid #eee;
+}
+
+blockquote p { margin-bottom: 0; }
+
+blockquote small
+{
+	display: block;
+	color: #999;
+}
+
+blockquote small:before { content: '\2014 \00A0'; }
+
+blockquote.pull-right
+{
+	float: right;
+	padding-right: 15px;
+	padding-left: 0;
+	border-right: 5px solid #eee;
+	border-left: 0;
+}
+
+blockquote.pull-right p,
+blockquote.pull-right small { text-align: right; }
+blockquote.pull-right small:before { content: ''; }
+blockquote.pull-right small:after { content: '\00A0 \2014'; }
+q:before,
+q:after,
+blockquote:before,
+blockquote:after { content: ""; }
+
+address
+{
+	display: block;
+	margin-bottom: 24px;
+	font-style: normal;
+}
+
+/* ----------------------------------------------------------------------------
+    Navigation
+    ----------
+    Navigation starts below. This was originally the `.social` class in zen-jinja,
+    but then adapted using the W3Schools "How TO - Responsive Top Navigation"
+    lesson: https://www.w3schools.com/howto/howto_js_navlinks_responsive.asp.
+
+    Various other W3Schools pages were also consulted.
+
+    The intent here is that the default layout should be what appears on smaller
+    devices. Then media queries are used to adapt things for larger screens
+
+    The navigation appears as a collapsed hamburger menu on small screens, and as a
+    sidebar as things get bigger.
+
+    Text sizes and so on are set using viewport width (vw) and viewport height (vh),
+    and percentages or em values, so everything should be relative to a base value
+    (in the `html` section, above).
+
+   ---------------------------------------------------------------------------- */
+
+/* The page header */
+#header
+{
+	background-color: #192029;
+	width: 100%;
+	padding-top: 1em;
+}
+
+#header .logo
+{
+	text-align: center;
+	font-family: "Gill Sans", "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-variant: small-caps;
+	font-size: min(max(10rem, 10vw), 48pt);
+	font-weight: bold;
+	text-decoration: none;
+	color: white;
+}
+
+#header a:hover,
+#header a:focus
+{
+	text-decoration: none;
+}
+
+#nologoimage
+{
+	padding-bottom: 0.7em;
+}
+
+/* Style the navigation menu */
+.navlinks
+{
+	overflow: hidden;
+	background-color: #192029;
+	position: relative;
+	font-family: "Gill Sans", "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-variant: small-caps;
+}
+
+/* Hide the links inside the navigation menu (except for logo/home) */
+#navmenuitems { display: none; }
+
+/* Style navigation menu links */
+.navlinks a
+{
+	color: white;
+	padding: 0.5em;
+	text-decoration: none;
+	display: block;
+	height: 100%;
+}
+
+/* Style the hamburger menu */
+.navlinks a.icon
+{
+	background-color: #192029;
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 100%;
+	margin-top: 0.5em;
+	/* Dim slightly so we can brighten on mouseover. */
+	opacity: 0.9;
+	filter: alpha(opacity=90);
+}
+
+/* No change for the top text on mouseover */
+.navlinks a:hover
+{
+	color: white;
+	background-color: #192029;
+}
+
+/* Brighten the hamburger icon on mouseover. */
+.navlinks a.icon:hover,
+.navlinks a.icon:focus
+{
+	opacity: 1;
+	filter: alpha(opacity=100);
+}
+
+.page-content
+{
+	/* Get the text appropriately inset. */
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-top: 3em;
+	padding-bottom: 1em;
+
+	background-color: white;
+}
+
+/* Once the viewport is wider than a certain size we switch to a side menu */
+@media only screen
+  and (min-width: 768px)
+{
+	/* Hide the hamburger. */
+	#hamburger { display: none; }
+
+	/* Display the links down the side. */
+	.navlinks
+	{
+		position: absolute;
+		min-height: 100%;
+		float: left;
+		width: min(max(20vw, 300em), 200px);
+		font-size: min(max(1rem, 3vw), 18px);
+	}
+
+	#navmenuitems
+	{
+	    display: block;
+	    margin-top: 5em;
+	}
+
+	#navmenuitems a,
+	#titleauth
+	{
+		display: block;
+		text-align: right;
+		
+		/* Dim slightly and brighten on mouseover. */
+		opacity: 0.9;
+		filter: alpha(opacity=90);
+	}
+	
+	/* A bit of space between the text and the icons, for better alignment when we're in the sidebar. */
+	/* 
+.menuitemicon
+	{	
+		float: right;
+	}
+	.menuitmetext
+	{
+		text-align: right;
+		padding-right: 1em;
+	}
+ */
+
+    /* Align the "by author" block with the top of the content area. */
+	#titleauth
+	{
+	    margin-top: -0.75em;
+	}
+
+	/* Brighten on mouseover. */
+	#navmenuitems a:hover,
+	#navmenuitems a:focus
+	{
+		opacity: 1;
+		filter: alpha(opacity=100);
+		text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+		color: #fff;
+	}
+
+	/* Match the content's padding to the sidebar's width. */
+	.page-content { margin-left: min(max(20vw, 300em), 200px); }
+
+	.page-content > .content
+	{
+	   	/* Control the line length */
+    	max-width: 40em;
+
+    	/* Centre the page content. */
+		margin: 0 auto;
+	}
+} /* end of media only screen and min-width: 768px; */
+
+ul.daily-post-list {
+	/* No bullets for daily posts */
+	list-style: none;
+	padding-left: 0;
+}
+
+article.post-text .entry-content .figure
+{
+	display: block;
+	width: 97%;
+}
+
+.page-content > .content em { font-style: italic; }
+.page-content > .content b,
+.page-content > .content strong { font-weight: bold; }
+.page-content > .content cite { font-style: italic; }
+
+/* Footnotes */
+.page-content > .content .footnote p
+{
+	font-size: 80%;
+	margin-bottom: 0.25em;
+}
+
+/* More space before headings */
+.page-content .content h2 { margin-top: 2em; }
+
+/* === Page content Ends here. === */
+
+.pager
+{
+	margin: 24px 0;
+	list-style: none;
+	text-align: center;
+	*zoom: 1;
+}
+
+.pager:before,
+.pager:after
+{
+	display: table;
+	content: "";
+	line-height: 0;
+}
+
+.pager:after { clear: both; }
+.pager li { display: inline; }
+
+.pager li > a,
+.pager li > span
+{
+	display: inline-block;
+	padding: 5px 14px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+.pager li > a:hover,
+.pager li > a:focus
+{
+	text-decoration: none;
+	background-color: #f5f5f5;
+}
+
+.pager .next > a,
+.pager .next > span { float: right; }
+.pager .previous > a,
+.pager .previous > span { float: left; }
+
+.pager .disabled > a,
+.pager .disabled > a:hover,
+.pager .disabled > a:focus,
+.pager .disabled > span
+{
+	color: #999;
+	background-color: #fff;
+	cursor: default;
+}
+
+.breadcrumb
+{
+	padding: 8px 15px;
+	margin-bottom: 20px;
+	list-style: none;
+	background-color: #f5f5f5;
+	border-radius: 4px;
+}
+
+.breadcrumb > li { display: inline-block; }
+
+.breadcrumb > li + li:before
+{
+	padding: 0 5px;
+	color: #ccc;
+	content: "/\00a0";
+}
+
+.breadcrumb > .active { color: #777; }
+
+.thumbnails
+{
+	margin-left: 0;
+	list-style: none;
+	*zoom: 1;
+}
+
+.thumbnails:before,
+.thumbnails:after
+{
+	display: table;
+	content: "";
+	line-height: 0;
+}
+
+.thumbnails:after { clear: both; }
+.row-fluid .thumbnails { margin-left: 0; }
+
+.thumbnails > li
+{
+	float: left;
+	margin-bottom: 24px;
+	margin-left: 0;
+}
+
+.thumbnail
+{
+	display: block;
+	padding: 4px;
+	border: 1px solid #ddd;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+
+a.thumbnail:hover,
+a.thumbnail:focus
+{
+	border-color: #08c;
+	-webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+	-moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+	box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+}
+
+.thumbnail > img
+{
+	display: block;
+	max-width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.thumbnail .caption
+{
+	padding: 9px;
+	color: #555;
+}
+
+code,
+tt,
+pre
+{
+	padding: 0 3px 2px;
+	font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+	font-size: 13px;
+	color: #333;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+code,
+tt
+{
+	padding: 2px 4px;
+	background-color: #f7f7f9;
+	border: 1px solid #e1e1e8;
+	white-space: nowrap;
+}
+
+pre
+{
+	display: block;
+	padding: 11.5px;
+	margin: 0 0 12px;
+	font-size: 14px;
+	line-height: 24px;
+	word-break: break-all;
+	word-wrap: normal;
+	white-space: pre-wrap;
+	background-color: #f5f5f5;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+pre.prettyprint { margin-bottom: 24px; }
+
+pre code
+{
+	padding: 0;
+	color: inherit;
+	white-space: pre-wrap;
+	background-color: transparent;
+	border: 0;
+}
+
+pre.code
+{
+	white-space: pre;
+	word-break: keep-all;
+	word-wrap: normal;
+	overflow: auto;
+}
+
+.pre-scrollable
+{
+	max-height: 340px;
+	overflow-y: scroll;
+}
+
+.backlink { margin-top: 6px; }
+.backlink a:after { content: ' /'; }
+.backlink + .postbox > h1.title,
+.backlink + .post > h1.title,
+.backlink + h1.title { margin-top: 0; }
+
+article.post-text h1.entry-title a,
+article.post-link h1.entry-title a { color: black; }
+article.post-text h1.entry-title a:hover,
+article.post-text h1.entry-title a:focus { color: inherit; }
+article.post-text .backlink { margin-top: 6px; }
+article.post-text .backlink a:after { content: ' /'; }
+article.post-text .backlink + .postbox > h1.title,
+article.post-text .backlink + .post > h1.title,
+article.post-text .backlink + h1.title { margin-top: 0; }
+
+article.post-text .metadata
+{
+	*zoom: 1;
+	color: #999;
+	margin-bottom: 12px;
+	margin-top: -6px;
+}
+
+article.post-text .metadata:before,
+article.post-text .metadata:after
+{
+	display: table;
+	content: "";
+	line-height: 0;
+}
+
+article.post-text .metadata:after { clear: both; }
+article.post-text .metadata .commentline { float: right !important; }
+
+article.post-text .metadata p
+{
+	margin: 0;
+	display: inline-block;
+	color: #999;
+}
+
+article.post-text .metadata p a { color: #999; }
+
+article.post-text .metadata p a:hover,
+article.post-text .metadata p:hover
+{
+	color: #333;
+	-webkit-transition: color 1s linear;
+	-moz-transition: color 1s linear;
+	-o-transition: color 1s linear;
+	transition: color 1s linear;
+}
+
+article.post-text .metadata h3
+{
+	font-size: initial !important;
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+
+article.post-text .metadata .tags
+{
+	clear: both;
+	display: block;
+	opacity: 0.2;
+	filter: alpha(opacity=20);
+	-webkit-transition: opacity 0.1s linear;
+	-moz-transition: opacity 0.1s linear;
+	-o-transition: opacity 0.1s linear;
+	transition: opacity 0.1s linear;
+}
+
+article.post-text .metadata .tags:hover
+{
+	opacity: 1;
+	filter: alpha(opacity=100);
+}
+
+article.post-text .metadata .tags ul
+{
+	margin: 0;
+	list-style: none;
+	display: inline-block;
+}
+
+article.post-text .metadata .tags ul > li
+{
+	display: inline-block;
+	*display: inline;
+	/* IE7 inline-block hack */
+	*zoom: 1;
+	margin-right: 10px;
+}
+
+article.post-text .entry-content { margin-bottom: 36px; }
+
+article.post-text .entry-content .figure
+{
+	padding: 4px;
+	border: 1px solid #ddd;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	display: table;
+	margin: 0 auto 24px;
+}
+
+article.post-text .entry-content .figure > a,
+article.post-text .entry-content .figure > a > img
+{
+	max-width: 100%;
+	height: auto;
+	overflow: hidden;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+article.post-text .entry-content .figure .caption
+{
+	padding: 9px;
+	color: #555;
+	font-style: italic;
+	padding-bottom: 0;
+}
+
+article.post-text + article.post-text { margin-top: 48px; }
+
+/*
+	Everything below here is added for the ZenWithoutTitles theme.
+*/
+
+/* Some extra padding after images. */
+figure, img { padding-bottom: 1em; }
+
+/* Some changes for the h-card */
+.h-card.bio
+{
+	margin-top: 3em;
+	margin-bottom: 5em;
+}
+
+.h-card.bio h2
+{
+	font-size: 90%;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+.h-card.bio p
+{
+	font-size: 80%;
+	margin-top -1em: ;
+}
+
+/* Make a round picture */
+.h-card.bio img
+{
+	border-radius: 50%;
+	float: left;
+	margin-right: 2em;
+}
+
+article > header { margin-top: 5em; }
+
+/* Webmentions using webmention.js */
+#webmentions img
+{
+	border-radius: 50%;
+	max-height: 1.5em;
+}
+
+/* Blockquotes in italics. */
+blockquote, blockquote > p { font-style: italic; }
+
+/* ----------------------------------------------------------------------------
+    Print
+    -----
+    This whole block in the print media query is lifted directly from zen-jinja.
+
+   ---------------------------------------------------------------------------- */
+
+@media print
+{
+	*
+	{
+		text-shadow: none !important;
+		color: #000 !important;
+		background-color: transparent !important;
+		box-shadow: none !important;
+	}
+
+	a,
+	a:visited { text-decoration: underline; }
+	a[href]:after { content: " (" attr(href) ")"; }
+	abbr[title]:after { content: " (" attr(title) ")"; }
+	.ir a:after,
+		  a[href^="javascript:"]:after,
+		  a[href^="#"]:after { content: ""; }
+
+	pre,
+	blockquote
+	{
+		border: 1px solid #999;
+		page-break-inside: avoid;
+	}
+
+	thead { display: table-header-group; }
+	tr,
+		  img { page-break-inside: avoid; }
+	img { max-width: 100% !important; }
+
+	@page {
+		    margin: 0.5cm;
+		  }
+
+	p,
+	h2,
+	h3
+	{
+		orphans: 3;
+		widows: 3;
+	}
+
+	h2,
+	h3 { page-break-after: avoid; }
+}
