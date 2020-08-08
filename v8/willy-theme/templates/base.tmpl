@@ -1,0 +1,45 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'base_helper.tmpl' as base with context %}
+{% import 'base_menu.tmpl' as menu with context %}
+{% import 'base_footer.tmpl' as footer with context %}
+{{ set_locale(lang) }}
+{#  <html> tag is included by base.html_headstart #}
+{{ base.html_headstart() }}
+{% block extra_head %}
+{#  Leave this block alone. #}
+{% endblock %}
+{{ template_hooks['extra_head']() }}
+</head>
+<body>
+    {#<a href="#content" class="sr-only sr-only-focusable">{{ messages("Skip to main content") }}</a>#}
+    <input id="dark-mode" type="checkbox" />
+    <div class="theme">
+        <div class="layout">
+            {{ menu.html_header() }}
+            <main id="content" class="content">
+                {% block content %}{% endblock %}
+            </main>
+            {# {{ footer.html_footer() }}#}
+        </div>
+    </div>
+    {{ base.late_load_js() }}
+    {% if date_fanciness != 0 %}
+    <!-- fancy dates -->
+    <script>
+    luxon.Settings.defaultLocale = "{{ luxon_locales[lang] }}";
+    fancydates({{ date_fanciness }}, {{ luxon_date_format }});
+    </script>
+    <!-- end fancy dates -->
+    {% endif %}
+    {% block extra_js %}{% endblock %}
+    <script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+    {{ body_end }}
+    {{ template_hooks['body_end']() }}
+</body>
+</html>

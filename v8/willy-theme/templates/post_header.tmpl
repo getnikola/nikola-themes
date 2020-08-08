@@ -1,0 +1,65 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'post_helper.tmpl' as helper with context %}
+{% import 'comments_helper.tmpl' as comments with context %}
+
+{% macro html_title() %}
+{% if title and not post.meta('hidetitle') %}
+    <h2 class="p-name entry-title header__title" itemprop="headline name"><a href="{{ post.permalink() }}" class="u-url hover:header__title__link">{{ post.title()|e }}</a></h2>
+{% endif %}
+{% endmacro %}
+
+{% macro html_translations(post) %}
+    {% if post.translated_to|length > 1 %}
+        <div class="metadata posttranslations translations">
+            <h3 class="posttranslations-intro">{{ messages("Also available in:") }}</h3>
+            {% for langname in translations|sort %}
+                {% if langname != lang and post.is_translation_available(langname) %}
+                <p><a href="{{ post.permalink(langname) }}" rel="alternate" hreflang="{{ langname }}">{{ messages("LANGUAGE", langname) }}</a></p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro html_sourcelink() %}
+    {% if show_sourcelink %}
+        | <span class="sourceline"><a class="article__meta__link hover:article__meta__link" href="{{ post.source_link() }}" class="sourcelink">{{ messages("Source") }}</a></span>
+    {% endif %}
+{% endmacro %}
+
+{% macro html_post_header() %}
+    <header>
+        {{ html_title() }}
+        <div class="metadata">
+            <span class="byline author vcard p-author h-card">
+            <span class="byline-name fn p-name" itemprop="author">
+                {% if author_pages_generated %}
+                    <a class="article__meta__link hover:article__meta__link u-url" href="{{ _link('author', post.author()) }}">{{ post.author()|e }}</a>
+                {% else %}
+                    {{ post.author()|e }}
+                {% endif %}
+            </span>
+            </span>
+            {% for tag in post.tags %}
+                | <a class="tag p-category article__meta__link hover:article__meta__link" href="{{ _link('tag', tag) }}" rel="tag">#{{ tag|e }}</a>
+            {% endfor %}
+            <span class="dateline">
+            <a class="article__meta__link hover:article__meta__link" href="{{ post.permalink() }}" rel="bookmark">
+            <time class="published dt-published" datetime="{{ post.formatted_date('webiso') }}" itemprop="datePublished" title="{{ post.formatted_date(date_format)|e }}">{{ post.formatted_date(date_format)|e }}</time>
+            {% if post.updated and post.updated != post.date %}
+                <span class="updated"> ({{ messages("updated") }}
+                    <time class="updated dt-updated" datetime="{{ post.formatted_updated('webiso') }}" itemprop="dateUpdated" title="{{ post.formatted_updated(date_format)|e }}">{{ post.formatted_updated(date_format)|e }}</time>)</span>
+            {% endif %}
+            </a>
+            </span>
+            {% if not post.meta('nocomments') and site_has_comments %}
+                <span class="commentline">{{ comments.comment_link(post.permalink(), post._base_path) }}
+            {% endif %}
+            {{ html_sourcelink() }}
+            {% if post.meta('link') %}
+                    <span class="linkline"><a class="article__meta__link hover:article__meta__link" href="{{ post.meta('link') }}">{{ messages("Original site") }}</a></span>
+            {% endif %}
+        </div>
+        {{ html_translations(post) }}
+    </header>
+{% endmacro %}
