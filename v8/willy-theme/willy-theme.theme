@@ -1,0 +1,5 @@
+[Theme]
+engine = jinja
+parent = base-jinja
+author = Santiago Fraire Willemoes
+license = AGPL-3.0

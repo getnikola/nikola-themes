@@ -1,0 +1,117 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'base_helper.tmpl' as base with context %}
+
+{% macro html_header() %}
+    <header class="cover">
+    {{ html_site_title() }}
+    <div>
+    <label class="dark-mode-label hover:dark-mode-label" for="dark-mode">
+        <?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generator: Gravit.io --><svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            style="isolation: isolate;"
+            viewBox="0 0 416 416"
+            width="30px"
+            height="30px"
+        >
+            <defs>
+            <clipPath id="_clipPath_qEPwrMg7OPn6mDBNPkG6Nqc7qffgU4IC">
+                <rect width="416" height="416" />
+            </clipPath>
+            </defs>
+            <g clip-path="url(#_clipPath_qEPwrMg7OPn6mDBNPkG6Nqc7qffgU4IC)">
+            <path
+                d=" M 304 88 C 304 57.38 299.49 26.39 288 0 C 364.43 33.27 416 111.32 416 200 C 416 319.29 319.29 416 200 416 C 111.32 416 33.27 364.43 0 288 C 26.39 299.49 57.38 304 88 304 C 207.29 304 304 207.29 304 88 Z "
+            />
+            </g>
+        </svg>
+    </label>
+    {{ html_translation_header() }}
+    </div>
+
+    {% if search_form %}
+        <div class="searchform" role="search">
+            {{ search_form }}
+        </div>
+    {% endif %}
+
+    </header>
+    <input id="cool-menu" type="checkbox" />
+      <label for="cool-menu" class="cool-menu__label">
+        <svg
+            class="cool-menu hover:cool-menu checked:cool-menu"
+            viewBox="0 0 100 100"
+            width="40"
+            height="40"
+            aria-hidden="true"
+        >
+            <circle cx="50" cy="50" r="50" fill-opacity="0.5"/>
+        </svg>
+      </label>
+    {{ html_navigation_links() }}
+
+    {{ template_hooks['page_header']() }}
+{% endmacro %}
+
+{% macro html_site_title() %}
+    {% if 'index' in pagekind %}
+        <h1 id="brand" class="cover__title"><a href="{{ _link("root", None, lang) }}" title="{{ blog_title|e }}" rel="home">
+        {% if logo_url %}
+            <img src="{{ logo_url }}" alt="{{ blog_title|e }}" id="logo">
+        {% endif %}
+
+        {% if show_blog_title %}
+            <span id="blog-title">{{ blog_title|e }}</span>
+        {% endif %}
+        </a>
+        </h1>
+    {% else %}
+        <h3 id="brand" ><a href="{{ _link("root", None, lang) }}" title="{{ blog_title|e }}" rel="home">
+        {% if show_blog_title %}
+            <span id="blog-title">{{ blog_title|e }}</span>
+        {% endif %}
+        </h3>
+    {% endif %}
+{% endmacro %}
+
+{% macro html_navigation_links() %}
+    <nav class="menu">
+    <ul>
+    {{ html_navigation_links_entries(navigation_links) }}
+    {{ html_navigation_links_entries(navigation_alt_links) }}
+    {{ template_hooks['menu']() }}
+    {{ template_hooks['menu_alt']() }}
+    </ul>
+    </nav>
+{% endmacro %}
+
+{% macro html_navigation_links_entries(navigation_links_source) %}
+    {% for url, text in navigation_links_source[lang] %}
+        {% if isinstance(url, tuple) %}
+            <li> {{ text }}
+            <ul>
+            {% for suburl, text in url %}
+                {% if rel_link(permalink, suburl) == "#" %}
+                    <li class="active"><a href="{{ permalink }}">{{ text }}<span class="sr-only"> {{ messages("(active)", lang) }}</span></a></li>
+                {% else %}
+                    <li><a href="{{ suburl }}">{{ text }}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        {% else %}
+            {% if rel_link(permalink, url) == "#" %}
+                <li class="active"><a href="{{ permalink }}">{{ text }}</a></li>
+            {% else %}
+                <li><a href="{{ url }}">{{ text }}</a></li>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% macro html_translation_header() %}
+    {% if translations|length > 1 %}
+        <span id="toptranslations">
+            {{ base.html_translations() }}
+        </span>
+    {% endif %}
+{% endmacro %}

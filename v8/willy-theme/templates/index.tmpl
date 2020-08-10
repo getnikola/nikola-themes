@@ -1,0 +1,73 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'index_helper.tmpl' as helper with context %}
+{% import 'math_helper.tmpl' as math with context %}
+{% import 'post_helper.tmpl' as post with context %}
+{% import 'comments_helper.tmpl' as comments with context %}
+{% import 'pagination_helper.tmpl' as pagination with context %}
+{% import 'feeds_translations_helper.tmpl' as feeds_translations with context %}
+{% extends 'base.tmpl' %}
+
+{% block extra_head %}
+    {{ super() }}
+    {% if posts and (permalink == '/' or permalink == '/' + index_file) %}
+        <link rel="prefetch" href="{{ posts[0].permalink() }}" type="text/html">
+    {% endif %}
+    {{ math.math_styles_ifposts(posts) }}
+{% endblock %}
+
+{% block content %}
+{% block content_header %}
+    {{ feeds_translations.translation_link(kind) }}
+{% endblock %}
+{% if 'main_index' in pagekind %}
+    {{ front_index_header }}
+{% endif %}
+{% if page_links %}
+    {{ pagination.page_navigation(current_page, page_links, prevlink, nextlink, prev_next_links_reversed) }}
+{% endif %}
+<div class="postindex">
+{% for post in posts %}
+    <article class="h-entry post-{{ post.meta('type') }}" itemscope="itemscope" itemtype="http://schema.org/Article">
+    <header>
+        <h3 class="header__title p-name entry-title"><a href="{{ post.permalink() }}" class="hover:header__title__link u-url">{{ post.title()|e }}</a></h3>
+        <div class="article__meta">
+            <span class="byline author vcard">
+            <span class="byline-name fn" itemprop="author">
+            {% if author_pages_generated %}
+                <a class="article__meta__link hover:article__meta__link" href="{{ _link('author', post.author()) }}">{{ post.author()|e }}</a>
+            {% else %}
+                {{ post.author()|e }}
+            {% endif %}
+            </span>
+            </span>
+            {% for tag in post.tags %}
+                | <a class="tag p-category article__meta__link hover:article__meta__link" href="{{ _link('tag', tag) }}" rel="tag">#{{ tag|e }}</a>
+            {% endfor %}
+            <span class="dateline">
+            | <a class="article__meta__link hover:article__meta__link" href="{{ post.permalink() }}" rel="bookmark">
+            <time class="published dt-published" datetime="{{ post.formatted_date('webiso') }}" itemprop="datePublished" title="{{ post.formatted_date(date_format)|e }}">{{ post.formatted_date(date_format)|e }}</time>
+            {% if post.updated and post.updated != post.date %}
+                <span class="updated"> ({{ messages("updated") }}
+                    <time class="dt-updated" datetime="{{ post.formatted_updated('webiso') }}" itemprop="dateUpdated" title="{{ post.formatted_updated(date_format)|e }}">{{ post.formatted_updated(date_format)|e }}</time>)</span>
+            {% endif %}
+            </a>
+            </span>
+            {% if not post.meta('nocomments') and site_has_comments %}
+                <span class="commentline">{{ comments.comment_link(post.permalink(), post._base_path) }}
+            {% endif %}
+        </div>
+    </header>
+    {% if index_teasers %}
+
+    {% else %}
+    <div class="e-content entry-content">
+    {{ post.text(teaser_only=False) }}
+    </div>
+    {% endif %}
+    </article>
+{% endfor %}
+{{ helper.html_pager() }}
+</div>
+{{ comments.comment_link_script() }}
+{{ math.math_scripts_ifposts(posts) }}
+{% endblock %}
