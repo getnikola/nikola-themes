@@ -2,4 +2,4 @@
 engine = jinja
 parent = base-jinja
 author = Santiago Fraire Willemoes
-license = AGPL-3.0
+license = GPL-3.0
