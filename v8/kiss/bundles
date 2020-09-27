@@ -5,6 +5,7 @@ assets/css/all.css=
     code.css,
     theme.css,
     baguetteBox.min.css,
+    custom.css,
 
 ; javascript bundles
 assets/js/all.js=
