@@ -946,7 +946,7 @@ LICENSE = ""
 
 # A small copyright notice for the page footer (in HTML).
 # (translatable)
-CONTENT_FOOTER = '''Contents © 2012–2020 <a href="https://getnikola.com/contact.html">The Nikola contributors</a> and theme authors&nbsp;&nbsp;|&nbsp;&nbsp;Powered by <a href="https://getnikola.com/">Nikola</a> itself&nbsp;&nbsp;|&nbsp;&nbsp;
+CONTENT_FOOTER = '''Contents © 2012–2021 <a href="https://getnikola.com/contact.html">The Nikola contributors</a> and theme authors&nbsp;&nbsp;|&nbsp;&nbsp;Powered by <a href="https://getnikola.com/">Nikola</a> itself&nbsp;&nbsp;|&nbsp;&nbsp;
 <a href="https://twitter.com/intent/user?screen_name=GetNikola">Follow Nikola on Twitter</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme is <a href="http://bootswatch.com/cerulean/">Cerulean</a>
 '''
 # Things that will be passed to CONTENT_FOOTER.format().  This is done
