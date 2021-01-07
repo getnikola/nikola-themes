@@ -12,8 +12,8 @@
     {% if post.translated_to|length > 1 %}
         <div class="metadata posttranslations translations">
             <h3 class="posttranslations-intro">{{ messages("Also available in:") }}</h3>
-            {% for langname in translations.keys() %}
-                {% if langname != lang and post.is_translation_available(langname) %}
+            {% set available_languages = post.translated_to|reject("eq", lang)|sort %}
+            {% for langname in available_languages %}
                 <p><a href="{{ post.permalink(langname) }}" rel="alternate" hreflang="{{ langname }}">{{ messages("LANGUAGE", langname) }}</a></p>
                 {% endif %}
             {% endfor %}
