@@ -13,6 +13,11 @@ NAVIGATION_LINKS = {
 THEME_CONFIG = {
     DEFAULT_LANG: {
         # "hyde_subtheme": "theme-custom",
+        # "hyde_subtheme": "theme-hybrid-01", # petrol
+        # "hyde_subtheme": "theme-hybrid-02", # dark red
+        # "hyde_subtheme": "theme-hybrid-03", # forest
+        # "hyde_subtheme": "theme-hybrid-04", # eggplant
+        # "hyde_subtheme": "theme-hybrid-05", # dark orange
         # "hyde_subtheme": "theme-base-08", # red
         # "hyde_subtheme": "theme-base-09", # orange
         # "hyde_subtheme": "theme-base-0a", # yellow
