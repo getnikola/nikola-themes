@@ -121,12 +121,63 @@ a.sidebar-nav-item.textonly:focus {
   text-decoration: underline;
 }
 
-/* subtheme */
+/*
+ * Themes
+ *
+ * The original Hyde theme includes optional themes to color the sidebar and links.
+ * The following flavours provide additional darker colors for the Hybrid theme.
+ */
+
+/* Petrol */
+.theme-hybrid-01 .hsidebar {
+  background-color: #2d4752;
+}
+.theme-hybrid-01 .content a,
+.theme-hybrid-01 .related-posts li a:hover {
+  color: #2d4752;
+}
+
+/* Dark Red */
+.theme-hybrid-02 .hsidebar {
+  background-color: #760009;
+}
+.theme-hybrid-02 .content a,
+.theme-hybrid-02 .related-posts li a:hover {
+  color: #760009;
+}
+
+/* Forest */
+.theme-hybrid-03 .hsidebar {
+  background-color: #004c01;
+}
+.theme-hybrid-03 .content a,
+.theme-hybrid-03 .related-posts li a:hover {
+  color: #004c01;
+}
+
+/* Eggplant */
+.theme-hybrid-04 .hsidebar {
+  background-color: #4c0033;
+}
+.theme-hybrid-04 .content a,
+.theme-hybrid-04 .related-posts li a:hover {
+  color: #4c0033;
+}
+
+/* Orange */
+.theme-hybrid-05 .hsidebar {
+  background-color: #9e4000;
+}
+.theme-hybrid-05 .content a,
+.theme-hybrid-05 .related-posts li a:hover {
+  color: #9e4000;
+}
+
+/* custom subtheme */
 .theme-custom .hsidebar {
   background-color: #070512;
 }
-.theme-custom .content a:not([class*="btn-"]),
+.theme-custom .content a,
 .theme-custom .related-posts li a:hover {
   color: #1582ae;
 }
-
