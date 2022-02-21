@@ -1,0 +1,36 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'base_helper.tmpl' as base with context %}
+{% import 'base_header.tmpl' as header with context %}
+{% import 'base_footer.tmpl' as footer with context %}
+
+{{ set_locale(lang) }}
+{{ base.html_headstart() }}
+{% block extra_head %}
+{# Leave this block alone. #}
+{% endblock %}
+{{ template_hooks['extra_head']() }}
+</head>
+<body>
+{{ header.html_header() }}
+<div class="callout large primary">
+<div class="row column text-center">
+{% block page_header %}
+<h1>{{ blog_title|e }}</h1>
+<h2 class="subheader">{{ blog_description|e }}</h2>
+{% endblock %}
+</div>
+</div>
+
+<div class="row medium-8 large-7 columns">
+{% block content %}
+{% endblock %}
+<hr>
+{{ footer.html_footer() }}
+</div>
+{{ base.late_load_js() }}
+{% block extra_js %} 
+{% endblock %}
+{{ body_end }}
+{{ template_hooks['body_end']() }}
+</body>
+</html>

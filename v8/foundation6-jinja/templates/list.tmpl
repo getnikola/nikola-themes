@@ -1,0 +1,25 @@
+{#  -*- coding: utf-8 -*- #}
+{% extends 'base.tmpl' %}
+
+{% block page_header %}
+<h1>{{ blog_title|e }}</h1>
+<h2>{{ title|e }}</h2>
+{% endblock %}
+
+{% block content %}
+<article class="listpage">
+    {% if items %}
+
+    <ul class="menu vertical">
+    {% for text, link, count in items %}
+        <li><a href="{{ link }}">{{ text|e }}</a>
+        {% if count %}
+            &nbsp;<small>({{ count }})</small>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>{{ messages("Nothing found.") }}</p>
+    {% endif %}
+</article>
+{% endblock %}

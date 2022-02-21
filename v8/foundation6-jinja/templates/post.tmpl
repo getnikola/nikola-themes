@@ -1,0 +1,69 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'post_helper.tmpl' as helper with context %}
+{% import 'post_header.tmpl' as pheader with context %}
+{% import 'comments_helper.tmpl' as comments with context %}
+{% import 'math_helper.tmpl' as math with context %}
+{% extends 'base.tmpl' %}
+
+{% block extra_head %}
+    {{ super() }}
+    {% if post.meta('keywords') %}
+    <meta name="keywords" content="{{ post.meta('keywords')|e }}">
+    {% endif %}
+    {% if post.description() %}
+    <meta name="description" content="{{ post.description()|e }}">
+    {% endif %}
+    <meta name="author" content="{{ post.author()|e }}">
+    {% if post.prev_post %}
+        <link rel="prev" href="{{ post.prev_post.permalink() }}" title="{{ post.prev_post.title()|e }}" type="text/html">
+    {% endif %}
+    {% if post.next_post %}
+        <link rel="next" href="{{ post.next_post.permalink() }}" title="{{ post.next_post.title()|e }}" type="text/html">
+    {% endif %}
+    {% if post.is_draft %}
+        <meta name="robots" content="noindex">
+    {% endif %}
+    {{ helper.open_graph_metadata(post) }}
+    {{ helper.twitter_card_information(post) }}
+    {{ helper.meta_translations(post) }}
+    {{ math.math_styles_ifpost(post) }}
+{% endblock %}
+
+{% block page_header %}
+{% if title and not post.meta('hidetitle') %}
+    <h1>{{ post.title()|e }}</h1>
+    <h2 class="subheader"><small>{{ post.formatted_date(date_format)|e }}</small></h2>
+{% else %}
+    <h1>{{ blog_title|e }}</h1>
+    <h2 class="subheader">{{ blog_description|e }}</h2>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="blog-post">
+    {{ pheader.html_post_header() }}
+    {{ post.text() }}
+
+    <div class="callout">
+    <ul class="menu simple">
+    {% if author_pages_generated %}
+        <li>Author: <a href="{{ _link('author', post.author()) }}">{{ post.author()|e }}</a></li>
+    {% else %}
+        <li>Author: {{ post.author()|e }}</li>
+    {% endif %}
+
+    {% if post.meta('link') %}
+        <li><a href="{{ post.meta('link') }}">{{ messages("Original site") }}</a></li>
+    {% endif %}
+    </ul>
+
+    </div>
+    {{ helper.html_tags(post) }}
+    {{ helper.html_pager(post) }}
+    {% if not post.meta('nocomments') and site_has_comments %}
+        {{ comments.comment_form(post.permalink(absolute=True), post.title(), post._base_path) }}
+    {% endif %}
+    {{ comments.comment_link_script() }}
+    </div>
+    {{ math.math_scripts_ifpost(post) }}
+{% endblock %}

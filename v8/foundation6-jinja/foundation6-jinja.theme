@@ -1,0 +1,12 @@
+[Theme]
+engine = jinja
+parent = base-jinja
+author = Douglas Cabral
+author_url = https://github.com/douglasimcabral
+based_on = ZURB Foundation <http://foundation.zurb.com/>
+license = AGPLv3
+tags = foundation
+
+[Family]
+family = foundation6
+mako_version = foundation6

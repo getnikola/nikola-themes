@@ -1,0 +1,35 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'post_helper.tmpl' as helper with context %}
+{% import 'post_header.tmpl' as pheader with context %}
+{% import 'comments_helper.tmpl' as comments with context %}
+{% import 'math_helper.tmpl' as math with context %}
+{% extends 'post.tmpl' %}
+
+{% block content %}
+    <div class="blog-post">
+    {{ pheader.html_title() }}
+    {{ pheader.html_translations(post) }} 
+    {{ post.text() }}
+    <div class="callout">
+    <ul class="menu simple">
+    {% if author_pages_generated %}
+        <li>Author: <a href="{{ _link('author', post.author()) }}">{{ post.author()|e }}</a></li>
+    {% else %}
+        <li>Author: {{ post.author()|e }}</li>
+    {% endif %}
+
+    {% if post.meta('link') %}
+        <li><a href="{{ post.meta('link') }}">{{ messages("Original site") }}</a></li>
+    {% endif %}
+    </ul>
+
+    </div>
+    {{ helper.html_tags(post) }}
+    {{ helper.html_pager(post) }}
+    {% if not post.meta('nocomments') and site_has_comments %}
+        {{ comments.comment_form(post.permalink(absolute=True), post.title(), post._base_path) }}
+    {% endif %}
+    {{ comments.comment_link_script() }}
+    </div>
+    {{ math.math_scripts_ifpost(post) }}
+{% endblock %}
