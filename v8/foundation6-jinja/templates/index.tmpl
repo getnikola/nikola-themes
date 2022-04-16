@@ -1,0 +1,38 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'index_helper.tmpl' as helper with context %}
+{% import 'comments_helper.tmpl' as comments with context %}
+{% import 'math_helper.tmpl' as math with context %}
+{% extends 'base.tmpl' %}
+
+{% block extra_head %}
+    {{ super() }}
+    {% if posts and (permalink == '/' or permalink == '/' + index_file) %}
+        <link rel="prefetch" href="{{ posts[0].permalink() }}" type="text/html">
+    {% endif %}
+    {{ math.math_styles_ifposts(posts) }}
+{% endblock %}
+
+{% block content %}
+{% block content_header %}
+{% endblock %}
+{% for post in posts %}
+    <div class="blog-post">
+    <h3><a href="{{ post.permalink() }}">{{ post.title()|e }}</a><br/><small>{{ post.formatted_date(date_format)|e }}</small></h3>
+    <div>
+    {% if not post.meta('nocomments') and site_has_comments %}
+        <p class="commentline">{{ comments.comment_link(post.permalink(), post._base_path) }}
+    {% endif %}
+
+    {% if index_teasers %}
+        {{ post.text(teaser_only=True) }}
+    {% else %}
+        {{ post.text(teaser_only=False) }}
+    {% endif %}
+    </div>
+
+    </div>
+{% endfor %}
+{{ helper.html_pager() }}
+{{ comments.comment_link_script() }}
+{{ math.math_scripts_ifposts(posts) }}
+{% endblock %}
