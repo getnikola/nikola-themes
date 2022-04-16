@@ -2,7 +2,7 @@
 {% extends 'list_post.tmpl' %}
 
 {% block extra_head %}
-    {{ parent.extra_head() }}
+    {{ super() }}
     {% if translations|length > 1 and generate_rss %}
         {% for language in translations|sort %}
             <link rel="alternate" type="application/rss+xml" title="RSS for {{ kind }} {{ tag|e }} ({{ language }})" href="{{ _link(kind + "_rss", tag, language) }}">

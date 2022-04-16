@@ -5,3 +5,8 @@ author = Niko Wenselowski
 author_url = https://github.com/okin
 based_on = ZURB Foundation <http://foundation.zurb.com/>
 license = AGPLv3
+tags = foundation
+
+[Family]
+family = foundation6
+jinja_version = foundation6-jinja
