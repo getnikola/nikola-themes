@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 
 // Simple error checking
 var arg_count = process.argv.length - 1;
@@ -12,6 +12,7 @@ if (arg_count < 4 || arg_count > 5) {
 var executablePath = '';
 
 var pathsToTest = [
+    'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
     '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
     '/usr/bin/chromium-browser',
     '/usr/bin/google-chrome',
@@ -30,12 +31,12 @@ for (var i = 0; i < pathsToTest.length; i++) {
 
 if (!pathFound) {
     console.log('Chrome(ium) not found. Please add it to take-screenshot.js.');
-    process.exit(1);
 }
 
 (async () => {
     const browser = await puppeteer.launch({executablePath: executablePath});
     const page = await browser.newPage();
+    await page.setDefaultNavigationTimeout(0);
 
     await page.goto('file://' + path.resolve(process.argv[2]));
     await page.setViewport({width: parseInt(process.argv[3]), height: parseInt(process.argv[4])});

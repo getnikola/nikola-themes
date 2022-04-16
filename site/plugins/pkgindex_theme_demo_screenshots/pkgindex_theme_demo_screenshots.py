@@ -31,6 +31,7 @@ from __future__ import unicode_literals
 import os
 import sys
 import io
+import json
 import shutil
 import subprocess
 from contextlib import contextmanager
@@ -81,7 +82,7 @@ def build_demo(theme, themes_dir, demo_source, demo_destination):
             shutil.copy('book-jinja.tmpl', book_path)
 
     with io.open(conf_path, "a", encoding="utf-8") as conf:
-        conf.write(u"\n\nTHEME = '{0}'\nUSE_BUNDLES = False\nOUTPUT_FOLDER = '{1}'\nSOCIAL_BUTTONS_CODE = ''\nUSE_BASE_TAG = False\n\n{2}\n".format(theme, demo_destination, extra_conf))
+        conf.write(u"\n\nTHEME = '{0}'\nUSE_BUNDLES = False\nOUTPUT_FOLDER = {1}\nSOCIAL_BUTTONS_CODE = ''\nUSE_BASE_TAG = False\n\n{2}\n".format(theme, json.dumps(demo_destination), extra_conf))
 
     shutil.copy(LOREM_BASE, lorem_path)
 

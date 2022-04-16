@@ -9,7 +9,7 @@ site/node_modules
 # Created by https://www.gitignore.io/api/pydev,nikola,python,pycharm
 
 ### Nikola ###
-.doit.db
+.doit.db*
 *.py[cod]
 cache/
 output/
