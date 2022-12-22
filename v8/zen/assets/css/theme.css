@@ -1080,3 +1080,6 @@ article.post-text .entry-content .figure .caption {
 article.post-text + article.post-text {
   margin-top: 48px;
 }
+a.listtitle {
+  margin-left: 6px;
+}
