@@ -159,7 +159,8 @@ sup {
 sub {
   bottom: -0.25em;
 }
-img {
+img,
+svg {
   /* Responsive images (ensure images don't scale beyond their parents) */
   max-width: 100%;
   /* Part 1: Set a maxium relative to the parent */
