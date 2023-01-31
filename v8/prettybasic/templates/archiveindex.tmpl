@@ -1,0 +1,20 @@
+{#  -*- coding: utf-8 -*- #}
+{% extends 'index.tmpl' %}
+{% import 'archive_navigation_helper.tmpl' as archive_nav with context %}
+{% import 'feeds_translations_helper.tmpl' as feeds_translations with context %}
+
+{% block extra_head %}
+    {{ super() }}
+    {{ feeds_translations.head(archive_name, kind, rss_override=False) }}
+{% endblock %}
+
+{% block content_header %}
+    <header>
+        <h1>{{ title|e }}</h1>
+        {{ archive_nav.archive_navigation() }}
+        <div class="metadata">
+            {{ feeds_translations.feed_link(archive, kind) }}
+            {{ feeds_translations.translation_link(kind) }}
+        </div>
+    </header>
+{% endblock %}

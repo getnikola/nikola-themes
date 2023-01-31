@@ -1,0 +1,622 @@
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100%;
+    color: #0c344b;
+    font-family: Open Sans,sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin: 0px;
+    position: relative;
+    background-color: #f4f8fb;
+}
+
+ol, ul {
+    padding-left: 20px;
+}  
+
+blockquote {
+    border-left: 6px solid #8fa6b2;
+}
+
+/* Headings */
+h1 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 2rem;
+    font-family: "fira",helvetica,arial,sans-serif;
+}
+h2 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 1.8rem;
+    font-family: "fira",helvetica,arial,sans-serif;
+}
+
+h3 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 1.7rem;
+    font-family: "fira",helvetica,arial,sans-serif;
+}
+
+h4 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 1.6rem;
+    font-family: "fira",helvetica,arial,sans-serif;
+}
+
+h5 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 1.3rem;
+    font-family: "fira",helvetica,arial,sans-serif;
+}
+h6 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 1.2rem;
+    font-family: "fira",helvetica,arial,sans-serif;
+}
+
+hr {
+    margin-top: 1.125rem;
+    margin-bottom: 1.125rem;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+
+#logo {
+    max-width: 100%;
+    height: auto;
+}
+
+#content {
+    max-width: 770px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 50px;
+}
+
+.entry-content {
+	background-color: white;
+	box-shadow: 8px 14px 38px rgba(39,44,49,.06), 1px 3px 8px rgba(39,44,49,.03);
+	border-radius: 5px;
+	padding: 1.5rem;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.tag {
+    background-color: #0c344b;
+    color: white;
+    padding: 5px;
+    border-radius: 5px
+}
+
+.metadata {
+    padding: 0.7rem;
+}
+
+/* Borders for preview images */
+.previewimage {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+/*
+#container {
+	margin: 1em auto;
+}*/
+#menu ul,
+#menu ul li,
+.postpromonav .tags,
+.postpromonav .tags li,
+.pager,
+.pager li,
+#toptranslations ul,
+#toptranslations ul li {
+	list-style: none;
+	padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+/*    padding-top: 1rem;
+    padding-bottom: 1rem;
+    outline: 1px red solid;  */
+}
+
+
+#menu ul li {
+ /*   outline: 1px red solid; */
+    padding-right: 1.3rem;
+    padding-left: 1.1rem;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+}
+
+#menu label, #hamburger { display: none; }
+#menu {
+  position: sticky;
+  top: 0;
+}
+
+/* NEW NEW NEW  */
+
+#menuitems { 
+  display: flex; 
+  margin-left: auto;
+  margin-right: auto;
+  /*outline: 1px red solid;*/ 
+}
+
+#menuitems a {
+  width: 20%; /* 100% / 5 tabs = 20% */
+  padding: 10px;
+  text-decoration: none;
+  text-align: center;
+}
+/*#menuitems a:hover {
+  background: #401408;
+}*/
+
+@media screen and (max-width: 768px){
+  #menu label { 	
+    display: inline-block; 
+    color: white;
+    font-style: normal;
+    font-size: 1.2em;
+    padding: 10px;
+}
+  #menuitems a {
+    display: block;
+    width: 100%;
+    /*outline: 1px red solid;*/
+    width: 100px;
+}
+  #menu ul {
+    list-style-type: none;
+    padding: 0;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+  #menuitems { display: none; }
+  #menu input:checked ~ #menuitems { display: block; }
+
+}
+
+
+/* NEW NEW NEW  */
+
+#toptranslations ul {
+	display: inline;
+}
+
+#menu ul li,
+#toptranslations ul li {
+	display: inline-block;
+}
+
+#toptranslations h2 {
+	display: inline;
+	font-size: 1em;
+	margin-right: 1.5em;
+}
+
+#menu ul li:dir(rtl),
+#toptranslations ul li:dir(rtl),
+#toptranslations h2:dir(rtl) {
+	margin-right: 0;
+}
+
+#toptranslations {
+	text-align: right;
+	float: right;
+}
+
+#toptranslations:dir(rtl) {
+	text-align: left;
+	float: left;
+}
+
+.posttranslations h3, .translationslist h3 {
+	display: inline;
+	font-size: 1em;
+}
+
+.entry-title {
+    font-size: 2em;
+    margin-bottom: 0;
+    padding: 0.7rem;
+}
+
+.posttranslations h3:last-child, .translationslist h3:last-child {
+	display: none;
+}
+
+.postindex article {
+	margin-bottom: 2em;
+	background-color: white;
+	box-shadow: 8px 14px 38px rgba(39,44,49,.06), 1px 3px 8px rgba(39,44,49,.03);
+	border-radius: 5px;
+}
+#header {
+    text-align: center;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+ /*   outline: 1px red solid; */
+    margin-bottom: 2rem;
+    background-color: #0c344b;
+}
+#footer {
+    margin-top: -20px;
+    width:100%;
+    background:#0c344b;
+    text-align: center;
+    color: white;
+    margin: 0px;
+    position:fixed;
+    bottom:0;
+}
+
+#footer a,
+#footer a:hover,
+#footer a:visited {
+    color: white;
+
+
+}
+
+/* Tags */
+.postpromonav {
+	border-bottom: 1px solid #4F5151;
+	border-top: 1px solid #4F5151;
+	margin-top: 1em;
+	padding: .5em 0;
+}
+.postpromonav .tags {
+	text-align: center;
+}
+.metadata p:before,
+.postpromonav .tags li:before,
+.postlist .listdate:after,
+.translationslist p:before {
+	content: " — ";
+}
+.postlist li {
+	margin-bottom: .33em;
+}
+
+/* Post and archive pagers */
+.postindexpager .pager .next:before {
+	content: "↓ ";
+}
+.postindexpager .pager .previous:before,
+.archivenav .pager .up:before {
+	content: "↑ ";
+}
+.postpromonav .pager .next:after,
+.archivenav .pager .next:after {
+	content: " →";
+}
+.postpromonav .pager .previous:dir(rtl):after,
+.archivenav .pager .previous:dir(rtl):after {
+	content: " →";
+}
+.postpromonav .pager .previous:before,
+.archivenav .pager .previous:before {
+	content: "← ";
+}
+.postpromonav .pager .next:dir(rtl):before,
+.archivenav .pager .next:dir(rtl):before {
+	content: "← ";
+}
+
+.metadata p:first-of-type:before,
+.postpromonav .tags li:first-of-type:before,
+.translationslist p:first-of-type:before {
+	content: "";
+}
+.postpromonav .pager {
+	clear: both;
+	height: 1em;
+}
+.postpromonav .tags li,
+.postpromonav .pager li,
+.archivenav .pager li {
+	display: inline-block;
+}
+.archivenav .pager {
+	text-align: center
+}
+.postpromonav .pager .next,
+.archivenav .pager .next {
+	float: right;
+}
+.postpromonav .pager .next:dir(rtl),
+.archivenav .pager .next:dir(rtl) {
+	float: left;
+}
+
+.postpromonav .pager .previous,
+.archivenav .pager .previous {
+	float: left;
+}
+.postpromonav .pager .previous:dir(rtl),
+.archivenav .pager .previous:dir(rtl) {
+	float: right;
+}
+
+.archivenav .pager .disabled,
+.archivenav .pager .disabled a,
+.archivenav .pager .disabled:link {
+    color: #888;
+    cursor: not-allowed;
+}
+
+.metadata p,
+.translationslist p {
+	display: inline;
+}
+
+#brand {
+    font-size: 2em;
+    line-height: 1;
+    background-color: #0c344b;
+    color: white,
+}
+#header h1 {
+    color: white;
+}
+
+/* Links */
+:link {
+	color: #0c344b;
+	text-decoration: none;
+}
+:visited {
+	color: inherit;
+}
+:link:hover, :visited:hover {
+	color: #0c344b;
+}
+
+.entry-content :link {
+    background: linear-gradient(to bottom,#e9edf0 0%, #e9edf0 100%);
+    background-position: 0 100%;
+    background-repeat: repeat-x;
+    background-size: 4px 4px;
+    transition: background-size .4s;
+    padding: 3px 5px;
+    border-radius: 3px;
+}
+
+
+a.tag, a.tag:hover {
+	color: white;
+	font-weight: bold;
+}
+
+#brand :link,
+#brand :visited {
+	color: inherit;
+	text-decoration: none;
+}
+
+#menu :link,
+#menu :visited {
+	color: white;
+	text-decoration: none;
+}
+
+
+
+/* Images */
+img {
+	border: none;
+	line-height: 1;
+}
+
+.postpage img,
+.postpage object,
+.postindex article img,
+.postindex article object {
+	height: auto;
+	max-width: 100%;
+}
+
+/* Comment helpers */
+#disqus_thread {
+	min-height: 325px;
+}
+
+.breadcrumb {
+	padding: 8px 15px;
+	margin-bottom: 20px;
+	list-style: none;
+}
+
+.breadcrumb > li {
+	display: inline-block;
+	margin-right: 0;
+	margin-left: 0;
+}
+
+.breadcrumb > li:after {
+	content: ' / ';
+	color: #888;
+}
+
+.breadcrumb > li:last-of-type:after {
+	content: '';
+	margin-left: 0;
+}
+
+.thumbnails {
+	list-style: none;
+	padding: 0;
+}
+
+.thumbnails > li {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.thumbnails > li:last-of-type {
+	margin-right: 0;
+}
+
+.codetable .linenos {
+	padding-right: 10px;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+	position: static;
+	width: auto;
+	height: auto;
+	margin: 0;
+	overflow: visible;
+	clip: auto;
+}
+
+pre.code, code {
+	white-space: pre;
+	word-wrap: normal;
+    overflow: auto;
+    background-color: #e9edf0;
+    padding: .125rem .2rem;
+}
+
+
+/* SOURCE: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
+@media print {
+	*,
+	*:before,
+	*:after {
+		background: transparent !important;
+		color: #000 !important; /* Black prints faster: http://www.sanbeiji.com/archives/953 */
+		box-shadow: none !important;
+		text-shadow: none !important;
+		font-family: Garamond, Junicode, serif;
+	}
+
+	body {
+		font-size: 12pt;
+	}
+
+	a,
+	a:visited {
+		text-decoration: underline;
+	}
+
+	a[href]:after {
+		content: " (" attr(href) ")";
+	}
+
+	abbr[title]:after {
+		content: " (" attr(title) ")";
+	}
+
+	/*
+	 * Don't show links that are fragment identifiers,
+	 * or use the `javascript:` pseudo protocol
+	 */
+
+	a[href^="#"]:after,
+	a[href^="data:"]:after,
+	a[href^="javascript:"]:after {
+		content: "";
+	}
+
+	pre,
+	blockquote {
+		border: 1px solid #999;
+        page-break-inside: avoid;
+        border-left: 6px solid #8fa6b2;
+    }
+    
+
+
+	/*
+	 * Printing Tables:
+	 * http://css-discuss.incutio.com/wiki/Printing_Tables
+	 */
+
+	thead {
+		display: table-header-group;
+	}
+
+	tr,
+	img {
+		page-break-inside: avoid;
+	}
+
+	img {
+		max-width: 100% !important;
+	}
+
+	p,
+	h2,
+	h3 {
+		orphans: 3;
+		widows: 3;
+	}
+
+	h2,
+	h3 {
+		page-break-after: avoid;
+	}
+
+	.hidden-print {
+		display: none !important;
+	}
+
+	article .entry-title a[href]:after,
+	article .metadata a[href]:after,
+	article .tags a[href]:after {
+		content: "";
+	}
+
+	article .metadata .sourceline {
+		display: none;
+	}
+
+	article .metadata .linkline a[href]:after {
+		content: " (" attr(href) ")";
+	}
+
+	#header {
+		display: none;
+	}
+
+	.postpromonav {
+		padding: 0;
+	}
+}
