@@ -36,9 +36,6 @@ Desktop Peformance
 
 Mobile Peformance
 
-![Get Nikola Themes](assets/img/hire.jpg)
-
-
 -----------------------------------------------------------
 
 ### Buy me a coffee ☕️ ❤️  ✌🏻 
