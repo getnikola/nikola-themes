@@ -1,0 +1,18 @@
+## -*- coding: utf-8 -*-
+<%inherit file="index.tmpl"/>
+<%namespace name="archive_nav" file="archive_navigation_helper.tmpl" import="*"/>
+<%namespace name="feeds_translations" file="feeds_translations_helper.tmpl" import="*"/>
+<%block name="extra_head">
+${parent.extra_head()}
+${feeds_translations.head(archive_name, kind, rss_override=False)}
+</%block>
+<%block name="content_header">
+<header>
+<h1>${title|h}</h1>
+${archive_nav.archive_navigation()}
+<div class="metadata">
+${feeds_translations.feed_link(archive, kind)}
+${feeds_translations.translation_link(kind)}
+</div>
+</header>
+</%block>

@@ -1,0 +1,13 @@
+; css bundles
+assets/css/all.css=
+    bootstrap.min.css,
+    theme.css,
+assets/css/all-nocdn.css=
+    bootstrap.min.css,
+    theme.css,
+
+; javascript bundles
+assets/js/all.js=
+    bootstrap.min.js,
+assets/js/all-nocdn.js=
+    bootstrap.min.js,

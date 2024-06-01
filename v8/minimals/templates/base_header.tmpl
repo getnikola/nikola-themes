@@ -1,0 +1,81 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+<%def name="html_header()">
+<header id="header">
+${html_navigation_links()}
+${html_site_title()}
+${html_translation_header()}
+%if search_form:
+<div class="searchform" role="search">
+${search_form}
+</div>
+%endif
+</header>
+${template_hooks['page_header']()}
+</%def>
+<%def name="html_navigation_links()">
+<div class="col-md-12 p-3">
+<ul class="nav justify-content-center">
+${html_navigation_links_entries(navigation_links)}
+${html_navigation_links_entries(navigation_alt_links)}
+${template_hooks['menu']()}
+${template_hooks['menu_alt']()}
+</ul>
+</div>
+</%def>
+<%def name="html_navigation_links_entries(navigation_links_source)">
+%for url, text in navigation_links_source[lang]:
+% if isinstance(url, tuple):
+<li class="nav-item  text-dark"> ${text}
+<ul class="nav">
+%for suburl, text in url:
+% if rel_link(permalink, suburl) == "#":
+<li class="nav-item"><a class="nav-link active text-dark" href="${permalink}">
+<span class="sr-only"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+</svg></span>
+${text}</a></li>
+%else:
+<a class="nav-link" href="${suburl}">${text}</a>
+%endif
+%endfor
+</ul>
+% else:
+% if rel_link(permalink, url) == "#":
+<a class="nav-link active  text-dark" href="${permalink}">
+<span class="sr-only"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+</svg></span>
+${text}</a>
+%else:
+<li class="nav-item">
+<a class="nav-link text-dark" href="${url}">
+<span class="sr-only"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+</svg></span>
+${text}</a>
+</li>
+%endif
+% endif
+%endfor
+</%def>
+<%def name="html_translation_header()">
+%if len(translations) > 1:
+<div id="toptranslations">
+<h2>${messages("Languages:")}</h2>
+${base.html_translations()}
+</div>
+%endif
+</%def>
+<%def name="html_site_title()">
+<div class="col-md-8 mx-auto p-3 p-md-5 text-center">
+%if logo_url:
+<a href="${_link("root", None, lang)}" title="${blog_title|h}" rel="home"><img src="${logo_url}" alt="${blog_title|h}" id="logo" class="img-fluid" width="120" height="120"></a>
+%endif
+% if show_blog_title:
+<a href="${_link("root", None, lang)}" title="${blog_title|h}" rel="home"><h1 id="brand"><span id="blog-title">${blog_title|h}</span></a></h1>
+% endif
+<h2 class="lead mt-3">${blog_description}</h2>
+</div>
+</%def>
+

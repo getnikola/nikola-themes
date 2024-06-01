@@ -1,0 +1,81 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+
+<%def name="html_title()">
+%if title and not post.meta('hidetitle'):
+<div class="mb-3">
+<h3 itemprop="headline name"><strong><a href="${post.permalink()}" class="u-url">${post.title()|h}</a></strong></h3>
+%endif
+%if title and not post.meta('hidedescription'):
+<p><strong>${post.description()|h}</strong></p>
+%endif
+</div>
+</%def>
+
+<%def name="html_translations(post)">
+% if len(post.translated_to) > 1:
+<div class="metadata posttranslations translations">
+<h3 class="posttranslations-intro">${messages("Also available in:")}</h3>
+% for langname in sorted(translations):
+% if langname != lang and post.is_translation_available(langname):
+<p><a href="${post.permalink(langname)}" rel="alternate" hreflang="${langname}">${messages("LANGUAGE", langname)}</a></p>
+% endif
+% endfor
+</div>
+% endif
+</%def>
+
+
+<%def name="html_sourcelink()">
+% if show_sourcelink:
+<p class="sourceline col-6"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen me-3" viewBox="0 0 16 16">
+<path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+</svg> <a href="${post.source_link()}" class="sourcelink">${messages("Source")}</a></p>
+% endif
+</%def>
+
+<%def name="html_post_header()">
+<header>
+${html_title()}
+<div class="metadata row">
+<p class="byline author vcard p-author h-card col-6"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person me-3" viewBox="0 0 16 16">
+<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+</svg> Publish By <span class="byline-name fn p-name" itemprop="author">
+% if author_pages_generated and multiple_authors_per_post:
+% for author in post.authors():
+<a href="${_link('author', author)}">${author|h}</a>
+% endfor
+% elif author_pages_generated:
+<a class="u-url" href="${_link('author', post.author())}">${post.author()|h}</a>
+% else:
+${post.author()|h}
+% endif
+</span></p>
+<p class="dateline col-6"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-event me-3" viewBox="0 0 16 16">
+<path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+<path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
+<path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z"/>
+</svg> Post On 
+<a href="${post.permalink()}" rel="bookmark">
+<time class="published dt-published" datetime="${post.formatted_date('webiso')}" itemprop="datePublished" title="${post.formatted_date(date_format)|h}">${post.formatted_date(date_format)|h}</time>
+% if post.updated and post.updated != post.date:
+<span class="updated"> (${messages("updated")}
+<time class="updated dt-updated" datetime="${post.formatted_updated('webiso')}" itemprop="dateUpdated" title="${post.formatted_updated(date_format)|h}">${post.formatted_updated(date_format)|h}</time>)</span>
+% endif
+</a>
+</p>
+% if not post.meta('nocomments') and site_has_comments:
+<p class="commentline">${comments.comment_link(post.permalink(), post._base_path)}
+% endif
+${html_sourcelink()}
+% if post.meta('link'):
+<p class="linkline col-6"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link-45deg me-3" viewBox="0 0 16 16">
+<path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/>
+<path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/>
+</svg> <a href="${post.meta('link')}">${messages("Original site")}</a></p>
+% endif
+</div>
+${html_translations(post)}
+</header>
+</%def>

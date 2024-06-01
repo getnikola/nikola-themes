@@ -1,0 +1,48 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+<%namespace name="feeds_translations" file="feeds_translations_helper.tmpl" import="*"/>
+<%block name="extra_head">
+${feeds_translations.head(kind=kind, feeds=False)}
+</%block>
+<%block name="content">
+<article class="tagindex col-md-10 mx-auto p-3">
+<header>
+<h1>${title|h}</h1>
+<div class="metadata">
+${feeds_translations.translation_link(kind)}
+</div>
+</header>
+% if cat_items:
+% if items:
+<hr/><h2>${messages("Categories")}</h2>
+% endif
+% for text, full_name, path, link, indent_levels, indent_change_before, indent_change_after in cat_hierarchy:
+% for i in range(indent_change_before):
+<ul class="postlist row">
+% endfor
+<li class="col-md-4 col-6 p-3"><a class="reference" href="${link}">${text}</a>
+% if indent_change_after <= 0:
+</li>
+% endif
+% for i in range(-indent_change_after):
+</ul>
+% if i + 1 < len(indent_levels):
+</li>
+% endif
+% endfor
+% endfor
+% if items:
+<hr/><h2>${messages("Tags")}</h2>
+% endif
+%endif
+% if items:
+<ul class="postlist row">
+% for text, link in items:
+% if text not in hidden_tags:
+<li class="col-md-4 col-6 p-3"><a class="reference listtitle" href="${link}">${text|h}</a></li>
+% endif
+% endfor
+</ul>
+% endif
+</article>
+</%block>

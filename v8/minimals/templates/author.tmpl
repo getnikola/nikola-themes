@@ -1,0 +1,29 @@
+## -*- coding: utf-8 -*-
+<%inherit file="list_post.tmpl"/>
+<%namespace name="feeds_translations" file="feeds_translations_helper.tmpl" import="*"/>
+<%block name="extra_head">
+${feeds_translations.head(author, kind, rss_override=False)}
+</%block>
+<%block name="content">
+<article class="col-md-10 mx-auto p-3 p-md-5">
+<header>
+<h1>${title|h}</h1>
+%if description:
+<p>${description}</p>
+%endif
+<div class="metadata">
+${feeds_translations.feed_link(author, kind)}
+</div>
+</header>
+%if posts:
+<ul class="postlist">
+% for post in posts:
+<li class="p-3">
+<p><time class="listdate" datetime="${post.formatted_date('webiso')}" title="${post.formatted_date(date_format)|h}">${post.formatted_date(date_format)|h}</time></p>
+<h3><a href="${post.permalink()}" class="listtitle">${post.title()|h}</a></h3>
+</li>
+% endfor
+</ul>
+%endif
+</article>
+</%block>

@@ -1,0 +1,8 @@
+[Theme]
+engine = mako
+author = Creativitas
+author_url = https://fiverr.com/creativitas/
+license = MIT
+
+[Family]
+family = minimals

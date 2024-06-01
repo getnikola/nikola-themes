@@ -1,0 +1,13 @@
+## -*- coding: utf-8 -*-
+<%def name="comment_form(url, title, identifier)">
+    <div id="commento"></div>
+
+    <script defer src="${comment_system_id}/js/commento.js"></script>
+</%def>
+
+<%def name="comment_link(link, identifier)">
+    <a href="${link}#commento">${messages("Comments")}</a>
+</%def>
+
+<%def name="comment_link_script()">
+</%def>

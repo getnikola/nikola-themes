@@ -1,0 +1,91 @@
+## -*- coding: utf-8 -*-
+<%inherit file="base.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%namespace name="ui" file="ui_helper.tmpl"/>
+<%namespace name="post_helper" file="post_helper.tmpl"/>
+<%block name="sourcelink"></%block>
+
+<%block name="content">
+    ${ui.breadcrumbs(crumbs)}
+    %if title:
+    <h1>${title|h}</h1>
+    %endif
+    %if post:
+    <p>
+        ${post.text()}
+    </p>
+    %endif
+    %if folders:
+        % if galleries_use_thumbnail:
+            % for (folder, ftitle, fpost) in folders:
+            <div class="thumnbnail-container">
+                <a href="${folder}" class="thumbnail image-reference" title="${ftitle|h}">
+                    % if fpost and fpost.previewimage:
+                        <img src="${fpost.previewimage}" alt="${ftitle|h}" loading="lazy" style="max-width:${thumbnail_size}px; max-height:${thumbnail_size}px;" />
+                    % else:
+                        <div style="height: ${thumbnail_size}px; width: ${thumbnail_size}px; background-color: #eee;"></div>
+                    % endif
+                <p class="thumbnail-caption">${ftitle|h}</p>
+                </a>
+            </div>
+            % endfor
+        % else:
+            <ul>
+            % for folder, ftitle in folders:
+                <li><a href="${folder}">&#x1f4c2;&nbsp;${ftitle|h}</a></li>
+            % endfor
+            </ul>
+        % endif
+    % endif
+
+<div id="gallery_container"></div>
+%if photo_array:
+<noscript>
+<ul class="thumbnails">
+    %for image in photo_array:
+        <li><a href="${image['url']}" class="thumbnail image-reference" title="${image['title']|h}">
+            <img src="${image['url_thumb']}" alt="${image['title']|h}" loading="lazy" /></a>
+    %endfor
+</ul>
+</noscript>
+%endif
+%if site_has_comments and enable_comments:
+    ${comments.comment_form(None, permalink, title)}
+%endif
+</%block>
+
+<%block name="extra_head">
+${parent.extra_head()}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<style type="text/css">
+    #gallery_container {
+        position: relative;
+    }
+    .image-block {
+        position: absolute;
+    }
+</style>
+%if len(translations) > 1:
+    %for langname in translations.keys():
+         %if langname != lang:
+             <link rel="alternate" hreflang="${langname}" href="${_link('gallery', gallery_path, langname)}">
+         %endif
+    %endfor
+%endif
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+%if post:
+    ${post_helper.open_graph_metadata(post)}
+    ${post_helper.twitter_card_information(post)}
+%endif
+</%block>
+
+<%block name="extra_js">
+<script src="/assets/js/justified-layout.min.js"></script>
+<script src="/assets/js/gallery.min.js"></script>
+<script>
+var jsonContent = ${photo_array_json};
+var thumbnailSize = ${thumbnail_size};
+renderGallery(jsonContent, thumbnailSize);
+window.addEventListener('resize', function(){renderGallery(jsonContent, thumbnailSize)});
+</script>
+</%block>

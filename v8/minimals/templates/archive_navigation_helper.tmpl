@@ -1,0 +1,26 @@
+## -*- coding: utf-8 -*-
+<%def name="archive_navigation()">
+%if 'archive_page' in pagekind:
+%if has_archive_navigation:
+<nav class="row">
+<ul class="pager">
+%if previous_archive:
+<li class="col-4"><a href="${previous_archive}" rel="prev">${messages("Previous")}</a></li>
+%else:
+<li class="col-4 disabled"><a href="#" rel="prev">${messages("Previous")}</a></li>
+% endif
+%if up_archive:
+<li class="col-4"><a href="${up_archive}" rel="up">${messages("Up")}</a></li>
+%else:
+<li class="col-4 disabled"><a href="#" rel="up">${messages("Up")}</a></li>
+%endif
+%if next_archive:
+<li class="col-4"><a href="${next_archive}" rel="next">${messages("Next")}</a></li>
+%else:
+<li class="col-4 disabled"><a href="#" rel="next">${messages("Next")}</a></li>
+%endif
+</ul>
+</nav>
+%endif
+% endif
+</%def>

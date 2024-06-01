@@ -1,0 +1,27 @@
+## -*- coding: utf-8 -*-
+<%inherit file="index.tmpl"/>
+<%namespace name="feeds_translations" file="feeds_translations_helper.tmpl" import="*"/>
+<%block name="content_header">
+<header>
+<h1>${title|h}</h1>
+%if description:
+<p>${description}</p>
+%endif
+%if subcategories:
+${messages('Subcategories:')}
+<ul class="row">
+%for name, link in subcategories:
+<li class="p-3 col-6 col-md-4"><a href="${link}">${name|h}</a></li>
+%endfor
+</ul>
+%endif
+<div class="metadata">
+${feeds_translations.feed_link(tag, kind)}
+${feeds_translations.translation_link(kind)}
+</div>
+</header>
+</%block>
+<%block name="extra_head">
+${parent.extra_head()}
+${feeds_translations.head(tag, kind, rss_override=False)}
+</%block>

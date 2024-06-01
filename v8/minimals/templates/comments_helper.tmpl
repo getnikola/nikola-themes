@@ -1,0 +1,15 @@
+## -*- coding: utf-8 -*-
+
+<%namespace name="comments_helper_impl" file="comments_helper_${context['comment_system']}.tmpl"/>
+
+<%def name="comment_form(url, title, identifier)">
+    ${comments_helper_impl.comment_form(url, title, identifier)}
+</%def>
+
+<%def name="comment_link(link, identifier)">
+    ${comments_helper_impl.comment_link(link, identifier)}
+</%def>
+
+<%def name="comment_link_script()">
+    ${comments_helper_impl.comment_link_script()}
+</%def>

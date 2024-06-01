@@ -1,0 +1,44 @@
+## -*- coding: utf-8 -*-
+
+<%! import json %>
+
+<%def name="comment_form(url, title, identifier)">
+    %if comment_system_id:
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="${comment_system_id}",
+        %if url:
+            disqus_url="${url}",
+        %endif
+        disqus_title=${json.dumps(title)},
+        disqus_identifier="${identifier}",
+        disqus_config = function () {
+        %if lang == 'es':
+            this.language = "es_ES";
+        %else:
+            this.language = "${lang}";
+        %endif
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+    %endif
+</%def>
+
+<%def name="comment_link(link, identifier)">
+    %if comment_system_id:
+    <a href="${link}#disqus_thread" data-disqus-identifier="${identifier}">${messages("Comments")}</a>
+    %endif
+</%def>
+
+
+<%def name="comment_link_script()">
+    %if comment_system_id:
+       <script>var disqus_shortname="${comment_system_id}";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+    %endif
+</%def>
