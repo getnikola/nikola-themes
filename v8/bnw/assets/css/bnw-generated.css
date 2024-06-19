@@ -1,8 +1,8 @@
 /* Fonts Loading */
-@import url(http://fonts.googleapis.com/css?family=McLaren);
-@import url(http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister);
-@import url(http://fonts.googleapis.com/css?family=Roboto+Slab);
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=McLaren);
+@import url(https://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 /* Font Mixins */
 * {
   box-sizing: border-box;
