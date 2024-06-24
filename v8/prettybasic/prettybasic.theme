@@ -1,0 +1,9 @@
+[Theme]
+engine = jinja
+parent = base-jinja
+author = M.T.
+author_url = https://cancookrice.com/
+license = MIT
+
+[Family]
+family = prettybasic
