@@ -1,0 +1,8 @@
+[Theme]
+engine = jinja
+parent = base-jinja
+author = Henry Jia
+author_url = https://henry-jia.github.io/
+based_on = Moon for jekyll <https://github.com/TaylanTatli/Moon>
+license = MIT
+
