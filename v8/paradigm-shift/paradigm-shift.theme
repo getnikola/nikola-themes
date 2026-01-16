@@ -1,0 +1,3 @@
+[Theme]
+engine = jinja
+parent = base-jinja
