@@ -1,0 +1,99 @@
+# Paradigm Shift
+
+Theme adapted for Nikola by [Stéphane Manet](https://github.com/stephmnt) based on the open source template from [HTML5 UP](https://html5up.net).
+
+## Installation
+
+There are two common ways to install the theme.
+
+### Option 1: Install from the Nikola theme index
+
+```shell
+    nikola theme -i paradigm-shift
+```
+
+Then enable it in your site `conf.py`:
+
+```python
+    THEME = "paradigm-shift"
+```
+
+### Option 2: Use this repository (local development)
+
+If you have this repository locally, point Nikola to the `v8` theme directory
+and enable the theme:
+
+```python
+    THEME = "paradigm-shift"
+    EXTRA_THEMES_DIRS = ["/path/to/nikola-themes/v8"]
+```
+
+Alternatively, copy `v8/paradigm-shift` into your site's `themes/` directory
+and set `THEME = "paradigm-shift"` in `conf.py`.
+
+After installation, run `nikola build` (and `nikola serve -b` to preview).
+
+## General settings
+
+The theme uses:
+
+```python
+    BLOG_IMAGE_URL
+    BLOG_AUTHOR = ""  # (translatable)
+    BLOG_BASELINE = "" # (translatable)
+    BLOG_EMAIL = ""
+    BLOG_DESCRIPTION = ""  # (translatable)
+```
+
+## Theme settings
+
+The theme is configured via `THEME_CONFIG` in `conf.py`. These options drive
+the intro header (index) and the footer call-to-action block.
+
+Example (multilingual):
+
+```python
+    THEME_CONFIG = {
+        "fr": {
+            "blog_baseline": "Mon portfolio",
+            "blog_image_url": "/images/hero.jpg",
+            "footer_cta_title": "Restons en contact",
+            "footer_cta_text": "Contactez-moi par email ou parcourez mon portfolio",
+            "footer_cta_buttons": [
+                {"text": "Voir le portfolio", "link": "/posts/portfolio/"},
+                {"text": "Me contacter", "link": "mailto:you@example.com"},
+            ],
+            "social_links": [
+                {"name": "LinkedIn", "url": "https://linkedin.com/in/you", "icon": "linkedin"},
+                {"name": "GitHub", "url": "https://github.com/you", "icon": "github"},
+            ],
+        },
+        "en": {
+            "blog_baseline": "My portfolio",
+            "blog_image_url": "/images/hero.jpg",
+            "footer_cta_title": "Stay in touch",
+            "footer_cta_text": "Email me or browse my portfolio",
+            "footer_cta_buttons": [
+                {"text": "See my portfolio", "link": "/posts/portfolio/"},
+                {"text": "Mail me", "link": "mailto:you@example.com"},
+            ],
+            "social_links": [
+                {"name": "LinkedIn", "url": "https://linkedin.com/in/you", "icon": "linkedin"},
+                {"name": "GitHub", "url": "https://github.com/you", "icon": "github"},
+            ],
+        },
+    }
+```
+
+If your site is single-language, you can limit `THEME_CONFIG` to
+`{DEFAULT_LANG: {...}}`.
+
+### Option details
+
+- `blog_baseline`: title shown in the intro header (home page).
+- `blog_image_url`: image shown in the intro header (used directly in `src`).
+- `footer_cta_title`: title of the footer call-to-action block.
+- `footer_cta_text`: text of the call-to-action block (optional).
+- `footer_cta_buttons`: list of buttons `{text, link}`; the first is styled as primary.
+- `social_links`: list of links `{name, url, icon}` rendered as icons.
+  `icon` matches a Font Awesome Brands name (e.g., `github`, `linkedin`).

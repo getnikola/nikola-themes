@@ -1,0 +1,29 @@
+{% extends 'base.tmpl' %}
+
+{% block center_section %}
+				<!-- Intro -->
+					<section class="intro">
+						<header>
+							<h1>{{ post.title()|e }}</h1>
+							<ul class="actions">
+                                <li>
+                                    <a href="{{ rel_link(post.permalink(), '/')|e }}" class="arrow scrolly arrow-rotate-90" style="height: 4rem; width: 6rem; display: inline-block; position: relative; line-height: 4rem; text-align: center; font-size: 2.2rem;">
+                                        <span class="label">{{ messages("Back to home") }}</span>
+                                    </a>
+                                </li>
+								<li><a href="#first" class="arrow scrolly"><span class="label">{{ messages("Next") }}</span></a></li>
+							</ul>
+						</header>
+						<div class="content">
+                            <p style="padding-top:14rem;">{{ post.description() }}</p>
+						</div>
+					</section>
+<section id="first">
+    <header>
+        <h2>{{ post.title()|e }}</h2>
+    </header>
+<div class="content" id="post-content">
+    {{ post.text(teaser_only=False) }}
+</div>
+</section>
+{% endblock %}

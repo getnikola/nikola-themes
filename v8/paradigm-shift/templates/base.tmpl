@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<!--
+	Paradigm Shift by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="{{ lang }}">
+	{{ set_locale(lang) }}
+	<head>
+		{% if blog_title in title %}
+        <title>{{ title|e }}</title>
+        {% else %}
+        <title>{{ title|e }} | {{ blog_title|e }}</title>
+        {% endif %}
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link rel="stylesheet" href="{{ site_url }}/assets/css/main.css" />
+		{% block extra_head %}{% endblock %}
+		{{ template_hooks['extra_head']() }}
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+
+{% block content %}
+{% block center_section %}
+<!-- Section -->
+<section{% if (loop is defined and loop.first) or (loop is not defined) %} id="first"{% endif %}>
+        <!-- Page Header -->
+        {% block content_header %}
+        <header>
+            <h2>{{ post.title()|e }}</h2>
+        </header>
+        {% endblock %}
+
+        <!-- Page Content -->
+        {% block content_post %}
+        <div class="content">
+            {{ post.text(teaser_only=False) }}
+        </div>
+        {% endblock %}    
+</section>
+{% endblock %}
+{% endblock %}
+				<!-- Section -->
+					{% set footer_cta_text = theme_config.get("footer_cta_text") if theme_config is defined else None %}
+					{% set footer_cta_buttons = theme_config.get("footer_cta_buttons", []) if theme_config is defined else [] %}
+					<section>
+						<header>
+							<h2>{{ footer_cta_title|e }}</h2>
+						</header>
+						<div class="content">
+							
+							{% if footer_cta_text %}
+							<p>{{ footer_cta_text|e }}</p>
+							{% endif %}
+							{% if footer_cta_buttons %}
+							<ul class="actions">
+								{% for button in footer_cta_buttons %}
+									{% if button.text and button.link %}
+									<li>
+										<a href="{{ button.link|e }}" class="button {% if loop.first %}primary {% endif %}large">{{ button.text|e }}</a>
+									</li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+							{% endif %}
+						</div>
+						<footer>
+							<ul class="items">
+								<li>
+									<h3>Email</h3>
+									<a href="mailto:{{ blog_email }}">{{ blog_email }}</a>
+								</li>
+								<li>
+									<h3>Réseaux sociaux</h3>
+									{% set social_links = theme_config.get("social_links", []) if theme_config is defined else [] %}
+									{% if social_links %}
+									<ul class="icons">
+										{% for item in social_links %}
+											{% if item.url and item.icon %}
+											<li>
+												<a href="{{ item.url|e }}" target="_blank" rel="noopener noreferrer" class="icon brands fa-{{ item.icon|e }}">
+													<span class="label">{{ item.name|e }}</span>
+												</a>
+											</li>
+											{% endif %}
+										{% endfor %}
+									</ul>
+									{% endif %}
+								</li>
+							</ul>
+						</footer>
+					</section>
+					
+				<!-- Copyright -->
+					<div class="copyright"><p>&copy; 2026. A <a href="https://html5up.net">HTML5 UP</a> fork for Nikola by <a href="https://github.com/stephmnt">Stephane Manet</a></p><p><i class="fab fa-python"></i> + <i class="fas fa-mug-hot"></i> + <i class="fas fa-heart"></i> = <i class="fas fa-code"></i></p></div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="{{ site_url }}/assets/js/jquery.min.js"></script>
+			<script src="{{ site_url }}/assets/js/jquery.scrolly.min.js"></script>
+			<script src="{{ site_url }}/assets/js/browser.min.js"></script>
+			<script src="{{ site_url }}/assets/js/breakpoints.min.js"></script>
+			<script src="{{ site_url }}/assets/js/util.js"></script>
+			<script src="{{ site_url }}/assets/js/main.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+			<script>
+			mermaid.initialize({ startOnLoad: true });
+			</script>
+			{% block extra_js %}{% endblock %}
+			{{ body_end }}
+			{{ template_hooks['body_end']() }}
+
+	</body>
+</html>
