@@ -1,0 +1,12 @@
+{% macro read_time() %}
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js">
+    var text = $('.entry-content').text().length;
+    var text_num = read_time/400;
+    var read_time = Math.round(read_time);
+    if(read_time>1){
+            $('#read-time').text('Reading time ~'+read_time+'mins');
+    }else{
+            $('#read-time').text('Reading time ~ 1 min');
+    }
+    </script>
+{% endmacro %}

@@ -1,0 +1,53 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'index_helper.tmpl' as helper with context %}
+{% import 'feeds_translations_helper.tmpl' as feeds_translations with context %}
+{% import 'includes/scripts.tmpl' as scripts with context %}
+{% extends 'base.tmpl' %}
+
+{% block extra_head %}
+    {{ super() }}
+    {% if posts and (permalink == '/' or permalink == '/' + index_file) %}
+        <link rel="prefetch" href="{{ posts[0].permalink() }}" type="text/html">
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% block content_header %}
+    {{ feeds_translations.translation_link(kind) }}
+{% endblock %}
+
+{% if 'main_index' in pagekind %}
+    {{ front_index_header }}
+{% endif %}
+
+<div class="post-title">
+    <h1>{{ title|e }}</h1>
+    <a class="btn zoombtn" href="{{ abs_link(_link("root", None, lang)) }}">
+        <i class="fa fa-home"></i>
+    </a>
+</div>
+<div class="post-list">
+{% for post in posts %}
+    <article class="h-entry post-{{ post.meta('type') }}" itemscope="itemscope" itemtype="http://schema.org/Article">
+    <header>
+        <ul>
+            <li class="wow fadeInLeft" data-wow-duration="1.5s">
+                <a class="zoombtn" href="{{ post.permalink() }}" class="u-url">{{ post.title()|e }}</a>
+                {% if index_teasers %}
+                <p>{{ post.text(teaser_only=True) }}</p>
+                {% else %}
+                <p>{{ post.text(teaser_only=False) }}</p>
+                {% endif %}
+            </li>
+        </ul>
+    </header>
+    </article>
+{% endfor %}
+</div>
+{{ helper.html_pager() }}
+
+{{ scripts.scripts() }}
+<script src="{{ abs_link(_link("root", None, lang)) }}assets/js/wow.min.js"></script>
+<script type="text/javascript">(new WOW).init();</script>
+{% endblock %}
