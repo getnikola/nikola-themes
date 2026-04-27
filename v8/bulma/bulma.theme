@@ -1,0 +1,12 @@
+[Theme]
+engine = mako
+parent = base
+author = Arun Persaud <arun.persaud@gmail.com>
+author_url = https://github.com/arunpersaud/nikola-themes
+license = MIT
+based_on = Bulma <https://bulma.io/>
+tags = bulma
+
+[Family]
+family = bulma
+jinja-version = bulma-jinja
