@@ -1,8 +1,8 @@
 [Theme]
 engine = mako
 parent = base
-author = The Nikola Contributors
-author_url = https://getnikola.com/
+author = Arun Persaud <arun.persaud@gmail.com>
+author_url = https://github.com/arunpersaud/nikola-themes
 license = MIT
 based_on = Bulma <https://bulma.io/>
 tags = bulma
