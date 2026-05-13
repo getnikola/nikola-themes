@@ -1,4 +1,4 @@
-This theme is a port of the [Hyde theme by mdo](http://hyde.getpoole.com/) Everything that's good in it is mdo's fault, everything bad is mine.
+This theme is a port of the [Hyde theme by mdo](https://hyde.getpoole.com/) Everything that's good in it is mdo's fault, everything bad is mine.
 
 It supports one variable set in the config:
 
