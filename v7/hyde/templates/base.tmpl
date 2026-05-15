@@ -15,11 +15,7 @@
     <div class="hsidebar">
         <div class="container sidebar-sticky">
             <div class="sidebar-about">
-              <h1>
-                <a href="{{ abs_link(_link("root", None, lang)) }}">
-                  {{ header.html_site_title() }}
-                </a>
-              </h1>
+            {{ header.html_site_title() }}
             {{ header.html_site_description() }}
             </div>
             {{ header.html_navigation_links() }}
