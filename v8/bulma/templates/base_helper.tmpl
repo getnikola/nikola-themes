@@ -120,7 +120,9 @@ lang="${lang}">
         <link href="/assets/css/rst_base.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/nikola_rst.css" rel="stylesheet" type="text/css">
     %endif
-    %if needs_ipython_css:
+    ## needs_ipython_css is true whenever the ipynb compiler is configured, so
+    ## also check that this page actually renders a notebook.
+    %if needs_ipython_css and uses_compiler('ipynb'):
         <link href="/assets/css/ipython.min.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
     %endif
