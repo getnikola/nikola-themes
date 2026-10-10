@@ -56,17 +56,13 @@ lang="{{ lang }}">
 {% endmacro %}
 
 {% macro late_load_js() %}
-    {% if use_cdn %}
-        <script src="https://cdn.jsdelivr.net/npm/baguettebox.js@1.12.0/dist/baguetteBox.min.js" integrity="sha256-WA9OKXUQ1QSnZUilCTj/BipwtbDJoPDY5qPVgUimzhI=" crossorigin="anonymous"></script>
-    {% endif %}
-    {% if use_bundles and use_cdn %}
-        <script src="/assets/js/all.js"></script>
-    {% elif use_bundles %}
-        <script src="/assets/js/all-nocdn.js"></script>
-    {% else %}
-        {% if not use_cdn %}
+    {% if needs_lightbox()|trim %}
+        {% if use_cdn %}
+            <script src="https://cdn.jsdelivr.net/npm/baguettebox.js@1.12.0/dist/baguetteBox.min.js" integrity="sha256-WA9OKXUQ1QSnZUilCTj/BipwtbDJoPDY5qPVgUimzhI=" crossorigin="anonymous"></script>
+        {% else %}
             <script src="/assets/js/baguetteBox.min.js"></script>
         {% endif %}
+        <script src="/assets/js/lightbox.js"></script>
     {% endif %}
     {% if date_fanciness != 0 %}
         {% if use_cdn %}
@@ -74,17 +70,25 @@ lang="{{ lang }}">
         {% else %}
             <script src="/assets/js/luxon.min.js"></script>
         {% endif %}
-        {% if not use_bundles %}
-            <script src="/assets/js/fancydates.min.js"></script>
-        {% endif %}
+        <script src="/assets/js/fancydates.min.js"></script>
     {% endif %}
     {{ social_buttons_code }}
 {% endmacro %}
 
+{# Outputs "1" if this page has links for the lightbox: a gallery page, or
+   content with Nikola's image-reference links (gallery shortcode, thumbnail
+   directive), or an index page showing such content. Pages without them load
+   no JavaScript at all. #}
+{% macro needs_lightbox() -%}
+    {% if photo_array or (post and 'image-reference' in post.text()) %}1{% else %}
+        {% for p in (posts if posts and 'index' in pagekind|default([]) else [])
+               if 'image-reference' in p.text() %}{% if loop.first %}1{% endif %}{% endfor %}
+    {% endif %}
+{%- endmacro %}
+
 {% macro html_stylesheets() %}
     {% if use_cdn %}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css" integrity="sha256-8nS9TuPxOTQ0d2gLp4LUrfyD6t4rUy0deoHNlC/+WkQ=" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/baguettebox.js@1.12.0/dist/baguetteBox.min.css" integrity="sha256-h+t6BKPqrOZlnadIVwXzgWSNkuSiUqRQ9nbF8UslZM8=" crossorigin="anonymous">
     {% endif %}
     {% if use_bundles and use_cdn %}
         <link href="/assets/css/all.css" rel="stylesheet" type="text/css">
@@ -93,13 +97,19 @@ lang="{{ lang }}">
     {% else %}
         {% if not use_cdn %}
             <link href="/assets/css/bulma.min.css" rel="stylesheet" type="text/css">
-            <link href="/assets/css/baguetteBox.min.css" rel="stylesheet" type="text/css">
         {% endif %}
         <link href="/assets/css/rst.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/code.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/theme.css" rel="stylesheet" type="text/css">
         {% if has_custom_css %}
             <link href="/assets/css/custom.css" rel="stylesheet" type="text/css">
+        {% endif %}
+    {% endif %}
+    {% if needs_lightbox()|trim %}
+        {% if use_cdn %}
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/baguettebox.js@1.12.0/dist/baguetteBox.min.css" integrity="sha256-h+t6BKPqrOZlnadIVwXzgWSNkuSiUqRQ9nbF8UslZM8=" crossorigin="anonymous">
+        {% else %}
+            <link href="/assets/css/baguetteBox.min.css" rel="stylesheet" type="text/css">
         {% endif %}
     {% endif %}
     {% if needs_ipython_css %}
