@@ -63,8 +63,6 @@ def build_demo(theme, themes_dir, demo_source, demo_destination):
     extra_conf = ''
     if extra_conf_path:
         extra_conf = Path(extra_conf_path).read_text(encoding='utf-8')
-    # get_template_engine reads the .theme meta file and falls back to the
-    # old-style engine file, so both kinds of Jinja theme get the Jinja book
     if utils.get_template_engine(themes) == 'jinja':
         shutil.copy('book-jinja.tmpl', demo_source / 'templates' / 'book.tmpl')
 
