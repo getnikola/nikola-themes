@@ -1,6 +1,5 @@
 #!/bin/sh
-git submodule update --init
-git submodule foreach git pull origin master
+set -e
 cd site
 nikola build
 nikola deploy

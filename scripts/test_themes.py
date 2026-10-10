@@ -2,13 +2,9 @@
 
 """Make sanity checks on the provided themes."""
 
-from __future__ import unicode_literals, print_function
-import io
 import filecmp
-import glob
-import os
 import sys
-
+from pathlib import Path
 
 from nikola import utils
 
@@ -21,8 +17,11 @@ def warning(msg):
     print("\x1b[33;1mWARNING:", msg)
 
 
+VERSION_DIRS = ['v8']
+
+
 def theme_list():
-    return sorted(['base', 'base-jinja', 'bootstrap', 'bootstrap-jinja', 'bootstrap3', 'bootstrap3-jinja'] + [theme.split('/')[-1] for theme in glob.glob("v*/*")])
+    return sorted({'base', 'base-jinja', 'bootstrap', 'bootstrap-jinja', 'bootstrap3', 'bootstrap3-jinja'} | {theme.name for theme in Path().glob("v*/*")})
 
 
 def sanity_check(theme=None):
@@ -30,48 +29,61 @@ def sanity_check(theme=None):
         for theme in theme_list():
             sanity_check(theme)
         return
-    themes = utils.get_theme_chain(theme, themes_dirs=['v7', 'v8'])
-    themes_bn = [os.path.basename(i) for i in themes]
+    # Check every copy of the theme (e.g. v7/hyde and v8/hyde), each against
+    # parents from its own version directory
+    theme_dirs = [Path(d, theme) for d in VERSION_DIRS if Path(d, theme).is_dir()]
+    if not theme_dirs:  # built into Nikola
+        check_theme(theme, None)
+    for theme_dir in theme_dirs:
+        check_theme(theme, theme_dir)
+
+
+def check_theme(theme, theme_dir):
+    """Check one theme; theme_dir is None for themes built into Nikola."""
+    themes_dirs = [str(theme_dir.parent)] if theme_dir else VERSION_DIRS
+    themes = utils.get_theme_chain(theme, themes_dirs=themes_dirs)
+    themes_bn = [Path(i).name for i in themes]
     engine = utils.get_template_engine(themes)
+    name = theme_dir.as_posix() if theme_dir else theme
 
     # Inheritance checks
 
     # All themes must inherit from base
     if themes_bn[-1] != 'base':
-        error("theme {0} doesn't inherit from base".format(theme))
+        error(f"theme {name} doesn't inherit from base")
     # All jinja themes must inherit from base-jinja
     if engine == "jinja" and "base-jinja" not in themes_bn:
-        error("theme {0} is jinja-based and doesn't inherit from base-jinja".format(theme))
+        error(f"theme {name} is jinja-based and doesn't inherit from base-jinja")
     # All mako themes must NOT inherit from base-jinja
     if engine == "mako" and "base-jinja" in themes_bn:
-        error("theme {0} is mako-based and inherits from base-jinja".format(theme))
+        error(f"theme {name} is mako-based and inherits from base-jinja")
 
-    # Detect exact asset duplication in theme chain
-    for root, dirs, files in os.walk("v7/"+theme):
-        for f in files:
-            path = "/".join([root, f])
-            asset = path.split("/", 2)[-1]
+    if theme_dir:
+        # Detect exact asset duplication in theme chain
+        for path in theme_dir.rglob("*"):
+            if not path.is_file():
+                continue
+            asset = path.relative_to(theme_dir).as_posix()
             r, p1, p2 = is_asset_duplicated(asset, themes)
             if r:
-                error("duplicated asset: {0} {1}".format(p1, p2))
+                error(f"duplicated asset: {p1} {p2}")
 
-    # Detect deprecated names and anonymous namespaces
-    for root, dirs, files in os.walk("v7/"+theme+"/templates"):
-        for f in files:
-            path = "/".join([root, f])
-            with io.open(path, "r", encoding="utf-8") as inf:
-                data = inf.read()
+        # Detect deprecated names and anonymous namespaces
+        for path in (theme_dir / "templates").rglob("*"):
+            if not path.is_file():
+                continue
+            data = path.read_text(encoding="utf-8")
             for k, exceptions in blacklist:
-                if k in data and f not in exceptions:
-                    error("theme '{0}' contains deprecated name '{1}' in {2}".format(theme, k, path))
+                if k in data and path.name not in exceptions:
+                    error(f"theme '{name}' contains deprecated name '{k}' in {path}")
 
     # Ensure the theme has a README.md
     if utils.get_asset_path('README.md', themes) is None:
-        error("theme '{0}' has no README.md".format(theme))
+        error(f"theme '{name}' has no README.md")
 
     # Ensure the theme has a meta file
     if utils.get_asset_path(theme + '.theme', themes) is None:
-        warning("theme '{0}' has no {0}.theme meta file".format(theme))
+        warning(f"theme '{name}' has no {theme}.theme meta file")
 
 
 def is_asset_duplicated(path, themes):

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright © 2016-2019, Chris Warrick.
 
 # Permission is hereby granted, free of charge, to any
@@ -26,70 +24,64 @@
 
 """Demo and screenshot generation for package indexes."""
 
-from __future__ import unicode_literals
-
-import os
-import sys
-import io
 import json
 import shutil
 import subprocess
-from contextlib import contextmanager
-from nikola.plugin_categories import Task
+import sys
+from contextlib import chdir
+from pathlib import Path
+
 from nikola import utils
+from nikola.plugin_categories import Task
 from PIL import Image
 
-try:
-    from urlparse import urljoin
-except ImportError:
-    from urllib.parse import urljoin  # NOQA
+LOREM_BASE = 'lorem-ipsum.rst'
+IGNORED_SUFFIXES = ('.pyc', '.DS_Store')
 
 
-LOREM_BASE = "lorem-ipsum.rst"
-
-
-@contextmanager
-def cd(path):
-    old_dir = os.getcwd()
-    os.chdir(path)
-    yield
-    os.chdir(old_dir)
+def theme_files(theme_dir):
+    """List the files of a theme, as strings for doit."""
+    return [
+        str(path) for path in Path(theme_dir).rglob('*')
+        if path.is_file() and not path.name.endswith(IGNORED_SUFFIXES) and path.name != '.git'
+    ]
 
 
 def build_demo(theme, themes_dir, demo_source, demo_destination):
-    demo_destination = os.path.abspath(demo_destination)
-    if os.path.isdir(demo_source):
-        shutil.rmtree(demo_source)
-    if os.path.isdir(demo_destination):
-        shutil.rmtree(demo_destination)
-    sys.stderr.write('=> Building {}...\n'.format(theme))
-    subprocess.check_call(["nikola", "init", "-qd", demo_source], stdout=subprocess.PIPE)
-    os.symlink(os.path.abspath(themes_dir), os.path.abspath("/".join([demo_source, "themes"])))
+    demo_source = Path(demo_source)
+    demo_destination = Path(demo_destination).absolute()
+    for path in (demo_source, demo_destination):
+        if path.is_dir():
+            shutil.rmtree(path)
+    sys.stderr.write(f'=> Building {theme}...\n')
+    subprocess.check_call(['nikola', 'init', '-qd', demo_source], stdout=subprocess.PIPE)
+    (demo_source / 'themes').absolute().symlink_to(Path(themes_dir).absolute())
 
-    conf_path = "/".join([demo_source, "conf.py"])
-    book_path = "/".join([demo_source, "templates", "book.tmpl"])
-    lorem_path = "/".join([demo_source, "posts", "lorem-ipsum.rst"])
     # Get custom required settings from the theme
     themes = utils.get_theme_chain(theme, themes_dirs=[themes_dir, 'themes'])
-    engine_path = utils.get_asset_path('engine', themes)
     extra_conf_path = utils.get_asset_path('conf.py.sample', themes)
     extra_conf = ''
     if extra_conf_path:
-        extra_conf = io.open(extra_conf_path, 'r', encoding="utf-8").read()
-    if engine_path:
-        engine = io.open(engine_path, 'r', encoding="utf-8").read().strip()
-        if engine == 'jinja':
-            shutil.copy('book-jinja.tmpl', book_path)
+        extra_conf = Path(extra_conf_path).read_text(encoding='utf-8')
+    if utils.get_template_engine(themes) == 'jinja':
+        shutil.copy('book-jinja.tmpl', demo_source / 'templates' / 'book.tmpl')
 
-    with io.open(conf_path, "a", encoding="utf-8") as conf:
-        conf.write(u"\n\nTHEME = '{0}'\nUSE_BUNDLES = False\nOUTPUT_FOLDER = {1}\nSOCIAL_BUTTONS_CODE = ''\nUSE_BASE_TAG = False\n\n{2}\n".format(theme, json.dumps(demo_destination), extra_conf))
+    with (demo_source / 'conf.py').open('a', encoding='utf-8') as conf:
+        conf.write(
+            f"\n\nTHEME = '{theme}'\n"
+            'USE_BUNDLES = False\n'
+            f'OUTPUT_FOLDER = {json.dumps(str(demo_destination))}\n'
+            "SOCIAL_BUTTONS_CODE = ''\n"
+            'USE_BASE_TAG = False\n'
+            f'\n{extra_conf}\n'
+        )
 
-    shutil.copy(LOREM_BASE, lorem_path)
+    shutil.copy(LOREM_BASE, demo_source / 'posts' / 'lorem-ipsum.rst')
 
-    with cd(demo_source):
-        subprocess.check_call(["nikola", "build"], stdout=subprocess.PIPE)
+    with chdir(demo_source):
+        subprocess.check_call(['nikola', 'build'], stdout=subprocess.PIPE)
 
-    sys.stderr.write('=> Done building {}\n'.format(theme))
+    sys.stderr.write(f'=> Done building {theme}\n')
 
 
 def take_screenshot(index, destination):
@@ -109,7 +101,7 @@ def make_thumbnail(src, dest):
 
 class PackageIndexThemeDS(Task):
     """Generate demos and screenshots for themes."""
-    name = "pkgindex_theme_demo_screenshots"
+    name = 'pkgindex_theme_demo_screenshots'
 
     def gen_tasks(self):
         if 'PKGINDEX_CONFIG' not in self.site.config:
@@ -126,59 +118,28 @@ class PackageIndexThemeDS(Task):
         yield self.group_task()
         self.site.scan_posts()
 
-        demo_deps = {}
-        for dir, posts in self.site.pkgindex_entries.items():
-            demo_deps[dir] = []
+        output_folder = Path(self.kw['output_folder'])
+        for index_dir, posts in self.site.pkgindex_entries.items():
+            index_output = self.kw['pkgindex_dirs'][index_dir][0]
             for post in posts:
-                directory = os.path.dirname(post.source_path)
-                pkg_name = os.path.basename(directory)
-                output_dir = post.folder_relative + '/' + pkg_name
+                directory = Path(post.source_path).parent
+                pkg_name = directory.name
                 version = post.folder_relative.split('v')[-1]
                 if int(version) not in self.kw['pkgindex_config']['build_demos_for']:
                     continue
-                if output_dir in self.kw['pkgindex_config']['demo_screenshots_map']:
+                if f'{post.folder_relative}/{pkg_name}' in self.kw['pkgindex_config']['demo_screenshots_map']:
                     # the map is effectively an ignore list
                     continue
 
-                demo_source = os.path.join(
-                    'demo_sites',
-                    self.kw['pkgindex_dirs'][dir][0],
-                    pkg_name
-                )
-                demo_destination = os.path.join(
-                    self.kw['output_folder'],
-                    self.kw['pkgindex_dirs'][dir][0],
-                    pkg_name, 'demo'
-                )
-                png_destination = os.path.join(
-                    self.kw['output_folder'],
-                    self.kw['pkgindex_dirs'][dir][0],
-                    pkg_name + '.png'
-                )
-                png_thumbnail_destination = os.path.join(
-                    self.kw['output_folder'],
-                    self.kw['pkgindex_dirs'][dir][0],
-                    pkg_name + '.thumbnail.png'
-                )
-
-                index = os.path.join(demo_destination, 'index.html')
-
-                demo_deps[dir].append(demo_destination)
-                # Prefix to slice out from names
-                d = len(directory) - len(pkg_name)
-                zip_files = []
-                file_dep = []
-                # Get list of dependencies and files to zip
-                for root, dirs, files in os.walk(directory):
-                    for file in files:
-                        if file.endswith(('.pyc', '.DS_Store')) or file == '.git':
-                            continue
-                        zip_files.append((os.path.join(root, file),
-                                          os.path.join(root[d:], file)))
-                        file_dep.append(os.path.join(root, file))
+                # doit task names and dependencies are kept as strings
+                demo_source = str(Path('demo_sites') / index_output / pkg_name)
+                demo_destination = str(output_folder / index_output / pkg_name / 'demo')
+                png_destination = str(output_folder / index_output / f'{pkg_name}.png')
+                png_thumbnail_destination = str(output_folder / index_output / f'{pkg_name}.thumbnail.png')
+                index = str(Path(demo_destination) / 'index.html')
 
                 # those are separate variables to avoid cyclic dependencies
-                file_dep += [LOREM_BASE]
+                file_dep = theme_files(directory) + [LOREM_BASE]
                 file_dep_png = file_dep + [index]
 
                 yield utils.apply_filters({
@@ -186,9 +147,9 @@ class PackageIndexThemeDS(Task):
                     'name': demo_destination,
                     'file_dep': file_dep,
                     'targets': [index],
-                    'actions': [(build_demo, (pkg_name, dir, demo_source, demo_destination))],
+                    'actions': [(build_demo, (pkg_name, index_dir, demo_source, demo_destination))],
                     'clean': True,
-                    'uptodate': [utils.config_changed(self.kw, 'pkgindex_demo:' + demo_destination)],
+                    'uptodate': [utils.config_changed(self.kw, f'pkgindex_demo:{demo_destination}')],
                 }, self.kw['filters'])
 
                 yield utils.apply_filters({
@@ -198,7 +159,7 @@ class PackageIndexThemeDS(Task):
                     'targets': [png_destination],
                     'actions': [(take_screenshot, (index, png_destination))],
                     'clean': True,
-                    'uptodate': [utils.config_changed(self.kw, 'pkgindex_screenshot:' + png_destination)],
+                    'uptodate': [utils.config_changed(self.kw, f'pkgindex_screenshot:{png_destination}')],
                 }, self.kw['filters'])
 
                 yield utils.apply_filters({
@@ -208,5 +169,5 @@ class PackageIndexThemeDS(Task):
                     'targets': [png_thumbnail_destination],
                     'actions': [(make_thumbnail, (png_destination, png_thumbnail_destination))],
                     'clean': True,
-                    'uptodate': [utils.config_changed(self.kw, 'pkgindex_screenshot_thumbnail:' + png_destination)],
+                    'uptodate': [utils.config_changed(self.kw, f'pkgindex_screenshot_thumbnail:{png_destination}')],
                 }, self.kw['filters'])
