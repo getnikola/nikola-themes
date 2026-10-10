@@ -72,7 +72,6 @@
 
 {% block extra_js %}
 {% if photo_array %}
-{# A JSON data block instead of an inline script, so the CSP needs no 'unsafe-inline'. #}
 <script id="gallery-data" type="application/json" data-thumbnail-size="{{ thumbnail_size }}">{{ photo_array_json }}</script>
 <script src="/assets/js/justified-layout.min.js"></script>
 <script src="/assets/js/gallery.min.js"></script>

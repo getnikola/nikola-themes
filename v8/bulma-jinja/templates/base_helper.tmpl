@@ -3,7 +3,6 @@
 
 {% macro html_headstart() %}
 <!DOCTYPE html>
-{# Jinja has no line continuation (Mako's trailing backslash), so keep the tag on one line. #}
 <html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#{% if comment_system == 'facebook' %} fb: http://ogp.me/ns/fb#{% endif %}"{% if is_rtl %} dir="rtl"{% endif %} lang="{{ lang }}">
     <head>
     <meta charset="utf-8">
@@ -65,10 +64,6 @@
     {{ social_buttons_code }}
 {% endmacro %}
 
-{# Outputs "1" if this page has links for the lightbox: a gallery page, or
-   content with Nikola's image-reference links (gallery shortcode, thumbnail
-   directive), or an index page showing such content. Pages without them load
-   no JavaScript at all. #}
 {% macro needs_lightbox() -%}
     {% if photo_array or (post and 'image-reference' in post.text()) %}1{% else %}
         {% for p in (posts if posts and 'index' in pagekind|default([]) else [])
@@ -105,17 +100,12 @@
         <link href="/assets/css/rst_base.css" rel="stylesheet">
         <link href="/assets/css/nikola_rst.css" rel="stylesheet">
     {% endif %}
-    {# needs_ipython_css is true whenever the ipynb compiler is configured, so
-       also check that this page actually renders a notebook. #}
     {% if needs_ipython_css and uses_compiler('ipynb')|trim %}
         <link href="/assets/css/ipython.min.css" rel="stylesheet">
         <link href="/assets/css/nikola_ipython.css" rel="stylesheet">
     {% endif %}
 {% endmacro %}
 
-{# Outputs "1" if this page renders a post (or, on an index page, any post)
-   written for the given compiler, so compiler-specific CSS loads only there.
-   Archive and tag pages also get `posts`, but show only titles. #}
 {% macro uses_compiler(name) -%}
     {% if (post and post.compiler.name == name)
           or (posts and 'index' in pagekind|default([])
@@ -130,8 +120,6 @@
     {% for url, text in navigation_links_source[lang] %}
         {% if isinstance(url, tuple) %}
             <div class="navbar-item has-dropdown is-hoverable">
-                {# tabindex makes the label focusable; Bulma then opens the
-                   dropdown via :focus-within, so it works from the keyboard. #}
                 <a class="navbar-link" tabindex="0">{{ text }}</a>
                 <div class="navbar-dropdown">
                 {% for suburl, text in url %}
