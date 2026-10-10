@@ -98,7 +98,6 @@ lang="{{ lang }}">
         {% if not use_cdn %}
             <link href="/assets/css/bulma.min.css" rel="stylesheet" type="text/css">
         {% endif %}
-        <link href="/assets/css/rst.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/code.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/theme.css" rel="stylesheet" type="text/css">
         {% if has_custom_css %}
@@ -112,11 +111,24 @@ lang="{{ lang }}">
             <link href="/assets/css/baguetteBox.min.css" rel="stylesheet" type="text/css">
         {% endif %}
     {% endif %}
+    {% if uses_compiler('rest')|trim %}
+        <link href="/assets/css/rst_base.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/nikola_rst.css" rel="stylesheet" type="text/css">
+    {% endif %}
     {% if needs_ipython_css %}
         <link href="/assets/css/ipython.min.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
     {% endif %}
 {% endmacro %}
+
+{# Outputs "1" if this page renders a post (or, on an index page, any post)
+   written for the given compiler, so compiler-specific CSS loads only there.
+   Archive and tag pages also get `posts`, but show only titles. #}
+{% macro uses_compiler(name) -%}
+    {% if (post and post.compiler.name == name)
+          or (posts and 'index' in pagekind|default([])
+              and name in posts|map(attribute='compiler.name')|list) %}1{% endif %}
+{%- endmacro %}
 
 {% macro html_navigation_links() %}
     {{ html_navigation_links_entries(navigation_links) }}

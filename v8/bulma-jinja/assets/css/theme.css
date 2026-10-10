@@ -208,6 +208,18 @@ pre, pre code {
     overflow-x: auto;
 }
 
+/* Pygments blocks; these spacing rules used to come from nikola_rst.css,
+   which now loads only on reStructuredText pages. */
+div.code,
+pre.code {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+div.code {
+    margin-bottom: 1rem;
+}
+
 /* Table styling */
 .content table {
     width: 100%;

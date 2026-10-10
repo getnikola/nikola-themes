@@ -103,7 +103,6 @@ lang="${lang}">
         %if not use_cdn:
             <link href="/assets/css/bulma.min.css" rel="stylesheet" type="text/css">
         %endif
-        <link href="/assets/css/rst.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/code.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/theme.css" rel="stylesheet" type="text/css">
         %if has_custom_css:
@@ -117,11 +116,27 @@ lang="${lang}">
             <link href="/assets/css/baguetteBox.min.css" rel="stylesheet" type="text/css">
         %endif
     %endif
+    %if uses_compiler('rest'):
+        <link href="/assets/css/rst_base.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/nikola_rst.css" rel="stylesheet" type="text/css">
+    %endif
     %if needs_ipython_css:
         <link href="/assets/css/ipython.min.css" rel="stylesheet" type="text/css">
         <link href="/assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
     %endif
 </%def>
+
+## True if this page renders a post (or, on an index page, any post) written
+## for the given compiler, so compiler-specific CSS loads only there. Archive
+## and tag pages also get `posts`, but show only titles.
+<%def name="uses_compiler(name)"><%
+    post = context.get('post')
+    if post and post.compiler.name == name:
+        return True
+    posts = context.get('posts')
+    return bool(posts and 'index' in (context.get('pagekind') or [])
+                and any(p.compiler.name == name for p in posts))
+%></%def>
 
 <%def name="html_navigation_links()">
     ${html_navigation_links_entries(navigation_links)}
