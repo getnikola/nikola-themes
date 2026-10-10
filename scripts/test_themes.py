@@ -17,7 +17,7 @@ def warning(msg):
     print("\x1b[33;1mWARNING:", msg)
 
 
-VERSION_DIRS = ['v7', 'v8']
+VERSION_DIRS = ['v8']
 
 
 def theme_list():
