@@ -3,18 +3,8 @@
 
 {% macro html_headstart() %}
 <!DOCTYPE html>
-<html \
-prefix='
-og: http://ogp.me/ns# article: http://ogp.me/ns/article#
-{% if comment_system == 'facebook' %}
-fb: http://ogp.me/ns/fb#
-{% endif %}
-'
-{% if is_rtl %}
-dir="rtl"
-{% endif %}
-
-lang="{{ lang }}">
+{# Jinja has no line continuation (Mako's trailing backslash), so keep the tag on one line. #}
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#{% if comment_system == 'facebook' %} fb: http://ogp.me/ns/fb#{% endif %}"{% if is_rtl %} dir="rtl"{% endif %} lang="{{ lang }}">
     <head>
     <meta charset="utf-8">
     {% if description %}
