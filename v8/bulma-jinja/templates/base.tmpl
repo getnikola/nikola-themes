@@ -21,7 +21,7 @@ is-dark
 {% if theme_config.get('navbar_custom_bg') %}
 {{ theme_config['navbar_custom_bg'] }}
 {% endif %}
-" role="navigation" aria-label="main navigation">
+" aria-label="main navigation">
     <div class="container">
         {# The menu toggle is CSS-only: this checkbox opens the menu and turns
            the burger into an X (see theme.css), so no script is needed. #}
@@ -73,15 +73,15 @@ is-dark
 
 <!-- End of Menubar -->
 
-<section class="section">
-    <div class="container" id="content" role="main">
+<main class="section">
+    <div class="container" id="content">
         <!--Body content-->
         {{ template_hooks['page_header']() }}
         {% block extra_header %}{% endblock %}
         {% block content %}{% endblock %}
         <!--End of body content-->
     </div>
-</section>
+</main>
 
 <footer class="footer">
     <div class="container">

@@ -91,35 +91,35 @@ lang="{{ lang }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css" integrity="sha256-8nS9TuPxOTQ0d2gLp4LUrfyD6t4rUy0deoHNlC/+WkQ=" crossorigin="anonymous">
     {% endif %}
     {% if use_bundles and use_cdn %}
-        <link href="/assets/css/all.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/all.css" rel="stylesheet">
     {% elif use_bundles %}
-        <link href="/assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/all-nocdn.css" rel="stylesheet">
     {% else %}
         {% if not use_cdn %}
-            <link href="/assets/css/bulma.min.css" rel="stylesheet" type="text/css">
+            <link href="/assets/css/bulma.min.css" rel="stylesheet">
         {% endif %}
-        <link href="/assets/css/code.css" rel="stylesheet" type="text/css">
-        <link href="/assets/css/theme.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/code.css" rel="stylesheet">
+        <link href="/assets/css/theme.css" rel="stylesheet">
         {% if has_custom_css %}
-            <link href="/assets/css/custom.css" rel="stylesheet" type="text/css">
+            <link href="/assets/css/custom.css" rel="stylesheet">
         {% endif %}
     {% endif %}
     {% if needs_lightbox()|trim %}
         {% if use_cdn %}
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/baguettebox.js@1.12.0/dist/baguetteBox.min.css" integrity="sha256-h+t6BKPqrOZlnadIVwXzgWSNkuSiUqRQ9nbF8UslZM8=" crossorigin="anonymous">
         {% else %}
-            <link href="/assets/css/baguetteBox.min.css" rel="stylesheet" type="text/css">
+            <link href="/assets/css/baguetteBox.min.css" rel="stylesheet">
         {% endif %}
     {% endif %}
     {% if uses_compiler('rest')|trim %}
-        <link href="/assets/css/rst_base.css" rel="stylesheet" type="text/css">
-        <link href="/assets/css/nikola_rst.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/rst_base.css" rel="stylesheet">
+        <link href="/assets/css/nikola_rst.css" rel="stylesheet">
     {% endif %}
     {# needs_ipython_css is true whenever the ipynb compiler is configured, so
        also check that this page actually renders a notebook. #}
     {% if needs_ipython_css and uses_compiler('ipynb')|trim %}
-        <link href="/assets/css/ipython.min.css" rel="stylesheet" type="text/css">
-        <link href="/assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/ipython.min.css" rel="stylesheet">
+        <link href="/assets/css/nikola_ipython.css" rel="stylesheet">
     {% endif %}
 {% endmacro %}
 
