@@ -148,7 +148,9 @@ lang="${lang}">
     %for url, text in navigation_links_source[lang]:
         % if isinstance(url, tuple):
             <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">${text}</a>
+                ## tabindex makes the label focusable; Bulma then opens the
+                ## dropdown via :focus-within, so it works from the keyboard.
+                <a class="navbar-link" tabindex="0">${text}</a>
                 <div class="navbar-dropdown">
                 %for suburl, text in url:
                     % if rel_link(permalink, suburl) == "#":

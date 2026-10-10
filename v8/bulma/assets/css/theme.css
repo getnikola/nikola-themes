@@ -82,6 +82,13 @@ pre, pre code {
     opacity: 0;
 }
 
+/* No burger on desktop, so keep its checkbox out of the tab order there. */
+@media screen and (min-width: 1024px) {
+    .navbar-toggle {
+        display: none;
+    }
+}
+
 .navbar-toggle:focus-visible ~ .navbar-brand .navbar-burger {
     outline: 2px solid currentColor;
     outline-offset: -2px;
