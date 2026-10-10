@@ -5,8 +5,13 @@ Bulma is a CSS-only framework (no JavaScript), which means this theme is lighter
 ## Features
 
 - Clean, modern design
-- Responsive navbar with mobile burger menu
-- CSS-only (minimal JavaScript for navbar toggle)
+- Responsive navbar with mobile burger menu, usable from the keyboard
+- No JavaScript on ordinary pages: the burger menu is CSS-only, and the
+  lightbox and gallery scripts load only on pages that use them
+- No inline scripts or styles, so it works under a Content-Security-Policy
+  without `'unsafe-inline'` (except with `DATE_FANCINESS`, whose setup is
+  still an inline script)
+- reStructuredText and Jupyter CSS load only on pages that need them
 - Bulma 1.0.4 via CDN
 
 ## Configuration
@@ -27,5 +32,5 @@ THEME_CONFIG = {
 This theme uses Bulma's native classes:
 - `.is-active` for active states
 - `.is-sr-only` for screen-reader-only content
-- `.navbar-burger` for mobile menu toggle
+- `.navbar-burger` for mobile menu toggle (as the label of a hidden checkbox)
 - Bulma's `.section`, `.container`, `.columns`, `.column` for layout
