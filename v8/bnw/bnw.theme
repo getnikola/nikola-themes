@@ -1,0 +1,6 @@
+[Theme]
+engine = mako
+parent = base
+author = Mark Wallace
+author_url = https://github.com/lotabout/nikola-bnw
+license = MIT
