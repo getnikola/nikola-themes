@@ -1,0 +1,94 @@
+name: themes.getnikola.com site build
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      clean:
+        description: 'Ignore the cache and rebuild all demos and screenshots'
+        type: boolean
+        default: false
+
+jobs:
+  site:
+    name: Build site with theme demos and screenshots
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+          cache: pip
+          cache-dependency-path: site/site-requirements.txt
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - name: Install OptiPNG
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y optipng
+      - name: Install Nikola and site requirements
+        run: |
+          python -m pip install "Nikola[extras]" -r site/site-requirements.txt
+      - name: Allow Chrome sandbox
+        # Ubuntu 24.04+ blocks the unprivileged user namespaces Chrome's sandbox needs
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+      - name: Install Puppeteer
+        working-directory: site
+        env:
+          # take_screenshot.js uses the Chrome already installed on the runner
+          PUPPETEER_SKIP_DOWNLOAD: 1
+        run: npm ci
+      - name: Compute cache key
+        id: cache-key
+        # Only themes whose files changed are rebuilt (doit tracks this in .doit.db).
+        # A new Nikola release or a change to the site machinery rebuilds everything.
+        env:
+          SITE_HASH: ${{ hashFiles('site/conf.py', 'site/plugins/**', 'site/*.js', 'site/package-lock.json', 'site/book-jinja.tmpl', 'site/lorem-ipsum.rst') }}
+        run: |
+          nikola_version=$(python -c 'import nikola; print(nikola.__version__)')
+          python_version=$(python -c 'import platform; print(platform.python_version())')
+          echo "Using Nikola $nikola_version on Python $python_version"
+          echo "prefix=site-py$python_version-nikola-$nikola_version-$SITE_HASH-" >> "$GITHUB_OUTPUT"
+      - name: Restore build cache
+        if: ${{ !inputs.clean }}
+        uses: actions/cache/restore@v6
+        with:
+          path: |
+            site/output
+            site/.doit.db*
+          key: ${{ steps.cache-key.outputs.prefix }}${{ github.run_id }}
+          restore-keys: |
+            ${{ steps.cache-key.outputs.prefix }}
+      - name: Build site
+        working-directory: site
+        env:
+          NIKOLA_SHOW_TRACEBACKS: 1
+        run: nikola build
+      - name: Save build cache
+        # Pull requests only read the cache, so they cannot pollute it
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: actions/cache/save@v6
+        with:
+          path: |
+            site/output
+            site/.doit.db*
+          key: ${{ steps.cache-key.outputs.prefix }}${{ github.run_id }}
+      - name: Upload built site
+        uses: actions/upload-artifact@v7
+        with:
+          name: themes-site
+          path: site/output
+          retention-days: 14
+      - name: Explain how to view the artifact
+        run: |
+          cat >> "$GITHUB_STEP_SUMMARY" <<'EOF'
+          Download the **themes-site** artifact, unzip it and serve it over HTTP, e.g.
+          `python3 -m http.server -d <unzipped dir>`, then open http://localhost:8000/.
+          Opening the files directly (`file://`) breaks absolute links and the theme side menu.
+          EOF
