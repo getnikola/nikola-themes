@@ -61,6 +61,32 @@ pre, pre code {
     margin-left: 0.5rem;
 }
 
+/* CSS-only burger menu, driven by the #navbar-toggle checkbox in base.tmpl.
+   These mirror Bulma's .is-active rules for the burger and the menu. */
+@media screen and (max-width: 1023px) {
+    .navbar-toggle:checked ~ .navbar-menu {
+        display: block;
+    }
+}
+
+.navbar-toggle:checked ~ .navbar-brand .navbar-burger span:first-child {
+    transform: rotate(-45deg);
+}
+
+.navbar-toggle:checked ~ .navbar-brand .navbar-burger span:nth-child(2) {
+    transform: rotate(45deg);
+}
+
+.navbar-toggle:checked ~ .navbar-brand .navbar-burger span:nth-child(3),
+.navbar-toggle:checked ~ .navbar-brand .navbar-burger span:nth-child(4) {
+    opacity: 0;
+}
+
+.navbar-toggle:focus-visible ~ .navbar-brand .navbar-burger {
+    outline: 2px solid currentColor;
+    outline-offset: -2px;
+}
+
 /* Screen reader only utility (Bulma's .is-sr-only) */
 .is-sr-only {
     position: absolute;

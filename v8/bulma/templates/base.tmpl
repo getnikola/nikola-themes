@@ -23,6 +23,9 @@ ${theme_config['navbar_custom_bg']}
 % endif
 " role="navigation" aria-label="main navigation">
     <div class="container">
+        ## The menu toggle is CSS-only: this checkbox opens the menu and turns
+        ## the burger into an X (see theme.css), so no script is needed.
+        <input type="checkbox" id="navbar-toggle" class="navbar-toggle is-sr-only" aria-label="Menu" aria-controls="bulma-navbar">
         <div class="navbar-brand">
             <a class="navbar-item" href="${_link("root", None, lang)}">
             %if logo_url:
@@ -33,12 +36,12 @@ ${theme_config['navbar_custom_bg']}
             % endif
             </a>
 
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="bulma-navbar">
+            <label for="navbar-toggle" class="navbar-burger">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
-            </a>
+            </label>
         </div>
 
         <div id="bulma-navbar" class="navbar-menu">
@@ -104,20 +107,6 @@ ${base.late_load_js()}
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
         captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
-    </script>
-    <script>
-    // Bulma navbar burger toggle
-    document.addEventListener('DOMContentLoaded', () => {
-        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-        $navbarBurgers.forEach( el => {
-            el.addEventListener('click', () => {
-                const target = el.dataset.target;
-                const $target = document.getElementById(target);
-                el.classList.toggle('is-active');
-                $target.classList.toggle('is-active');
-            });
-        });
-    });
     </script>
 ${body_end}
 ${template_hooks['body_end']()}
