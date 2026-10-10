@@ -59,12 +59,13 @@ def build_demo(theme, themes_dir, demo_source, demo_destination):
 
     # Get custom required settings from the theme
     themes = utils.get_theme_chain(theme, themes_dirs=[themes_dir, 'themes'])
-    engine_path = utils.get_asset_path('engine', themes)
     extra_conf_path = utils.get_asset_path('conf.py.sample', themes)
     extra_conf = ''
     if extra_conf_path:
         extra_conf = Path(extra_conf_path).read_text(encoding='utf-8')
-    if engine_path and Path(engine_path).read_text(encoding='utf-8').strip() == 'jinja':
+    # get_template_engine reads the .theme meta file and falls back to the
+    # old-style engine file, so both kinds of Jinja theme get the Jinja book
+    if utils.get_template_engine(themes) == 'jinja':
         shutil.copy('book-jinja.tmpl', demo_source / 'templates' / 'book.tmpl')
 
     with (demo_source / 'conf.py').open('a', encoding='utf-8') as conf:
