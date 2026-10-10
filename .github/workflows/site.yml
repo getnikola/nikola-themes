@@ -9,6 +9,9 @@ on:
         type: boolean
         default: false
 
+permissions:
+  contents: read
+
 jobs:
   site:
     name: Build site with theme demos and screenshots
@@ -85,6 +88,11 @@ jobs:
           name: themes-site
           path: site/output
           retention-days: 14
+      - name: Upload site for GitHub Pages
+        if: ${{ github.repository == 'getnikola/nikola-themes' && github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site/output
       - name: Explain how to view the artifact
         run: |
           cat >> "$GITHUB_STEP_SUMMARY" <<'EOF'
@@ -92,3 +100,24 @@ jobs:
           `python3 -m http.server -d <unzipped dir>`, then open http://localhost:8000/.
           Opening the files directly (`file://`) breaks absolute links and the theme side menu.
           EOF
+
+  deploy:
+    name: Deploy to GitHub Pages
+    # Only builds of master in the main repository are published; forks and
+    # pull requests just get the downloadable artifact.
+    if: ${{ github.repository == 'getnikola/nikola-themes' && github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
+    needs: site
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5
