@@ -313,3 +313,12 @@ pre, pre code {
     background-color: hsl(204, 86%, 93%);
     border-color: hsl(204, 86%, 80%);
 }
+
+/* Gallery pages (moved out of gallery.tmpl's inline <style>) */
+#gallery_container {
+    position: relative;
+}
+
+.image-block {
+    position: absolute;
+}
