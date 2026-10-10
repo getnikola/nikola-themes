@@ -208,9 +208,10 @@ pre, pre code {
     margin-bottom: 0.5rem;
 }
 
-/* Code block styling */
+/* Code block styling. No background here: Pygments blocks (pre.code) take
+   theirs from code.css, which this rule would otherwise override, and plain
+   <pre> gets Bulma's, which follows the light/dark colour scheme. */
 .content pre {
-    background-color: hsl(0, 0%, 96%);
     padding: 1.25rem 1.5rem;
     overflow-x: auto;
 }
