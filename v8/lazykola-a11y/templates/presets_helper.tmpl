@@ -1,0 +1,180 @@
+## -*- coding: utf-8 -*-
+<%!
+# Invariants every preset entry must honor -- both are contrast requirements
+# that the token system cannot enforce for you:
+#
+# 1. "dark_tokens" must always set "--site-accent". It is never optional. The
+#    base "tokens" accent is chosen to pass contrast on a light page; if
+#    "dark_tokens" omits it, that light-mode accent leaks into dark mode and
+#    will generally fail contrast against the dark background. The same
+#    applies to "--site-accent-hover": every preset below sets it in both
+#    "tokens" and "dark_tokens" for the same reason.
+#
+# 2. "--site-accent-solid" must never be set to a preset's dark-mode
+#    "--site-accent" value. It fills a button solid behind white text, so it
+#    sits on neither side of the light/dark boundary and is deliberately not
+#    overridden in dark mode -- it has to stay dark enough for white text at
+#    all times. Every preset below sets it to the same light-mode-safe value
+#    as its base "--site-accent"; follow that pattern.
+PRESETS = {
+    "portfolio": {
+        "label": "Portfolio",
+        "scenario": "For individual creatives and professionals showcasing their own work.",
+        # Rounded corners + generous spacing read as personal/current; violet
+        # carries a long-standing association with imagination and craft.
+        "description": (
+            "The corners of every card and button are noticeably rounded, "
+            "closer to a smartphone's edge than a sharp picture frame. "
+            "There's generous room around each item, like artwork spaced "
+            "out on a gallery wall rather than packed onto a shelf. The "
+            "accent color used on every link and button is violet, a color "
+            "that's carried an association with imagination and craft for "
+            "a long time, part of why design studios and creative agencies "
+            "reach for it. It fits someone putting their own personal work "
+            "on display."
+        ),
+        "tokens": {
+            "--site-accent": "#5540d6",
+            "--site-accent-hover": "#3d2e9a",
+            "--site-accent-solid": "#5540d6",
+            "--site-radius": "0.5rem",
+        },
+        "dark_tokens": {
+            "--site-accent": "#b4a5fb",
+            "--site-accent-hover": "#cdc3fc",
+        },
+        "attrs": {},
+    },
+    "business": {
+        "label": "Professional Business Site",
+        "scenario": "For companies, consultancies, and formal organizational sites.",
+        # Sharp corners + compact spacing + flat cards read as efficient and
+        # buttoned-up; blue is the default "trustworthy institution" color.
+        "description": (
+            "Corners are sharp, almost square, with barely any rounding, "
+            "and there's less open space between elements than in the "
+            "other presets, more like a tightly formatted business letter "
+            "than a spread-out brochure. Cards lose their traceable edge "
+            "entirely, just a very faint shift in shade from the page "
+            "around them, like a page in a notebook rather than a card "
+            "pulled out of a stack. The accent color is a clear, "
+            "restrained blue. Blue has become something like a default "
+            "color for institutions that want to seem dependable and calm "
+            "rather than exciting, which is why you'll see it used by so "
+            "many banks, insurers, and established companies. It's a safe, "
+            "well-tested choice for a site that needs to be taken "
+            "seriously."
+        ),
+        "tokens": {
+            "--site-accent": "#1d4ed8",
+            "--site-accent-hover": "#15389c",
+            "--site-accent-solid": "#1d4ed8",
+            "--site-radius": "0.125rem",
+        },
+        "dark_tokens": {
+            "--site-accent": "#93b7f9",
+            "--site-accent-hover": "#b7cffb",
+        },
+        "attrs": {
+            "data-density": "compact",
+            "data-card-style": "flat",
+        },
+    },
+    "blog": {
+        "label": "Personal Blog",
+        "scenario": "For a writing-first, editorial, personality-forward site.",
+        # Serif heading over sans body is a centuries-old editorial pairing;
+        # terracotta is warm rather than corporate.
+        "description": (
+            "Headings are set in a typeface with small decorative strokes "
+            "at the end of each letter, called a serif, while the rest of "
+            "the text stays in a plain, unadorned typeface for easy "
+            "reading. That contrast, an ornamented heading over plain body "
+            "text, is the same choice newspapers and printed books have "
+            "used for centuries, because it reads as considered and "
+            "literary without slowing the actual reading down. The accent "
+            "color is a warm, reddish orange, the color of sun-baked clay "
+            "or a terracotta flowerpot. It's warm rather than corporate, "
+            "which suits a site that's about one person's voice rather "
+            "than an organization."
+        ),
+        "tokens": {
+            "--site-accent": "#b8460e",
+            "--site-accent-hover": "#84320a",
+            "--site-accent-solid": "#b8460e",
+            "--site-radius": "0.375rem",
+            "--site-font-heading": "Georgia, 'Times New Roman', Times, serif",
+        },
+        "dark_tokens": {
+            "--site-accent": "#fb923c",
+            "--site-accent-hover": "#fcb67c",
+        },
+        "attrs": {},
+    },
+    "docs": {
+        "label": "Documentation / Technical",
+        "scenario": "For docs sites, project pages, and technical reference material.",
+        # Sharp + compact + flat, same reasoning as business, but teal is
+        # the developer-tool convention instead of corporate blue.
+        "description": (
+            "Corners are sharp and spacing is tight, the same as the "
+            "business preset, because someone reading documentation is "
+            "usually scanning for one specific answer rather than settling "
+            "in, and tighter spacing fits more reference material on "
+            "screen. Cards have no traceable edge or shadow either, just a "
+            "faint shift in shade from the page, keeping the focus on the "
+            "content instead of the container. The accent color is teal, a "
+            "blue-green that shows up constantly in programming tools, "
+            "terminal color schemes, code editors, API documentation, "
+            "because it stays calm and easy to read against both very "
+            "light and very dark backgrounds, and doesn't clash with the "
+            "colors already used to highlight code. It's a color chosen by "
+            "developers, for developers."
+        ),
+        "tokens": {
+            "--site-accent": "#0f766e",
+            "--site-accent-hover": "#0b554f",
+            "--site-accent-solid": "#0f766e",
+            "--site-radius": "0.125rem",
+        },
+        "dark_tokens": {
+            "--site-accent": "#5eead4",
+            "--site-accent-hover": "#93f1e2",
+        },
+        "attrs": {
+            "data-density": "compact",
+            "data-card-style": "flat",
+        },
+    },
+    "community": {
+        "label": "Community / Nonprofit",
+        "scenario": "For community groups, nonprofits, and volunteer-run organizations.",
+        # Heavily rounded + shadowed cards feel like an invitation; green is
+        # the near-universal shorthand for growth/community.
+        "description": (
+            "Corners are the roundest of any preset, and every card looks "
+            "like it's gently resting on top of the page rather than "
+            "painted flat onto it, similar to a coin sitting on a table "
+            "rather than a pattern printed directly onto it. The accent "
+            "color is green, one of the most widely recognized colors for "
+            "growth, nature, and community, the same association behind a "
+            "plant, a \"go\" traffic light, or the branding of "
+            "environmental and community groups. The overall effect aims "
+            "to feel like an invitation rather than a formal announcement."
+        ),
+        "tokens": {
+            "--site-accent": "#15803d",
+            "--site-accent-hover": "#0f5c2c",
+            "--site-accent-solid": "#15803d",
+            "--site-radius": "0.75rem",
+        },
+        "dark_tokens": {
+            "--site-accent": "#4ade80",
+            "--site-accent-hover": "#86e9aa",
+        },
+        "attrs": {
+            "data-card-style": "shadowed",
+        },
+    },
+}
+%>

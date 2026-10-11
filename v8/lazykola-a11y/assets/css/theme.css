@@ -1,0 +1,392 @@
+img {
+    max-width: 100%;
+}
+
+.titlebox {
+    text-align: right;
+}
+
+
+td.label {
+    /* Issue #290 */
+    background-color: inherit;
+}
+
+.footnote-reference {
+    /* Issue 290 */
+    vertical-align: super;
+    font-size: xx-small;
+}
+
+.caption {
+    /* Issue 292 */
+    text-align: center;
+    padding-top: 1em;
+}
+
+div.figure > img,
+div.figure > a > img {
+    /* Issue 292 */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+blockquote p, blockquote {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.25;
+}
+
+ul.bricks > li {
+    display: inline;
+    background-color: lightblue;
+    padding: 8px;
+    border-radius: 5px;
+    line-height: 3;
+    white-space:nowrap;
+    margin: 3px;
+}
+
+pre, pre code {
+    white-space: pre;
+    word-wrap: normal;
+    overflow: auto;
+}
+
+article.post-micro {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.5em;
+}
+
+/* Opt back out of the h1-h6 --site-font-heading rule below: post-micro's
+   Georgia treatment above relies on inheritance, but the h1-h6 rule's
+   declared value wins over inherited Georgia for any heading rendered
+   inside a micro post (see templates/post_header.tmpl). */
+article.post-micro h1,
+article.post-micro h2,
+article.post-micro h3,
+article.post-micro h4,
+article.post-micro h5,
+article.post-micro h6 {
+    font-family: inherit;
+}
+
+.image-block {
+    display: inline-block;
+}
+
+.tags {
+    padding-left: 0;
+    margin-left: -5px;
+    list-style: none;
+    text-align: center;
+
+}
+
+.tags > li {
+    display: inline-block;
+}
+.tags > li a {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: var(--site-radius);
+    background-color: #6c757d; /* was #868e96: 3.32:1, fails WCAG AA at this size */
+}
+
+.tags > li a:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #5a6268;
+}
+
+.metadata p:before,
+.postlist .listdate:after {
+    content: " — ";
+}
+
+.metadata p:first-of-type:before {
+    content: "";
+}
+
+.metadata p {
+    display: inline;
+}
+
+.posttranslations h3 {
+    display: inline;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.posttranslations h3:last-child {
+    display: none;
+}
+
+.entry-content {
+    margin-top: 1em;
+}
+
+/* for alignment with Bootstrap's .entry-content styling */
+.entry-summary {
+    margin-top: 1em;
+}
+
+/* Custom page footer */
+#footer {
+    padding-top: 19px;
+    color: #767676; /* was #777: 4.48:1, fails WCAG AA by a hair */
+    border-top: 1px solid #e5e5e5;
+}
+
+/* WCAG AA fixes for Bootstrap 4 defaults */
+
+/* Design-preset tokens. Defaults below match the theme's current look
+   exactly -- a site with no THEME_CONFIG["PRESET"] set renders identically
+   to before these tokens existed. */
+:root {
+    --site-accent: #0056b3;
+    --site-accent-hover: #003d82;
+    --site-accent-solid: #0056b3;
+    /* Byte-for-byte Bootstrap 4.6's own $font-family-sans-serif, so that with
+       no preset active these tokens resolve to exactly the stack Bootstrap
+       already applies to <body> and the font rules below are a no-op. */
+    --site-font-heading: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --site-font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --site-radius: 0.25rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --site-accent: #6ea8fe;
+        --site-accent-hover: #9ec5fe;
+    }
+}
+
+/* Apply the font tokens. Bootstrap sets font-family only on <body>; headings
+   inherit it, so mirroring that with an explicit heading rule (whose default
+   token value is the same stack) changes nothing until a preset overrides
+   --site-font-heading. */
+body {
+    font-family: var(--site-font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--site-font-heading);
+}
+
+/* Bootstrap's default link color (#007bff) is only 3.98:1 on white, below the
+   4.5:1 AA minimum for normal text. This darker shade is Bootstrap's own
+   a:hover color, so it stays on-brand. Applied globally and then explicitly
+   undone below for UI chrome (nav, buttons, badges, pager, brand) that isn't
+   a link embedded in running text. */
+a {
+    color: var(--site-accent);
+    text-decoration: underline;
+}
+
+a:hover, a:focus {
+    color: var(--site-accent-hover);
+}
+
+/* These are boxed/filled or clearly-navigational UI elements, not links
+   embedded in body text, so WCAG 1.4.1's "not by color alone" concern
+   doesn't apply and they keep their own existing styling untouched. */
+.navbar-brand,
+.nav-link,
+.tags > li a,
+ul.pager li a,
+.lazykola-comment-link {
+    text-decoration: none;
+}
+
+/* Bootstrap's default navbar-dark nav-link color (rgba(255,255,255,.5) on
+   #343a40) is only 4.22:1, below the 4.5:1 AA minimum. */
+.navbar-dark .navbar-nav .nav-link {
+    color: #bfc2c5;
+}
+
+/* hat tip bootstrap/html5 boilerplate */
+@media print {
+    *, *:before, *:after {
+        font-family: Garamond, Junicode, serif;
+    }
+
+    /* The h1-h6 --site-font-heading rule above shares this rule's
+       (0,0,1) specificity with the universal selector's (0,0,0), so on
+       its own the universal rule loses to it for headings even during
+       print. This selector matches the offending rule's specificity
+       exactly; since it is declared later in the stylesheet (this
+       @media print block comes after the h1-h6 rule), equal-specificity
+       cascade order lets it win without needing !important. */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: Garamond, Junicode, serif;
+    }
+
+    body {
+        font-size: 12pt;
+    }
+
+    article .entry-title a[href]:after,
+    article .metadata a[href]:after,
+    article .tags a[href]:after {
+        content: "";
+    }
+
+    article .metadata .sourceline {
+        display: none;
+    }
+
+    article .metadata .linkline a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    .navbar {
+        display: none;
+    }
+}
+
+pre, .codetable {
+    border: 1px solid #ccc;
+    border-radius: var(--site-radius);
+    margin-bottom: 1rem;
+}
+
+pre {
+    padding: 0.75rem;
+}
+
+.codetable tr:first-child td.linenos {
+    border-top-left-radius: var(--site-radius);
+}
+
+.codetable tr:last-child td.linenos {
+    border-bottom-left-radius: var(--site-radius);
+}
+
+.postindexpager {
+    padding-bottom: 1rem;
+}
+
+ul.navbar-nav {
+    margin-top: 0;
+}
+
+ul.pager {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: var(--site-radius);
+    padding-left: 0;
+    margin: 0.5rem 0;
+}
+
+ul.pager li.previous {
+    margin-right: auto;
+    display: inline;
+}
+
+ul.pager li.next {
+    margin-left: auto;
+    display: inline;
+}
+
+
+ul.pager li a {
+    display: inline;
+    position: relative;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    border: 1px solid #ddd;
+    border-radius: var(--site-radius);
+}
+
+pre.code {
+    white-space: pre-wrap;
+}
+
+.byline a:not(:last-child):after {
+    content: ",";
+}
+
+/* Override incorrect Bootstrap 4 default */
+html[dir="rtl"] body {
+    text-align: right;
+}
+
+/* Set a minimum logo height to ensure .svg are displayed if there is no brand text (#3493) */
+#logo {
+    min-height: 25px;
+}
+
+/* The site brand is the page's real <h1>; reset it so it stays visually
+   identical to a plain .navbar-brand link -- only its semantics change. */
+.navbar-brand-heading {
+    margin: 0;
+    font-size: inherit;
+    /* Opt back out of the h1-h6 --site-font-heading rule above: this element
+       is an <h1> only for semantics, so a preset's heading typeface must not
+       restyle the navbar brand. */
+    font-family: inherit;
+    line-height: inherit;
+    display: inline-block;
+}
+
+/* Dark mode, following the visitor's OS/browser preference. The navbar's own
+   light/dark styling (THEME_CONFIG's navbar_light) is a separate, explicit
+   site-owner choice and is left untouched here. */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #e4e4e4;
+    }
+
+    a {
+        color: var(--site-accent);
+    }
+
+    #footer {
+        color: #a0a0a0;
+        border-top-color: #333;
+    }
+
+    ul.pager li a {
+        border-color: #444;
+    }
+}
+
+/* Design-preset density and card-style overrides. Both are no-ops unless
+   a preset sets the matching data-* attribute on <body>. Scoped to the
+   theme's own custom surfaces only -- not a full Bootstrap retheme. */
+[data-density="compact"] .lk-comment-card {
+    padding: 0.85rem;
+}
+
+/* .codetable is deliberately not listed here: it has no padding of its own in
+   the normal density, so naming it would *add* padding rather than reduce it. */
+[data-density="compact"] pre {
+    padding: 0.5rem;
+}
+
+[data-card-style="flat"] .lk-comment-card {
+    border: none;
+}
+
+[data-card-style="shadowed"] .lk-comment-card {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+    [data-card-style="shadowed"] .lk-comment-card {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+}

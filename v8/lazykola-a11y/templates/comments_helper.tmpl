@@ -1,0 +1,729 @@
+## -*- coding: utf-8 -*-
+
+<%def name="comment_form(url, title, identifier)">
+    % if comment_system == 'lazykola':
+        <div id="lazykola-comments-wrapper" class="lazykola-comments-theme" data-url="${url}" data-title="${title}">
+            <h3 class="comments-heading" id="comments-heading">Discussion</h3>
+            
+            <!-- Live Announcement for screen readers -->
+            <div id="lk-sr-announcer" class="sr-only" role="status" aria-live="polite"></div>
+
+            <!-- Comments List -->
+            <div id="lazykola-comments-list" aria-describedby="comments-heading">
+                <p class="lk-loading">Loading comments...</p>
+            </div>
+
+            <!-- Reply / Post Form Container -->
+            <div id="lazykola-comment-form-container">
+                <h3 class="reply-heading" id="lk-reply-heading">Leave a comment</h3>
+                <form id="lazykola-comment-form" class="lk-form" novalidate>
+                    <!-- Honeypot to catch automated spam bots. Hidden visually and from screen readers -->
+                    <div style="display: none;" aria-hidden="true">
+                        <input type="text" name="website_url" id="lk-honeypot" tabindex="-1" autocomplete="off" />
+                    </div>
+
+                    <div class="lk-form-grid">
+                        <div class="lk-form-group">
+                            <label for="lk-name">Name <span class="required" aria-hidden="true">*</span></label>
+                            <input type="text" id="lk-name" name="author_name" required placeholder="e.g. Jane Doe" autocomplete="name" />
+                        </div>
+
+                        <div class="lk-form-group">
+                            <label for="lk-email">Email <span class="required" aria-hidden="true">*</span> <span class="label-help">(Never published, used for Gravatar)</span></label>
+                            <input type="email" id="lk-email" name="author_email" required placeholder="name@example.com" autocomplete="email" />
+                        </div>
+
+                        <div class="lk-form-group lk-full-width">
+                            <label for="lk-website">Website <span class="label-help">(Optional)</span></label>
+                            <input type="url" id="lk-website" name="author_website" placeholder="https://example.com" autocomplete="url" />
+                        </div>
+                    </div>
+
+                    <div class="lk-form-group">
+                        <label for="lk-comment">Comment <span class="required" aria-hidden="true">*</span></label>
+                        <textarea id="lk-comment" name="content" required placeholder="Share your thoughts..." rows="6"></textarea>
+                    </div>
+
+                    <input type="hidden" name="parent_id" id="lk-parent-id" value="" />
+
+                    <!-- Turnstile spam protection if key is set -->
+                    % if theme_config.get('comment_turnstile_site_key'):
+                        <div class="lk-form-group">
+                            <div class="cf-turnstile" data-sitekey="${theme_config['comment_turnstile_site_key']}" data-theme="auto" data-callback="lkTurnstileCallback"></div>
+                        </div>
+                        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+                    % endif
+
+                    <div id="lk-form-message" role="alert"></div>
+
+                    <div class="lk-form-actions">
+                        <button type="submit" id="lk-submit-btn">Post Comment</button>
+                        <button type="button" id="lk-cancel-reply-btn" style="display: none;">Cancel Reply</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <style>
+            :root {
+              --lk-bg-card: rgba(128, 128, 128, 0.05);
+              --lk-border: rgba(128, 128, 128, 0.15);
+              /* Text/border/outline accent (against the page background).
+                 Buttons that fill this color solid behind white text use
+                 --lk-accent-solid instead, since that's a different contrast
+                 pairing (white-on-fill, not accent-on-page) with its own
+                 requirement that doesn't change between light and dark. */
+              --lk-border-focus: var(--site-accent, #4f46e5);
+              --lk-accent-hover: #4338ca;
+              --lk-accent-solid: var(--site-accent-solid, #4f46e5);
+              --lk-accent-solid-hover: #4338ca;
+              --lk-text-muted: #6b7280;
+              /* #10b981/#ef4444 only hit 2.54:1/3.76:1 as text on white, both
+                 under the 4.5:1 AA minimum -- darker shades pass comfortably
+                 while still reading as green/red. Both original values pass
+                 fine on the #121212 dark page background, so they're restored
+                 there instead of also being darkened. */
+              --lk-success: #047857;
+              --lk-error: #dc2626;
+            }
+
+            /* Dark-mode contrast corrections for the two literal colors below:
+               the light-mode --lk-accent-hover (#4338ca) only hits 2.37:1 as
+               text on the #121212 dark page background and --lk-text-muted
+               (#6b7280) only 3.88:1, both under the 4.5:1 AA minimum.
+               --lk-border-focus needs no correction of its own -- it resolves
+               to --site-accent, which already carries a dark-mode value in
+               theme.css; only its standalone fallback is restated here, for
+               the case where theme.css isn't present. */
+            @media (prefers-color-scheme: dark) {
+              :root {
+                --lk-border-focus: var(--site-accent, #818cf8);
+                --lk-accent-hover: #a5b4fc;
+                --lk-text-muted: #9ca3af;
+                --lk-success: #10b981;
+                --lk-error: #ef4444;
+              }
+            }
+
+            #lazykola-comments-wrapper {
+              margin-top: 3rem;
+              font-family: inherit;
+            }
+
+            .comments-heading, .reply-heading {
+              font-family: var(--font-title, inherit);
+              font-weight: 700;
+              margin-bottom: 1.5rem;
+              border-bottom: 2px solid var(--lk-border);
+              padding-bottom: 0.5rem;
+            }
+
+            .lk-loading {
+              color: var(--lk-text-muted);
+              font-style: italic;
+              margin-bottom: 2rem;
+            }
+
+            /* Comment Thread Styling */
+            .lk-thread {
+              list-style: none;
+              padding-left: 0;
+              margin-bottom: 2rem;
+            }
+
+            .lk-thread .lk-thread {
+              padding-left: 1.5rem;
+              border-left: 2px solid var(--lk-border);
+              margin-top: 1rem;
+              margin-bottom: 0;
+            }
+
+            .lk-comment-card {
+              background-color: var(--lk-bg-card);
+              border: 1px solid var(--lk-border);
+              border-radius: calc(var(--site-radius) * 3);
+              padding: 1.25rem;
+              margin-bottom: 1rem;
+              transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            .lk-comment-card:hover {
+              border-color: rgba(79, 70, 229, 0.3);
+              box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            }
+
+            .lk-comment-header {
+              display: flex;
+              align-items: center;
+              gap: 0.75rem;
+              margin-bottom: 0.75rem;
+              flex-wrap: wrap;
+            }
+
+            .lk-avatar {
+              width: 44px;
+              height: 44px;
+              border-radius: 50%;
+              border: 1px solid var(--lk-border);
+              background-color: rgba(128,128,128,0.1);
+            }
+
+            .lk-comment-meta {
+              display: flex;
+              flex-direction: column;
+            }
+
+            .lk-comment-author {
+              font-weight: 600;
+              color: inherit;
+              text-decoration: none;
+            }
+
+            .lk-comment-author:hover[href] {
+              text-decoration: underline;
+              color: var(--lk-border-focus);
+            }
+
+            .lk-comment-time {
+              font-size: 0.8rem;
+              color: var(--lk-text-muted);
+            }
+
+            .lk-comment-body {
+              font-size: 0.95rem;
+              line-height: 1.6;
+              white-space: pre-wrap;
+              margin-bottom: 1rem;
+            }
+
+            .lk-comment-actions {
+              display: flex;
+              gap: 0.5rem;
+            }
+
+            /* Bootstrap's reboot sets -webkit-appearance: button on every raw
+               <button>; without overriding it back to none, some browsers
+               fall back to native widget theming for color/background
+               instead of respecting these custom styles. */
+            .lk-btn-reply,
+            .lk-expand-replies,
+            #lk-submit-btn,
+            #lk-cancel-reply-btn {
+              appearance: none;
+              -webkit-appearance: none;
+            }
+
+            .lk-btn-reply {
+              background: none;
+              border: 1px solid var(--lk-border);
+              border-radius: calc(var(--site-radius) * 1.5);
+              padding: 0.3rem 0.8rem;
+              font-size: 0.85rem;
+              font-weight: 600;
+              cursor: pointer;
+              transition: all 0.2s ease;
+              color: inherit;
+            }
+
+            .lk-btn-reply:hover, .lk-btn-reply:focus {
+              background-color: var(--lk-accent-solid);
+              color: white;
+              border-color: var(--lk-border-focus);
+            }
+
+            .lk-btn-reply:focus {
+              outline: 2px solid var(--lk-border-focus);
+              outline-offset: 2px;
+            }
+
+            .lk-comment-removed {
+              font-style: italic;
+              color: var(--lk-text-muted);
+            }
+
+            .lk-expand-replies {
+              display: inline-block;
+              background: none;
+              border: none;
+              padding: 0.3rem 0;
+              margin: 0.25rem 0 1rem 0;
+              font-size: 0.85rem;
+              font-weight: 600;
+              color: var(--lk-border-focus);
+              cursor: pointer;
+              text-decoration: underline;
+            }
+
+            .lk-expand-replies:hover {
+              color: var(--lk-accent-hover);
+            }
+
+            .lk-expand-replies:focus {
+              color: var(--lk-accent-hover);
+              outline: 2px solid var(--lk-border-focus);
+              outline-offset: 2px;
+              border-radius: var(--site-radius);
+            }
+
+            /* Form Styling */
+            .lk-form {
+              display: flex;
+              flex-direction: column;
+              gap: 1.25rem;
+              background-color: var(--lk-bg-card);
+              border: 1px solid var(--lk-border);
+              padding: 1.5rem;
+              border-radius: calc(var(--site-radius) * 4);
+            }
+
+            .lk-form-grid {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 1.25rem;
+            }
+
+            .lk-full-width {
+              grid-column: span 2;
+            }
+
+            .lk-form-group {
+              display: flex;
+              flex-direction: column;
+              gap: 0.4rem;
+            }
+
+            .lk-form-group label {
+              font-size: 0.9rem;
+              font-weight: 600;
+            }
+
+            .lk-form-group .required {
+              color: var(--lk-error);
+            }
+
+            .lk-form-group .label-help {
+              font-size: 0.8rem;
+              color: var(--lk-text-muted);
+              font-weight: normal;
+            }
+
+            .lk-form-group input, .lk-form-group textarea {
+              background-color: rgba(255, 255, 255, 0.05);
+              border: 1px solid var(--lk-border);
+              border-radius: calc(var(--site-radius) * 2);
+              padding: 0.6rem 0.8rem;
+              color: inherit;
+              font-family: inherit;
+              transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            .lk-form-group input:focus, .lk-form-group textarea:focus {
+              outline: none;
+              border-color: var(--lk-border-focus);
+              /* Two declarations on purpose: the second wins where color-mix()
+                 is supported (so the focus glow follows the active accent),
+                 and is dropped as an invalid value everywhere else, leaving
+                 the static indigo glow from the first declaration in place. */
+              box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+              box-shadow: 0 0 0 3px color-mix(in srgb, var(--lk-border-focus) 15%, transparent);
+            }
+
+            .lk-form-actions {
+              display: flex;
+              gap: 0.75rem;
+            }
+
+            .lk-form-actions button {
+              padding: 0.6rem 1.5rem;
+              border-radius: calc(var(--site-radius) * 2);
+              font-weight: 600;
+              cursor: pointer;
+              transition: all 0.2s ease;
+            }
+
+            #lk-submit-btn {
+              background-color: var(--lk-accent-solid);
+              color: white;
+              border: none;
+            }
+
+            /* Same two-declaration pattern as the focus glow above: the static
+               indigo hover is the fallback, and where color-mix() is supported
+               the hover shade is derived from whatever --lk-accent-solid
+               currently is, so a preset's button doesn't turn indigo on hover.
+               Mixing toward black only ever darkens it, so the white button
+               label's contrast can only improve over the base fill. */
+            #lk-submit-btn:hover, #lk-submit-btn:focus {
+              background-color: var(--lk-accent-solid-hover);
+              background-color: color-mix(in srgb, var(--lk-accent-solid) 82%, black);
+            }
+
+            #lk-submit-btn:focus {
+              outline: 2px solid var(--lk-border-focus);
+              outline-offset: 2px;
+            }
+
+            #lk-submit-btn:disabled {
+              opacity: 0.6;
+              cursor: not-allowed;
+            }
+
+            #lk-cancel-reply-btn {
+              background-color: transparent;
+              border: 1px solid var(--lk-border);
+              color: inherit;
+            }
+
+            #lk-cancel-reply-btn:hover {
+              background-color: rgba(128,128,128,0.1);
+            }
+
+            #lk-form-message {
+              padding: 0.75rem 1rem;
+              border-radius: calc(var(--site-radius) * 2);
+              font-size: 0.9rem;
+              display: none;
+            }
+
+            #lk-form-message.success {
+              display: block;
+              background-color: rgba(16, 185, 129, 0.15);
+              color: var(--lk-success);
+              border: 1px solid rgba(16, 185, 129, 0.3);
+            }
+
+            #lk-form-message.error {
+              display: block;
+              background-color: rgba(239, 68, 68, 0.15);
+              color: var(--lk-error);
+              border: 1px solid rgba(239, 68, 68, 0.3);
+            }
+
+            @media (max-width: 640px) {
+              .lk-form-grid {
+                grid-template-columns: 1fr;
+              }
+              .lk-full-width {
+                grid-column: span 1;
+              }
+              .lk-thread .lk-thread {
+                padding-left: 0.75rem;
+              }
+            }
+        </style>
+
+        <script>
+            (function() {
+              const workerUrl = "${comment_system_id}";
+              <%text>
+              const postUrl = window.location.href.split('?')[0].split('#')[0];
+              const form = document.getElementById('lazykola-comment-form');
+              const messageEl = document.getElementById('lk-form-message');
+              const announcer = document.getElementById('lk-sr-announcer');
+              const submitBtn = document.getElementById('lk-submit-btn');
+              const cancelReplyBtn = document.getElementById('lk-cancel-reply-btn');
+              const parentIdInput = document.getElementById('lk-parent-id');
+              const replyHeading = document.getElementById('lk-reply-heading');
+
+              let commentsData = [];
+              let turnstileToken = '';
+
+              // Turnstile integration callback
+              window.lkTurnstileCallback = function(token) {
+                turnstileToken = token;
+              };
+
+              // Fetch comments on load
+              async function fetchComments() {
+                const listContainer = document.getElementById('lazykola-comments-list');
+                try {
+                  const res = await fetch(`${workerUrl}/comments?post_url=${encodeURIComponent(postUrl)}`);
+                  if (!res.ok) throw new Error('Could not retrieve comments');
+                  commentsData = await res.json();
+                  renderComments();
+                } catch (e) {
+                  listContainer.innerHTML = `<p class="lk-loading" style="color: var(--lk-error);">Error: Failed to load comments.</p>`;
+                }
+              }
+
+              // Build structured nested list
+              function buildTree(list) {
+                const map = {};
+                const roots = [];
+                list.forEach(c => {
+                  map[c.id] = { ...c, children: [] };
+                });
+                list.forEach(c => {
+                  if (c.parent_id && map[c.parent_id]) {
+                    map[c.parent_id].children.push(map[c.id]);
+                  } else {
+                    roots.push(map[c.id]);
+                  }
+                });
+                return roots;
+              }
+
+              // Escape user HTML to prevent XSS
+              function escapeHtml(str) {
+                if (!str) return '';
+                return str
+                  .replace(/&/g, "&amp;")
+                  .replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;")
+                  .replace(/"/g, "&quot;")
+                  .replace(/'/g, "&#039;");
+              }
+
+              // Threads deeper than this collapse behind a "Show more replies" toggle instead of nesting further
+              const VISIBLE_THREAD_DEPTH = 3;
+
+              // Total number of replies (direct + nested) under a comment node
+              function countDescendants(node) {
+                return node.children.reduce((sum, child) => sum + 1 + countDescendants(child), 0);
+              }
+
+              // HTML template render for comment node recursively. `pastCollapseBoundary` is true once
+              // a "Show more replies" toggle has already been introduced higher up this branch, so
+              // everything beneath it renders normally in one reveal instead of nesting more toggles.
+              function renderCommentNode(c, depth, pastCollapseBoundary) {
+                const date = new Date(c.created_at).toLocaleDateString(undefined, {
+                  year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+                });
+                const gravatar = c.gravatar_hash
+                  ? `https://www.gravatar.com/avatar/${c.gravatar_hash}?d=mp&s=88`
+                  : 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&s=88';
+
+                const authorLink = c.author_website
+                  ? `<a class="lk-comment-author" href="${escapeHtml(c.author_website)}" target="_blank" rel="noopener noreferrer">${escapeHtml(c.author_name)}</a>`
+                  : `<span class="lk-comment-author">${escapeHtml(c.author_name)}</span>`;
+
+                let childrenHtml = '';
+                if (c.children && c.children.length > 0) {
+                  const shouldCollapse = !pastCollapseBoundary && depth >= VISIBLE_THREAD_DEPTH;
+                  const childBoundaryPassed = pastCollapseBoundary || shouldCollapse;
+                  const nestedHtml = `<ul class="lk-thread">${c.children.map(child => renderCommentNode(child, depth + 1, childBoundaryPassed)).join('')}</ul>`;
+
+                  if (shouldCollapse) {
+                    const total = countDescendants(c);
+                    const label = `Show ${total} more ${total === 1 ? 'reply' : 'replies'}`;
+                    childrenHtml = `
+                      <button type="button" class="lk-expand-replies" aria-expanded="false" aria-controls="lk-replies-${c.id}" data-show-label="${escapeHtml(label)}">${label}</button>
+                      <div id="lk-replies-${c.id}" class="lk-collapsible" hidden>${nestedHtml}</div>
+                    `;
+                  } else {
+                    childrenHtml = nestedHtml;
+                  }
+                }
+
+                return `
+                  <li class="lk-comment-item">
+                    <article class="lk-comment-card${c.removed ? ' lk-comment-removed' : ''}" id="lk-comment-${c.id}">
+                      <div class="lk-comment-header">
+                        <img class="lk-avatar" src="${gravatar}" alt="" aria-hidden="true" />
+                        <div class="lk-comment-meta">
+                          ${authorLink}
+                          <time class="lk-comment-time" datetime="${c.created_at}">${date}</time>
+                        </div>
+                      </div>
+                      <div class="lk-comment-body">${escapeHtml(c.content)}</div>
+                      <div class="lk-comment-actions">
+                        <button type="button" class="lk-btn-reply" data-id="${c.id}" data-author="${escapeHtml(c.author_name)}">Reply</button>
+                      </div>
+                    </article>
+                    ${childrenHtml}
+                  </li>
+                `;
+              }
+
+              function renderComments() {
+                const listContainer = document.getElementById('lazykola-comments-list');
+                if (commentsData.length === 0) {
+                  listContainer.innerHTML = `<p class="lk-loading">No comments yet. Be the first to share your thoughts!</p>`;
+                  return;
+                }
+
+                const tree = buildTree(commentsData);
+                listContainer.innerHTML = `<ul class="lk-thread">${tree.map(node => renderCommentNode(node, 1, false)).join('')}</ul>`;
+
+                // Bind expand/collapse toggles for threads beyond VISIBLE_THREAD_DEPTH
+                listContainer.querySelectorAll('.lk-expand-replies').forEach(btn => {
+                  btn.addEventListener('click', () => {
+                    const target = document.getElementById(btn.getAttribute('aria-controls'));
+                    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+                    target.hidden = isExpanded;
+                    btn.setAttribute('aria-expanded', String(!isExpanded));
+                    btn.textContent = isExpanded ? btn.dataset.showLabel : 'Hide replies';
+                  });
+                });
+
+                // Bind reply buttons
+                listContainer.querySelectorAll('.lk-btn-reply').forEach(btn => {
+                  btn.addEventListener('click', () => {
+                    const id = btn.getAttribute('data-id');
+                    const author = btn.getAttribute('data-author');
+                    setReplyTo(id, author);
+                  });
+                });
+              }
+
+              // Set Form to reply mode
+              function setReplyTo(id, authorName) {
+                parentIdInput.value = id;
+                replyHeading.textContent = `Reply to ${authorName}`;
+                cancelReplyBtn.style.display = 'inline-block';
+                announcer.textContent = `Replying to ${authorName}`;
+
+                // Focus comment text area
+                document.getElementById('lk-comment').focus();
+
+                // Smooth scroll to form
+                document.getElementById('lazykola-comment-form-container').scrollIntoView({ behavior: 'smooth' });
+              }
+
+              // Reset Form to default mode
+              function resetReply() {
+                parentIdInput.value = '';
+                replyHeading.textContent = 'Leave a comment';
+                cancelReplyBtn.style.display = 'none';
+                announcer.textContent = 'Reply cancelled';
+              }
+
+              cancelReplyBtn.addEventListener('click', resetReply);
+
+              // Form submit handler
+              form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                messageEl.className = '';
+                messageEl.textContent = '';
+
+                // Client validation check
+                const name = document.getElementById('lk-name').value.trim();
+                const email = document.getElementById('lk-email').value.trim();
+                const website = document.getElementById('lk-website').value.trim();
+                const content = document.getElementById('lk-comment').value.trim();
+                const honeypot = document.getElementById('lk-honeypot').value;
+
+                if (!name || !email || !content) {
+                  showMsg('Please fill in all required fields.', 'error');
+                  return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+
+                try {
+                  const res = await fetch(`${workerUrl}/comments`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      post_url: postUrl,
+                      author_name: name,
+                      author_email: email,
+                      author_website: website,
+                      content: content,
+                      parent_id: parentIdInput.value ? parseInt(parentIdInput.value, 10) : null,
+                      turnstile_token: turnstileToken,
+                      website_url: honeypot // Honeypot
+                    })
+                  });
+
+                  const outcome = await res.json();
+                  if (!res.ok) {
+                    throw new Error(outcome.error || 'Failed to submit comment');
+                  }
+
+                  if (outcome.status === 'pending') {
+                    showMsg('Thank you! Your comment has been submitted and is awaiting moderation.', 'success');
+                    form.reset();
+                    resetReply();
+                  } else {
+                    showMsg('Comment posted successfully!', 'success');
+                    form.reset();
+                    resetReply();
+                    fetchComments(); // Reload comments
+                  }
+
+                  // Reset turnstile if active
+                  if (typeof turnstile !== 'undefined') {
+                    turnstile.reset();
+                    turnstileToken = '';
+                  }
+
+                } catch (err) {
+                  showMsg(err.message, 'error');
+                } finally {
+                  submitBtn.disabled = false;
+                  submitBtn.textContent = 'Post Comment';
+                }
+              });
+
+              function showMsg(txt, type) {
+                messageEl.textContent = txt;
+                messageEl.className = type;
+                announcer.textContent = txt;
+              }
+
+              // Run fetch comments
+              fetchComments();
+            })();
+              </%text>
+        </script>
+    % endif
+</%def>
+
+<%def name="comment_link(link, identifier)">
+    % if comment_system == 'lazykola':
+        <a href="${link}#lazykola-comments-wrapper" class="lazykola-comment-link" data-url="${link}">
+            Comments
+        </a>
+    % endif
+</%def>
+
+<%def name="comment_link_script()">
+    % if comment_system == 'lazykola':
+        <script>
+            (function() {
+              const workerUrl = "${comment_system_id}";
+              <%text>
+              const links = document.querySelectorAll('.lazykola-comment-link');
+              if (links.length === 0) return;
+
+              const urls = Array.from(links).map(l => {
+                let url = l.getAttribute('data-url');
+                // Clean trailing slash
+                if (url.endsWith('/')) {
+                  url = url.slice(0, -1);
+                }
+                return url;
+              });
+
+              async function fetchCounts() {
+                try {
+                  const res = await fetch(`${workerUrl}/comments/count?urls=${encodeURIComponent(urls.join(','))}`);
+                  if (!res.ok) return;
+                  const data = await res.json();
+                  links.forEach(l => {
+                    let url = l.getAttribute('data-url');
+                    if (url.endsWith('/')) {
+                      url = url.slice(0, -1);
+                    }
+                    const count = data[url] || 0;
+                    if (count === 0) {
+                      l.textContent = 'No comments';
+                    } else if (count === 1) {
+                      l.textContent = '1 Comment';
+                    } else {
+                      l.textContent = `${count} Comments`;
+                    }
+                  });
+                } catch (e) {
+                  console.error('Failed to load comment counts:', e);
+                }
+              }
+
+              fetchCounts();
+            })();
+              </%text>
+        </script>
+    % endif
+</%def>

@@ -1,0 +1,150 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*" />
+<%namespace name="presets" file="presets_helper.tmpl"/>
+${set_locale(lang)}
+${base.html_headstart()}
+
+<%block name="extra_head">
+<link rel="stylesheet" href="/assets/css/copy.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.client-local-time').forEach(el => {
+                const iso = el.getAttribute('data-date');
+                const date = new Date(iso);
+                el.textContent = ' (' + date.toLocaleTimeString(undefined, {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZoneName: 'short'
+                }) + ')';
+            });
+        });
+    </script>
+</%block>
+<%
+preset_key = theme_config.get('PRESET')
+preset = presets.module.PRESETS.get(preset_key) if preset_key else None
+%>
+% if preset:
+<style>
+:root {
+% for prop, val in preset['tokens'].items():
+  ${prop}: ${val};
+% endfor
+}
+% if preset.get('dark_tokens'):
+@media (prefers-color-scheme: dark) {
+  :root {
+  % for prop, val in preset['dark_tokens'].items():
+    ${prop}: ${val};
+  % endfor
+  }
+}
+% endif
+</style>
+% elif preset_key:
+<!-- lazykola: unknown PRESET "${preset_key|h}", falling back to theme defaults -->
+% endif
+${template_hooks['extra_head']()}
+</head>
+<%
+body_attrs = ''.join(' %s="%s"' % (k, v) for k, v in preset['attrs'].items()) if preset else ''
+%>
+<body${body_attrs|n}>
+<a href="#content" class="sr-only sr-only-focusable">${messages("Skip to main content")}</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+% if theme_config.get('navbar_light'):
+navbar-light
+% else:
+navbar-dark
+% endif
+% if theme_config.get('navbar_custom_bg'):
+${theme_config['navbar_custom_bg']}
+% elif theme_config.get('navbar_light'):
+bg-light
+% else:
+bg-dark
+% endif
+">
+    <div class="container"><!-- This keeps the margins nice -->
+<h1 class="navbar-brand-heading">
+<a class="navbar-brand" href="${_link("root", None, lang)}">
+%if theme_config.get('LOGO_URL'):
+    <img
+        src="${theme_config.get('LOGO_URL')}"
+        alt="${theme_config.get('LOGO_ALT_TEXT') or blog_title|h}"
+        id="logo" class="d-inline-block align-top">
+% elif show_blog_title:
+    <span id="blog-title">${blog_title|h}</span>
+% endif
+</a>
+</h1>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+                ${base.html_navigation_links_entries(navigation_links)}
+                ${template_hooks['menu']()}
+            </ul>
+%if search_form:
+                ${search_form}
+%endif
+
+            <ul class="navbar-nav navbar-right">
+                ${base.html_navigation_links_entries(navigation_alt_links)}
+                <%block name="belowtitle">
+                %if len(translations) > 1:
+                    <li>${base.html_translations()}</li>
+                %endif
+                </%block>
+                % if show_sourcelink:
+                    <%block name="sourcelink"></%block>
+                %endif
+                ${template_hooks['menu_alt']()}
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+</nav>
+
+<!-- End of Menubar -->
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        ${template_hooks['page_header']()}
+        <%block name="extra_header"></%block>
+        <%block name="content"></%block>
+        <!--End of body content-->
+    </div>
+</div>
+
+<footer id="footer">
+    ${content_footer}
+    ${template_hooks['page_footer']()}
+    <%block name="extra_footer"></%block>
+</footer>
+${base.late_load_js()}
+    %if date_fanciness != 0:
+        <!-- fancy dates -->
+        <script>
+        luxon.Settings.defaultLocale = "${luxon_locales[lang]}";
+        fancydates(${date_fanciness}, ${luxon_date_format});
+        </script>
+        <!-- end fancy dates -->
+    %endif
+    <%block name="extra_js"></%block>
+    <script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
+    </script>
+    <script src="/assets/js/copy.js"></script>
+    <script src="/assets/js/heading-normalize.js"></script>
+${body_end}
+${template_hooks['body_end']()}
+</body>
+</html>

@@ -1,0 +1,13 @@
+[Theme]
+name = lazykola-a11y
+engine = mako
+parent = base
+author = The Nikola Contributors, Carter Temm, Aarush Bhat
+author_url = https://getnikola.com/
+license = MIT
+based_on = Bootstrap 4 <http://getbootstrap.com/>
+tags = bootstrap
+
+[Family]
+family = bootstrap4
+jinja_version = bootstrap4-jinja
