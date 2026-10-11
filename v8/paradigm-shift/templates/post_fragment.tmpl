@@ -1,0 +1,21 @@
+{% block content_header scoped %}
+<header>
+    <h2>{{ post.title()|e }}</h2>
+</header>
+{% endblock %}
+
+{% block content_post scoped %}
+<div class="content">
+    {% set description = post.description() %}
+    {% if description %}
+        <p>{{ description|e }}</p>
+        <ul class="actions">
+            <li>
+                <a href="{{ post.permalink()|e }}" class="button primary large">{{ messages("Read more") }}</a>
+            </li>
+        </ul>
+    {% else %}
+        {{ post.text(teaser_only=False) }}
+    {% endif %}
+</div>
+{% endblock %}

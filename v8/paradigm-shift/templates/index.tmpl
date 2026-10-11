@@ -1,0 +1,31 @@
+{% extends 'base.tmpl' %}
+{% block center_section %}
+				<!-- Intro -->
+					<section class="intro">
+						<header>
+							<h1>{{ theme_config.get("blog_baseline", "")|e }}</h1>
+							<p>{{ blog_description|e }}</p>
+							<ul class="actions">
+							<li><a href="#first" class="arrow scrolly"><span class="label">{{ messages("Next") }}</span></a></li>
+							</ul>
+						</header>
+						<div class="content">
+							{% set image_url = theme_config.get("blog_image_url") if theme_config is defined else None %}
+							{% if not image_url %}
+								{% set image_url = "assets/images/pic01.jpg" %}
+							{% endif %}
+						</div>
+					</section>
+{% for post in posts|reverse %}
+<!-- Section -->
+<section{% if (loop is defined and loop.first) or (loop is not defined) %} id="first"{% endif %}>
+        {% set template_override = post.meta('template') %}
+        {% if template_override == 'post_gh.tmpl' %}
+            {% set post_template = 'post_gh_fragment.tmpl' %}
+        {% else %}
+            {% set post_template = 'post_fragment.tmpl' %}
+        {% endif %}
+        {% include post_template %}
+</section>
+{% endfor %}
+{% endblock %}
