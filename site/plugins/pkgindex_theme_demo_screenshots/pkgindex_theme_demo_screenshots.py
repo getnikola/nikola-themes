@@ -140,6 +140,8 @@ class PackageIndexThemeDS(Task):
 
                 # those are separate variables to avoid cyclic dependencies
                 file_dep = theme_files(directory) + [LOREM_BASE]
+                for parent in utils.get_theme_chain(pkg_name, themes_dirs=[index_dir, 'themes'])[1:]:
+                    file_dep += theme_files(parent)
                 file_dep_png = file_dep + [index]
 
                 yield utils.apply_filters({

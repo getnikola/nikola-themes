@@ -31,29 +31,21 @@ BLOG_DESCRIPTION = "The theme repository for Nikola, a static site and blog gene
 
 # Package index configuration
 PKGINDEX_DIRS = {
-    'v7': ('v7', 'theme.tmpl'),
     'v8': ('v8', 'theme.tmpl')
 }
 PKGINDEX_HANDLERS = {
-    'v7': ['dirname_as_title', 'parse_theme_info', 'add_dummy_multiver'],
     'v8': ['dirname_as_title', 'parse_theme_info', 'add_dummy_multiver']
 }
 PKGINDEX_CONFIG = {
     'extension': '.sample',
-    'versions_supported': [7, 8],
+    'versions_supported': [8],
     'build_demos_for': [8],
     'json_filename': 'themes.json',
     'demo_screenshots_map': {
         'v8/base-jinja': 'v8/base',
-        'v7/bootblog-jinja': 'v7/bootblog',
-        'v7/bootstrap3-gradients-jinja': 'v7/bootstrap3-gradients',
         'v8/bootstrap3-jinja': 'v8/bootstrap3',
         'v8/bootstrap4-jinja': 'v8/bootstrap4',
         'v8/bootblog4-jinja': 'v8/bootblog4',
-        'v7/bootstrap-jinja': 'v8/bootstrap',
-        'v7/reveal-jinja': 'v7/reveal',
-        'v7/zen-ipython': 'v7/zen',
-        'v7/zen-jinja': 'v7/zen',
     },
     'special_entries': [],
     'builtin_themes': ['base', 'base-jinja', 'bootstrap4', 'bootstrap4-jinja', 'bootblog4', 'bootblog4-jinja'],
@@ -71,7 +63,6 @@ themes_submenu = (
     ('/', 'Themes Home'),
     ('/mako/', 'Mako'),
     ('/jinja/', 'Jinja2'),
-    ('/v7/', 'Version 7'),
     ('/v8/', 'Version 8'),
 )
 
