@@ -63,6 +63,7 @@ jobs:
         uses: actions/cache/restore@v6
         with:
           path: |
+            site/cache
             site/output
             site/.doit.db*
           key: ${{ steps.cache-key.outputs.prefix }}${{ github.run_id }}
@@ -79,6 +80,7 @@ jobs:
         uses: actions/cache/save@v6
         with:
           path: |
+            site/cache
             site/output
             site/.doit.db*
           key: ${{ steps.cache-key.outputs.prefix }}${{ github.run_id }}
@@ -93,13 +95,6 @@ jobs:
         uses: actions/upload-pages-artifact@v5
         with:
           path: site/output
-      - name: Explain how to view the artifact
-        run: |
-          cat >> "$GITHUB_STEP_SUMMARY" <<'EOF'
-          Download the **themes-site** artifact, unzip it and serve it over HTTP, e.g.
-          `python3 -m http.server -d <unzipped dir>`, then open http://localhost:8000/.
-          Opening the files directly (`file://`) breaks absolute links and the theme side menu.
-          EOF
 
   deploy:
     name: Deploy to GitHub Pages
