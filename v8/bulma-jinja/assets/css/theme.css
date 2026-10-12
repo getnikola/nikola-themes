@@ -61,6 +61,39 @@ pre, pre code {
     margin-left: 0.5rem;
 }
 
+/* CSS-only burger menu, driven by the #navbar-toggle checkbox in base.tmpl.
+   These mirror Bulma's .is-active rules for the burger and the menu. */
+@media screen and (max-width: 1023px) {
+    .navbar-toggle:checked ~ .navbar-menu {
+        display: block;
+    }
+}
+
+.navbar-toggle:checked ~ .navbar-brand .navbar-burger span:first-child {
+    transform: rotate(-45deg);
+}
+
+.navbar-toggle:checked ~ .navbar-brand .navbar-burger span:nth-child(2) {
+    transform: rotate(45deg);
+}
+
+.navbar-toggle:checked ~ .navbar-brand .navbar-burger span:nth-child(3),
+.navbar-toggle:checked ~ .navbar-brand .navbar-burger span:nth-child(4) {
+    opacity: 0;
+}
+
+/* No burger on desktop, so keep its checkbox out of the tab order there. */
+@media screen and (min-width: 1024px) {
+    .navbar-toggle {
+        display: none;
+    }
+}
+
+.navbar-toggle:focus-visible ~ .navbar-brand .navbar-burger {
+    outline: 2px solid currentColor;
+    outline-offset: -2px;
+}
+
 /* Screen reader only utility (Bulma's .is-sr-only) */
 .is-sr-only {
     position: absolute;
@@ -175,11 +208,24 @@ pre, pre code {
     margin-bottom: 0.5rem;
 }
 
-/* Code block styling */
+/* Code block styling. No background here: Pygments blocks (pre.code) take
+   theirs from code.css, which this rule would otherwise override, and plain
+   <pre> gets Bulma's, which follows the light/dark colour scheme. */
 .content pre {
-    background-color: hsl(0, 0%, 96%);
     padding: 1.25rem 1.5rem;
     overflow-x: auto;
+}
+
+/* Pygments blocks; these spacing rules used to come from nikola_rst.css,
+   which now loads only on reStructuredText pages. */
+div.code,
+pre.code {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+div.code {
+    margin-bottom: 1rem;
 }
 
 /* Table styling */
@@ -286,4 +332,13 @@ pre, pre code {
     color: hsl(217, 71%, 45%);
     background-color: hsl(204, 86%, 93%);
     border-color: hsl(204, 86%, 80%);
+}
+
+/* Gallery pages (moved out of gallery.tmpl's inline <style>) */
+#gallery_container {
+    position: relative;
+}
+
+.image-block {
+    position: absolute;
 }

@@ -1,6 +1,6 @@
 {#  -*- coding: utf-8 -*- #}
 {% macro page_navigation(current_page, page_links, prevlink, nextlink, prev_next_links_reversed, surrounding=5) %}
-<nav class="pagination" role="navigation" aria-label="pagination">
+<nav class="pagination" aria-label="pagination">
   {% if prev_next_links_reversed %}
     {% if nextlink %}
       <a href="{{ nextlink }}" class="pagination-previous" aria-label="{{ messages("Older posts") }}">{{ messages("Older posts") }}</a>

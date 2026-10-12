@@ -21,8 +21,9 @@ is-dark
 % if theme_config.get('navbar_custom_bg'):
 ${theme_config['navbar_custom_bg']}
 % endif
-" role="navigation" aria-label="main navigation">
+" aria-label="main navigation">
     <div class="container">
+        <input type="checkbox" id="navbar-toggle" class="navbar-toggle is-sr-only" aria-label="Menu" aria-controls="bulma-navbar">
         <div class="navbar-brand">
             <a class="navbar-item" href="${_link("root", None, lang)}">
             %if logo_url:
@@ -33,12 +34,12 @@ ${theme_config['navbar_custom_bg']}
             % endif
             </a>
 
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="bulma-navbar">
+            <label for="navbar-toggle" class="navbar-burger">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
-            </a>
+            </label>
         </div>
 
         <div id="bulma-navbar" class="navbar-menu">
@@ -70,15 +71,15 @@ ${theme_config['navbar_custom_bg']}
 
 <!-- End of Menubar -->
 
-<section class="section">
-    <div class="container" id="content" role="main">
+<main class="section">
+    <div class="container" id="content">
         <!--Body content-->
         ${template_hooks['page_header']()}
         <%block name="extra_header"></%block>
         <%block name="content"></%block>
         <!--End of body content-->
     </div>
-</section>
+</main>
 
 <footer class="footer">
     <div class="container">
@@ -100,25 +101,6 @@ ${base.late_load_js()}
         <!-- end fancy dates -->
     %endif
     <%block name="extra_js"></%block>
-    <script>
-    baguetteBox.run('div#content', {
-        ignoreClass: 'islink',
-        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
-    </script>
-    <script>
-    // Bulma navbar burger toggle
-    document.addEventListener('DOMContentLoaded', () => {
-        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-        $navbarBurgers.forEach( el => {
-            el.addEventListener('click', () => {
-                const target = el.dataset.target;
-                const $target = document.getElementById(target);
-                el.classList.toggle('is-active');
-                $target.classList.toggle('is-active');
-            });
-        });
-    });
-    </script>
 ${body_end}
 ${template_hooks['body_end']()}
 </body>
