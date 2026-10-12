@@ -9,4 +9,4 @@ tags = bulma
 
 [Family]
 family = bulma
-jinja-version = bulma-jinja
+jinja_version = bulma-jinja
